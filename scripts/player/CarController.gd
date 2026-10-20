@@ -39,6 +39,16 @@ var evolution_handling_multiplier: float = 1.0
 ## Se true la velocità non viene aggiornata al cambio di evoluzione
 ## (usato dai test e da eventuali pause: la marcia resta congelata).
 var speed_locked: bool = false
+## Penalità temporanea di velocità (collisione con un ostacolo): moltiplicatore
+## applicato alla velocità base dello stadio. 1.0 = nessuna penalità attiva.
+## Il recupero è graduale: la corsa non torna mai istantaneamente normale.
+var speed_penalty_factor: float = 1.0
+
+var _penalty_factor: float = 1.0
+var _penalty_time_left: float = 0.0
+var _penalty_duration: float = 0.0
+var _shake_time_left: float = 0.0
+var _shake_intensity: float = 0.0
 
 var _input_manager: InputManager = null
 var _game_manager: GameManager = null
@@ -125,10 +135,97 @@ func _apply_evolution_stats(profile: CarEvolutionProfile) -> void:
 func _refresh_speed() -> void:
 	if speed_locked or tuning == null:
 		return
-	var target := tuning.forward_speed * evolution_speed_multiplier
+	var target := tuning.forward_speed * evolution_speed_multiplier * speed_penalty_factor
 	if absf(current_speed - target) > 0.0001:
 		current_speed = maxf(target, 0.0)
 		speed_changed.emit(current_speed)
+
+
+# ------------------------------------------------- Penalità e feedback urti --
+
+## Perdita di velocità temporanea (collisione con ostacolo). Non tocca mai il
+## livello di evoluzione: è uno dei due possibili effetti di un urto, l'altro
+## (gestito da ObstacleManager) è la regressione di un livello.
+## Con `speed_locked` (test/pause) la penalità viene ignorata.
+func apply_speed_penalty(factor: float, duration: float) -> void:
+	if speed_locked or tuning == null:
+		return
+	var clamped_factor := clampf(factor, 0.05, 1.0)
+	var clamped_duration := maxf(duration, 0.05)
+	# Vince la penalità più severa; la durata si estende, mai si accorcia.
+	if _penalty_time_left > 0.0:
+		_penalty_factor = minf(_penalty_factor, clamped_factor)
+		clamped_duration = maxf(clamped_duration, _penalty_time_left)
+	else:
+		_penalty_factor = clamped_factor
+	_penalty_duration = clamped_duration
+	_penalty_time_left = clamped_duration
+	speed_penalty_factor = _penalty_factor
+	_refresh_speed()
+
+
+## True se è attiva una penalità di velocità.
+func is_speed_penalized() -> bool:
+	return speed_penalty_factor < 1.0 or _penalty_time_left > 0.0
+
+
+## Breve scuotimento dell'auto dopo un urto: solo visivo, decade a zero da solo
+## e non tocca posizione laterale, sterzo o avanzamento.
+func add_impact_shake(intensity: float = 1.0) -> void:
+	_shake_intensity = clampf(maxf(_shake_intensity, intensity), 0.0, 1.5)
+	_shake_time_left = GameConfig.OBSTACLE_SHAKE_DURATION
+
+
+func is_shaking() -> bool:
+	return _shake_time_left > 0.0
+
+
+## Aggiorna la penalità di velocità: tiene il fattore basso per una frazione
+## della durata, poi recupera con una curva dolce fino a 1.0. Il timer avanza
+## anche a velocità bloccata (test/pause), così lo sblocco non "eredita" una
+## penalità già scaduta; la velocità bloccata invece non viene modificata.
+func _update_speed_penalty(step: float) -> void:
+	if _penalty_time_left <= 0.0:
+		if speed_penalty_factor != 1.0:
+			speed_penalty_factor = 1.0
+			_penalty_factor = 1.0
+			_refresh_speed()
+		return
+	_penalty_time_left = maxf(_penalty_time_left - step, 0.0)
+	var progress := 1.0
+	if _penalty_duration > 0.0:
+		progress = clampf(1.0 - _penalty_time_left / _penalty_duration, 0.0, 1.0)
+	var hold := clampf(GameConfig.OBSTACLE_PENALTY_HOLD_FRACTION, 0.0, 0.9)
+	if progress <= hold:
+		speed_penalty_factor = _penalty_factor
+	else:
+		var recovery := (progress - hold) / (1.0 - hold)
+		recovery = recovery * recovery * (3.0 - 2.0 * recovery)
+		speed_penalty_factor = lerpf(_penalty_factor, 1.0, recovery)
+	if _penalty_time_left <= 0.0:
+		speed_penalty_factor = 1.0
+		_penalty_factor = 1.0
+	_refresh_speed()
+
+
+## Scuotimento da urto: oscillazione smorzata di imbardata/rollio e un piccolo
+## sobbalzo verticale. A fine animazione tutto torna esattamente a riposo.
+func _update_impact_shake(step: float) -> void:
+	if _shake_time_left <= 0.0:
+		return
+	_shake_time_left = maxf(_shake_time_left - step, 0.0)
+	var duration := GameConfig.OBSTACLE_SHAKE_DURATION
+	var progress := clampf(1.0 - _shake_time_left / duration, 0.0, 1.0)
+	if _shake_time_left <= 0.0:
+		_shake_intensity = 0.0
+		position.y = 0.0
+		return
+	var decay := (1.0 - progress) * _shake_intensity
+	var wobble := sin(progress * GameConfig.OBSTACLE_SHAKE_FREQUENCY * TAU)
+	wobble *= decay * GameConfig.OBSTACLE_SHAKE_AMPLITUDE
+	rotation.y += wobble * 0.55
+	rotation.z += wobble
+	position.y = absf(wobble) * 1.2
 
 
 ## Dopo un cambio di modello le ruote sono nuove: vanno ricollegate.
@@ -148,9 +245,14 @@ func _physics_process(delta: float) -> void:
 	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
 		return
 
-	var step := maxf(delta, 0.0)
+	# Il passo è limitato: con un frame molto lungo l'auto percorrerebbe troppi
+	# metri in un colpo solo e la rilevazione degli ostacoli perderebbe colpi.
+	var step := clampf(delta, 0.0, GameConfig.OBSTACLE_MAX_STEP_DT)
 
-	# Avanzamento automatico lungo l'asse -Z verso l'orizzonte, a velocità costante.
+	# Penalità di velocità da urto: recupera gradualmente verso la marcia normale.
+	_update_speed_penalty(step)
+
+	# Avanzamento automatico lungo l'asse -Z verso l'orizzonte.
 	position.z -= current_speed * step
 
 	_update_lateral_target(step)
@@ -220,6 +322,10 @@ func _update_visual_feedback(lateral_velocity: float, step: float) -> void:
 		wheel.rotation.x -= wheel_spin
 		if index < 2:
 			wheel.rotation.y = lerpf(wheel.rotation.y, front_steer, steer_blend)
+
+	# Scuotimento da collisione (solo visivo): si somma al feedback di sterzo
+	# e torna esattamente a zero al termine dell'animazione.
+	_update_impact_shake(step)
 
 
 ## Limite laterale derivato dall'ingombro reale dell'auto ruotata al massimo.

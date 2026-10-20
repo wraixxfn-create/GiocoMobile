@@ -9,7 +9,9 @@ extends Node
 ## L'aspetto dell'auto e le statistiche dipendono solo da qui: vengono ricavate
 ## dal livello tramite CarEvolutionCatalog, così non esiste uno stato visivo
 ## separato che possa restare indietro rispetto al valore reale.
-## TODO(fase 3): ostacoli, monete raccoglibili, traguardo e fine partita.
+## Anche gli ostacoli (ObstacleManager) passano da apply_evolution() per la
+## loro penalità di regressione: il livello resta centralizzato.
+## TODO: monete raccoglibili (fase 3), traguardo e fine partita (fase 4).
 
 signal score_updated(score: int)
 signal coins_updated(coins: int)
@@ -27,12 +29,20 @@ var coins: int = 0
 ## Livello di evoluzione corrente, sempre compreso tra
 ## GameConfig.EVOLUTION_MIN_LEVEL e GameConfig.EVOLUTION_MAX_LEVEL.
 var evolution_level: int = GameConfig.EVOLUTION_START_LEVEL
+## Collisioni con ostacoli che hanno applicato una penalità (statistica).
+var obstacle_hits: int = 0
 
 var _car: CarController = null
 
 
 func setup(car: CarController) -> void:
 	_car = car
+
+
+## Registra una collisione con ostacolo penalizzante (chiamata da
+## ObstacleManager: è l'unico punto in cui questa statistica cresce).
+func register_obstacle_hit() -> void:
+	obstacle_hits += 1
 
 
 func start_game() -> void:

@@ -1,15 +1,16 @@
-# Car Evolve 3D — Cancelli di evoluzione (Fase 2)
+# Car Evolve 3D — Cancelli di evoluzione e ostacoli (Fase 3)
 
 Giochino mobile 3D hyper-casual in **Godot 4.3+**, ispirato al genere di
 Car Evolve. Ambiente 3D giocabile con pista, bordi laterali rialzati, terreno
 verde, cielo con prospettiva verso l'orizzonte, illuminazione con ombre leggere
 e auto stilizzata costruita con mesh semplici.
 
-In questa fase è giocabile la meccanica principale: **coppie di cancelli**
-che evolvono o fanno regredire l'auto. Il giocatore sceglie quale attraversare
-sterzando, e il livello di evoluzione (`evolution_level`) cambia con limiti
-minimo e massimo. Ogni livello ha il **proprio modello 3D**: dal rottame
-all'hypercar futuristica.
+La meccanica principale è giocabile: **coppie di cancelli** che evolvono o
+fanno regredire l'auto e, da questa fase, **ostacoli** che rendono la corsa
+una sfida di precisione. Il giocatore sceglie quale cancello attraversare
+sterzando, evita coni, barriere, restringimenti e blocchi mobili, e il livello
+di evoluzione (`evolution_level`) cambia con limiti minimo e massimo. Ogni
+livello ha il **proprio modello 3D**: dal rottame all'hypercar futuristica.
 
 ## Requisiti
 
@@ -136,6 +137,68 @@ I cancelli non sono figli dei segmenti di pista (che vengono riciclati sotto
 l'auto): sono nodi in coordinate mondo gestiti da `GateManager`, così restano
 fermi rispetto alla strada e non si sovrappongono mai.
 
+## Ostacoli (Fase 3)
+
+Ogni corridoio di cancelli ha **una fila di ostacoli** ancorata 24 m oltre il
+piano dei cancelli (`OBSTACLE_CORRIDOR_OFFSET`): le due meccaniche non si
+sovrappongono mai (distanza minima 16 m garantita) e le file di ostacoli
+restano distanziate di 48 m tra loro. `ObstacleManager` genera, rileva gli
+urti e ricicla le file in modo deterministico, in coordinate mondo come i
+cancelli.
+
+### I quattro tipi
+
+| Tipo | Formazione | Comportamento | Penalità (una sola) |
+| --- | --- | --- | --- |
+| Coni | fila di coni da un lato | **non solidi**: l'auto passa, il cono si abbatte (animazione di caduta) | velocità ×0.75 per 0.55 s |
+| Barriera | blocco largo da un lato | **solida**: l'auto si ferma sulla faccia, la sfonda dopo l'urto (detriti) | velocità ×0.45 per 1.15 s |
+| Restringimento | due muri con varco centrale | **solidi**: passaggio di precisione | velocità ×0.55 per 0.95 s |
+| Blocco mobile | blocco che fa la spola sulla carreggiata | **solido e predicibile**: moto a pendolo, si abbatte dopo 3 contatti | **−1 livello di evoluzione** |
+
+- **Mai entrambe le penalità**: ogni pezzo ha un solo canale configurato
+  (`penalty_kind`), applicato una volta per collisione (cooldown 0.8 s). La
+  regressione passa da `GameManager.apply_evolution()`, il rallentamento da
+  `CarController.apply_speed_penalty()` (tiene la frazione peggiore, recupera
+  con plateau + curva morbida).
+- **Nessun attraversamento dei solidi**: la collisione è un test segmento/rect
+  sottopassato (substep ≤ 0.35 m) contro il rect dell'ostacolo allargato
+  dell'ingombro reale dell'auto ruotata; i blocchi mobili sono interpolati tra
+  la posizione precedente e la corrente. All'urto l'auto viene riportata sulla
+  faccia di contatto (o spinta lateralmente se è il blocco a scorrerle addosso).
+- **Feedback di collisione**: scuotimento dell'auto (0.38 s), lampeggio rosso
+  dell'HUD, messaggio `URTO! ...`, effetto 3D di scintille/urto e animazione
+  del pezzo (cono abbattuto, barriera/muro sfondati con detriti).
+- **Varchi sempre sufficienti**: il varco più largo di ogni fila è ≥
+  `OBSTACLE_GAP_MIN` (2.6 m) e l'ingombro massimo dell'auto è ≈ 2.31 m; i
+  blocchi mobili lasciano sempre ≥ 5.5 m liberi. Tra due file c'è sempre il
+  tempo di attraversare l'intera carreggiata anche alla velocità peggiore.
+
+### Difficoltà progressiva
+
+La difficoltà sale con la distanza percorsa: 0 fino a 150 m
+(`OBSTACLE_EASY_DISTANCE`), poi cresce fino a 1 a 1200 m
+(`OBSTACLE_RAMP_DISTANCE`). Con la difficoltà:
+
+- i varchi si restringono da 3.6 m a 2.6 m (mai sotto il minimo);
+- a ≥ 0.30 compaiono i **restringimenti**, a ≥ 0.55 i **blocchi mobili**
+  (prima solo coni e barriere);
+- i blocchi mobili accelerano da 1.5 a 2.8 m/s (velocità comunque contenute).
+
+La generazione è deterministica (hash del seriale della fila): stessa fila,
+stesso layout, verificabile dai test.
+
+### Taratura degli ostacoli (`scripts/core/GameConfig.gd`)
+
+Tutti i parametri sono nella sezione `OBSTACLE_*`: distanze di ancoraggio e
+clearance, larghezze dei varchi (`OBSTACLE_GAP_WIDE`/`GAP_MIN`), curve di
+difficoltà (`OBSTACLE_EASY_DISTANCE`/`RAMP_DISTANCE`/`TIER_NARROW`/
+`TIER_MOVING`), velocità dei mobili (`MOVING_SPEED_SLOW`/`FAST`), penalità per
+tipo (`CONE_/BARRIER_/WALL_SPEED_FACTOR` e `_DURATION`,
+`MOVING_EVOLUTION_STEP`), feedback (`SHAKE_*`, colori) e dimensioni dei pezzi
+(`*_HALF_EXTENTS`). La velocità massima dell'auto resta quella di
+`driving_tuning.tres` (14 m/s × moltiplicatore di stadio): la progressione è
+controllata e non dipende dagli ostacoli.
+
 ## Controlli
 
 - **Smartphone**: trascina il dito a destra/sinistra per sterzare, senza
@@ -212,11 +275,14 @@ scripts/
     GateManager.gd       # file di cancelli: spawn, rilevamento 3D, effetti, riciclo
     GateRow.gd           # coppia di cancelli su un piano (struttura dati)
     EvolutionGate.gd     # un cancello: geometria, colore, valore e spegnimento
+    ObstacleManager.gd   # file di ostacoli: generazione, collisioni solide, penalità, riciclo
+    ObstacleRow.gd       # una fila di ostacoli su un piano (struttura dati + varchi)
+    Obstacle.gd          # un ostacolo: tipo, stato, rect di collisione, animazioni
   ui/
     HUD.gd               # distanza, monete, stadio di evoluzione (nome e statistiche), feedback
 tests/
   TestRunner.tscn        # test headless di integrazione dei controlli
-  TestRunner.gd          # touch/mouse, bordi, camera, pista, FPS, cancelli, evoluzione, modelli
+  TestRunner.gd          # touch/mouse, bordi, camera, pista, FPS, cancelli, evoluzione, ostacoli
 ```
 
 ## Test
@@ -250,11 +316,31 @@ luci ai valori di riposo; durante la trasformazione lo sterzo continui a
 rispondere e l'auto conservi posizione laterale, inclinazione, velocità e
 avanzamento; richieste fuori range e richieste ripetute non producano stati
 inconsulti; direttore, metadati e `evolution_level` coincidano sempre.
+
+Per la fase 3 (ostacoli) verifica che: le file restino ancorate ai corridoi
+dei cancelli con distanze e varchi legali e senza ostacoli orfani; la curva di
+difficoltà sia monotona, satura a 1 e introduca i tipi gradualmente; la
+barriera arresti l'auto esattamente sulla faccia (mai attraversata), si
+sfondi e applichi solo la penalità di velocità, con recupero completo; i coni
+si abbattano con animazione e penalità leggera; il blocco mobile resti in
+carreggiata con moto predicibile, tolga **esattamente un livello** di
+evoluzione senza toccare la velocità e si abbatta dopo più contatti senza
+mai bloccare la corsa; il restringimento si attraversi senza urti mirando al
+varco e penalizzi solo la velocità se colpito; ogni tipo applichi **una sola**
+penalità (velocità XOR evoluzione); il feedback (scuotimento, lampeggio HUD,
+messaggio, effetti 3D) parta all'urto e decada da solo a riposo; i blocchi
+mobili a difficoltà massima siano sempre schivabili con il giusto tempo; il
+riciclo rigeneri file integre senza orfani; e — la prova di giocabilità —
+**1500 m con difficoltà da 0 a 1 e 600 m a difficoltà massima** percorsi da
+un pilota automatico predittivo con **zero collisioni**, zero compenetrazioni,
+layout sempre legale, nessun blocco della corsa, cancelli positivi fino al
+livello massimo.
 Esce con codice 0 se tutte le verifiche passano.
 
 ## Roadmap (fasi successive, non ancora implementate)
 
-- Fase 3: ostacoli, monete raccoglibili, modelli definitivi delle evoluzioni
-  (già sostituibili senza toccare la logica: vedi "Sostituire i modelli")
+- Fase 3 (completata: ostacoli): restano monete raccoglibili e modelli
+  definitivi delle evoluzioni (già sostituibili senza toccare la logica:
+  vedi "Sostituire i modelli")
 - Fase 4: traguardo, fine partita, schermata di riepilogo
 - Fase 5: audio, salvataggio locale del punteggio, export Android/iOS

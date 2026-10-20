@@ -6,6 +6,7 @@ extends Node
 
 @onready var _game_manager: GameManager = $GameManager
 @onready var _gate_manager: GateManager = $GateManager
+@onready var _obstacle_manager: ObstacleManager = $ObstacleManager
 @onready var _hud: HUD = $HUD
 @onready var _car: CarController = $Player
 @onready var _camera_rig: Node3D = $CameraRig
@@ -26,6 +27,8 @@ func _ready() -> void:
 	_game_manager.state_changed.connect(_hud.set_state)
 	_game_manager.evolution_changed.connect(_hud.set_evolution)
 	_gate_manager.gate_crossed.connect(_hud.show_gate_feedback)
+	# Collisioni con gli ostacoli: messaggio di penalità + lampeggio rosso.
+	_obstacle_manager.obstacle_hit.connect(_hud.show_obstacle_feedback)
 	# L'aspetto dell'auto segue il livello: il CarController aggiorna da sé il
 	# proprio direttore (nodo CarVisual) quando GameManager emette il cambio.
 

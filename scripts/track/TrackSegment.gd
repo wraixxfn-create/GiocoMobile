@@ -3,7 +3,8 @@ extends Node3D
 ## Un singolo tratto di pista costruito interamente con mesh primitive condivise:
 ## asfalto grigio largo, corsie, bordi laterali rialzati, terreno verde esteso
 ## fino all'orizzonte e decorazioni low-poly leggere.
-## TODO(fase 3): ostacoli, monete e traguardo (i cancelli sono in GateManager).
+## Ostacoli e cancelli NON vivono qui (sono in ObstacleManager e GateManager,
+## in coordinate mondo). TODO: monete e traguardo.
 
 static var _grass_mesh: BoxMesh
 static var _road_mesh: BoxMesh
