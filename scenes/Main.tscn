@@ -13,6 +13,8 @@ script = ExtResource("1")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.882948, -0.349061, 0.313972, 0, 0.669131, 0.743145, -0.469472, -0.656158, 0.590808, 0, 12, 0)
+shadow_enabled = true
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("3")
@@ -26,8 +28,14 @@ groups=["game_manager"]
 script = ExtResource("4")
 
 [node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2, 10.2)
 
 [node name="MainCamera" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.981959, 0.189096, 0, -0.189096, 0.981959, 0, 0, 0)
+current = true
+fov = 64.0
+near = 0.15
+far = 380.0
 
 [node name="Player" parent="." instance=ExtResource("5")]
 groups=["player"]

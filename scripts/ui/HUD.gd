@@ -35,13 +35,18 @@ func set_state(state: GameManager.State) -> void:
 			_hint_label.text = "TRAGUARDO!"
 
 
-func _create_label(position: Vector2, font_size: int) -> Label:
+func _create_label(label_pos: Vector2, font_size: int) -> Label:
+	var settings := LabelSettings.new()
+	settings.font_size = font_size
+	settings.font_color = Color.WHITE
+	settings.outline_size = 6
+	settings.outline_color = Color(0.08, 0.10, 0.14, 0.90)
+	settings.shadow_size = 2
+	settings.shadow_color = Color(0.0, 0.0, 0.0, 0.55)
+	settings.shadow_offset = Vector2(2.0, 2.0)
+
 	var label := Label.new()
-	label.position = position
-	label.add_theme_font_size_override(&"font_size", font_size)
-	label.add_theme_color_override(&"font_color", Color.WHITE)
-	label.add_theme_color_override(&"font_shadow_color", Color(0.0, 0.0, 0.0, 0.65))
-	label.add_theme_constant_override(&"shadow_offset_x", 2)
-	label.add_theme_constant_override(&"shadow_offset_y", 2)
+	label.position = label_pos
+	label.label_settings = settings
 	add_child(label)
 	return label

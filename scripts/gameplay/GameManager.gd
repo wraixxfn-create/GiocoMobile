@@ -4,11 +4,11 @@ extends Node
 ## TODO(fase 2): cancelli bonus/penalità, ostacoli, monete,
 ## evoluzioni dell'auto e traguardo.
 
-enum State { IDLE, PLAYING, FINISHED }
-
 signal score_updated(score: int)
 signal coins_updated(coins: int)
 signal state_changed(new_state: State)
+
+enum State { IDLE, PLAYING, FINISHED }
 
 var state: State = State.IDLE
 var distance: float = 0.0
