@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 	if _car == null:
 		return
 	# La camera segue l'auto: avanza con lei e inseguimento morbido laterale.
-	_camera_rig.position.x = lerp(_camera_rig.position.x, _car.position.x * 0.55, 0.08)
+	_camera_rig.position.x = lerpf(_camera_rig.position.x, _car.position.x * 0.55, 0.08)
 	_camera_rig.position.y = 5.2
 	_camera_rig.position.z = _car.position.z + 8.8
 	_camera.look_at(Vector3(_car.position.x * 0.85, 0.9, _car.position.z - 12.0), Vector3.UP)
