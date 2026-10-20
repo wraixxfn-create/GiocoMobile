@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the properties may change in the future.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Car Evolve 3D"
+config/features=PackedStringArray("4.3", "Mobile")
+run/main_scene="res://scenes/Main.tscn"
+
+[display]
+
+; Orientamento verticale 9:16 per smartphone (540x960 = 9:16).
+window/handheld/orientation="portrait"
+window/size/viewport_height=960
+window/size/viewport_width=540
+window/stretch/aspect="keep"
+window/stretch/mode="canvas_items"
+
+[rendering]
+
+; Renderer leggero, adatto a smartphone e scene low-poly.
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
