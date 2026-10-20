@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/CarController.gd" id="1"]
 [ext_resource type="Resource" path="res://config/driving_tuning.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/player/CarEvolutionDirector.gd" id="3_visual"]
+[ext_resource type="Resource" path="res://config/car_model_library.tres" id="4_model_lib"]
 
 [node name="Car" type="Node3D"]
 script = ExtResource("1")
 tuning = ExtResource("2")
+
+[node name="CarVisual" type="Node3D" parent="."]
+script = ExtResource("3_visual")
+library = ExtResource("4_model_lib")

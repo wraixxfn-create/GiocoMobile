@@ -38,6 +38,37 @@ const EVOLUTION_COLORS: Array[Color] = [
 	Color(0.18, 0.78, 0.90),
 	Color(0.68, 0.40, 0.96),
 ]
+## Nome dello stadio visivo per ogni livello (indice = livello).
+## Lo stadio 0 è sotto l'utilitaria: è il "rottame" che si vede dopo troppe
+## regressioni, così ogni livello ha comunque una silhouette riconoscibile.
+const EVOLUTION_STAGE_NAMES: Array[String] = [
+	"ROTTAME",
+	"UTILITARIA",
+	"BERLINA",
+	"SPORTIVA",
+	"SUPERCAR",
+	"HYPERCAR",
+]
+## Moltiplicatore della velocità di avanzamento (indice = livello).
+const EVOLUTION_SPEED_MULTIPLIERS: Array[float] = [
+	0.85,
+	1.00,
+	1.12,
+	1.24,
+	1.36,
+	1.50,
+]
+## Moltiplicatore della reattività dello sterzo (indice = livello).
+const EVOLUTION_HANDLING_MULTIPLIERS: Array[float] = [
+	0.85,
+	1.00,
+	1.10,
+	1.20,
+	1.30,
+	1.45,
+]
+## Durata dell'animazione di trasformazione, in secondi.
+const EVOLUTION_TRANSFORM_DURATION: float = 0.55
 
 # --------------------------------------------------------------- Cancelli ---
 ## Distanza dall'auto della prima fila di cancelli all'avvio della corsa.

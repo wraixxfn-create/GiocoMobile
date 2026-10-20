@@ -6,13 +6,17 @@ extends Node
 ## valore di gioco e può essere modificato solo tramite `apply_evolution()`,
 ## che applica i limiti min/max di GameConfig e notifica l'interfaccia.
 ## I cancelli (GateManager) non toccano mai la variabile direttamente.
+## L'aspetto dell'auto e le statistiche dipendono solo da qui: vengono ricavate
+## dal livello tramite CarEvolutionCatalog, così non esiste uno stato visivo
+## separato che possa restare indietro rispetto al valore reale.
 ## TODO(fase 3): ostacoli, monete raccoglibili, traguardo e fine partita.
 
 signal score_updated(score: int)
 signal coins_updated(coins: int)
 signal state_changed(new_state: State)
 ## Emesso a ogni variazione effettiva del livello (delta già limitato).
-signal evolution_changed(level: int, delta: int)
+## `profile` è lo stadio visivo/di gioco corrispondente al nuovo livello.
+signal evolution_changed(level: int, delta: int, profile: CarEvolutionProfile)
 
 enum State { IDLE, PLAYING, FINISHED }
 
@@ -43,6 +47,12 @@ func end_game() -> void:
 	state_changed.emit(state)
 
 
+## Profilo dello stadio corrente (nome, colori, statistiche, proporzioni).
+## È calcolato dal livello, non memorizzato: non può disallinearsi.
+func evolution_profile() -> CarEvolutionProfile:
+	return CarEvolutionCatalog.profile_for(evolution_level)
+
+
 func add_coins(amount: int) -> void:
 	coins += amount
 	coins_updated.emit(coins)
@@ -61,7 +71,7 @@ func apply_evolution(amount: int) -> int:
 	)
 	var applied := evolution_level - previous
 	if applied != 0:
-		evolution_changed.emit(evolution_level, applied)
+		evolution_changed.emit(evolution_level, applied, evolution_profile())
 	return applied
 
 
@@ -70,7 +80,7 @@ func reset_evolution() -> void:
 	var previous := evolution_level
 	evolution_level = GameConfig.EVOLUTION_START_LEVEL
 	if evolution_level != previous:
-		evolution_changed.emit(evolution_level, evolution_level - previous)
+		evolution_changed.emit(evolution_level, evolution_level - previous, evolution_profile())
 
 
 func _process(delta: float) -> void:

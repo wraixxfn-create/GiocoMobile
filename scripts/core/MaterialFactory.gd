@@ -119,6 +119,44 @@ static func pip_off() -> StandardMaterial3D:
 	return colored("pip_off", Color(0.24, 0.26, 0.30), 0.55, 0.15)
 
 
+# --------------------------------------------------- Stadi di evoluzione ----
+
+## Materiale di uno stadio, condiviso tra tutti i modelli provvisori che usano
+## lo stesso colore. La chiave include il livello: due stadi con lo stesso
+## colore restano comunque indipendenti.
+static func stage_material(
+	level: int,
+	key: String,
+	color: Color,
+	roughness: float,
+	metallic: float,
+) -> StandardMaterial3D:
+	return colored("stage_%d_%s" % [level, key], color, roughness, metallic)
+
+
+## Materiale emissivo NON condiviso: serve alle parti che lampeggiano durante
+## la trasformazione (fari, spie, barre luminose). Essendo unico per modello,
+## l'animazione non può mai propagarsi ad altri oggetti della scena.
+static func unique_emissive(color: Color, energy: float) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.35
+	material.metallic = 0.0
+	material.emission_enabled = true
+	material.emission = color
+	material.emission_energy_multiplier = energy
+	return material
+
+
+## Materiale opaco NON condiviso, per dettagli che l'animazione può animare.
+static func unique_material(color: Color, roughness: float, metallic: float) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = roughness
+	material.metallic = metallic
+	return material
+
+
 static func headlight() -> StandardMaterial3D:
 	return emissive("headlight", GameConfig.COLOR_HEADLIGHT, 1.4)
 

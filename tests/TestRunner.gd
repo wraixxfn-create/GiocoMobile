@@ -75,6 +75,11 @@ func _ready() -> void:
 	await _test_gate_evolution_limits()
 	await _test_gate_single_activation()
 	await _test_gate_recycling()
+	_test_evolution_stage_catalog()
+	_test_evolution_stage_models()
+	await _test_evolution_transformation()
+	await _test_evolution_keeps_driving()
+	await _test_evolution_level_sync()
 	await _test_car_evolution_visual()
 
 	_finish()
@@ -323,8 +328,9 @@ func _test_fps_independence() -> void:
 
 func _test_gate_layout() -> void:
 	# Da qui in poi i test controllano la posizione 3D dell'auto passo per
-	# passo: l'avanzamento automatico viene congelato e ripristinato alla fine.
-	_car.set_speed(0.0)
+	# passo: l'avanzamento automatico viene congelato (lock=true, così il
+	# cambio di evoluzione non lo riaccende) e ripristinato alla fine.
+	_car.set_speed(0.0, true)
 	var inner_half := GameConfig.TRACK_WIDTH * 0.5 - GameConfig.GATE_EDGE_MARGIN
 	_check(
 		_initial_gate_distance >= 60.0,
@@ -406,6 +412,8 @@ func _test_gate_layout() -> void:
 
 func _test_gate_crossing_positive() -> void:
 	_force_evolution(1)
+	var director := _director()
+	var stage_before := director.get_stage_root() if director != null else null
 	var found := _find_row_with_gate(true)
 	_check(not found.is_empty(), "esiste una fila con cancello positivo davanti all'auto")
 	if found.is_empty():
@@ -444,11 +452,29 @@ func _test_gate_crossing_positive() -> void:
 		_game_manager.evolution_level == expected,
 		"nessuna attivazione ripetuta dopo l'attraversamento",
 	)
+
+	# Il cancello positivo cambia davvero il modello visibile dell'auto.
+	if director != null:
+		_check(
+			director.current_level == _game_manager.evolution_level,
+			"dopo il cancello positivo il modello è allineato al livello (%d)"
+			% director.current_level,
+		)
+		_check(
+			director.get_stage_root() != stage_before and is_instance_valid(director.get_stage_root()),
+			"il cancello positivo sostituisce il modello dell'auto",
+		)
+		_check(
+			director.get_wheels().size() == 4,
+			"il nuovo modello ha tutte e quattro le ruote collegate",
+		)
 	await _recycle_passed_row(row)
 
 
 func _test_gate_crossing_negative() -> void:
 	_force_evolution(3)
+	var director := _director()
+	var stage_before := director.get_stage_root() if director != null else null
 	var found := _find_row_with_gate(false)
 	_check(not found.is_empty(), "esiste una fila con cancello negativo davanti all'auto")
 	if found.is_empty():
@@ -465,6 +491,18 @@ func _test_gate_crossing_negative() -> void:
 	)
 	await _physics_frames(3)
 	_check(_game_manager.evolution_level == expected, "la regressione viene applicata una sola volta")
+
+	# Il cancello negativo fa regredire anche il modello visibile.
+	if director != null:
+		_check(
+			director.current_level == _game_manager.evolution_level,
+			"dopo il cancello negativo il modello è allineato al livello (%d)"
+			% director.current_level,
+		)
+		_check(
+			director.get_stage_root() != stage_before and is_instance_valid(director.get_stage_root()),
+			"il cancello negativo sostituisce il modello dell'auto",
+		)
 	await _recycle_passed_row(row)
 
 
@@ -595,6 +633,275 @@ func _test_gate_recycling() -> void:
 	_check(fresh_ok, "le file riciclate ripartono con cancelli attivi")
 
 
+# ------------------------------------------------ Evoluzione (modelli 3D) ---
+
+## Il direttore del modello (nodo "CarVisual" figlio dell'auto).
+func _director() -> CarEvolutionDirector:
+	return CarModel.find_director(_car)
+
+
+func _test_evolution_stage_catalog() -> void:
+	var names: Array[String] = []
+	var silhouettes: Array[int] = []
+	var previous_speed := -1.0
+	var valid := true
+	var monotonic := true
+	var stage_count := 0
+	for level in range(GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL + 1):
+		var profile := CarEvolutionCatalog.profile_for(level)
+		if profile == null or profile.level != level or profile.stage_name.is_empty():
+			valid = false
+			continue
+		stage_count += 1
+		names.append(profile.stage_name)
+		silhouettes.append(profile.silhouette)
+		if profile.speed_multiplier < previous_speed - 0.0001:
+			monotonic = false
+		previous_speed = profile.speed_multiplier
+
+	_check(valid, "ogni livello ha un profilo valido e completo")
+	_check(stage_count >= 5, "almeno cinque stadi di evoluzione definiti (%d)" % stage_count)
+	_check(monotonic, "salendo di livello le statistiche non peggiorano mai")
+	_check(_all_unique_strings(names), "ogni stadio ha un nome distinto")
+	_check(_all_unique_ints(silhouettes), "ogni stadio ha una silhouette distinta")
+	_check(
+		CarEvolutionCatalog.clamp_level(-99) == GameConfig.EVOLUTION_MIN_LEVEL
+		and CarEvolutionCatalog.clamp_level(99) == GameConfig.EVOLUTION_MAX_LEVEL,
+		"i livelli fuori range vengono riportati dentro i limiti",
+	)
+	_check(
+		CarEvolutionCatalog.profile_for(999).level == GameConfig.EVOLUTION_MAX_LEVEL,
+		"anche una richiesta fuori range produce uno stadio valido",
+	)
+
+
+func _test_evolution_stage_models() -> void:
+	var director := _director()
+	_check(director != null, "l'auto ha il direttore delle evoluzioni (CarVisual)")
+	if director == null:
+		return
+
+	var sizes: Array[String] = []
+	var proportions_ok := true
+	var wheels_ok := true
+	var colors_ok := true
+	var pips_ok := true
+	var levels_ok := true
+	var previous_color := Color(0.0, 0.0, 0.0, 0.0)
+	for level in range(GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL + 1):
+		director.apply_level(level, false)
+		if director.current_level != level or director.current_profile == null:
+			levels_ok = false
+			continue
+		var profile := director.current_profile
+		var size := _stage_size(director.get_stage_root())
+		if size.x < 1.2 or size.z < 1.8 or size.y < 0.6:
+			proportions_ok = false
+		if director.get_wheels().size() != 4:
+			wheels_ok = false
+		if profile.body_color.is_equal_approx(previous_color):
+			colors_ok = false
+		previous_color = profile.body_color
+		if _lit_pips(director) != level:
+			pips_ok = false
+		sizes.append("%.2fx%.2fx%.2f" % [size.x, size.y, size.z])
+
+	_check(levels_ok, "ogni stadio viene applicato al modello")
+	_check(proportions_ok, "ogni stadio ha proporzioni da automobile plausibili")
+	_check(wheels_ok, "ogni stadio monta quattro ruote collegate al movimento")
+	_check(colors_ok, "ogni stadio ha un colore di carrozzeria diverso")
+	_check(pips_ok, "le spie accese sul modello corrispondono al livello mostrato")
+	_check(
+		_all_unique_strings(sizes),
+		"le %d silhouette sono tutte diverse: non cambia solo il colore" % sizes.size(),
+	)
+
+
+func _test_evolution_transformation() -> void:
+	var director := _director()
+	if director == null:
+		return
+
+	_force_evolution(GameConfig.EVOLUTION_MIN_LEVEL)
+	await _physics_frames(1)
+	var level_before := director.current_level
+	var stage_before := director.get_stage_root()
+
+	_game_manager.apply_evolution(1)
+	# Campionato subito: se la macchina è lenta, l'animazione potrebbe essere
+	# già finita quando si arriva al ciclo sotto.
+	var scale_at_start := director.get_stage_root().scale
+	# Aggiornamento immediato: nello stesso frame il modello è già quello nuovo.
+	_check(
+		director.current_level == level_before + 1,
+		"il livello sale e il modello cambia subito (%d -> %d)" % [level_before, director.current_level],
+	)
+	_check(
+		not scale_at_start.is_equal_approx(Vector3.ONE),
+		"la trasformazione parte con il modello compresso (%.2f)" % scale_at_start.x,
+	)
+	_check(
+		director.get_stage_root() != stage_before and is_instance_valid(director.get_stage_root()),
+		"il nodo del modello viene sostituito senza distruggere l'auto",
+	)
+	_check(director.is_transforming(), "parte l'animazione di trasformazione")
+
+	# Durante l'animazione i comandi continuano a funzionare.
+	# Partenza al centro, così il drag non può essere fermato dai bordi.
+	_car.position.x = 0.0
+	_car.lateral_target = 0.0
+	var target_before := _car.lateral_target
+	_send_touch(20, true)
+	_send_touch_drag(20, Vector2(_viewport_width() * 0.05, 0.0))
+	await _physics_frames(3)
+	_check(
+		_car.lateral_target > target_before + 0.05,
+		"lo sterzo risponde mentre l'auto si trasforma",
+	)
+	_send_touch(20, false)
+
+	# Avanzamento deterministico: la scala passa da compressa a piena.
+	# `scale_at_start` è già una prova valida se l'animazione è finita prima.
+	var saw_scaled := not scale_at_start.is_equal_approx(Vector3.ONE)
+	var guard := 0
+	while director.is_transforming() and guard < 240:
+		director.advance(1.0 / 60.0)
+		if not director.get_stage_root().scale.is_equal_approx(Vector3.ONE):
+			saw_scaled = true
+		guard += 1
+	_check(saw_scaled, "la trasformazione scala il modello")
+	_check(not director.is_transforming(), "l'animazione termina da sola")
+	_check(
+		director.get_stage_root().scale.is_equal_approx(Vector3.ONE),
+		"a fine animazione il modello torna a scala piena",
+	)
+
+	var glow_ok := true
+	for material in director.get_glow_materials():
+		var emissive := material as StandardMaterial3D
+		if emissive == null or emissive.emission_energy_multiplier <= 0.0:
+			glow_ok = false
+	_check(glow_ok, "le luci dello stadio tornano ai valori base")
+
+	var flash := director.get_node_or_null(CarEvolutionDirector.NODE_FLASH) as OmniLight3D
+	_check(flash != null and not flash.visible, "il lampo di trasformazione si spegne")
+	var shockwave := director.get_node_or_null(CarEvolutionDirector.NODE_SHOCKWAVE) as MeshInstance3D
+	_check(shockwave != null and not shockwave.visible, "l'onda d'urto sparisce a fine animazione")
+
+
+func _test_evolution_keeps_driving() -> void:
+	var director := _director()
+	if director == null:
+		return
+
+	# La marcia riprende con la velocità dello stadio corrente.
+	_car.speed_locked = false
+	_car.set_speed(_car.tuning.forward_speed * _car.evolution_speed_multiplier)
+	if _game_manager.state != GameManager.State.PLAYING:
+		_game_manager.start_game()
+	_force_evolution(2)
+	# Parte da una situazione pulita: niente sterzo residuo dai test precedenti.
+	_reset_lateral()
+	await _physics_frames(4)
+	_car.lateral_target = _car.position.x
+
+	var x_before: float = _car.position.x
+	var z_before: float = _car.position.z
+	var target_before: float = _car.lateral_target
+	var yaw_before: float = _car.rotation.y
+	var level_before: int = director.current_level
+	var wheels_before := director.get_wheels()
+	var wheel_before: float = 0.0
+	if wheels_before.size() > 0:
+		wheel_before = (wheels_before[0] as Node3D).rotation.x
+
+	_game_manager.apply_evolution(1)
+	await _physics_frames(12)
+
+	var expected_speed := _car.tuning.forward_speed * _car.evolution_speed_multiplier
+	_check(director.current_level == level_before + 1, "il livello sale cambiando il modello in corsa")
+	_check(
+		absf(_car.position.x - x_before) < 0.05,
+		"la posizione laterale non salta al cambio modello (%.3f -> %.3f)" % [x_before, _car.position.x],
+	)
+	_check(absf(_car.lateral_target - target_before) < EPSILON, "lo sterzo resta quello di prima")
+	_check(absf(_car.rotation.y - yaw_before) < 0.02, "l'inclinazione dell'auto non viene azzerata")
+	_check(
+		absf(_car.current_speed - expected_speed) < 0.001,
+		"la velocità segue le statistiche dello stadio (%.2f m/s)" % _car.current_speed,
+	)
+	_check(_car.position.z < z_before - 0.5, "l'auto continua ad avanzare durante la trasformazione")
+	var wheels_after := director.get_wheels()
+	_check(wheels_after.size() == 4, "il nuovo modello ha tutte e quattro le ruote")
+	_check(
+		wheels_after.size() > 0 and (wheels_after[0] as Node3D).rotation.x != wheel_before,
+		"le ruote del nuovo modello continuano a girare",
+	)
+	_check(
+		absf(_car.lateral_limit - (GameConfig.TRACK_WIDTH * 0.5
+			- _car.evolution_profile().lateral_half_extent(GameConfig.CAR_MAX_STEER_YAW)
+			- GameConfig.CAR_EDGE_MARGIN)) < EPSILON,
+		"i limiti laterali seguono l'ingombro dello stadio",
+	)
+
+
+func _test_evolution_level_sync() -> void:
+	var director := _director()
+	if director == null:
+		return
+
+	director.apply_level(-100, false)
+	_check(
+		director.current_level == GameConfig.EVOLUTION_MIN_LEVEL,
+		"un livello troppo basso viene riportato al minimo",
+	)
+	director.apply_level(100, false)
+	_check(
+		director.current_level == GameConfig.EVOLUTION_MAX_LEVEL,
+		"un livello troppo alto viene riportato al massimo",
+	)
+
+	# Richiedere lo stesso livello non ricostruisce nulla.
+	var stage := director.get_stage_root()
+	director.apply_level(GameConfig.EVOLUTION_MAX_LEVEL, true)
+	_check(director.get_stage_root() == stage, "richiedere lo stesso livello non ricostruisce il modello")
+	_check(not director.is_transforming(), "senza cambio di livello non parte alcuna animazione")
+
+	# Limiti di gioco: il modello resta dentro min/max.
+	_force_evolution(GameConfig.EVOLUTION_MIN_LEVEL)
+	_game_manager.apply_evolution(-5)
+	await _physics_frames(1)
+	_check(
+		_game_manager.evolution_level == GameConfig.EVOLUTION_MIN_LEVEL
+		and director.current_level == GameConfig.EVOLUTION_MIN_LEVEL,
+		"al minimo né il livello né il modello scendono oltre",
+	)
+	_game_manager.apply_evolution(99)
+	await _physics_frames(1)
+	_check(
+		_game_manager.evolution_level == GameConfig.EVOLUTION_MAX_LEVEL
+		and director.current_level == GameConfig.EVOLUTION_MAX_LEVEL,
+		"al massimo né il livello né il modello salgono oltre",
+	)
+
+	# Dopo ogni passaggio: GameManager, direttore e metadati coincidono.
+	var synced := true
+	for level in range(GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL + 1):
+		_force_evolution(level)
+		_game_manager.apply_evolution(1 if level < GameConfig.EVOLUTION_MAX_LEVEL else 0)
+		await _physics_frames(1)
+		if director.current_level != _game_manager.evolution_level:
+			synced = false
+		if int(_car.get_meta(&"evolution_level", -99)) != _game_manager.evolution_level:
+			synced = false
+	_check(synced, "dopo ogni cambio il modello è allineato al vero evolution_level")
+
+	# La chiamata storica continua a funzionare e resta coerente.
+	CarModel.apply_evolution_level(_car, 2)
+	await _physics_frames(1)
+	_check(director.current_level == 2, "CarModel.apply_evolution_level allinea il modello")
+
+
 func _test_car_evolution_visual() -> void:
 	var pips: Array = _car.get_meta(&"evolution_pips", [])
 	_check(
@@ -602,17 +909,23 @@ func _test_car_evolution_visual() -> void:
 		"l'auto espone una barra di %d spie di evoluzione"
 		% (GameConfig.EVOLUTION_MAX_LEVEL - GameConfig.EVOLUTION_MIN_LEVEL),
 	)
-	var body: Array = _car.get_meta(&"evolution_body_meshes", [])
-	_check(not body.is_empty(), "le parti di carrozzeria da ricolorare sono state trovate")
 
 	CarModel.apply_evolution_level(_car, GameConfig.EVOLUTION_MIN_LEVEL)
+	var body: Array = _car.get_meta(&"evolution_body_meshes", [])
+	_check(not body.is_empty(), "le parti di carrozzeria da ricolorare sono state trovate")
 	var low_material = (body[0] as MeshInstance3D).material_override
+
 	CarModel.apply_evolution_level(_car, GameConfig.EVOLUTION_MAX_LEVEL)
-	var high_material = (body[0] as MeshInstance3D).material_override
+	var high_body: Array = _car.get_meta(&"evolution_body_meshes", [])
+	var high_material = (high_body[0] as MeshInstance3D).material_override
 	_check(low_material != high_material, "la carrozzeria cambia aspetto con il livello")
 	_check(
 		int(_car.get_meta(&"evolution_level", -1)) == GameConfig.EVOLUTION_MAX_LEVEL,
 		"il livello applicato al modello è quello richiesto",
+	)
+	_check(
+		str(_car.get_meta(&"evolution_stage_name", "")) == _director().stage_name(),
+		"il nome dello stadio mostrato è quello del livello",
 	)
 
 	# Il livello arriva all'auto tramite il segnale di GameManager.
@@ -627,21 +940,112 @@ func _test_car_evolution_visual() -> void:
 		_game_manager.evolution_level == 3,
 		"apply_evolution mantiene il livello centralizzato coerente",
 	)
-	_car.set_speed(_car.tuning.forward_speed)
+	# Rimette l'auto in marcia con la velocità dello stadio raggiunto.
+	_car.speed_locked = false
+	_car.set_speed(_car.tuning.forward_speed * _car.evolution_speed_multiplier)
 
 
 # --------------------------------------------------------------- Helpers ---
+
+## Ingrandimento (larghezza, altezza, lunghezza) del modello mostrato.
+## Calcolato trasformando a mano i bounding box delle mesh: nessuna ipotesi
+## sull'orientamento dei singoli pezzi.
+func _stage_size(root: Node3D) -> Vector3:
+	if root == null:
+		return Vector3.ZERO
+	var bounds := {
+		"min": Vector3(INF, INF, INF),
+		"max": Vector3(-INF, -INF, -INF),
+	}
+	_collect_bounds(root, Transform3D.IDENTITY, bounds)
+	var minimum: Vector3 = bounds["min"]
+	if minimum.x == INF:
+		return Vector3.ZERO
+	var maximum: Vector3 = bounds["max"]
+	return maximum - minimum
+
+
+func _collect_bounds(node: Node, parent_transform: Transform3D, bounds: Dictionary) -> void:
+	var transform := parent_transform
+	var spatial := node as Node3D
+	if spatial != null:
+		transform = parent_transform * spatial.transform
+	var instance := node as MeshInstance3D
+	if instance != null and instance.mesh != null:
+		for corner in _aabb_corners(instance.mesh.get_aabb()):
+			var point: Vector3 = transform * corner
+			var minimum: Vector3 = bounds["min"]
+			var maximum: Vector3 = bounds["max"]
+			minimum.x = minf(minimum.x, point.x)
+			minimum.y = minf(minimum.y, point.y)
+			minimum.z = minf(minimum.z, point.z)
+			maximum.x = maxf(maximum.x, point.x)
+			maximum.y = maxf(maximum.y, point.y)
+			maximum.z = maxf(maximum.z, point.z)
+			bounds["min"] = minimum
+			bounds["max"] = maximum
+	for child in node.get_children():
+		_collect_bounds(child, transform, bounds)
+
+
+static func _aabb_corners(box: AABB) -> Array[Vector3]:
+	var corners: Array[Vector3] = []
+	var xs: Array[float] = [box.position.x, box.position.x + box.size.x]
+	var ys: Array[float] = [box.position.y, box.position.y + box.size.y]
+	var zs: Array[float] = [box.position.z, box.position.z + box.size.z]
+	for x in xs:
+		for y in ys:
+			for z in zs:
+				corners.append(Vector3(x, y, z))
+	return corners
+
+
+## Numero di spie accese sul modello: deve combaciare con il livello.
+func _lit_pips(director: CarEvolutionDirector) -> int:
+	var count := 0
+	for pip in director.get_pips():
+		var instance := pip as MeshInstance3D
+		if instance == null:
+			continue
+		var material := instance.material_override as StandardMaterial3D
+		if material != null and material.emission_enabled:
+			count += 1
+	return count
+
+
+static func _all_unique_strings(values: Array[String]) -> bool:
+	for index in values.size():
+		for other in range(index + 1, values.size()):
+			if values[index] == values[other]:
+				return false
+	return values.size() > 0
+
+
+static func _all_unique_ints(values: Array[int]) -> bool:
+	for index in values.size():
+		for other in range(index + 1, values.size()):
+			if values[index] == values[other]:
+				return false
+	return values.size() > 0
+
 
 func _expected_gate_label(gate_value: int) -> String:
 	var prefix := "+" if gate_value > 0 else ""
 	return "%s%d" % [prefix, gate_value]
 
 
+## Imposta il livello "a mano" come fanno i test, ma continua a notificarlo:
+## così anche l'aspetto dell'auto resta allineato al valore reale.
 func _force_evolution(level: int) -> void:
 	_game_manager.evolution_level = clampi(
 		level,
 		GameConfig.EVOLUTION_MIN_LEVEL,
 		GameConfig.EVOLUTION_MAX_LEVEL,
+	)
+	_game_manager.evolution_changed.emit(
+		_game_manager.evolution_level,
+		0,
+		_game_manager.evolution_profile(),
 	)
 
 
@@ -728,11 +1132,8 @@ func _sweep_to_edge(touch_index: int, direction: float) -> float:
 	var worst_extent := 0.0
 	for _i in 60:
 		await get_tree().physics_frame
-		var yaw := absf(_car.rotation.y)
-		var extent := (
-			GameConfig.CAR_HALF_WIDTH * cos(yaw)
-			+ GameConfig.CAR_HALF_LENGTH * sin(yaw)
-		)
+		# Ingombro reale dello stadio mostrato, con l'imbardata del momento.
+		var extent := _car.evolution_profile().lateral_half_extent(absf(_car.rotation.y))
 		worst_extent = maxf(worst_extent, absf(_car.position.x) + extent)
 	# Il target resta dov'è: rilasciare il dito non fa tornare l'auto indietro.
 	_send_touch(touch_index, false)

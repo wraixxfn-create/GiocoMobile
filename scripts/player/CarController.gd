@@ -10,8 +10,11 @@ extends Node3D
 ## la posizione sono sempre limitati ai bordi dell'asfalto.
 ##
 ## L'auto non rileva i cancelli: l'attraversamento è calcolato in 3D da
-## GateManager. Qui si reagisce solo al livello di evoluzione, aggiornando
-## l'aspetto del modello (colore carrozzeria e spie sul tetto).
+## GateManager. Qui si reagisce al livello di evoluzione, aggiornando:
+## - l'aspetto dell'auto (delegato a `CarEvolutionDirector`);
+## - le statistiche dello stadio (velocità e reattività dello sterzo).
+## Nulla di tutto questo tocca posizione, sterzo o velocità in corso: il
+## cambio di modello riguarda solo un nodo figlio.
 
 signal speed_changed(new_speed: float)
 
@@ -30,10 +33,18 @@ var current_speed: float = 0.0
 var lateral_limit: float = 0.0
 ## Posizione laterale desiderata: resta ferma quando il dito viene sollevato.
 var lateral_target: float = 0.0
+## Moltiplicatori dello stadio corrente (letti dal profilo di evoluzione).
+var evolution_speed_multiplier: float = 1.0
+var evolution_handling_multiplier: float = 1.0
+## Se true la velocità non viene aggiornata al cambio di evoluzione
+## (usato dai test e da eventuali pause: la marcia resta congelata).
+var speed_locked: bool = false
 
 var _input_manager: InputManager = null
 var _game_manager: GameManager = null
 var _wheels: Array[Node3D] = []
+## Nodo "CarVisual": possiede il modello dello stadio e la sua animazione.
+var _director: CarEvolutionDirector = null
 
 
 func _ready() -> void:
@@ -43,21 +54,95 @@ func _ready() -> void:
 		tuning = DrivingTuning.new()
 		push_warning("DrivingTuning non trovato: uso i valori predefiniti.")
 	current_speed = tuning.forward_speed
-	_recalculate_lateral_limit()
-	lateral_target = clampf(position.x, -lateral_limit, lateral_limit)
 
 	_input_manager = get_tree().get_first_node_in_group(&"input_manager") as InputManager
 	_game_manager = get_tree().get_first_node_in_group(&"game_manager") as GameManager
 	if _game_manager != null:
 		_game_manager.state_changed.connect(_on_game_state_changed)
 		_game_manager.evolution_changed.connect(_on_evolution_changed)
-	_wheels = CarModel.build(self)
-	var initial_level := (
-		_game_manager.evolution_level if _game_manager != null
-		else GameConfig.EVOLUTION_START_LEVEL
-	)
-	CarModel.apply_evolution_level(self, initial_level)
 
+	_setup_evolution_visual()
+	_recalculate_lateral_limit()
+	lateral_target = clampf(position.x, -lateral_limit, lateral_limit)
+
+
+# ------------------------------------------------------------- Evoluzione ---
+
+## Crea (o recupera) il direttore del modello e lo allinea al livello attuale.
+func _setup_evolution_visual() -> void:
+	_director = _resolve_director()
+	if _director != null:
+		_director.stage_ready.connect(_on_stage_ready)
+		var initial_level := (
+			_game_manager.evolution_level if _game_manager != null
+			else GameConfig.EVOLUTION_START_LEVEL
+		)
+		_director.setup(initial_level)
+		_wheels = _director.get_wheels()
+	_apply_evolution_stats(evolution_profile())
+
+
+func _resolve_director() -> CarEvolutionDirector:
+	var found := get_node_or_null(CarModel.DIRECTOR_NODE_NAME) as CarEvolutionDirector
+	if found == null:
+		# La scena può essere istanziata senza il nodo (es. test): lo creiamo.
+		found = CarEvolutionDirector.new()
+		found.name = CarModel.DIRECTOR_NODE_NAME
+		add_child(found)
+	return found
+
+
+## Profilo dello stadio corrente: fonte unica delle statistiche di gioco.
+func evolution_profile() -> CarEvolutionProfile:
+	if _director != null and _director.current_profile != null:
+		return _director.current_profile
+	if _game_manager != null:
+		return CarEvolutionCatalog.profile_for(_game_manager.evolution_level)
+	return CarEvolutionCatalog.profile_for(GameConfig.EVOLUTION_START_LEVEL)
+
+
+## Il livello di evoluzione è gestito da GameManager: qui si aggiornano
+## l'aspetto dell'auto e le statistiche dello stadio.
+func _on_evolution_changed(level: int, _delta: int, profile: CarEvolutionProfile = null) -> void:
+	_apply_evolution_stats(profile)
+	if _director != null:
+		_director.apply_level(level, true)
+
+
+## Applica le statistiche dello stadio. La velocità viene ricalcolata dalla
+## taratura di base, quindi resta sempre coerente con il livello mostrato.
+func _apply_evolution_stats(profile: CarEvolutionProfile) -> void:
+	if profile == null:
+		profile = evolution_profile()
+	if profile == null:
+		return
+	evolution_speed_multiplier = profile.speed_multiplier
+	evolution_handling_multiplier = profile.handling_multiplier
+	_recalculate_lateral_limit()
+	_refresh_speed()
+
+
+func _refresh_speed() -> void:
+	if speed_locked or tuning == null:
+		return
+	var target := tuning.forward_speed * evolution_speed_multiplier
+	if absf(current_speed - target) > 0.0001:
+		current_speed = maxf(target, 0.0)
+		speed_changed.emit(current_speed)
+
+
+## Dopo un cambio di modello le ruote sono nuove: vanno ricollegate.
+func _on_stage_ready(_level: int, _profile: CarEvolutionProfile) -> void:
+	if _director == null:
+		return
+	_wheels = _director.get_wheels()
+	_recalculate_lateral_limit()
+	lateral_target = clampf(lateral_target, -lateral_limit, lateral_limit)
+	position.x = clampf(position.x, -lateral_limit, lateral_limit)
+	_refresh_speed()
+
+
+# ---------------------------------------------------------------- Movimento --
 
 func _physics_process(delta: float) -> void:
 	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
@@ -97,7 +182,9 @@ func _apply_lateral_motion(step: float) -> void:
 	var previous_x := position.x
 
 	# Interpolazione esponenziale: stessa curva a 30, 60 o 120 FPS.
-	var blend := 1.0 - exp(-tuning.lateral_response * step)
+	# La reattività tiene conto dello stadio di evoluzione (auto più pronte).
+	var response := tuning.lateral_response * evolution_handling_multiplier
+	var blend := 1.0 - exp(-response * step)
 	var next_x := lerpf(position.x, lateral_target, blend)
 
 	# Ulteriore limite di sicurezza contro trascinamenti molto bruschi.
@@ -121,10 +208,15 @@ func _update_visual_feedback(lateral_velocity: float, step: float) -> void:
 	rotation.z = lerpf(rotation.z, target_tilt, steer_blend)
 
 	# Rotazione ruote e sterzata delle due ruote anteriori.
-	var wheel_spin := current_speed * step / CarModel.WHEEL_RADIUS
+	var wheel_radius := CarModel.WHEEL_RADIUS
+	if _director != null:
+		wheel_radius = maxf(_director.wheel_radius, 0.05)
+	var wheel_spin := current_speed * step / wheel_radius
 	var front_steer := clampf(-lateral_velocity * FRONT_WHEEL_STEER_PER_METER, -0.32, 0.32)
 	for index in _wheels.size():
 		var wheel: Node3D = _wheels[index]
+		if not is_instance_valid(wheel):
+			continue
 		wheel.rotation.x -= wheel_spin
 		if index < 2:
 			wheel.rotation.y = lerpf(wheel.rotation.y, front_steer, steer_blend)
@@ -132,22 +224,14 @@ func _update_visual_feedback(lateral_velocity: float, step: float) -> void:
 
 ## Limite laterale derivato dall'ingombro reale dell'auto ruotata al massimo.
 ## In questo modo nemmeno gli angoli della carrozzeria possono superare il bordo.
+## L'ingombro è quello dello stadio corrente: le auto evolute sono più lunghe.
 func _recalculate_lateral_limit() -> void:
-	var yaw := GameConfig.CAR_MAX_STEER_YAW
-	var half_extent := (
-		GameConfig.CAR_HALF_WIDTH * cos(yaw)
-		+ GameConfig.CAR_HALF_LENGTH * sin(yaw)
-	)
+	var profile := evolution_profile()
+	var half_extent := profile.lateral_half_extent(GameConfig.CAR_MAX_STEER_YAW)
 	lateral_limit = maxf(
 		GameConfig.TRACK_WIDTH * 0.5 - half_extent - GameConfig.CAR_EDGE_MARGIN,
 		0.0,
 	)
-
-
-## Il livello di evoluzione è gestito da GameManager: qui si aggiorna solo
-## l'aspetto dell'auto (funziona anche con il modello blockout attuale).
-func _on_evolution_changed(level: int, _delta: int) -> void:
-	CarModel.apply_evolution_level(self, level)
 
 
 func _on_game_state_changed(new_state: GameManager.State) -> void:
@@ -157,7 +241,10 @@ func _on_game_state_changed(new_state: GameManager.State) -> void:
 		lateral_target = clampf(position.x, -lateral_limit, lateral_limit)
 
 
-## Imposta la velocità di avanzamento (usato in futuro dalle evoluzioni).
-func set_speed(value: float) -> void:
+## Imposta la velocità di avanzamento. Con `lock = true` la velocità resta
+## fissata anche quando cambia l'evoluzione (serve ai test e alle pause).
+func set_speed(value: float, lock: bool = false) -> void:
 	current_speed = maxf(value, 0.0)
+	if lock:
+		speed_locked = true
 	speed_changed.emit(current_speed)
