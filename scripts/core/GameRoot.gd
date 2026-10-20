@@ -17,7 +17,7 @@ func _ready() -> void:
 	_setup_environment()
 	_setup_sun()
 	_setup_camera()
-	_update_camera(1.0, false)
+	_update_camera()
 
 	_game_manager.setup(_car)
 	_game_manager.score_updated.connect(_hud.set_distance)
@@ -32,25 +32,29 @@ func _ready() -> void:
 	_hud.set_coins(0)
 
 
-func _process(delta: float) -> void:
-	_update_camera(delta, true)
+func _process(_delta: float) -> void:
+	_update_camera()
 
 
-func _update_camera(delta: float, smooth: bool) -> void:
+func _update_camera() -> void:
 	if _car == null:
 		return
-	var target_rig_x := _car.position.x * 0.58
-	if smooth:
-		var weight := 1.0 - exp(-GameConfig.CAMERA_FOLLOW_SPEED * delta)
-		_camera_rig.position.x = lerpf(_camera_rig.position.x, target_rig_x, weight)
-	else:
-		_camera_rig.position.x = target_rig_x
 
+	# La telecamera segue l'auto lateralmente senza ritardo: l'auto resta
+	# stabile al centro dell'inquadratura ed è la pista a scorrere di lato.
+	# Il movimento laterale è già interpolato nel CarController, quindi questo
+	# non introduce scatti ed è indipendente dagli FPS.
+	_camera_rig.position.x = _car.position.x * GameConfig.CAMERA_LATERAL_FOLLOW
+
+	# Avanzamento: la telecamera mantiene una distanza costante dall'auto,
+	# mentre i segmenti della pista scorrono verso l'orizzonte.
 	_camera_rig.position.y = GameConfig.CAMERA_HEIGHT
 	_camera_rig.position.z = _car.position.z + GameConfig.CAMERA_DISTANCE
 
+	# Guarda dritto verso l'orizzonte (stessa X della telecamera): niente
+	# rotazioni laterali che farebbero "nuotare" l'inquadratura.
 	var look_target := Vector3(
-		_car.position.x * 0.82,
+		_camera_rig.position.x,
 		GameConfig.CAMERA_LOOK_HEIGHT,
 		_car.position.z - GameConfig.CAMERA_LOOK_AHEAD,
 	)

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DrivingTuning" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/DrivingTuning.gd" id="1_tuning"]
+
+[resource]
+script = ExtResource("1_tuning")
+forward_speed = 14.0
+drag_sensitivity = 7.0
+keyboard_lateral_speed = 11.0
+lateral_response = 22.0
+max_lateral_speed = 26.0
