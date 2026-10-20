@@ -8,7 +8,10 @@ extends Node3D
 ## La posizione reale lo insegue con un'interpolazione esponenziale, quindi il
 ## movimento è fluido, senza scatti e indipendente dal frame rate. Il target e
 ## la posizione sono sempre limitati ai bordi dell'asfalto.
-## TODO(fase 2): collisioni con ostacoli/cancelli, animazioni di evoluzione.
+##
+## L'auto non rileva i cancelli: l'attraversamento è calcolato in 3D da
+## GateManager. Qui si reagisce solo al livello di evoluzione, aggiornando
+## l'aspetto del modello (colore carrozzeria e spie sul tetto).
 
 signal speed_changed(new_speed: float)
 
@@ -47,7 +50,13 @@ func _ready() -> void:
 	_game_manager = get_tree().get_first_node_in_group(&"game_manager") as GameManager
 	if _game_manager != null:
 		_game_manager.state_changed.connect(_on_game_state_changed)
+		_game_manager.evolution_changed.connect(_on_evolution_changed)
 	_wheels = CarModel.build(self)
+	var initial_level := (
+		_game_manager.evolution_level if _game_manager != null
+		else GameConfig.EVOLUTION_START_LEVEL
+	)
+	CarModel.apply_evolution_level(self, initial_level)
 
 
 func _physics_process(delta: float) -> void:
@@ -133,6 +142,12 @@ func _recalculate_lateral_limit() -> void:
 		GameConfig.TRACK_WIDTH * 0.5 - half_extent - GameConfig.CAR_EDGE_MARGIN,
 		0.0,
 	)
+
+
+## Il livello di evoluzione è gestito da GameManager: qui si aggiorna solo
+## l'aspetto dell'auto (funziona anche con il modello blockout attuale).
+func _on_evolution_changed(level: int, _delta: int) -> void:
+	CarModel.apply_evolution_level(self, level)
 
 
 func _on_game_state_changed(new_state: GameManager.State) -> void:

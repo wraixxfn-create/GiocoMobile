@@ -1,12 +1,18 @@
 class_name GameManager
 extends Node
-## Stato globale della partita e punteggio.
-## TODO(fase 2): cancelli bonus/penalità, ostacoli, monete,
-## evoluzioni dell'auto e traguardo.
+## Stato globale della partita, punteggio e livello di evoluzione dell'auto.
+##
+## Il livello di evoluzione è centralizzato qui: `evolution_level` è l'unico
+## valore di gioco e può essere modificato solo tramite `apply_evolution()`,
+## che applica i limiti min/max di GameConfig e notifica l'interfaccia.
+## I cancelli (GateManager) non toccano mai la variabile direttamente.
+## TODO(fase 3): ostacoli, monete raccoglibili, traguardo e fine partita.
 
 signal score_updated(score: int)
 signal coins_updated(coins: int)
 signal state_changed(new_state: State)
+## Emesso a ogni variazione effettiva del livello (delta già limitato).
+signal evolution_changed(level: int, delta: int)
 
 enum State { IDLE, PLAYING, FINISHED }
 
@@ -14,6 +20,9 @@ var state: State = State.IDLE
 var distance: float = 0.0
 var score: int = 0
 var coins: int = 0
+## Livello di evoluzione corrente, sempre compreso tra
+## GameConfig.EVOLUTION_MIN_LEVEL e GameConfig.EVOLUTION_MAX_LEVEL.
+var evolution_level: int = GameConfig.EVOLUTION_START_LEVEL
 
 var _car: CarController = null
 
@@ -37,6 +46,31 @@ func end_game() -> void:
 func add_coins(amount: int) -> void:
 	coins += amount
 	coins_updated.emit(coins)
+
+
+## Applica una variazione al livello di evoluzione rispettando i limiti.
+## Restituisce la variazione realmente applicata (0 se il livello è già al
+## limite): positivo = evoluzione, negativo = regressione.
+## NON emette evolution_changed se il livello non cambia.
+func apply_evolution(amount: int) -> int:
+	var previous := evolution_level
+	evolution_level = clampi(
+		evolution_level + amount,
+		GameConfig.EVOLUTION_MIN_LEVEL,
+		GameConfig.EVOLUTION_MAX_LEVEL,
+	)
+	var applied := evolution_level - previous
+	if applied != 0:
+		evolution_changed.emit(evolution_level, applied)
+	return applied
+
+
+## Riporta il livello allo stato iniziale (usato da un eventuale restart).
+func reset_evolution() -> void:
+	var previous := evolution_level
+	evolution_level = GameConfig.EVOLUTION_START_LEVEL
+	if evolution_level != previous:
+		evolution_changed.emit(evolution_level, evolution_level - previous)
 
 
 func _process(delta: float) -> void:
