@@ -1,9 +1,9 @@
 class_name InputManager
 extends Node
 ## Unifica l'input laterale del giocatore:
-## - trascinamento touch (e trascinamento mouse, utile in desktop)
-## - frecce direzionali / A,D da tastiera
-## Emette inoltre start_requested al primo tocco per far partire la partita.
+## - trascinamento touch (e trascinamento mouse per il test su desktop)
+## - frecce direzionali / tasti A,D da tastiera
+## Emette inoltre start_requested al primo input utile per avviare la partita.
 
 signal start_requested
 
@@ -17,9 +17,12 @@ func _input(event: InputEvent) -> void:
 		start_requested.emit()
 
 	if event is InputEventScreenDrag:
-		_drag_accumulator += event.relative.x
-	elif event is InputEventMouseMotion and (event.button_mask & MOUSE_BUTTON_MASK_LEFT) != 0:
-		_drag_accumulator += event.relative.x
+		var drag_event := event as InputEventScreenDrag
+		_drag_accumulator += drag_event.relative.x
+	elif event is InputEventMouseMotion:
+		var motion_event := event as InputEventMouseMotion
+		if (motion_event.button_mask & MOUSE_BUTTON_MASK_LEFT) != 0:
+			_drag_accumulator += motion_event.relative.x
 
 
 ## Restituisce lo spostamento orizzontale accumulato dall'ultimo frame
@@ -30,9 +33,14 @@ func consume_lateral_delta() -> float:
 	return value
 
 
-## Asse tastiera -1 (sinistra) .. +1 (destra).
+## Asse tastiera -1 (sinistra) .. +1 (destra), supporta frecce e A/D.
 func get_keyboard_axis() -> float:
-	return Input.get_axis(&"ui_left", &"ui_right")
+	var axis := Input.get_axis(&"ui_left", &"ui_right")
+	if Input.is_key_pressed(KEY_A):
+		axis -= 1.0
+	if Input.is_key_pressed(KEY_D):
+		axis += 1.0
+	return clampf(axis, -1.0, 1.0)
 
 
 func _is_start_event(event: InputEvent) -> bool:
@@ -41,4 +49,14 @@ func _is_start_event(event: InputEvent) -> bool:
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
 		return mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT
-	return event.is_action_pressed(&"ui_accept")
+	if event is InputEventKey:
+		var key_event := event as InputEventKey
+		if key_event.pressed and not key_event.echo:
+			var code := key_event.keycode
+			if code == KEY_A or code == KEY_D or code == KEY_SPACE or code == KEY_ENTER:
+				return true
+	return (
+		event.is_action_pressed(&"ui_accept")
+		or event.is_action_pressed(&"ui_left")
+		or event.is_action_pressed(&"ui_right")
+	)

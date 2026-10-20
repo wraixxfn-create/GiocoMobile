@@ -2,7 +2,7 @@ class_name CarController
 extends Node3D
 ## Movimento dell'auto del giocatore:
 ## - avanzamento automatico lungo la pista (asse -Z)
-## - spostamento laterale tramite trascinamento touch o tastiera
+## - spostamento laterale tramite trascinamento touch, mouse o tastiera
 ## TODO(fase 2): collisioni con ostacoli/cancelli, animazioni di evoluzione.
 
 signal speed_changed(new_speed: float)
@@ -12,7 +12,7 @@ signal speed_changed(new_speed: float)
 @export var drag_sensitivity: float = GameConfig.CAR_DRAG_SENSITIVITY
 
 var current_speed: float = 0.0
-var lateral_limit: float = GameConfig.TRACK_WIDTH / 2.0 - 0.9
+var lateral_limit: float = GameConfig.TRACK_WIDTH / 2.0 - GameConfig.CAR_HALF_WIDTH_MARGIN
 
 var _input_manager: InputManager = null
 var _game_manager: GameManager = null
@@ -30,24 +30,38 @@ func _physics_process(delta: float) -> void:
 	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
 		return
 
-	# Avanzamento automatico.
+	# Avanzamento automatico lungo l'asse -Z verso l'orizzonte.
 	position.z -= current_speed * delta
 
-	# Controllo laterale: trascinamento (pixel -> unità mondo) + tastiera.
+	# Controllo laterale unificato (touch/mouse drag + tastiera frecce / A,D).
 	var drag_delta := 0.0
+	var keyboard_axis := 0.0
 	if _input_manager != null:
 		drag_delta = _input_manager.consume_lateral_delta()
-	var keyboard_axis := Input.get_axis(&"ui_left", &"ui_right")
+		keyboard_axis = _input_manager.get_keyboard_axis()
+	else:
+		keyboard_axis = Input.get_axis(&"ui_left", &"ui_right")
+
+	var prev_x: float = position.x
 	var delta_x := drag_delta * drag_sensitivity + keyboard_axis * lateral_speed * delta
 	position.x = clampf(position.x + delta_x, -lateral_limit, lateral_limit)
 
-	# Inclinazione di guida per feedback visivo.
-	var target_tilt := clampf(-delta_x * 0.06, -0.22, 0.22)
-	rotation.z = lerpf(rotation.z, target_tilt, 0.15)
+	# Feedback visivo fluido: leggera sterzata sull'asse Y e rollio sull'asse Z.
+	var lateral_velocity := (position.x - prev_x) / maxf(delta, 0.0001)
+	var steer_blend := 1.0 - exp(-10.0 * delta)
+	var target_yaw := clampf(-lateral_velocity * 0.02, -0.18, 0.18)
+	var target_tilt := clampf(-lateral_velocity * 0.01, -0.10, 0.10)
+	rotation.y = lerpf(rotation.y, target_yaw, steer_blend)
+	rotation.z = lerpf(rotation.z, target_tilt, steer_blend)
 
-	# Rotazione delle ruote.
-	for wheel in _wheels:
-		wheel.rotation.x -= current_speed * delta / CarModel.WHEEL_RADIUS
+	# Rotazione ruote e sterzata delle due ruote anteriori.
+	var wheel_spin := current_speed * delta / CarModel.WHEEL_RADIUS
+	var front_steer := clampf(-lateral_velocity * 0.035, -0.32, 0.32)
+	for index in _wheels.size():
+		var wheel: Node3D = _wheels[index]
+		wheel.rotation.x -= wheel_spin
+		if index < 2:
+			wheel.rotation.y = lerpf(wheel.rotation.y, front_steer, steer_blend)
 
 
 ## Imposta la velocità di avanzamento (usato in futuro dalle evoluzioni).
