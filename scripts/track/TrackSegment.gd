@@ -127,14 +127,21 @@ func _make_tree(rng: RandomNumberGenerator) -> Node3D:
 
 	var foliage := MeshInstance3D.new()
 	if rng.randf() > 0.5:
-		var cone := ConeMesh.new()
-		cone.radius = 0.85
+		# Cono: CylinderMesh con raggio superiore a zero.
+		var cone := CylinderMesh.new()
+		cone.top_radius = 0.0
+		cone.bottom_radius = 0.85
 		cone.height = 1.9
+		cone.radial_segments = 8
 		foliage.mesh = cone
 		foliage.position.y = 1.75
 	else:
-		var ball := IcosahedronMesh.new()
+		# Sfera a basso numero di segmenti, look low-poly.
+		var ball := SphereMesh.new()
 		ball.radius = 0.85
+		ball.height = 1.7
+		ball.radial_segments = 8
+		ball.rings = 4
 		foliage.mesh = ball
 		foliage.position.y = 1.55
 	foliage.material_override = MaterialFactory.foliage(
@@ -149,8 +156,12 @@ func _make_tree(rng: RandomNumberGenerator) -> Node3D:
 
 func _make_rock(rng: RandomNumberGenerator) -> MeshInstance3D:
 	var rock := MeshInstance3D.new()
-	var rock_mesh := IcosahedronMesh.new()
+	# Roccia: sfera low-poly deformata dalla scala casuale sotto.
+	var rock_mesh := SphereMesh.new()
 	rock_mesh.radius = 0.5
+	rock_mesh.height = 1.0
+	rock_mesh.radial_segments = 6
+	rock_mesh.rings = 4
 	rock.mesh = rock_mesh
 	rock.material_override = MaterialFactory.rock()
 	rock.scale = Vector3(
