@@ -1,9 +1,10 @@
 class_name TrackManager
 extends Node3D
 ## Genera e ricicla i segmenti di pista per creare una strada continua verso l'orizzonte.
-## I cancelli di evoluzione NON vivono nei segmenti (che vengono riciclati):
-## sono gestiti in coordinate mondo da GateManager, così non si spostano mai
-## sotto l'auto. TODO(fase 3): ostacoli e monete raccoglibili.
+## I cancelli di evoluzione e gli ostacoli NON vivono nei segmenti (che vengono
+## riciclati): sono gestiti in coordinate mondo da GateManager e
+## ObstacleManager, così non si spostano mai sotto l'auto.
+## TODO: monete raccoglibili.
 
 var _segments: Array[TrackSegment] = []
 var _player: Node3D = null

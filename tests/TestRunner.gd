@@ -9,10 +9,20 @@ extends Node
 ## inquadratura della telecamera, riciclo della pista, indipendenza dagli FPS,
 ## layout dei cancelli di evoluzione, attraversamenti in 3D, applicazione
 ## singola degli effetti, limiti del livello e riciclo delle file di cancelli.
+##
+## Fase 3 (ostacoli): verifica layout e ancoraggio ai corridoi dei cancelli,
+## curva di difficoltà, le quattro tipologie (coni, barriere, restringimenti,
+## blocchi mobili), collisioni affidabili (l'auto non attraversa mai i solidi),
+## penalità singola (velocità OPPURE evoluzione, mai entrambe), feedback
+## (scuotimento, lampeggio HUD, effetti 3D), riciclo senza orfani e — con un
+## pilota automatico predittivo — che la partita resti sempre giocabile:
+## 1500 m a difficoltà crescente e 600 m a difficoltà massima, zero collisioni.
 
 const MAIN_SCENE: PackedScene = preload("res://scenes/Main.tscn")
 const TOUCH_START := Vector2(270.0, 640.0)
 const EPSILON := 0.0005
+## Passo di simulazione dei test degli ostacoli (deterministico, senza frame).
+const OBSTACLE_TEST_DT: float = 1.0 / 60.0
 
 var _checks: int = 0
 var _failures: Array[String] = []
@@ -26,6 +36,8 @@ var _camera_rig: Node3D
 var _camera: Camera3D
 var _track: Node3D
 var _gate_manager: GateManager
+var _obstacle_manager: ObstacleManager
+var _hud: HUD
 var _initial_gate_distance: float = 0.0
 
 
@@ -45,6 +57,8 @@ func _ready() -> void:
 	_camera = _main.get_node("CameraRig/MainCamera") as Camera3D
 	_track = _main.get_node("TrackManager") as Node3D
 	_gate_manager = _main.get_node("GateManager") as GateManager
+	_obstacle_manager = _main.get_node("ObstacleManager") as ObstacleManager
+	_hud = _main.get_node("HUD") as HUD
 	if _gate_manager != null and not _gate_manager.rows.is_empty():
 		_initial_gate_distance = _car.position.z - float(_gate_manager.rows[0].z)
 
@@ -60,6 +74,16 @@ func _ready() -> void:
 	)
 	_check(_gate_manager != null and _gate_manager.rows.size() == GameConfig.GATE_ROW_COUNT,
 		"file di cancelli generate all'avvio")
+	_check(_obstacle_manager != null, "ObstacleManager presente nella scena")
+	_check(
+		_obstacle_manager != null and _obstacle_manager.is_in_group(&"obstacle_manager"),
+		"ObstacleManager nel gruppo obstacle_manager",
+	)
+	_check(
+		_obstacle_manager != null and _gate_manager != null
+		and _obstacle_manager.rows.size() == _gate_manager.rows.size(),
+		"file di ostacoli generate all'avvio (una per corridoio di cancelli)",
+	)
 
 	await _test_idle_then_auto_forward()
 	await _test_touch_drag_and_hold()
@@ -81,6 +105,18 @@ func _ready() -> void:
 	await _test_evolution_keeps_driving()
 	await _test_evolution_level_sync()
 	await _test_car_evolution_visual()
+	_test_obstacle_layout()
+	_test_obstacle_difficulty_curve()
+	_test_obstacle_collision_barrier()
+	_test_obstacle_collision_cone()
+	_test_obstacle_moving_block()
+	_test_obstacle_wall_precision()
+	_test_obstacle_penalty_exclusivity()
+	_test_obstacle_feedback()
+	_test_mover_timing_passable()
+	_test_obstacle_recycling()
+	_test_obstacle_playability_run()
+	_test_obstacle_high_difficulty_run()
 
 	_finish()
 
@@ -943,6 +979,1100 @@ func _test_car_evolution_visual() -> void:
 	# Rimette l'auto in marcia con la velocità dello stadio raggiunto.
 	_car.speed_locked = false
 	_car.set_speed(_car.tuning.forward_speed * _car.evolution_speed_multiplier)
+
+
+# ------------------------------------------------------------- Ostacoli -----
+## Da qui in poi la sezione è completamente sincrona e deterministica: l'auto
+## viene pilotata a mano (fisica disattivata) e i manager vengono avanzati con
+## `step()`, nello stesso ordine dei frame reali (auto -> cancelli -> ostacoli).
+
+func _test_obstacle_layout() -> void:
+	_check(
+		_obstacle_manager.rows.size() == _gate_manager.rows.size(),
+		"una fila di ostacoli per ogni corridoio di cancelli",
+	)
+	var anchored := true
+	for index in _obstacle_manager.rows.size():
+		var row: ObstacleRow = _obstacle_manager.rows[index]
+		var gate_row: GateRow = _gate_manager.rows[index]
+		if absf(row.z - (gate_row.z - GameConfig.OBSTACLE_CORRIDOR_OFFSET)) > 0.001:
+			anchored = false
+	_check(anchored, "le file restano ancorate a %.0f m oltre i cancelli"
+		% GameConfig.OBSTACLE_CORRIDOR_OFFSET)
+	_check(_obstacle_layout_valid(), "layout legale: bordi, varchi, distanze e tipi")
+	_check(
+		_obstacle_node_count() == _total_piece_count(),
+		"nessun ostacolo orfano nella scena",
+	)
+
+	var visible_ok := true
+	var penalty_ok := true
+	for row in _obstacle_manager.rows:
+		if row.obstacles.is_empty():
+			visible_ok = false
+		for piece in row.obstacles:
+			var obstacle := piece as Obstacle
+			if obstacle == null or not obstacle.is_visible_in_tree():
+				visible_ok = false
+			if obstacle != null and obstacle.get_parent() != _obstacle_manager:
+				visible_ok = false
+			if obstacle != null:
+				# Ogni pezzo ha ESATTAMENTE UNA penalità configurata.
+				var has_speed := (
+					obstacle.penalty_kind == GameConfig.OBSTACLE_PENALTY_SPEED
+					and obstacle.speed_penalty_factor < 1.0
+					and obstacle.speed_penalty_duration > 0.0
+				)
+				var has_evolution := (
+					obstacle.penalty_kind == GameConfig.OBSTACLE_PENALTY_EVOLUTION
+					and obstacle.evolution_penalty_step > 0
+				)
+				if has_speed == has_evolution:
+					penalty_ok = false
+				if (obstacle.kind == Obstacle.Kind.CONE) == obstacle.solid:
+					penalty_ok = false
+	_check(visible_ok, "tutti gli ostacoli sono visibili nella scena 3D")
+	_check(penalty_ok, "ogni ostacolo ha una sola penalità e la solidità corretta")
+
+	# Sanity check della configurazione di fairness.
+	_check(
+		GameConfig.OBSTACLE_CORRIDOR_OFFSET < GameConfig.GATE_PASSED_OFFSET - 1.0,
+		"il salto di riciclo degli ostacoli avviene dietro l'auto",
+	)
+	_check(
+		GameConfig.OBSTACLE_CORRIDOR_OFFSET >= GameConfig.OBSTACLE_GATE_CLEARANCE,
+		"gli ostacoli restano lontani dai piani dei cancelli",
+	)
+	_check(
+		GameConfig.GATE_ROW_SPACING >= GameConfig.OBSTACLE_ROW_MIN_SPACING,
+		"le file di ostacoli rispettano la spaziatura minima",
+	)
+	var max_car_span := 0.0
+	for level in range(GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL + 1):
+		var profile := CarEvolutionCatalog.profile_for(level)
+		max_car_span = maxf(
+			max_car_span, 2.0 * profile.lateral_half_extent(GameConfig.CAR_MAX_STEER_YAW)
+		)
+	_check(
+		GameConfig.OBSTACLE_GAP_MIN >= max_car_span + 0.25,
+		"il varco minimo (%.2f m) contiene l'ingombro massimo dell'auto (%.2f m)"
+		% [GameConfig.OBSTACLE_GAP_MIN, max_car_span],
+	)
+	_check(
+		GameConfig.TRACK_WIDTH - 2.0 * GameConfig.OBSTACLE_EDGE_MARGIN
+		- 2.0 * GameConfig.OBSTACLE_MOVING_HALF_EXTENTS.x >= GameConfig.OBSTACLE_GAP_MIN,
+		"i blocchi mobili lasciano sempre spazio libero sufficiente",
+	)
+	# Anche alla velocità peggiore (penalità + stadio lento) il tempo tra due
+	# file basta ad attraversare l'intera carreggiata.
+	var worst_speed := (
+		_car.tuning.forward_speed
+		* GameConfig.EVOLUTION_SPEED_MULTIPLIERS[0]
+		* GameConfig.OBSTACLE_BARRIER_SPEED_FACTOR
+	)
+	var crossing_time := GameConfig.GATE_ROW_SPACING / maxf(worst_speed, 0.1)
+	_check(
+		_car.tuning.keyboard_lateral_speed * crossing_time >= GameConfig.TRACK_WIDTH,
+		"il tempo tra due file basta sempre a spostarsi da un varco all'altro",
+	)
+
+
+func _test_obstacle_difficulty_curve() -> void:
+	_check(ObstacleManager.difficulty_for_distance(0.0) == 0.0, "difficoltà zero all'avvio")
+	_check(
+		ObstacleManager.difficulty_for_distance(GameConfig.OBSTACLE_EASY_DISTANCE) == 0.0,
+		"nessuna difficoltà nella zona iniziale",
+	)
+	_check(
+		absf(ObstacleManager.difficulty_for_distance(GameConfig.OBSTACLE_RAMP_DISTANCE) - 1.0) < 0.0001,
+		"la difficoltà satura a 1 sulla distanza di rampa",
+	)
+	_check(
+		ObstacleManager.difficulty_for_distance(999999.0) == 1.0,
+		"la difficoltà non supera mai il massimo (progressione controllata)",
+	)
+	var monotonic := true
+	var previous := -1.0
+	for distance in range(0, 2401, 50):
+		var value := ObstacleManager.difficulty_for_distance(float(distance))
+		if value < previous - 0.0001:
+			monotonic = false
+		previous = value
+	_check(monotonic, "la difficoltà cresce in modo monotono con la distanza")
+
+	var params_ok := true
+	var pool_ok := true
+	var mover_ok := true
+	for serial in range(0, 60):
+		for difficulty in [0.0, 0.25, 0.5, 0.75, 1.0]:
+			var params := ObstacleManager.formation_parameters(serial, difficulty)
+			var gap: float = float(params["gap"])
+			if gap < GameConfig.OBSTACLE_GAP_MIN - 0.0001:
+				params_ok = false
+			if gap > GameConfig.OBSTACLE_GAP_WIDE + 0.0001:
+				params_ok = false
+			var formation := ObstacleManager.pick_formation(serial, difficulty)
+			if formation < 0 or formation > 3:
+				pool_ok = false
+			if difficulty < GameConfig.OBSTACLE_TIER_NARROW and formation == ObstacleRow.Formation.NARROW:
+				pool_ok = false
+			if difficulty < GameConfig.OBSTACLE_TIER_MOVING and formation == ObstacleRow.Formation.MOVING:
+				pool_ok = false
+			var move_speed: float = float(params["move_speed"])
+			if move_speed < GameConfig.OBSTACLE_MOVING_SPEED_SLOW - 0.0001:
+				mover_ok = false
+			if move_speed > GameConfig.OBSTACLE_MOVING_SPEED_FAST + 0.0001:
+				mover_ok = false
+	_check(params_ok, "il varco non scende mai sotto il minimo garantito")
+	_check(pool_ok, "i tipi di ostacolo compaiono gradualmente con la difficoltà")
+	_check(mover_ok, "i blocchi mobili restano entro velocità ragionevoli")
+
+	# Il varco medio si restringe con la difficoltà (restando >= minimo).
+	var sum_easy := 0.0
+	var sum_hard := 0.0
+	for serial in 40:
+		sum_easy += float(ObstacleManager.formation_parameters(serial, 0.0)["gap"])
+		sum_hard += float(ObstacleManager.formation_parameters(serial, 1.0)["gap"])
+	_check(
+		sum_easy / 40.0 > sum_hard / 40.0 + 0.5,
+		"i varchi si restringono al crescere della difficoltà (%.2f -> %.2f m)"
+		% [sum_easy / 40.0, sum_hard / 40.0],
+	)
+
+	# Su molti seriali tutte e quattro le tipologie vengono generate a
+	# difficoltà massima (e solo coni/barriere a difficoltà zero).
+	var seen_hard := {}
+	var seen_easy := {}
+	for serial in range(0, 200):
+		seen_hard[ObstacleManager.pick_formation(serial, 1.0)] = true
+		seen_easy[ObstacleManager.pick_formation(serial, 0.0)] = true
+	_check(seen_hard.size() == 4, "a difficoltà massima compaiono tutte e quattro le tipologie")
+	_check(seen_easy.size() == 2, "a difficoltà zero compaiono solo coni e barriere")
+
+
+func _test_obstacle_collision_barrier() -> void:
+	_enter_free_placement_mode()
+	_park_gates_ahead(2500.0)
+	_prepare_manual_driving()
+	_force_evolution(2)
+	_clear_car_penalty()
+
+	var row: ObstacleRow = _obstacle_manager.rows[0]
+	_park_other_rows(row, 600.0)
+	_place_row(row, _car.position.z - 30.0, ObstacleRow.Formation.BARRIER, 0.0, 901)
+	_obstacle_manager.step(0.0)
+
+	var piece: Obstacle = _piece_nearest_center(row)
+	_check(piece != null and piece.kind == Obstacle.Kind.BARRIER, "barriera generata per il test")
+	if piece == null:
+		return
+	_car.position.x = clampf(piece.position.x, -_car.lateral_limit, _car.lateral_limit)
+	_car.lateral_target = _car.position.x
+	var car_half := _obstacle_manager._car_half_extents()
+	var front_face := piece.position.z + piece.half_extents.z
+	_car.position.z = front_face + car_half.y + 3.0
+	_obstacle_manager.step(0.0)
+
+	var hits_before := _obstacle_manager.hit_count
+	var level_before := _game_manager.evolution_level
+	var penetration := false
+	var hit_seen := false
+	var z_at_hit := 0.0
+	var guard := 0
+	# L'auto attraversa la zona: urto, arresto sulla faccia, sfondamento e ripresa.
+	while _car.position.z > front_face - 6.0 and guard < 900:
+		_drive_step(OBSTACLE_TEST_DT)
+		if piece.is_collidable() and _car_touches_rect(piece.collision_rect()):
+			penetration = true
+		if not hit_seen and _obstacle_manager.hit_count > hits_before:
+			hit_seen = true
+			z_at_hit = _car.position.z
+		guard += 1
+
+	_check(guard < 900, "barriera: la simulazione termina in tempo finito")
+	_check(hit_seen, "barriera: la collisione viene rilevata")
+	_check(not penetration, "barriera: l'auto non attraversa mai l'ostacolo solido")
+	_check(
+		absf(z_at_hit - (front_face + car_half.y + 0.02)) < 0.06,
+		"barriera: l'auto si ferma sulla faccia di contatto (%.2f vs %.2f)"
+		% [z_at_hit, front_face + car_half.y],
+	)
+	_check(piece.state == Obstacle.State.BROKEN, "barriera: si sfonda all'impatto")
+	_check(not piece.is_collidable(), "barriera: i detriti non sono più solidi")
+	_check(_obstacle_manager.hit_count == hits_before + 1, "barriera: un solo urto contato")
+	_check(_car.is_speed_penalized(), "barriera: perdita di velocità temporanea attiva")
+	_check(
+		absf(_car.speed_penalty_factor - GameConfig.OBSTACLE_BARRIER_SPEED_FACTOR) < 0.001,
+		"barriera: fattore di penalità configurato (%.2f)" % _car.speed_penalty_factor,
+	)
+	_check(
+		_game_manager.evolution_level == level_before,
+		"barriera: l'evoluzione NON cambia (mai entrambe le penalità)",
+	)
+	_check(
+		_obstacle_manager.last_penalty_kind == GameConfig.OBSTACLE_PENALTY_SPEED,
+		"barriera: il canale di penalità è la velocità",
+	)
+
+	# La corsa riprende e la penalità scade da sola, senza altri urti.
+	guard = 0
+	while _car.is_speed_penalized() and guard < 600:
+		_drive_step(OBSTACLE_TEST_DT)
+		guard += 1
+	_check(guard < 600, "barriera: la penalità di velocità scade da sola")
+	_check(
+		absf(_car.current_speed - _car.tuning.forward_speed * _car.evolution_speed_multiplier) < 0.001,
+		"barriera: la velocità torna al valore dello stadio",
+	)
+	_check(
+		_obstacle_manager.hit_count == hits_before + 1,
+		"barriera: nessuna collisione ripetuta dopo lo sfondamento",
+	)
+	_check(_game_manager.obstacle_hits >= 1, "la collisione è registrata in GameManager")
+
+
+func _test_obstacle_collision_cone() -> void:
+	_prepare_manual_driving()
+	_force_evolution(2)
+	_clear_car_penalty()
+
+	var row: ObstacleRow = _obstacle_manager.rows[0]
+	_park_other_rows(row, 600.0)
+	_place_row(row, _car.position.z - 28.0, ObstacleRow.Formation.CONES, 0.0, 902)
+	_obstacle_manager.step(0.0)
+
+	var target := _piece_nearest_center(row)
+	_check(target != null and target.kind == Obstacle.Kind.CONE, "coni generati per il test")
+	if target == null:
+		return
+	_car.position.x = clampf(target.position.x, -_car.lateral_limit, _car.lateral_limit)
+	_car.lateral_target = _car.position.x
+	_car.position.z = row.z + 6.0
+	_obstacle_manager.step(0.0)
+
+	var hits_before := _obstacle_manager.hit_count
+	var level_before := _game_manager.evolution_level
+	var guard := 0
+	while _car.position.z > row.z - 5.0 and guard < 600:
+		_drive_step(OBSTACLE_TEST_DT)
+		guard += 1
+
+	_check(guard < 600, "coni: la simulazione termina in tempo finito")
+	_check(_car.position.z < row.z - 4.0, "coni: l'auto passa (ostacolo non solido)")
+	_check(
+		_obstacle_manager.hit_count > hits_before,
+		"coni: l'urto viene rilevato",
+	)
+	_check(target.state == Obstacle.State.HIT, "coni: il cono urtato si abbatte")
+	_check(not target.is_collidable(), "coni: il cono abbattuto non collide più")
+	_check(_car.is_speed_penalized(), "coni: perdita di velocità leggera attiva")
+	_check(
+		absf(_car.speed_penalty_factor - GameConfig.OBSTACLE_CONE_SPEED_FACTOR) < 0.001,
+		"coni: penalità leggera configurata (%.2f)" % _car.speed_penalty_factor,
+	)
+	_check(
+		_game_manager.evolution_level == level_before,
+		"coni: l'evoluzione NON cambia (mai entrambe le penalità)",
+	)
+
+	# Animazione di caduta completata (deterministica).
+	for _index in 30:
+		_obstacle_manager.step(OBSTACLE_TEST_DT)
+	var cone_visual := target.get_node_or_null("Visual") as Node3D
+	_check(
+		cone_visual != null and cone_visual.rotation.x < -1.2,
+		"coni: l'animazione di caduta si completa",
+	)
+
+	guard = 0
+	while _car.is_speed_penalized() and guard < 600:
+		_drive_step(OBSTACLE_TEST_DT)
+		guard += 1
+	_check(not _car.is_speed_penalized(), "coni: la penalità scade da sola")
+
+
+func _test_obstacle_moving_block() -> void:
+	_prepare_manual_driving()
+	_force_evolution(3)
+	_clear_car_penalty()
+
+	var row: ObstacleRow = _obstacle_manager.rows[0]
+	_park_other_rows(row, 600.0)
+	_place_row(row, _car.position.z - 24.0, ObstacleRow.Formation.MOVING, 0.0, 903)
+	_obstacle_manager.step(0.0)
+
+	var mover: Obstacle = row.obstacles[0] as Obstacle
+	_check(mover != null and mover.is_mover(), "blocco mobile generato per il test")
+	if mover == null:
+		return
+	_check(mover.solid, "il blocco mobile è solido")
+	_check(
+		mover.penalty_kind == GameConfig.OBSTACLE_PENALTY_EVOLUTION,
+		"il blocco mobile penalizza l'evoluzione",
+	)
+	# Il moto a pendolo resta dentro la carreggiata ed è predicibile.
+	var range_ok := true
+	for _index in 600:
+		_obstacle_manager.step(OBSTACLE_TEST_DT)
+		if absf(mover.position.x) + mover.half_extents.x > GameConfig.TRACK_WIDTH * 0.5 + 0.001:
+			range_ok = false
+		if absf(mover.position.x - mover.ping_pong_x(mover.move_phase)) > 0.0001:
+			range_ok = false
+	_check(range_ok, "il blocco mobile resta in carreggiata con moto predicibile")
+	_check(
+		absf(mover.predicted_x(0.0) - mover.position.x) < 0.0001,
+		"la previsione della posizione coincide con lo stato corrente",
+	)
+
+	# Riporta il blocco alla fase iniziale e piazza l'auto sulla sua traiettoria.
+	_place_row(row, _car.position.z - 24.0, ObstacleRow.Formation.MOVING, 0.0, 903)
+	mover = row.obstacles[0] as Obstacle
+	_car.position.x = clampf(mover.position.x, -_car.lateral_limit, _car.lateral_limit)
+	_car.lateral_target = _car.position.x
+	var car_half := _obstacle_manager._car_half_extents()
+	_car.position.z = mover.position.z + mover.half_extents.z + car_half.y + 2.0
+	_obstacle_manager.step(0.0)
+
+	var hits_before := _obstacle_manager.hit_count
+	var level_before := _game_manager.evolution_level
+	var penetration := false
+	var guard := 0
+	# L'auto segue il blocco (caso peggiore): il primo contatto deve arrivare.
+	while _obstacle_manager.hit_count == hits_before and guard < 400:
+		_car.position.x = clampf(mover.position.x, -_car.lateral_limit, _car.lateral_limit)
+		_car.lateral_target = _car.position.x
+		_drive_step(OBSTACLE_TEST_DT)
+		if mover.is_collidable() and _car_touches_rect(mover.collision_rect()):
+			penetration = true
+		guard += 1
+
+	_check(guard < 400, "blocco mobile: il contatto viene rilevato")
+	_check(not penetration, "blocco mobile: l'auto non attraversa mai il solido")
+	_check(
+		_game_manager.evolution_level == level_before - GameConfig.OBSTACLE_MOVING_EVOLUTION_STEP,
+		"blocco mobile: si perde esattamente un livello di evoluzione (%d -> %d)"
+		% [level_before, _game_manager.evolution_level],
+	)
+	_check(
+		_obstacle_manager.last_penalty_kind == GameConfig.OBSTACLE_PENALTY_EVOLUTION,
+		"blocco mobile: il canale di penalità è l'evoluzione",
+	)
+	_check(
+		_obstacle_manager.last_evolution_delta == -GameConfig.OBSTACLE_MOVING_EVOLUTION_STEP,
+		"blocco mobile: la regressione applicata è riportata",
+	)
+	_check(
+		not _car.is_speed_penalized(),
+		"blocco mobile: la velocità NON viene penalizzata (mai entrambe)",
+	)
+	_check(mover.state == Obstacle.State.ACTIVE, "blocco mobile: resta attivo dopo il primo urto")
+	_check(mover.penalty_applied, "blocco mobile: la penalità è applicata una sola volta")
+
+	# Contatto prolungato: la cooldown evita penalità ripetute; dopo
+	# OBSTACLE_MOVING_BREAK_HITS contatti il blocco viene abbattuto.
+	guard = 0
+	while mover.state == Obstacle.State.ACTIVE and guard < 900:
+		_car.position.x = clampf(mover.position.x, -_car.lateral_limit, _car.lateral_limit)
+		_car.lateral_target = _car.position.x
+		_drive_step(OBSTACLE_TEST_DT)
+		if mover.is_collidable() and _car_touches_rect(mover.collision_rect()):
+			penetration = true
+		guard += 1
+	_check(guard < 900, "blocco mobile: viene abbattuto in tempo finito (nessun blocco)")
+	_check(mover.state == Obstacle.State.BROKEN, "blocco mobile: si abbatte dopo più contatti")
+	_check(
+		_game_manager.evolution_level == level_before - GameConfig.OBSTACLE_MOVING_EVOLUTION_STEP,
+		"blocco mobile: nessun livello perso oltre il primo (penalità singola)",
+	)
+	_check(not penetration, "blocco mobile: nessuna compenetrazione per tutta la spinta")
+
+	# L'auto riparte e supera i detriti.
+	guard = 0
+	while _car.position.z > mover.position.z - 5.0 and guard < 400:
+		_drive_step(OBSTACLE_TEST_DT)
+		guard += 1
+	_check(guard < 400, "blocco mobile: l'auto riprende la corsa dopo l'abbattimento")
+	_check(not _car.is_speed_penalized(), "blocco mobile: la velocità resta intatta")
+
+
+func _test_obstacle_wall_precision() -> void:
+	_prepare_manual_driving()
+	_force_evolution(2)
+	_clear_car_penalty()
+
+	var row: ObstacleRow = _obstacle_manager.rows[0]
+	_park_other_rows(row, 600.0)
+	var bounds := _road_bounds()
+
+	# Passaggio di precisione a difficoltà massima: varco minimo, zero urti.
+	_place_row(row, _car.position.z - 32.0, ObstacleRow.Formation.NARROW, 1.0, 904)
+	_obstacle_manager.step(0.0)
+	var gap := row.widest_gap(bounds.x, bounds.y)
+	_check(
+		gap.y - gap.x >= GameConfig.OBSTACLE_GAP_MIN - 0.001,
+		"restringimento: il varco a difficoltà massima resta >= %.2f m (%.2f)"
+		% [GameConfig.OBSTACLE_GAP_MIN, gap.y - gap.x],
+	)
+	var hits_before := _obstacle_manager.hit_count
+	_car.position.x = (gap.x + gap.y) * 0.5
+	_car.lateral_target = _car.position.x
+	_car.position.z = row.z + 8.0
+	_obstacle_manager.step(0.0)
+	var guard := 0
+	while _car.position.z > row.z - 6.0 and guard < 600:
+		_car.position.x = (gap.x + gap.y) * 0.5
+		_car.lateral_target = _car.position.x
+		_drive_step(OBSTACLE_TEST_DT)
+		guard += 1
+	_check(guard < 600, "restringimento: attraversamento completato")
+	_check(
+		_obstacle_manager.hit_count == hits_before,
+		"restringimento: il varco si attraversa senza urti con guida precisa",
+	)
+	var intact := true
+	for piece in row.obstacles:
+		var obstacle := piece as Obstacle
+		if obstacle != null and obstacle.state != Obstacle.State.ACTIVE:
+			intact = false
+	_check(intact, "restringimento: i muri restano intatti dopo un passaggio pulito")
+
+	# Urto volontario contro un muro: penalità di velocità, mai evoluzione.
+	_place_row(row, _car.position.z - 26.0, ObstacleRow.Formation.NARROW, 1.0, 905)
+	_obstacle_manager.step(0.0)
+	var wall := _piece_nearest_center(row)
+	_check(wall != null and wall.kind == Obstacle.Kind.NARROW_WALL, "muro generato per il test")
+	if wall == null:
+		return
+	_car.position.x = clampf(wall.position.x, -_car.lateral_limit, _car.lateral_limit)
+	_car.lateral_target = _car.position.x
+	hits_before = _obstacle_manager.hit_count
+	var level_before := _game_manager.evolution_level
+	var penetration := false
+	guard = 0
+	while _obstacle_manager.hit_count == hits_before and guard < 600:
+		_drive_step(OBSTACLE_TEST_DT)
+		if wall.is_collidable() and _car_touches_rect(wall.collision_rect()):
+			penetration = true
+		guard += 1
+	_check(guard < 600, "restringimento: l'urto col muro viene rilevato")
+	_check(not penetration, "restringimento: l'auto non attraversa il muro")
+	_check(wall.state == Obstacle.State.BROKEN, "restringimento: il muro si sfonda")
+	_check(_car.is_speed_penalized(), "restringimento: perdita di velocità temporanea")
+	_check(
+		absf(_car.speed_penalty_factor - GameConfig.OBSTACLE_WALL_SPEED_FACTOR) < 0.001,
+		"restringimento: fattore di penalità configurato",
+	)
+	_check(
+		_game_manager.evolution_level == level_before,
+		"restringimento: l'evoluzione NON cambia (mai entrambe le penalità)",
+	)
+	guard = 0
+	while _car.position.z > row.z - 6.0 and guard < 600:
+		_drive_step(OBSTACLE_TEST_DT)
+		guard += 1
+	_check(guard < 600, "restringimento: l'auto riprende la corsa dopo l'urto")
+
+
+func _test_obstacle_penalty_exclusivity() -> void:
+	var cases := [
+		{"formation": ObstacleRow.Formation.CONES, "label": "coni", "speed": true},
+		{"formation": ObstacleRow.Formation.BARRIER, "label": "barriera", "speed": true},
+		{"formation": ObstacleRow.Formation.NARROW, "label": "muro", "speed": true},
+		{"formation": ObstacleRow.Formation.MOVING, "label": "blocco mobile", "speed": false},
+	]
+	var index := 0
+	for case in cases:
+		index += 1
+		var label: String = case["label"]
+		var expects_speed: bool = bool(case["speed"])
+		_prepare_manual_driving()
+		_force_evolution(3)
+		_clear_car_penalty()
+
+		var row: ObstacleRow = _obstacle_manager.rows[0]
+		_park_other_rows(row, 600.0)
+		_place_row(row, _car.position.z - 26.0, int(case["formation"]), 0.5, 970 + index)
+		_obstacle_manager.step(0.0)
+
+		var target := _piece_nearest_center(row)
+		if target == null:
+			_check(false, "%s: pezzo bersaglio generato" % label)
+			continue
+		_car.position.x = clampf(target.position.x, -_car.lateral_limit, _car.lateral_limit)
+		_car.lateral_target = _car.position.x
+		_car.position.z = row.z + 8.0
+		_obstacle_manager.step(0.0)
+
+		var hits_before := _obstacle_manager.hit_count
+		var guard := 0
+		while _obstacle_manager.hit_count == hits_before and guard < 500:
+			if target.is_mover():
+				_car.position.x = clampf(target.position.x, -_car.lateral_limit, _car.lateral_limit)
+				_car.lateral_target = _car.position.x
+			_drive_step(OBSTACLE_TEST_DT)
+			guard += 1
+		_check(guard < 500, "%s: la collisione avviene" % label)
+
+		var got_speed := _car.is_speed_penalized()
+		var got_evolution := _game_manager.evolution_level != 3
+		_check(
+			got_speed != got_evolution,
+			"%s: esattamente UNA penalità (velocità XOR evoluzione)" % label,
+		)
+		_check(
+			got_speed == expects_speed,
+			"%s: il canale di penalità è quello configurato" % label,
+		)
+		_check(
+			_obstacle_manager.last_penalty_kind
+			== (GameConfig.OBSTACLE_PENALTY_SPEED if expects_speed
+				else GameConfig.OBSTACLE_PENALTY_EVOLUTION),
+			"%s: last_penalty_kind coerente" % label,
+		)
+		_clear_car_penalty()
+
+	_restore_driving()
+
+
+func _test_obstacle_feedback() -> void:
+	_prepare_manual_driving()
+	_force_evolution(2)
+	_clear_car_penalty()
+
+	var row: ObstacleRow = _obstacle_manager.rows[0]
+	_park_other_rows(row, 600.0)
+	_place_row(row, _car.position.z - 26.0, ObstacleRow.Formation.BARRIER, 0.0, 940)
+	_obstacle_manager.step(0.0)
+	var piece := _piece_nearest_center(row)
+	if piece == null:
+		_check(false, "feedback: barriera generata")
+		return
+	_car.position.x = clampf(piece.position.x, -_car.lateral_limit, _car.lateral_limit)
+	_car.lateral_target = _car.position.x
+	var car_half := _obstacle_manager._car_half_extents()
+	_car.position.z = piece.position.z + piece.half_extents.z + car_half.y + 3.0
+	_obstacle_manager.step(0.0)
+
+	var hits_before := _obstacle_manager.hit_count
+	var guard := 0
+	while _obstacle_manager.hit_count == hits_before and guard < 400:
+		_drive_step(OBSTACLE_TEST_DT)
+		guard += 1
+	_check(guard < 400, "feedback: collisione avvenuta")
+
+	# Feedback immediato: scuotimento auto, lampeggio e messaggio HUD, effetto 3D.
+	_check(_car.is_shaking(), "feedback: l'auto si scuote alla collisione")
+	_check(_hud != null and _hud.collision_flash_active(), "feedback: lampeggio rosso HUD attivo")
+	_check(
+		_hud != null and _hud._feedback_label.text.begins_with("URTO!"),
+		"feedback: l'HUD mostra il messaggio di urto",
+	)
+	_check(_obstacle_manager._effects.size() >= 1, "feedback: effetto 3D d'impatto generato")
+
+	# Tutto decade da solo e torna esattamente a riposo (avanzamento deterministico).
+	for _index in 45:
+		_car._update_visual_feedback(0.0, OBSTACLE_TEST_DT)
+		_obstacle_manager._advance_effects(OBSTACLE_TEST_DT)
+		_hud._process(OBSTACLE_TEST_DT)
+	_check(not _car.is_shaking(), "feedback: lo scuotimento termina da solo")
+	_check(
+		absf(_car.rotation.y) < 0.01 and absf(_car.rotation.z) < 0.01,
+		"feedback: a fine scuotimento l'auto torna a riposo",
+	)
+	_check(absf(_car.position.y) < 0.0001, "feedback: nessun residuo verticale")
+	_check(_obstacle_manager._effects.is_empty(), "feedback: gli effetti 3D si autodistruggono")
+	_check(not _hud.collision_flash_active(), "feedback: il lampeggio HUD si spegne")
+	var impact_nodes := 0
+	for child in _obstacle_manager.get_children():
+		if String(child.name) == "Impact":
+			impact_nodes += 1
+	_check(impact_nodes == 0, "feedback: nessun nodo effetto orfano")
+
+
+func _test_mover_timing_passable() -> void:
+	# I blocchi mobili a difficoltà massima sono sempre schivabili con il
+	# giusto tempo: il pilota automatico predittivo li supera senza urti.
+	_prepare_manual_driving()
+	_force_evolution(3)
+	_clear_car_penalty()
+	var row: ObstacleRow = _obstacle_manager.rows[0]
+	_park_other_rows(row, 600.0)
+	var hits_before := _obstacle_manager.hit_count
+	var clean_passes := 0
+	var violations := 0
+	for serial in range(960, 968):
+		_place_row(row, _car.position.z - 45.0, ObstacleRow.Formation.MOVING, 1.0, serial)
+		_obstacle_manager.step(0.0)
+		var mover: Obstacle = row.obstacles[0] as Obstacle
+		if mover == null:
+			violations += 1
+			continue
+		var guard := 0
+		var passed := false
+		while guard < 700:
+			guard += 1
+			var target_x := _autopilot_target_x()
+			var previous_x := _car.position.x
+			_car.lateral_target = target_x
+			_car.position.x = clampf(
+				move_toward(_car.position.x, target_x, _car.tuning.max_lateral_speed * OBSTACLE_TEST_DT),
+				-_car.lateral_limit,
+				_car.lateral_limit,
+			)
+			_drive_step(OBSTACLE_TEST_DT, (_car.position.x - previous_x) / OBSTACLE_TEST_DT)
+			if mover.is_collidable() and _car_touches_rect(mover.collision_rect()):
+				violations += 1
+			if _car.position.z < row.z - 8.0:
+				passed = true
+				break
+		if passed:
+			clean_passes += 1
+	_check(clean_passes == 8, "blocchi mobili: superati con il giusto tempo (%d/8)" % clean_passes)
+	_check(violations == 0, "blocchi mobili: mai compenetrazione durante le manovre")
+	_check(
+		_obstacle_manager.hit_count == hits_before,
+		"blocchi mobili: nessun urto con guida predittiva",
+	)
+	_restore_driving()
+
+
+func _test_obstacle_recycling() -> void:
+	_exit_free_placement_mode()
+	_park_gates_ahead(120.0)
+	_prepare_manual_driving()
+	_force_evolution(2)
+	_clear_car_penalty()
+	_car.position.x = 0.0
+	_car.lateral_target = 0.0
+	_car.rotation = Vector3.ZERO
+	_obstacle_manager.step(0.0)
+
+	var hits_before := _obstacle_manager.hit_count
+	var generated_before := _obstacle_manager.rows_generated
+	var difficulty_before := _obstacle_manager.current_difficulty()
+	var result := _run_autopilot(300.0, 4000)
+
+	_check(bool(result["completed"]), "riciclo: 300 m completati")
+	_check(not bool(result["layout"]), "riciclo: il layout resta legale durante la corsa")
+	_check(not bool(result["overlap"]), "riciclo: nessuna compenetrazione con i solidi")
+	_check(
+		_obstacle_manager.hit_count == hits_before,
+		"riciclo: zero collisioni con il pilota automatico",
+	)
+	_check(
+		_obstacle_manager.rows.size() == _gate_manager.rows.size(),
+		"riciclo: il numero di file resta allineato ai cancelli",
+	)
+	var anchored := true
+	for index in _obstacle_manager.rows.size():
+		var row: ObstacleRow = _obstacle_manager.rows[index]
+		var gate_row: GateRow = _gate_manager.rows[index]
+		if absf(row.z - (gate_row.z - GameConfig.OBSTACLE_CORRIDOR_OFFSET)) > 0.001:
+			anchored = false
+	_check(anchored, "riciclo: le file seguono i corridoi dei cancelli")
+	_check(
+		_obstacle_node_count() == _total_piece_count(),
+		"riciclo: nessun ostacolo orfano dopo le rigenerazioni",
+	)
+	_check(
+		_obstacle_manager.rows_generated >= generated_before + 4,
+		"riciclo: le file vengono rigenerate viaggiando (%d nuove)"
+		% (_obstacle_manager.rows_generated - generated_before),
+	)
+	_check(
+		_obstacle_manager.current_difficulty() >= difficulty_before,
+		"riciclo: la difficoltà non diminuisce mai",
+	)
+	var fresh := true
+	for row in _obstacle_manager.rows:
+		for piece in row.obstacles:
+			var obstacle := piece as Obstacle
+			if obstacle != null and obstacle.state != Obstacle.State.ACTIVE:
+				fresh = false
+	_check(fresh, "riciclo: le file rigenerate hanno ostacoli integri")
+
+
+func _test_obstacle_playability_run() -> void:
+	# La prova di giocabilità più ampia: 1500 m tra cancelli e ostacoli con
+	# difficoltà che sale da 0 a 1, guidati da un pilota automatico che sceglie
+	# il cancello positivo e il varco più largo (con previsione per i mobili).
+	_exit_free_placement_mode()
+	_prepare_manual_driving()
+	_force_evolution(GameConfig.EVOLUTION_START_LEVEL)
+	_clear_car_penalty()
+	_car.position.x = 0.0
+	_car.lateral_target = 0.0
+	_car.rotation = Vector3.ZERO
+	# Azzera le distanze: la difficoltà cresce durante la corsa.
+	_game_manager.distance = 0.0
+	_obstacle_manager._travel_distance = 0.0
+	_obstacle_manager.step(0.0)
+
+	var hits_before := _obstacle_manager.hit_count
+	var generated_before := _obstacle_manager.rows_generated
+	var result := _run_autopilot(1500.0, 16000)
+
+	_check(bool(result["completed"]), "giocabilità: la corsa da 1500 m si completa")
+	_check(
+		_obstacle_manager.hit_count == hits_before,
+		"giocabilità: ZERO collisioni in 1500 m tra cancelli e ostacoli",
+	)
+	_check(
+		not bool(result["overlap"]),
+		"giocabilità: l'auto non compenetra mai un ostacolo solido",
+	)
+	_check(
+		not bool(result["layout"]),
+		"giocabilità: distanze da cancelli e varchi restano legali per tutta la corsa",
+	)
+	_check(not bool(result["stall"]), "giocabilità: l'auto non resta mai bloccata")
+	_check(
+		float(result["min_gap"]) >= GameConfig.OBSTACLE_GAP_MIN - 0.001,
+		"giocabilità: nessun varco sotto il minimo (%.2f m)" % float(result["min_gap"]),
+	)
+	_check(
+		_game_manager.evolution_level == GameConfig.EVOLUTION_MAX_LEVEL,
+		"giocabilità: i cancelli positivi portano al livello massimo (logica intatta)",
+	)
+	_check(
+		_game_manager.evolution_level >= GameConfig.EVOLUTION_MIN_LEVEL
+		and _game_manager.evolution_level <= GameConfig.EVOLUTION_MAX_LEVEL,
+		"giocabilità: il livello resta sempre entro i limiti",
+	)
+	_check(
+		_obstacle_manager.current_difficulty() >= 0.99,
+		"giocabilità: la difficoltà raggiunge il massimo sulla distanza",
+	)
+	_check(
+		_obstacle_manager.rows_generated >= generated_before + 20,
+		"giocabilità: molte combinazioni generate e riciclate (%d)"
+		% (_obstacle_manager.rows_generated - generated_before),
+	)
+
+
+func _test_obstacle_high_difficulty_run() -> void:
+	# 600 m a difficoltà massima forzata: varchi minimi, blocchi mobili rapidi,
+	# restringimenti e barriere devono restare sempre superabili.
+	_prepare_manual_driving()
+	_force_evolution(4)
+	_clear_car_penalty()
+	_car.position.x = 0.0
+	_car.lateral_target = 0.0
+	_car.rotation = Vector3.ZERO
+	_obstacle_manager._travel_distance = 5000.0
+	# Salto in avanti (teletrasporto): rigenera cancelli e ostacoli a d=1.
+	_car.position.z -= 300.0
+	_gate_manager.step()
+	_obstacle_manager.step(0.0)
+
+	var difficulty_ok := true
+	for row in _obstacle_manager.rows:
+		if row.difficulty < 0.999:
+			difficulty_ok = false
+	_check(difficulty_ok, "difficoltà massima: tutte le file rigenerate a d=1")
+	_check(_obstacle_layout_valid(), "difficoltà massima: il layout resta legale")
+
+	var hits_before := _obstacle_manager.hit_count
+	var result := _run_autopilot(600.0, 8000)
+	_check(bool(result["completed"]), "difficoltà massima: 600 m completati")
+	_check(
+		_obstacle_manager.hit_count == hits_before,
+		"difficoltà massima: ZERO collisioni (partita sempre giocabile)",
+	)
+	_check(not bool(result["overlap"]), "difficoltà massima: nessuna compenetrazione")
+	_check(not bool(result["layout"]), "difficoltà massima: layout legale per tutta la corsa")
+	_check(
+		float(result["min_gap"]) >= GameConfig.OBSTACLE_GAP_MIN - 0.001,
+		"difficoltà massima: varchi >= minimo anche a d=1 (%.2f m)" % float(result["min_gap"]),
+	)
+	_check(
+		absf(_obstacle_manager.current_difficulty() - 1.0) < 0.0001,
+		"difficoltà massima: la difficoltà resta satura",
+	)
+	_restore_driving()
+
+
+# --------------------------------------------------- Helper: ostacoli --------
+
+## Modalità di posizionamento libero: le file non seguono più i cancelli
+## (serve a preparare scenari deterministici nei test di collisione).
+func _enter_free_placement_mode() -> void:
+	_obstacle_manager._gate_manager = null
+
+
+func _exit_free_placement_mode() -> void:
+	_obstacle_manager._gate_manager = _gate_manager
+
+
+## Sposta tutte le file di cancelli lontano davanti all'auto (come fa il
+## riciclo), così i test di collisione non attraversano mai un cancello.
+func _park_gates_ahead(distance_ahead: float) -> void:
+	var index := 0
+	for gate_row in _gate_manager.rows:
+		for gate in gate_row.gates:
+			var gate_node := gate as EvolutionGate
+			if gate_node == null:
+				continue
+			if gate_node == _gate_manager.last_crossed_gate:
+				_gate_manager.last_crossed_gate = null
+			_gate_manager.remove_child(gate_node)
+			gate_node.queue_free()
+		gate_row.gates = []
+		gate_row.z = _car.position.z - distance_ahead - index * GameConfig.GATE_ROW_SPACING
+		gate_row.passed = false
+		_gate_manager._fill_row(gate_row)
+		index += 1
+
+
+## Disattiva la fisica dell'auto: il test la muove a mano in modo deterministico.
+func _prepare_manual_driving() -> void:
+	_car.set_physics_process(false)
+	_car.speed_locked = false
+	_car.set_speed(_car.tuning.forward_speed * _car.evolution_speed_multiplier)
+	if _game_manager.state != GameManager.State.PLAYING:
+		_game_manager.start_game()
+	_car.position.y = 0.0
+
+
+func _restore_driving() -> void:
+	_car.set_physics_process(true)
+	_car.speed_locked = false
+	_car.set_speed(_car.tuning.forward_speed * _car.evolution_speed_multiplier)
+
+
+## Un passo di guida manuale: replica l'ordine dei frame reali
+## (auto -> cancelli -> ostacoli) senza aspettare frame veri.
+func _drive_step(dt: float, lateral_velocity: float = 0.0) -> void:
+	_car._update_speed_penalty(dt)
+	_car.position.z -= _car.current_speed * dt
+	_car._update_visual_feedback(lateral_velocity, dt)
+	_gate_manager.step()
+	_obstacle_manager.step(dt)
+
+
+func _place_row(row: ObstacleRow, z: float, formation: int, difficulty: float, serial: int) -> void:
+	row.z = z
+	_obstacle_manager.apply_formation(row, formation, difficulty, serial)
+
+
+func _park_other_rows(subject: ObstacleRow, ahead: float) -> void:
+	var extra := 0
+	for row in _obstacle_manager.rows:
+		if row == subject:
+			continue
+		extra += 1
+		_place_row(
+			row,
+			_car.position.z - ahead - extra * GameConfig.OBSTACLE_VIRTUAL_SPACING,
+			ObstacleRow.Formation.CONES,
+			0.0,
+			990 + extra,
+		)
+
+
+func _clear_car_penalty() -> void:
+	_car._penalty_time_left = 0.0
+	_car._penalty_factor = 1.0
+	_car.speed_penalty_factor = 1.0
+	_car._shake_time_left = 0.0
+	_car._shake_intensity = 0.0
+	_car.position.y = 0.0
+	_car._refresh_speed()
+
+
+func _road_bounds() -> Vector2:
+	var usable := GameConfig.TRACK_WIDTH * 0.5 - GameConfig.OBSTACLE_EDGE_MARGIN
+	return Vector2(-usable, usable)
+
+
+## Il pezzo collidibile più vicino al centro pista (bersaglio sempre raggiungibile).
+func _piece_nearest_center(row: ObstacleRow) -> Obstacle:
+	var best: Obstacle = null
+	for piece in row.obstacles:
+		var obstacle := piece as Obstacle
+		if obstacle == null or not obstacle.is_collidable():
+			continue
+		if best == null or absf(obstacle.position.x) < absf(best.position.x):
+			best = obstacle
+	return best
+
+
+## Pilota automatico: punta al centro del cancello positivo più vicino oppure,
+## se è più vicina una fila di ostacoli, al centro del suo varco più largo
+## (con previsione della posizione dei blocchi mobili all'arrivo dell'auto).
+## Mantiene la linea finché l'auto non è completamente oltre la fila (3 m):
+## così non allarga la traiettoria mentre la coda è ancora dentro il varco.
+func _autopilot_target_x() -> float:
+	var car_z := _car.position.z
+	var best_z := -INF
+	var best_x := _car.position.x
+	for gate_row in _gate_manager.rows:
+		if gate_row.passed or gate_row.z >= car_z + 3.0:
+			continue
+		if gate_row.z > best_z:
+			for gate in gate_row.gates:
+				var evolution_gate := gate as EvolutionGate
+				if evolution_gate != null and evolution_gate.value > 0 and not evolution_gate.consumed:
+					best_z = gate_row.z
+					best_x = (evolution_gate.span_start + evolution_gate.span_end) * 0.5
+	for row in _obstacle_manager.rows:
+		if row.z >= car_z + 3.0:
+			continue
+		if row.z > best_z:
+			best_z = row.z
+			best_x = _predicted_gap_center(row)
+	return clampf(best_x, -_car.lateral_limit, _car.lateral_limit)
+
+
+## Centro del varco più largo, prevedendo dove sarà il blocco mobile quando
+## l'auto arriva sulla fila (stessa formula del moto: ping-pong sulla fase).
+func _predicted_gap_center(row: ObstacleRow) -> float:
+	var bounds := _road_bounds()
+	var t_arrive := 0.2
+	if _car.current_speed > 0.5:
+		t_arrive += maxf((_car.position.z - row.z) / _car.current_speed, 0.0)
+	var occupied: Array = []
+	for piece in row.obstacles:
+		var obstacle := piece as Obstacle
+		if obstacle == null or not obstacle.is_collidable():
+			continue
+		var x := obstacle.position.x
+		if obstacle.is_mover():
+			x = obstacle.predicted_x(t_arrive)
+		occupied.append(Vector2(x - obstacle.half_extents.x, x + obstacle.half_extents.x))
+	occupied.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.x < b.x)
+
+	var best_start := bounds.x
+	var best_width := -1.0
+	var cursor := bounds.x
+	for span in occupied:
+		var interval: Vector2 = span
+		if interval.y <= cursor:
+			continue
+		if interval.x > cursor and interval.x - cursor > best_width:
+			best_width = interval.x - cursor
+			best_start = cursor
+		cursor = maxf(cursor, interval.y)
+	if bounds.y - cursor > best_width:
+		best_width = bounds.y - cursor
+		best_start = cursor
+	if best_width <= 0.0:
+		return 0.0
+	return best_start + best_width * 0.5
+
+
+func _car_touches_rect(rect: Rect2) -> bool:
+	var half := _obstacle_manager._car_half_extents()
+	var car_rect := Rect2(
+		Vector2(_car.position.x - half.x, _car.position.z - half.y),
+		Vector2(half.x * 2.0, half.y * 2.0),
+	)
+	return car_rect.intersects(rect)
+
+
+func _car_overlaps_solid_piece() -> bool:
+	for row in _obstacle_manager.rows:
+		for piece in row.obstacles:
+			var obstacle := piece as Obstacle
+			if obstacle != null and obstacle.solid and obstacle.is_collidable():
+				if _car_touches_rect(obstacle.collision_rect()):
+					return true
+	return false
+
+
+## Invarianti di fairness del layout, verificate anche durante le corse:
+## pezzi in carreggiata, varco minimo, distanza dai cancelli e tra le file,
+## blocchi mobili entro i limiti di velocità.
+func _obstacle_layout_valid() -> bool:
+	var bounds := _road_bounds()
+	var row_positions: Array[float] = []
+	for row in _obstacle_manager.rows:
+		if row.obstacles.is_empty():
+			return false
+		if row.difficulty < -0.001 or row.difficulty > 1.001:
+			return false
+		for piece in row.obstacles:
+			var obstacle := piece as Obstacle
+			if obstacle == null:
+				return false
+			if absf(obstacle.position.x) + obstacle.half_extents.x > bounds.y + 0.001:
+				return false
+			if absf(obstacle.position.z - row.z) > 0.001:
+				return false
+			if obstacle.is_mover():
+				if obstacle.move_speed > GameConfig.OBSTACLE_MOVING_SPEED_FAST + 0.001:
+					return false
+				if obstacle.move_speed < GameConfig.OBSTACLE_MOVING_SPEED_SLOW - 0.001:
+					return false
+		if row.widest_gap_width(bounds.x, bounds.y) < GameConfig.OBSTACLE_GAP_MIN - 0.001:
+			return false
+		for gate_row in _gate_manager.rows:
+			if absf(row.z - gate_row.z) < GameConfig.OBSTACLE_GATE_CLEARANCE - 0.001:
+				return false
+		row_positions.append(row.z)
+	row_positions.sort()
+	for index in range(1, row_positions.size()):
+		if row_positions[index] - row_positions[index - 1] < GameConfig.OBSTACLE_ROW_MIN_SPACING - 0.001:
+			return false
+	return true
+
+
+func _obstacle_node_count() -> int:
+	var count := 0
+	for child in _obstacle_manager.get_children():
+		if child is Obstacle:
+			count += 1
+	return count
+
+
+func _total_piece_count() -> int:
+	var count := 0
+	for row in _obstacle_manager.rows:
+		count += row.obstacles.size()
+	return count
+
+
+## Corsa con pilota automatico: restituisce diagnostiche (completamento,
+## compenetrazioni, violazioni di layout, stalli, varco minimo osservato).
+func _run_autopilot(target_distance: float, max_iterations: int) -> Dictionary:
+	var bounds := _road_bounds()
+	var start_z := _car.position.z
+	var last_window_z := start_z
+	var result := {
+		"completed": false,
+		"overlap": false,
+		"layout": false,
+		"stall": false,
+		"min_gap": INF,
+		"iterations": 0,
+	}
+	while start_z - _car.position.z < target_distance and int(result["iterations"]) < max_iterations:
+		result["iterations"] = int(result["iterations"]) + 1
+		var target_x := _autopilot_target_x()
+		var previous_x := _car.position.x
+		_car.lateral_target = target_x
+		_car.position.x = clampf(
+			move_toward(_car.position.x, target_x, _car.tuning.max_lateral_speed * OBSTACLE_TEST_DT),
+			-_car.lateral_limit,
+			_car.lateral_limit,
+		)
+		_drive_step(OBSTACLE_TEST_DT, (_car.position.x - previous_x) / OBSTACLE_TEST_DT)
+		if _car_overlaps_solid_piece():
+			result["overlap"] = true
+		if int(result["iterations"]) % 10 == 0:
+			for row in _obstacle_manager.rows:
+				result["min_gap"] = minf(
+					float(result["min_gap"]), row.widest_gap_width(bounds.x, bounds.y)
+				)
+		if int(result["iterations"]) % 300 == 0:
+			if not _obstacle_layout_valid():
+				result["layout"] = true
+			# Finestra di 5 s: l'auto deve sempre guadagnare strada.
+			if absf(_car.position.z - last_window_z) < 15.0:
+				result["stall"] = true
+			last_window_z = _car.position.z
+	result["completed"] = start_z - _car.position.z >= target_distance
+	return result
 
 
 # --------------------------------------------------------------- Helpers ---
