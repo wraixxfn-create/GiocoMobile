@@ -16,13 +16,11 @@ script = ExtResource("1")
 transform = Transform3D(0.882948, -0.349061, 0.313972, 0, 0.669131, 0.743145, -0.469472, -0.656158, 0.590808, 0, 12, 0)
 shadow_enabled = true
 
-[node name="InputManager" type="Node" parent="."]
+[node name="InputManager" type="Node" parent="." groups=["input_manager"]]
 script = ExtResource("3")
-groups=["input_manager"]
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." groups=["game_manager"]]
 script = ExtResource("2")
-groups=["game_manager"]
 
 [node name="TrackManager" type="Node3D" parent="."]
 script = ExtResource("4")
@@ -37,7 +35,6 @@ fov = 64.0
 near = 0.15
 far = 380.0
 
-[node name="Player" parent="." instance=ExtResource("5")]
-groups=["player"]
+[node name="Player" parent="." instance=ExtResource("5") groups=["player"]]
 
 [node name="HUD" parent="." instance=ExtResource("6")]

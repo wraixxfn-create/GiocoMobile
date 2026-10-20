@@ -13,10 +13,14 @@ const SEGMENT_LENGTH: float = 40.0
 const SEGMENT_COUNT: int = 10
 
 # -------------------------------------------------------------------- Car ---
-const CAR_BASE_SPEED: float = 14.0
-const CAR_LATERAL_SPEED: float = 11.5
-const CAR_DRAG_SENSITIVITY: float = 0.015
-const CAR_HALF_WIDTH_MARGIN: float = 1.05
+## Ingombro dell'auto (le ruote sono la parte più larga, la carrozzeria la più lunga).
+const CAR_HALF_WIDTH: float = 0.86
+const CAR_HALF_LENGTH: float = 1.73
+## Sterzata massima usata per il feedback visivo: entra nel calcolo dei bordi,
+## perché un'auto ruotata occupa più spazio lateralmente.
+const CAR_MAX_STEER_YAW: float = 0.16
+## Margine di sicurezza tra carrozzeria e bordo asfalto, in metri.
+const CAR_EDGE_MARGIN: float = 0.05
 
 # ----------------------------------------------------------------- Camera ---
 const CAMERA_HEIGHT: float = 6.2
@@ -24,7 +28,9 @@ const CAMERA_DISTANCE: float = 10.2
 const CAMERA_LOOK_AHEAD: float = 16.5
 const CAMERA_LOOK_HEIGHT: float = 1.15
 const CAMERA_FOV: float = 64.0
-const CAMERA_FOLLOW_SPEED: float = 7.5
+## 1.0 = la telecamera segue completamente l'auto: l'auto resta stabile al
+## centro dell'inquadratura ed è la pista a scorrere lateralmente.
+const CAMERA_LATERAL_FOLLOW: float = 1.0
 
 # --------------------------------------------------------- Cielo / Luce -----
 const COLOR_SKY_TOP := Color(0.24, 0.58, 0.95)
