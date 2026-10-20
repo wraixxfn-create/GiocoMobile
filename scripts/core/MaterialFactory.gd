@@ -114,6 +114,11 @@ static func emissive(
 	return _cache[material_key] as StandardMaterial3D
 
 
+## Spia di evoluzione spenta (livello non ancora raggiunto).
+static func pip_off() -> StandardMaterial3D:
+	return colored("pip_off", Color(0.24, 0.26, 0.30), 0.55, 0.15)
+
+
 static func headlight() -> StandardMaterial3D:
 	return emissive("headlight", GameConfig.COLOR_HEADLIGHT, 1.4)
 

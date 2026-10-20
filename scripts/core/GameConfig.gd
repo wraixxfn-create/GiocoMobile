@@ -22,6 +22,55 @@ const CAR_MAX_STEER_YAW: float = 0.16
 ## Margine di sicurezza tra carrozzeria e bordo asfalto, in metri.
 const CAR_EDGE_MARGIN: float = 0.05
 
+# ------------------------------------------------------------- Evoluzione ---
+## Livello di evoluzione dell'auto: unica fonte di verità per minimo e massimo.
+## Il valore corrente vive in GameManager.evolution_level e viene modificato
+## solo tramite GameManager.apply_evolution().
+const EVOLUTION_MIN_LEVEL: int = 0
+const EVOLUTION_MAX_LEVEL: int = 5
+const EVOLUTION_START_LEVEL: int = 1
+## Colore della carrozzeria per ogni livello (indice = livello).
+const EVOLUTION_COLORS: Array[Color] = [
+	Color(0.62, 0.60, 0.50),
+	Color(0.98, 0.80, 0.10),
+	Color(0.99, 0.60, 0.12),
+	Color(0.36, 0.86, 0.36),
+	Color(0.18, 0.78, 0.90),
+	Color(0.68, 0.40, 0.96),
+]
+
+# --------------------------------------------------------------- Cancelli ---
+## Distanza dall'auto della prima fila di cancelli all'avvio della corsa.
+## Deve restare ampia: il giocatore vede i cancelli e ha il tempo di sterzare.
+const GATE_FIRST_ROW_DISTANCE: float = 70.0
+## Distanza costante tra due file di cancelli (metri).
+const GATE_ROW_SPACING: float = 48.0
+## File di cancelli mantenute in gioco contemporaneamente.
+const GATE_ROW_COUNT: int = 3
+## Un cancello è considerato superato (e la fila può essere riciclata)
+## quando l'auto lo ha oltrepassato di questo margine, in metri.
+const GATE_PASSED_OFFSET: float = 26.0
+## Margine tra i cancelli e i cordoli: nessun palo finisce sopra il prato.
+const GATE_EDGE_MARGIN: float = 0.15
+## Larghezza minima di un cancello: entrambe le scelte restano percorribili.
+const GATE_MIN_WIDTH: float = 2.4
+## Altezza dell'arcata dei cancelli, in metri (leggibilità in lontananza).
+const GATE_HEIGHT: float = 2.75
+## Ampiezza della penalità applicata dai cancelli rossi.
+const GATE_NEGATIVE_STEP: int = 1
+## Posizione del punto di separazione tra i due cancelli di una fila, in metri
+## dal centro pista. Valori alternati: a volte la scelta comoda è a sinistra,
+## a volte a destra.
+const GATE_SPLIT_PATTERN: Array[float] = [-1.3, 0.0, 1.3, 0.7, -0.7]
+## Valori dei cancelli positivi (i più grandi sono blu, i piccoli verdi).
+const GATE_POSITIVE_PATTERN: Array[int] = [1, 2, 1, 2, 1]
+
+const COLOR_GATE_POSITIVE := Color(0.18, 0.86, 0.45)
+const COLOR_GATE_POSITIVE_STRONG := Color(0.20, 0.60, 0.98)
+const COLOR_GATE_NEGATIVE := Color(0.94, 0.24, 0.27)
+const COLOR_GATE_FRAME := Color(0.97, 0.98, 1.0)
+const COLOR_GATE_OFF := Color(0.42, 0.44, 0.48)
+
 # ----------------------------------------------------------------- Camera ---
 const CAMERA_HEIGHT: float = 6.2
 const CAMERA_DISTANCE: float = 10.2

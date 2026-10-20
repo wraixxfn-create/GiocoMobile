@@ -1,9 +1,14 @@
-# Car Evolve 3D — Blockout 3D giocabile (Fase 1)
+# Car Evolve 3D — Cancelli di evoluzione (Fase 2)
 
 Giochino mobile 3D hyper-casual in **Godot 4.3+**, ispirato al genere di
 Car Evolve. Ambiente 3D giocabile con pista, bordi laterali rialzati, terreno
 verde, cielo con prospettiva verso l'orizzonte, illuminazione con ombre leggere
 e auto stilizzata gialla e nera costruita con mesh semplici.
+
+In questa fase è giocabile la meccanica principale: **coppie di cancelli**
+che evolvono o fanno regredire l'auto. Il giocatore sceglie quale attraversare
+sterzando, e il livello di evoluzione (`evolution_level`) cambia con limiti
+minimo e massimo.
 
 ## Requisiti
 
@@ -19,6 +24,48 @@ godot --headless --path . --import    # importa/valida le risorse da CLI
 ```
 
 La scena principale è `scenes/Main.tscn` (già impostata in `project.godot`).
+
+## Cancelli ed evoluzione
+
+- Ogni fila è una **coppia di cancelli affiancati** che si dividono la
+  carreggiata: uno positivo (verde `+1`, blu `+2`) e uno rosso negativo (`-1`).
+- Il punto di separazione cambia a ogni fila, quindi a volte conviene sterzare
+  a sinistra e a volte a destra: entrambe le opzioni sono sempre raggiungibili
+  entro i limiti laterali dell'asfalto.
+- Il valore è scritto sopra ogni arcata (`+2`, `-1`, ...) ed è leggibile da
+  lontano: la prima fila nasce a 70 m, le successive ogni 48 m.
+- L'attraversamento è rilevato in 3D: si calcola dove il segmento percorso
+  dall'auto interseca il piano verticale del cancello e si verifica che la X
+  di intersezione cada dentro il varco. Funziona anche con passi grandi,
+  movimento diagonale in un solo frame e ovviamente a qualsiasi frame rate.
+- L'effetto viene applicato **una sola volta**: il cancello e il suo compagno
+  di fila si spengono subito dopo l'attraversamento e non possono riattivarsi.
+- Il livello è centralizzato in `GameManager.evolution_level` e si modifica
+  solo con `GameManager.apply_evolution()`: i limiti sono
+  `GameConfig.EVOLUTION_MIN_LEVEL` (0) e `EVOLUTION_MAX_LEVEL` (5), l'avvio è
+  a 1. L'HUD mostra `EVOLUZIONE n/5` e un messaggio di feedback.
+- L'auto reagisce al livello cambiando colore della carrozzeria e accendendo
+  una barra di cinque spie sul tetto. Funziona con il modello blockout attuale
+  (`CarModel.apply_evolution_level()`): quando arriveranno i modelli definitivi
+  basterà mantenere quella chiamata.
+
+### Taratura dei cancelli (`scripts/core/GameConfig.gd`)
+
+| Costante | Default | Effetto |
+| --- | --- | --- |
+| `GATE_FIRST_ROW_DISTANCE` | 70 m | Distanza della prima fila dall'avvio |
+| `GATE_ROW_SPACING` | 48 m | Distanza tra due file consecutive |
+| `GATE_ROW_COUNT` | 3 | File mantenute in gioco (riciclate in fondo) |
+| `GATE_PASSED_OFFSET` | 26 m | Quando una fila superata torna davanti |
+| `GATE_MIN_WIDTH` | 2.4 m | Larghezza minima di un varco (passaggio sempre possibile) |
+| `GATE_HEIGHT` | 2.75 m | Altezza dell'arcata, per la visibilità da lontano |
+| `GATE_SPLIT_PATTERN` | `[-1.3, 0, 1.3, 0.7, -0.7]` | Posizione della separazione tra i due cancelli |
+| `GATE_POSITIVE_PATTERN` | `[1, 2, 1, 2, 1]` | Valori dei cancelli positivi (2 = blu) |
+| `EVOLUTION_MIN_LEVEL` / `MAX_LEVEL` | 0 / 5 | Limiti del livello di evoluzione |
+
+I cancelli non sono figli dei segmenti di pista (che vengono riciclati sotto
+l'auto): sono nodi in coordinate mondo gestiti da `GateManager`, così restano
+fermi rispetto alla strada e non si sovrappongono mai.
 
 ## Controlli
 
@@ -78,7 +125,7 @@ scripts/
     GameRoot.gd          # bootstrap: cielo procedurale, luce/ombre, camera prospettica
     MaterialFactory.gd   # materiali low-poly condivisi e cachiati
   gameplay/
-    GameManager.gd       # stato di gioco (IDLE/PLAYING/FINISHED), distanza e punteggio
+    GameManager.gd       # stato di gioco, punteggio e evolution_level centralizzato
   input/
     InputManager.gd      # input laterale unificato (touch, mouse, tastiera)
   player/
@@ -87,11 +134,14 @@ scripts/
   track/
     TrackManager.gd      # generazione e riciclo segmenti verso l'orizzonte
     TrackSegment.gd      # segmento con pista grigia, cordoli laterali, prato e decorazioni
+    GateManager.gd       # file di cancelli: spawn, rilevamento 3D, effetti, riciclo
+    GateRow.gd           # coppia di cancelli su un piano (struttura dati)
+    EvolutionGate.gd     # un cancello: geometria, colore, valore e spegnimento
   ui/
-    HUD.gd               # etichette distanza/monete e indicazioni di gioco
+    HUD.gd               # distanza, monete, livello di evoluzione e feedback cancelli
 tests/
   TestRunner.tscn        # test headless di integrazione dei controlli
-  TestRunner.gd          # touch/mouse simulati, bordi, camera, pista, FPS
+  TestRunner.gd          # touch/mouse, bordi, camera, pista, FPS, cancelli, evoluzione
 ```
 
 ## Test
@@ -106,11 +156,18 @@ avvia la partita e verifica: avanzamento automatico, drag touch e mouse,
 mantenimento della posizione al rilascio, precedenza del touch sul mouse
 emulato, bordi destro/sinistro (anche con drag violenti), auto centrata
 nell'inquadratura, riciclo contiguo dei segmenti e indipendenza dagli FPS
-(30/60/120 Hz simulati). Esce con codice 0 se tutte le verifiche passano.
+(30/60/120 Hz simulati).
+
+Per la fase 2 verifica inoltre: coppie di cancelli affiancati senza
+sovrapposizioni, entrambe le opzioni raggiungibili, valori e colori coerenti,
+distanza di visibilità della prima fila, attraversamento positivo/negativo,
+applicazione dell'effetto una sola volta (anche con passi 3D grandi e
+diagonali), limiti min/max di `evolution_level`, spegnimento della coppia,
+riciclo delle file senza cancelli orfani e aggiornamento visivo dell'auto.
+Esce con codice 0 se tutte le verifiche passano.
 
 ## Roadmap (fasi successive, non ancora implementate)
 
-- Fase 2: cancelli bonus/penalità, ostacoli, monete raccoglibili
-- Fase 3: evoluzioni dell'auto (aspetto e statistiche)
+- Fase 3: ostacoli, monete raccoglibili, modelli definitivi delle evoluzioni
 - Fase 4: traguardo, fine partita, schermata di riepilogo
 - Fase 5: audio, salvataggio locale del punteggio, export Android/iOS
