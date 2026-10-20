@@ -75,7 +75,7 @@ static func _add_wheels(car: Node3D) -> Array[Node3D]:
 	wheel_mesh.bottom_radius = WHEEL_RADIUS
 	wheel_mesh.height = WHEEL_WIDTH
 
-	var positions := [
+	var positions: Array[Vector3] = [
 		Vector3(-WHEEL_BASE_X, WHEEL_RADIUS, -WHEEL_BASE_Z),
 		Vector3(WHEEL_BASE_X, WHEEL_RADIUS, -WHEEL_BASE_Z),
 		Vector3(-WHEEL_BASE_X, WHEEL_RADIUS, WHEEL_BASE_Z),

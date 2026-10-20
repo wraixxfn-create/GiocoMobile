@@ -39,11 +39,11 @@ func _physics_process(delta: float) -> void:
 		drag_delta = _input_manager.consume_lateral_delta()
 	var keyboard_axis := Input.get_axis(&"ui_left", &"ui_right")
 	var delta_x := drag_delta * drag_sensitivity + keyboard_axis * lateral_speed * delta
-	position.x = clamp(position.x + delta_x, -lateral_limit, lateral_limit)
+	position.x = clampf(position.x + delta_x, -lateral_limit, lateral_limit)
 
 	# Inclinazione di guida per feedback visivo.
-	var target_tilt := clamp(-delta_x * 0.06, -0.22, 0.22)
-	rotation.z = lerp(rotation.z, target_tilt, 0.15)
+	var target_tilt := clampf(-delta_x * 0.06, -0.22, 0.22)
+	rotation.z = lerpf(rotation.z, target_tilt, 0.15)
 
 	# Rotazione delle ruote.
 	for wheel in _wheels:

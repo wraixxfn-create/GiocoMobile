@@ -33,7 +33,8 @@ func _add_ground() -> void:
 	# Prato alternato a due tonalità per dare senso di velocità.
 	var grass_mesh := BoxMesh.new()
 	grass_mesh.size = Vector3(16.0, 0.08, GameConfig.SEGMENT_LENGTH)
-	for side in [-1.0, 1.0]:
+	var sides: Array[float] = [-1.0, 1.0]
+	for side in sides:
 		var grass := MeshInstance3D.new()
 		grass.mesh = grass_mesh
 		grass.position = Vector3(
@@ -57,7 +58,8 @@ func _add_road() -> void:
 	# Bordi stradali gialli.
 	var edge_mesh := BoxMesh.new()
 	edge_mesh.size = Vector3(0.18, 0.04, GameConfig.SEGMENT_LENGTH)
-	for side in [-1.0, 1.0]:
+	var sides: Array[float] = [-1.0, 1.0]
+	for side in sides:
 		var edge := MeshInstance3D.new()
 		edge.mesh = edge_mesh
 		edge.position = Vector3(side * (GameConfig.TRACK_WIDTH / 2.0 - 0.35), 0.01, 0.0)
@@ -69,7 +71,7 @@ func _add_lane_lines() -> void:
 	# Linee tratteggiate tra le tre corsie.
 	var dash_mesh := BoxMesh.new()
 	dash_mesh.size = Vector3(0.14, 0.04, 2.2)
-	var divider_positions := [
+	var divider_positions: Array[float] = [
 		-GameConfig.TRACK_WIDTH / 6.0,
 		GameConfig.TRACK_WIDTH / 6.0,
 	]
@@ -89,7 +91,7 @@ func _add_lane_lines() -> void:
 func _add_decorations(rng: RandomNumberGenerator) -> void:
 	var tree_count := rng.randi_range(3, 6)
 	for _i in tree_count:
-		var side := 1.0 if rng.randf() > 0.5 else -1.0
+		var side: float = 1.0 if rng.randf() > 0.5 else -1.0
 		var tree := _make_tree(rng)
 		tree.position = Vector3(
 			side * (GameConfig.TRACK_WIDTH / 2.0 + rng.randf_range(2.0, 9.0)),
@@ -100,7 +102,7 @@ func _add_decorations(rng: RandomNumberGenerator) -> void:
 
 	var rock_count := rng.randi_range(0, 2)
 	for _i in rock_count:
-		var side := 1.0 if rng.randf() > 0.5 else -1.0
+		var side: float = 1.0 if rng.randf() > 0.5 else -1.0
 		var rock := _make_rock(rng)
 		rock.position = Vector3(
 			side * (GameConfig.TRACK_WIDTH / 2.0 + rng.randf_range(1.5, 8.0)),
