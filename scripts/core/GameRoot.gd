@@ -26,6 +26,8 @@ func _ready() -> void:
 	_game_manager.state_changed.connect(_hud.set_state)
 	_game_manager.evolution_changed.connect(_hud.set_evolution)
 	_gate_manager.gate_crossed.connect(_hud.show_gate_feedback)
+	# L'aspetto dell'auto segue il livello: il CarController aggiorna da sé il
+	# proprio direttore (nodo CarVisual) quando GameManager emette il cambio.
 
 	var input_manager := get_tree().get_first_node_in_group(&"input_manager") as InputManager
 	if input_manager != null:
@@ -33,7 +35,11 @@ func _ready() -> void:
 
 	_hud.set_distance(0)
 	_hud.set_coins(0)
-	_hud.set_evolution(_game_manager.evolution_level, 0)
+	_hud.set_evolution(
+		_game_manager.evolution_level,
+		0,
+		_game_manager.evolution_profile(),
+	)
 
 
 func _process(_delta: float) -> void:

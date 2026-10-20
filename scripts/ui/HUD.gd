@@ -1,36 +1,58 @@
 class_name HUD
 extends CanvasLayer
-## Interfaccia minimale: distanza, monete, livello di evoluzione e feedback
-## dei cancelli (messaggio temporaneo che sfuma).
+## Interfaccia minimale: distanza, monete, livello di evoluzione (con nome e
+## statistiche dello stadio) e feedback dei cancelli (messaggio che sfuma).
+## Il cambio di stadio mostra anche un banner che "salta" al centro dello
+## schermo: è solo grafico, non intercetta mai l'input del giocatore.
 ## TODO(fase 3): pannello evoluzioni, pause e schermata di fine partita.
 
 ## Durata del messaggio mostrato dopo l'attraversamento di un cancello.
 const FEEDBACK_DURATION: float = 1.4
 const FEEDBACK_FADE: float = 0.5
+## Durata dell'animazione del nome dello stadio.
+const STAGE_POP_DURATION: float = 0.6
+const STAGE_POP_SCALE: float = 0.35
 
 var _distance_label: Label
 var _coins_label: Label
 var _evolution_label: Label
+var _stage_label: Label
+var _stats_label: Label
 var _hint_label: Label
 var _feedback_label: Label
 var _feedback_time: float = 0.0
+var _stage_pop_time: float = 0.0
 
 
 func _ready() -> void:
 	_distance_label = _create_label(Vector2(18.0, 18.0), 30)
 	_coins_label = _create_label(Vector2(18.0, 58.0), 30)
 	_evolution_label = _create_label(Vector2(18.0, 98.0), 29)
+
+	_stage_label = _create_label(Vector2(0.0, 168.0), 34)
+	_stage_label.size = Vector2(540.0, 46.0)
+	_stage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_stage_label.pivot_offset = Vector2(270.0, 23.0)
+
+	_stats_label = _create_label(Vector2(0.0, 214.0), 20)
+	_stats_label.size = Vector2(540.0, 30.0)
+	_stats_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+
 	_hint_label = _create_label(Vector2(0.0, 900.0), 22)
 	_hint_label.size = Vector2(540.0, 44.0)
 	_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
-	_feedback_label = _create_label(Vector2(0.0, 250.0), 42)
+	_feedback_label = _create_label(Vector2(0.0, 290.0), 42)
 	_feedback_label.size = Vector2(540.0, 60.0)
 	_feedback_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_feedback_label.visible = false
 
 	set_state(GameManager.State.IDLE)
-	set_evolution(GameConfig.EVOLUTION_START_LEVEL, 0)
+	set_evolution(
+		GameConfig.EVOLUTION_START_LEVEL,
+		0,
+		CarEvolutionCatalog.profile_for(GameConfig.EVOLUTION_START_LEVEL),
+	)
 
 
 func set_distance(meters: int) -> void:
@@ -41,10 +63,20 @@ func set_coins(amount: int) -> void:
 	_coins_label.text = "MONETE %d" % amount
 
 
-## Mostra il livello corrente; `delta` è la variazione appena applicata.
-func set_evolution(level: int, _delta: int) -> void:
+## Mostra il livello corrente; `delta` è la variazione appena applicata e
+## `profile` lo stadio (nome e statistiche). Con `delta != 0` il nome dello
+## stadio fa un "pop" al centro dello schermo.
+func set_evolution(level: int, delta: int, profile: CarEvolutionProfile = null) -> void:
 	_evolution_label.text = "EVOLUZIONE %d/%d" % [level, GameConfig.EVOLUTION_MAX_LEVEL]
 	_evolution_label.modulate = Color.WHITE.lerp(_level_color(level), 0.55)
+
+	if profile == null:
+		return
+	_stage_label.text = profile.stage_name
+	_stage_label.label_settings.font_color = profile.body_color.lightened(0.35)
+	_stats_label.text = profile.stats_text()
+	if delta != 0:
+		_stage_pop_time = STAGE_POP_DURATION
 
 
 func set_state(state: GameManager.State) -> void:
@@ -84,13 +116,22 @@ func show_gate_feedback(requested_value: int, applied_delta: int, _level: int) -
 
 
 func _process(delta: float) -> void:
-	if _feedback_time <= 0.0:
-		return
-	_feedback_time = maxf(_feedback_time - delta, 0.0)
-	if _feedback_time <= FEEDBACK_FADE:
-		_feedback_label.modulate.a = _feedback_time / FEEDBACK_FADE
-	if _feedback_time <= 0.0:
-		_feedback_label.visible = false
+	if _feedback_time > 0.0:
+		_feedback_time = maxf(_feedback_time - delta, 0.0)
+		if _feedback_time <= FEEDBACK_FADE:
+			_feedback_label.modulate.a = _feedback_time / FEEDBACK_FADE
+		if _feedback_time <= 0.0:
+			_feedback_label.visible = false
+
+	if _stage_pop_time > 0.0:
+		_stage_pop_time = maxf(_stage_pop_time - delta, 0.0)
+		var progress := 1.0 - (_stage_pop_time / STAGE_POP_DURATION)
+		var scale_value := 1.0 + STAGE_POP_SCALE * (1.0 - progress)
+		_stage_label.scale = Vector2(scale_value, scale_value)
+		if _stage_pop_time <= 0.0:
+			_stage_label.scale = Vector2.ONE
+	elif _stage_label.scale != Vector2.ONE:
+		_stage_label.scale = Vector2.ONE
 
 
 func _level_color(level: int) -> Color:
