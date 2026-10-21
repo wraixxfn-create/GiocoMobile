@@ -21,6 +21,13 @@ ENV sky=true ambient_src=3 amb_energy=0.30 fog=true ssao=false glow=false tonema
 TRACK segments=10
 STAGE root=Stage_1:<Node3D#98314489505> children=5
 CAR_MESHES=83 empty=0 tris=17792
+--- MESH INTERNALS ---
+  World/GroundField/Terrain visible=true layers=1 surf=1 format=34359742479 verts=8060 idx=47232 first_idx=[0, 1, 65, 1, 66, 65]
+    v0=(-160, 6.035791, 120) v1=(-150, 5.273809, 120) v2=(-134, 4.100825, 120)
+  TrackManager/Segment_0/Asphalt visible=true layers=1 surf=1 format=34359742487 verts=218 idx=624 first_idx=[0, 1, 10, 1, 11, 10]
+    v0=(-3.9, 0, 20) v1=(-3.033333, 0, 20) v2=(-2.166667, 0, 20)
+  TrackManager/Segment_0/Paint visible=true layers=1 surf=1 format=34359742495 verts=864 idx=1296 first_idx=[0, 1, 2, 0, 2, 3]
+    v0=(-4.38, 0.19, 20) v1=(-3.9, 0.19, 20) v2=(-3.9, 0.19, -20)
 --- SURFACES NEAR START ---
   /root/InspectScene/GameRoot/World/GroundField/Terrain y=-3.851..7.292 x=-160.0..160.0 z=-1233..120 surf=1 mat=col spec=2
   /root/InspectScene/GameRoot/World/Backdrop/RidgeNear y=-13.348..3.169 x=-88.4..91.8 z=-228..-153 surf=1 mat=col spec=0
