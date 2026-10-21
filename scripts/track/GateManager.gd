@@ -57,11 +57,32 @@ func step(_delta: float = 0.0) -> void:
 	var previous_position := _previous_car_position
 	_previous_car_position = current_position
 
-	# I cancelli si attivano solo a partita iniziata (in IDLE l'auto è ferma).
-	if _game_manager != null and _game_manager.state == GameManager.State.PLAYING:
-		_detect_crossings(previous_position, current_position)
+	# Durante menu, countdown, pausa o riepilogo non si applicano effetti e non
+	# si riciclano file: la geometria del risultato resta immutata.
+	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
+		return
 
+	_detect_crossings(previous_position, current_position)
 	_recycle_rows(current_position.z)
+
+
+## Ricrea le file all'inizio della pista e azzera la sequenza dei cancelli.
+func reset_run() -> void:
+	for gate_row in rows:
+		for gate in gate_row.gates:
+			var gate_node := gate as EvolutionGate
+			if gate_node == null:
+				continue
+			if gate_node.get_parent() == self:
+				remove_child(gate_node)
+			gate_node.queue_free()
+	rows.clear()
+	_pattern_index = 0
+	last_crossed_gate = null
+	last_requested_value = 0
+	last_applied_delta = 0
+	_previous_car_position = _player.global_position if _player != null else Vector3.ZERO
+	_spawn_initial_rows()
 
 
 # --------------------------------------------------------------- Detection ---
@@ -89,6 +110,8 @@ func _detect_crossings(previous_position: Vector3, current_position: Vector3) ->
 
 
 func _trigger_row(gate_row: GateRow, gate: EvolutionGate) -> void:
+	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
+		return
 	# La fila è chiusa subito: nessuna seconda attivazione, né in questa
 	# riga né in un frame successivo.
 	gate_row.passed = true

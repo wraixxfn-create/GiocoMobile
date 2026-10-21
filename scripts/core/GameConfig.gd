@@ -70,6 +70,12 @@ const EVOLUTION_HANDLING_MULTIPLIERS: Array[float] = [
 ## Durata dell'animazione di trasformazione, in secondi.
 const EVOLUTION_TRANSFORM_DURATION: float = 0.55
 
+# ------------------------------------------------------ Ciclo di gioco -----
+## Traguardo della corsa (metri). A velocità standard equivale a circa un minuto.
+const RUN_DISTANCE_METERS: float = 800.0
+## Conteggio iniziale breve (3, 2, 1), espresso in secondi.
+const COUNTDOWN_DURATION: float = 2.4
+
 # ---------------------------------------------------- Monete e punteggio ---
 ## Unica posizione del salvataggio locale (ConfigFile, cartella user:// di Godot).
 const COIN_SAVE_PATH: String = "user://giocomobile_save.cfg"

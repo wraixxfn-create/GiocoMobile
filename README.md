@@ -233,16 +233,42 @@ I valori predefiniti sono 10 punti per metro, 250 per ogni livello massimo
 dell'auto raggiunto e 50 per moneta. Spawn, spaziatura, corsie, raggio di
 raccolta, valore delle monete, animazione e pesi del punteggio si configurano
 nella sezione **Monete e punteggio** di `scripts/core/GameConfig.gd`. Non è
-presente un negozio. Il traguardo/condizione automatica di fine corsa resta
-separato da questa meccanica.
+presente un negozio: traguardo e ricompense raccolte sono gestiti dal ciclo di
+partita descritto qui sotto.
+
+## Ciclo completo della partita
+
+La scena principale parte da un menu verticale con titolo, saldo permanente e
+pulsante touch **GIOCA**. Il menu non avvia la corsa toccando lo sfondo. Dopo
+GIOCA compare un conto alla rovescia di circa 2,4 secondi (3, 2, 1), poi l'auto
+parte automaticamente. Il traguardo è fissato a **800 m** (`RUN_DISTANCE_METERS`)
+e la progressione viene congelata al raggiungimento della distanza massima.
+
+La schermata finale distingue la vittoria dal game over e mostra punteggio,
+distanza, monete raccolte, livello finale dell'auto, picco evolutivo e saldo
+permanente. **RIGIOCA** ripristina auto, pista, cancelli, ostacoli, monete e dati
+di corsa; **MENU** riporta al menu. Il saldo permanente resta salvato tra replay
+e riavvii. Le collisioni previste dal progetto applicano penalità non letali;
+`GameManager.fail_run()` è disponibile come punto d'ingresso per una futura
+collisione fatale o condizione di sconfitta.
+
+Il pulsante **PAUSA** in alto a destra congela la scena e apre i controlli
+**RIPRENDI** e **MENU**. La UI continua a ricevere input mentre il mondo è
+fermato. La progressione e i pickup sono validi solo nello stato di corsa:
+una volta conclusa la partita non possono modificare il riepilogo o duplicare
+ricompense.
+
+Il flusso è gestito da stati espliciti in `GameManager` (`IDLE`, `COUNTDOWN`,
+`PLAYING`, `PAUSED`, `FINISHED`) e da un esito (`VICTORY` o `DEFEAT`), non da
+flag indipendenti.
 
 ## Controlli
 
-- **Smartphone**: trascina il dito a destra/sinistra per sterzare, senza
-  sollevarlo per mantenere il controllo continuo.
-- **Desktop (test)**: tasto sinistro del mouse trascinato; in alternativa
-  frecce ←/→ oppure tasti A/D.
-- Primo tocco/clic/tasto direzionale: avvia la corsa.
+- **Smartphone**: dal menu premi **GIOCA**, poi trascina il dito a
+destra/sinistra per sterzare. Premi **PAUSA** per fermarti e **RIPRENDI** per
+continuare.
+- **Desktop (test)**: premi **GIOCA**, trascina con il tasto sinistro del
+mouse oppure usa le frecce ←/→ o i tasti A/D. **Esc** mette in pausa e riprende.
 - Dopo l'avvio l'auto avanza sempre da sola lungo la pista. Quando il dito
   (o il mouse) viene rilasciato mantiene la posizione laterale raggiunta;
   nessuna inerzia residua e nessun ritorno al centro.
@@ -287,7 +313,7 @@ config/
 scenes/
   Main.tscn              # scena principale: cielo, sole con ombre, camera, sottosistemi
   Car.tscn               # auto del giocatore: CarController + nodo CarVisual (modello)
-  HUD.tscn               # interfaccia minimale (CanvasLayer)
+  HUD.tscn               # UI touch-first (CanvasLayer): menu, corsa e riepilogo finale
 scripts/
   core/
     GameConfig.gd        # dimensioni pista/auto, camera, palette colori
@@ -295,7 +321,7 @@ scripts/
     GameRoot.gd          # bootstrap: cielo procedurale, luce/ombre, camera prospettica
     MaterialFactory.gd   # materiali low-poly condivisi e cachiati
   gameplay/
-    GameManager.gd       # stato della corsa, punteggio finale e livelli evolutivi
+    GameManager.gd       # FSM: menu, countdown, corsa, pausa, esito e ricompense
     CoinWalletStore.gd   # saldo persistente con ConfigFile in user://
   input/
     InputManager.gd      # input laterale unificato (touch, mouse, tastiera)
@@ -321,8 +347,8 @@ scripts/
   ui/
     HUD.gd               # distanza, monete corsa/saldo, stadio e riepilogo finale
 tests/
-  TestRunner.tscn        # test headless di integrazione dei controlli
-  TestRunner.gd          # touch/mouse, bordi, camera, pista, FPS, cancelli, evoluzione, ostacoli
+  TestRunner.tscn        # test headless di integrazione
+  TestRunner.gd          # guida, cancelli, ostacoli, ricompense e ciclo menu-corsa-risultato
 ```
 
 ## Test
@@ -333,7 +359,7 @@ godot --headless --path . res://tests/TestRunner.tscn
 ```
 
 Il test simula `InputEventScreenTouch`/`InputEventScreenDrag` e gli eventi mouse,
-avvia la partita e verifica: avanzamento automatico, drag touch e mouse,
+verifica il menu GIOCA e il countdown, poi prova avanzamento automatico, drag touch e mouse,
 mantenimento della posizione al rilascio, precedenza del touch sul mouse
 emulato, bordi destro/sinistro (anche con drag violenti), auto centrata
 nell'inquadratura, riciclo contiguo dei segmenti e indipendenza dagli FPS
@@ -380,12 +406,15 @@ pickup continuo quando il percorso attraversa una moneta, aggiornamento immediat
 dell'HUD, protezione da doppie collisioni, animazione, inizializzazione del
 primo salvataggio assente, ricaricamento del saldo in un nuovo manager, separazione
 del contatore di corsa dal saldo permanente e formula del punteggio finale.
-Esce con codice 0 se tutte le verifiche passano.
+Verifica anche il ciclo completo: pausa/ripresa, traguardo e vittoria,
+schermata di sconfitta, protezione dei risultati, replay con reset del mondo e
+ritorno al menu senza perdere il saldo. Esce con codice 0 se tutte le verifiche
+passano.
 
-## Roadmap (fasi successive, non ancora implementate)
+## Roadmap
 
 - Fase 3 (completata): cancelli, ostacoli, monete, saldo locale permanente e
   calcolo del punteggio; restano i modelli definitivi delle evoluzioni (già
   sostituibili senza toccare la logica: vedi "Sostituire i modelli")
-- Fase 4: traguardo/condizione di fine corsa e relativo flusso di riavvio
+- Fase 4 (completata): menu, countdown, traguardo, esiti, pausa e replay
 - Fase 5: audio, salvataggio del record di punteggio, export Android/iOS
