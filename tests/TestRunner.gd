@@ -2288,7 +2288,7 @@ func _autopilot_target_x() -> float:
 	var best_z := -INF
 	var best_x := _car.position.x
 	for gate_row in _gate_manager.rows:
-		if gate_row.passed or gate_row.z >= car_z + 3.0:
+		if gate_row.passed or gate_row.z >= car_z + 1.5:
 			continue
 		if gate_row.z > best_z:
 			for gate in gate_row.gates:
@@ -2297,7 +2297,7 @@ func _autopilot_target_x() -> float:
 					best_z = gate_row.z
 					best_x = (evolution_gate.span_start + evolution_gate.span_end) * 0.5
 	for row in _obstacle_manager.rows:
-		if row.z >= car_z + 3.0:
+		if row.z >= car_z + 2.0:
 			continue
 		if row.z > best_z:
 			best_z = row.z
@@ -2317,14 +2317,14 @@ func _predicted_gap_center(row: ObstacleRow) -> float:
 		if obstacle == null or not obstacle.is_collidable():
 			continue
 		if obstacle.is_mover():
-			var dz_enter := _car.position.z - car_half_z - (row.z + obstacle.half_extents.z)
-			var dz_exit := _car.position.z + car_half_z - (row.z - obstacle.half_extents.z)
+			var dz_enter := _car.position.z - car_half_z - (row.z + obstacle.half_extents.z) - 0.6
+			var dz_exit := _car.position.z + car_half_z - (row.z - obstacle.half_extents.z) + 0.6
 			var t0 := maxf(dz_enter / spd, 0.0)
 			var t1 := maxf(dz_exit / spd, 0.0)
 			var min_x := INF
 			var max_x := -INF
-			for k in 7:
-				var px := obstacle.predicted_x(lerpf(t0, t1, float(k) / 6.0))
+			for k in 11:
+				var px := obstacle.predicted_x(lerpf(t0, t1, float(k) / 10.0))
 				min_x = minf(min_x, px - obstacle.half_extents.x)
 				max_x = maxf(max_x, px + obstacle.half_extents.x)
 			occupied.append(Vector2(min_x, max_x))
@@ -2333,23 +2333,27 @@ func _predicted_gap_center(row: ObstacleRow) -> float:
 			occupied.append(Vector2(x - obstacle.half_extents.x, x + obstacle.half_extents.x))
 	occupied.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.x < b.x)
 
-	var best_start := bounds.x
-	var best_width := -1.0
+	var best_mid := 0.0
+	var best_score := -INF
 	var cursor := bounds.x
+	var candidates: Array[Vector2] = []
 	for span in occupied:
 		var interval: Vector2 = span
 		if interval.y <= cursor:
 			continue
-		if interval.x > cursor and interval.x - cursor > best_width:
-			best_width = interval.x - cursor
-			best_start = cursor
+		if interval.x > cursor:
+			candidates.append(Vector2(cursor, interval.x))
 		cursor = maxf(cursor, interval.y)
-	if bounds.y - cursor > best_width:
-		best_width = bounds.y - cursor
-		best_start = cursor
-	if best_width <= 0.0:
-		return 0.0
-	return best_start + best_width * 0.5
+	if bounds.y > cursor:
+		candidates.append(Vector2(cursor, bounds.y))
+	for gap in candidates:
+		var w := gap.y - gap.x
+		var mid := (gap.x + gap.y) * 0.5
+		var score := (w - 0.35 * absf(mid - _car.position.x)) if w >= 2.35 else (w - 10.0)
+		if score > best_score:
+			best_score = score
+			best_mid = mid
+	return best_mid
 
 
 func _car_touches_rect(rect: Rect2) -> bool:
