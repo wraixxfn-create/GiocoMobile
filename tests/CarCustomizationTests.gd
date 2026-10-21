@@ -464,6 +464,8 @@ static func _test_data_identity_without_fragile_node_names(runner: Node) -> void
 	car.reset_for_new_run()
 	runner._park_gates_ahead(GameConfig.GATE_FIRST_ROW_DISTANCE)
 	var obs_mgr := runner.get("_obstacle_manager") as ObstacleManager
+	obs_mgr._travel_distance = 0.0
+	obs_mgr._previous_car_position = car.global_position
 	obs_mgr._sync_rows()
 	await runner._physics_frames(2)
 

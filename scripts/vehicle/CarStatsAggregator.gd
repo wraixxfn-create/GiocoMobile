@@ -55,8 +55,11 @@ static func compute(
 	var raw_length := clampf(base_length + length_delta, 1.05, 2.34)
 	var yaw := GameConfig.CAR_MAX_STEER_YAW
 	var max_safe_lat := (GameConfig.OBSTACLE_GAP_MIN - FAIRNESS_GAP_CLEARANCE) * 0.5
-	var max_fair_half_w := (max_safe_lat - raw_length * sin(yaw)) / maxf(cos(yaw), 0.2)
-	var eff_half_w := clampf(base_width + width_delta, 0.65, max_fair_half_w)
+	var max_fair_half_w := maxf(
+		base_width,
+		(max_safe_lat - raw_length * sin(yaw)) / maxf(cos(yaw), 0.2),
+	)
+	var eff_half_w := clampf(base_width + width_delta, 0.65, maxf(max_fair_half_w, 0.96))
 	var eff_wheel_r := clampf(base_wheel_r * wheel_r_scale, 0.20, 0.48)
 
 	return {

@@ -498,6 +498,8 @@ func _resolve_hit(obstacle: Obstacle, contact: Vector3, previous_position: Vecto
 	if not obstacle.penalty_applied:
 		obstacle.penalty_applied = true
 		last_evolution_delta = _apply_penalty(obstacle)
+		if obstacle.solid and last_evolution_delta != 0:
+			_resolve_position(obstacle, previous_position)
 		penalties_applied += 1
 		if _game_manager != null:
 			_game_manager.register_obstacle_hit()
