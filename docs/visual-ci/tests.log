@@ -1,9 +1,5 @@
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:-1)
 ERROR: Attempt to open script 'res://scripts/scenery/SceneryPalm.gd' resulted in error 'File not found'.
    at: load_source_code (modules/gdscript/gdscript.cpp:1094)
 ERROR: Failed loading resource: res://scripts/scenery/SceneryPalm.gd. Make sure resources have been imported by opening the project in the editor at least once.
@@ -52,101 +48,27 @@ ERROR: Failed loading resource: res://scripts/scenery/SceneryMarkerPost.gd. Make
    at: _load (core/io/resource_loader.cpp:283)
 ERROR: res://scenes/scenery/MarkerPost.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryMarkerPost.gd
    at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/SceneryPlan.gd:68)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/TrackSegment.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/TrackManager.gd:-1)
-SCRIPT ERROR: Parse Error: Cannot find member "SCREEN_SPACE_AA_DISABLED" in base "Environment".
-          at: GDScript::reload (res://scripts/scenery/TropicalTheme.gd:70)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/core/GameRoot.gd:-1)
-ERROR: Failed to load script "res://scripts/core/GameRoot.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/GroundField.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:95)
-ERROR: Failed to load script "res://scripts/scenery/Backdrop.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
 === TEST CONTROLLI DI GUIDA ===
-SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
-          at: _tuft (res://scripts/scenery/GroundField.gd:162)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
-          at: SceneryGroundField._build_flowers (res://scripts/scenery/GroundField.gd:214)
-ERROR: Parameter "p_child" is null.
-   at: add_child (scene/main/node.cpp:1566)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'apply_environment' in base 'GDScript'.
-          at: GameRoot._setup_environment (res://scripts/core/GameRoot.gd:167)
-SCRIPT ERROR: Invalid call. Nonexistent function 'configure_sun' in base 'GDScript'.
-          at: GameRoot._setup_sun (res://scripts/core/GameRoot.gd:173)
-SCRIPT ERROR: Invalid call. Nonexistent function 'configure_camera' in base 'GDScript'.
-          at: GameRoot._setup_camera (res://scripts/core/GameRoot.gd:177)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
   PASS  nodi principali presenti
   PASS  limite laterale calcolato
   PASS  InputManager nel gruppo input_manager
@@ -410,7 +332,7 @@ ERROR: Parameter "m" is null.
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  il countdown avvia la corsa
-  PASS  l'auto avanza automaticamente (7.00 m)
+  PASS  l'auto avanza automaticamente (6.77 m)
   PASS  senza drag resta al centro
   PASS  il drag aggiorna il target (0.840 m)
   PASS  l'auto segue il target con interpolazione (x=0.840)
@@ -422,12 +344,10 @@ ERROR: Parameter "m" is null.
   PASS  al rilascio del mouse l'auto mantiene la posizione
   PASS  il mouse emulato dal touch non raddoppia il drag (0.1000)
   PASS  i tocchi secondari vengono ignorati
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  bordo destro: il centro auto resta entro il limite
   PASS  bordo destro raggiunto senza oltrepassarlo
   PASS  bordo destro: nessuna parte dell'auto esce dall'asfalto (3.616 <= 3.900)
@@ -545,12 +465,8 @@ ERROR: Parameter "m" is null.
   PASS  la telecamera segue l'auto lateralmente (-2.724 vs -2.724)
   PASS  la telecamera mantiene la distanza di avanzamento
   PASS  l'auto resta stabile al centro dell'inquadratura (x=270.0 px)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -727,13 +643,13 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-  PASS  la pista scorre mentre l'auto avanza (46.6 m)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+  PASS  la pista scorre mentre l'auto avanza (46.7 m)
   PASS  la telecamera avanza con l'auto
   PASS  i segmenti riciclati restano contigui (nessun buco)
   PASS  i segmenti vengono riciclati in fondo
@@ -752,18 +668,14 @@ SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
   PASS  le file di cancelli sono equidistanti e non sovrapposte
   PASS  i valori dei cancelli restano tra 1 e 2 in valore assoluto
   PASS  esiste una fila con cancello positivo davanti all'auto
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -1244,12 +1156,10 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  esiste una fila con cancello negativo davanti all'auto
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
@@ -1627,18 +1537,14 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  il cancello scelto è negativo (-1)
   PASS  il cancello -1 riduce evolution_level a 2
   PASS  la regressione viene applicata una sola volta
@@ -1732,12 +1638,10 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  fila con cancello positivo per il test del massimo
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
@@ -2095,24 +1999,18 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  evolution_level non supera il massimo (5)
   PASS  al massimo l'effetto viene limitato a 0
   PASS  il cancello viene comunque consumato al limite
@@ -2192,12 +2090,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
   PASS  fila con cancello negativo per il test del minimo
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
@@ -2563,24 +2455,22 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  evolution_level non scende sotto il minimo (0)
   PASS  al minimo l'effetto viene limitato a 0
 ERROR: Parameter "m" is null.
@@ -3262,30 +3152,22 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -5144,66 +5026,46 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  lo sterzo risponde mentre l'auto si trasforma
   PASS  la trasformazione scala il modello
   PASS  l'animazione termina da sola
@@ -17860,68 +17722,48 @@ ERROR: Parameter "m" is null.
   PASS  punteggio finale somma distanza, livello massimo e monete
   PASS  HUD mostra il riepilogo finale della corsa
   PASS  riepilogo HUD riporta il punteggio calcolato
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
-SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
-          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
-SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
+SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of type 'int' on a base object of type 'Nil'.
+          at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
   PASS  una nuova corsa azzera il totale di sessione ma conserva il saldo
 --- ciclo completo: menu, corsa, traguardo, replay e menu ---
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -19115,6 +18957,34 @@ FALLITO: blocco mobile: nessuna compenetrazione per tutta la spinta
 FALLITO: blocchi mobili: nessun urto con guida predittiva
 FALLITO: giocabilità: ZERO collisioni in 1500 m tra cancelli e ostacoli
 TEST FALLITI: 8 su 378
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.

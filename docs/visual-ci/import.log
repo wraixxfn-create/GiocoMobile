@@ -1,9 +1,5 @@
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:-1)
 ERROR: Attempt to open script 'res://scripts/scenery/SceneryPalm.gd' resulted in error 'File not found'.
    at: load_source_code (modules/gdscript/gdscript.cpp:1094)
 ERROR: Failed loading resource: res://scripts/scenery/SceneryPalm.gd. Make sure resources have been imported by opening the project in the editor at least once.
@@ -36,87 +32,13 @@ ERROR: Attempt to open script 'res://scripts/scenery/SceneryMarkerPost.gd' resul
    at: load_source_code (modules/gdscript/gdscript.cpp:1094)
 ERROR: Failed loading resource: res://scripts/scenery/SceneryMarkerPost.gd. Make sure resources have been imported by opening the project in the editor at least once.
    at: _load (core/io/resource_loader.cpp:283)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/SceneryPlan.gd:68)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/TrackSegment.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/TrackManager.gd:-1)
-SCRIPT ERROR: Parse Error: Cannot find member "SCREEN_SPACE_AA_DISABLED" in base "Environment".
-          at: GDScript::reload (res://scripts/scenery/TropicalTheme.gd:70)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/core/GameRoot.gd:-1)
-ERROR: Failed to load script "res://scripts/core/GameRoot.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:95)
-ERROR: Failed to load script "res://scripts/scenery/Backdrop.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/SceneryProp.gd:-1)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/BeachHut.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/BroadleafTree.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/BroadleafTree.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/FernBush.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/FernBush.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/GroundField.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/MarkerPost.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/MarkerPost.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/Palm.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/Palm.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/RoadSign.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/Rock.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/Rock.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-ERROR: Attempt to open script 'res://scripts/scenery/SceneryRock.gd' resulted in error 'File not found'.
-   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
-ERROR: Failed loading resource: res://scripts/scenery/SceneryRock.gd. Make sure resources have been imported by opening the project in the editor at least once.
-   at: _load (core/io/resource_loader.cpp:283)
-ERROR: Attempt to open script 'res://scripts/scenery/SceneryFernBush.gd' resulted in error 'File not found'.
-   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
-ERROR: Failed loading resource: res://scripts/scenery/SceneryFernBush.gd. Make sure resources have been imported by opening the project in the editor at least once.
-   at: _load (core/io/resource_loader.cpp:283)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
-          at: _tuft (res://scripts/scenery/GroundField.gd:162)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
-          at: SceneryGroundField._build_flowers (res://scripts/scenery/GroundField.gd:214)
-ERROR: Parameter "p_child" is null.
-   at: add_child (scene/main/node.cpp:1566)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
