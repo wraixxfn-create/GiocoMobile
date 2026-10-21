@@ -63,9 +63,9 @@ innesteranno i nuovi contenuti visivi.
   di voci e mute persistente.
 - **Separazione logica/visivi dell'auto** (già pronta per il redesign):
   `CarEvolutionProfile` (dati) → `CarEvolutionCatalog` (livello → profilo) →
-  `CarModelLibrary` (scena esterna o blockout) → `CarEvolutionDirector`
-  (sostituzione modello + animazione) → `CarModelBuilder` (blockout
-  procedurale, unico file da scartare quando arrivano i modelli veri).
+  `CarModelLibrary` (scena esterna o modello procedurale) → `CarEvolutionDirector`
+  (sostituzione modello + animazione) → `CarModelBuilder` + `CarBodyFactory`
+  (modello procedurale scolpito, da scartare quando arrivano i modelli veri).
 - **TestRunner**: suite di integrazione headless molto ampia (input, FPS
   independence, cancelli, ostacoli, monete, salvataggio, ciclo completo,
   autopilot 1500 m + 600 m a difficoltà massima). Va conservata come rete di
@@ -119,7 +119,7 @@ sostituirlo pezzo per pezzo: la logica di gioco non conosce la geometria.
 
 | Priorità | Cosa | Come si sostituisce | Cosa NON si tocca |
 | --- | --- | --- | --- |
-| 1 | **Modelli auto (6 stadi)** — blockout di scatole/cilindri (`CarModelBuilder`, 787 righe) | Modelli reali (.glb) negli slot di `config/car_model_library.tres` oppure `CarEvolutionProfile.model_scene`. Contratto: radice `Node3D` rivolta verso -Z, ruote nominate `Wheel*` o nel gruppo `car_wheel` (vengono collegate automaticamente a rotazione/sterzata) | `GameManager`, `GateManager`, HUD, test: non conoscono la geometria |
+| 1 | **Modelli auto (6 stadi)** — oggi modello procedurale scolpito (`CarModelBuilder` + `CarBodyFactory`, vedi `docs/CAR_MODEL.md`); resta il candidato alla sostituzione con asset modellati a mano | Modelli reali (.glb) negli slot di `config/car_model_library.tres` oppure `CarEvolutionProfile.model_scene`. Contratto: radice `Node3D` rivolta verso -Z, ruote nominate `Wheel*` o nel gruppo `car_wheel` (vengono collegate automaticamente a rotazione/sterzata) | `GameManager`, `GateManager`, HUD, test: non conoscono la geometria |
 | 2 | **Ambiente/pista** — `TrackSegment` costruisce tutto in codice (asfalto, cordoli, prato, alberi, colline) | Scene di segmento tematizzate (es. `.tscn` per bioma) mantenendo il contratto di riciclo: lunghezza 40 m, carreggiata 7,8 m, cordoli alle stesse X, origine sul piano di guida | `TrackManager` (riciclo), manager di cancelli/ostacoli/monete (coordinate mondo) |
 | 3 | **Cancelli e ostacoli** — `_build()` procedurali dentro `EvolutionGate`/`Obstacle` | Estrarre la costruzione visiva in scene istanziate dai nodi esistenti; i dati (span, `collision_rect`, `crossing_x`, penalità, animazioni di stato) restano negli script | Rilevamento 3D, penalità singola, fairness, cooldown |
 | 4 | **UI/HUD** — ~900 righe di nodi Control creati in codice | Migrare il layout in `HUD.tscn` (+ `Theme` resource) conservando **esattamente** l'API pubblica (`set_distance`, `set_state`, `set_evolution`, segnali `play_requested`…) usata da `GameRoot` e dai test | Contratto segnali/metodi con GameRoot e TestRunner |

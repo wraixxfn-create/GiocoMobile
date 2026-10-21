@@ -3,9 +3,9 @@ extends RefCounted
 ## Strato di compatibilità con le chiamate storiche del modello dell'auto.
 ##
 ## La geometria non vive qui: ogni stadio è descritto da un
-## `CarEvolutionProfile` (dati), costruito da `CarModelBuilder` (blockout
-## procedurale oppure scena esterna via `CarModelLibrary`) e mostrato da
-## `CarEvolutionDirector` (che è il nodo "CarVisual" figlio del CarController).
+## `CarEvolutionProfile` (dati), costruito da `CarModelBuilder` (modello
+## procedurale scolpito oppure scena esterna via `CarModelLibrary`) e mostrato
+## da `CarEvolutionDirector` (che è il nodo "CarVisual" figlio del CarController).
 ##
 ## Questo file resta come sottile strato di compatibilità: le chiamate a
 ## `apply_evolution_level()` continuano a funzionare e diventano semplicemente
