@@ -16,11 +16,96 @@ GATE row=0 z=-70.0 dist=70.0 screen=(270,402) h=24.7px
 GATE row=1 z=-118.0 dist=118.0 screen=(270,395) h=15.3px
 GATE row=2 z=-166.0 dist=166.0 screen=(270,391) h=11.0px
 DIRECTIONAL_LIGHTS=1
-  LIGHT Sun energy=1.10 shadow=true dist=62.0 splits=1
-ENV sky=true ambient_src=3 amb_energy=0.24 fog=true ssao=false glow=false tonemap=2
+  LIGHT Sun energy=1.14 shadow=true dist=62.0 splits=1
+ENV sky=true ambient_src=3 amb_energy=0.30 fog=true ssao=false glow=false tonemap=2
 TRACK segments=10
 STAGE root=Stage_1:<Node3D#98012499617> children=5
 CAR_MESHES=83 empty=0 tris=17792
+--- CAR MATERIALS ---
+  TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
+  BodyPaint albedo=(0.97, 0.63, 0.03, 1) metallic=0.08 rough=0.30 y=0.32..0.74
+  BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.21..0.67
+  CabinGlass albedo=(0.1, 0.17, 0.25, 1) metallic=0.22 rough=0.30 y=0.62..1.02
+  CabinPaint albedo=(0.97, 0.63, 0.03, 1) metallic=0.08 rough=0.30 y=0.64..1.04
+  WellFL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
+  ArchFL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
+  WellFR albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
+  ArchFR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
+  WellRL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
+  ArchRL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
+  WellRR albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
+  ArchRR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
+  HeadlightHousingL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.47..0.65
+  HeadlightL albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.49..0.63
+  HeadlightHousingR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.47..0.65
+  HeadlightR albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.49..0.63
+  TaillightL albedo=(0.96, 0.18, 0.18, 1) metallic=0.00 rough=0.35 y=0.58..0.71
+  TaillightR albedo=(0.96, 0.18, 0.18, 1) metallic=0.00 rough=0.35 y=0.58..0.71
+  BumperFront albedo=(0.97, 0.63, 0.03, 1) metallic=0.08 rough=0.30 y=0.24..0.42
+  BumperRear albedo=(0.97, 0.63, 0.03, 1) metallic=0.08 rough=0.30 y=0.25..0.43
+  Intake albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.36..0.53
+  Badge albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.40..0.49
+  TailPanel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.50..0.61
+  PlateRear albedo=(0.93, 0.94, 0.9, 1) metallic=0.00 rough=0.55 y=0.44..0.57
+  MirrorStalkL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.74..0.85
+  MirrorL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.79..0.90
+  MirrorGlassL albedo=(0.1, 0.17, 0.25, 1) metallic=0.22 rough=0.30 y=0.80..0.89
+  MirrorStalkR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.74..0.85
+  MirrorR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.79..0.90
+  MirrorGlassR albedo=(0.1, 0.17, 0.25, 1) metallic=0.22 rough=0.30 y=0.80..0.89
+  HandleL0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.65..0.68
+  HandleL1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.65..0.68
+  HandleR0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.65..0.68
+  HandleR1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.65..0.68
+  Exhaust0 albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.16..0.24
+  SharkFin albedo=(0.97, 0.63, 0.03, 1) metallic=0.08 rough=0.30 y=1.01..1.10
+  SpoilerLip albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.91..1.02
+  PipBase albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=1.03..1.07
+  Pip0 albedo=(0.9805, 0.7595, 0.3695, 1) metallic=0.00 rough=0.35 y=1.07..1.13
+  Pip1 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
+  Pip2 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
+  Pip3 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
+  Pip4 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
+  Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
+  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
+  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
+  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
+  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
+  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
+  Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
+  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
+  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
+  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
+  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
+  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
+  Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
+  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
+  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
+  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
+  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
+  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
+  Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
+  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
+  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
+  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
+  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
+  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
+  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
+  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
 --- CAR TREE ---
   CarVisual pos=(0, 0, 0)
   CarVisual/TransformShockwave pos=(0, 0.06, 0) mesh=CylinderMesh aabb_pos=(-0.992709, 0.05, -1) aabb_size=(1.985418, 0.02, 2)
@@ -29,8 +114,8 @@ CAR_MESHES=83 empty=0 tris=17792
   CarVisual/Stage_1/Body pos=(0, 0, 0)
   CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.324692, -1.485) aabb_size=(1.548381, 0.418905, 2.97)
   CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.771956, 0.210952, -1.485) aabb_size=(1.543912, 0.455253, 2.97)
-  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.619745, -0.77) aabb_size=(1.278037, 0.409855, 1.8832)
-  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.637671, -0.18304) aabb_size=(1.278037, 0.403078, 1.15258)
+  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.619745, -0.77) aabb_size=(1.278037, 0.39712, 1.8832)
+  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.637671, -0.289432) aabb_size=(1.278037, 0.403078, 1.258972)
   CarVisual/Stage_1/Body/WellFL pos=(-0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
   CarVisual/Stage_1/Body/ArchFL pos=(-0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.778993, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
   CarVisual/Stage_1/Body/WellFR pos=(0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
@@ -63,7 +148,7 @@ CAR_MESHES=83 empty=0 tris=17792
   CarVisual/Stage_1/Body/HandleR1 pos=(0.724881, 0.66456, 0.3432) mesh=ArrayMesh aabb_pos=(0.711281, 0.647818, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
   CarVisual/Stage_1/Body/Exhaust0 pos=(-0.42, 0.2, 1.44) mesh=CylinderMesh aabb_pos=(-0.462, 0.158, 1.37) aabb_size=(0.084, 0.084, 0.14)
   CarVisual/Stage_1/Body/SharkFin pos=(0, 1.056817, 0.561704) mesh=CylinderMesh aabb_pos=(-0.012839, 1.014317, 0.489704) aabb_size=(0.025679, 0.085, 0.144)
-  CarVisual/Stage_1/Body/SpoilerLip pos=(0, 1.007434, 0.730828) mesh=ArrayMesh aabb_pos=(-0.26796, 0.952998, 0.676744) aabb_size=(0.53592, 0.108872, 0.108167)
+  CarVisual/Stage_1/Body/SpoilerLip pos=(0, 0.961566, 0.819488) mesh=ArrayMesh aabb_pos=(-0.26796, 0.90713, 0.765404) aabb_size=(0.53592, 0.108872, 0.108167)
   CarVisual/Stage_1/Body/EvolutionPips pos=(0, 1.1, 0)
   CarVisual/Stage_1/Body/EvolutionPips/PipBase pos=(0, 1.052, 0) mesh=ArrayMesh aabb_pos=(-0.51, 1.032, -0.063028) aabb_size=(1.02, 0.04, 0.126055)
   CarVisual/Stage_1/Body/EvolutionPips/Pip0 pos=(-0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.505, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
@@ -116,7 +201,7 @@ CAR_MESHES=83 empty=0 tris=17792
   CarVisual/Stage_1/Wheel3/Hub pos=(0.81, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.7825, 0.244429, 0.963) aabb_size=(0.055, 0.111142, 0.114)
   CarVisual/Stage_1/Wheel3/HubCap pos=(0.842, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.832, 0.2745, 0.9945) aabb_size=(0.02, 0.051, 0.051)
 ASPHALT px=128x128 (0.3255, 0.3647, 0.4353, 1)
-TERRAIN verts=8060 colors=8060 sample=(0.2784, 0.5137, 0.2824, 1)
+TERRAIN verts=8060 colors=8060 sample=(0.2275, 0.4353, 0.2275, 1)
 GROUND children=3
 BACKDROP children=4
 SEGMENT_CHILDREN total=240

@@ -30,4 +30,8 @@ CAPTURE shot 06_overview
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/06_overview.png err=0 720x1280
 CAPTURE shot 07_hud_race
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/07_hud_race.png err=0 720x1280
+CAPTURE debug _tmp/dx_albedo
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_albedo.png err=0 720x1280
+CAPTURE debug _tmp/dx_flat_bg
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_flat_bg.png err=0 720x1280
 CAPTURE COMPLETE
