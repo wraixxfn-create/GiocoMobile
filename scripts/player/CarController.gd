@@ -331,9 +331,15 @@ func _update_visual_feedback(lateral_velocity: float, step: float) -> void:
 ## Limite laterale derivato dall'ingombro reale dell'auto ruotata al massimo.
 ## In questo modo nemmeno gli angoli della carrozzeria possono superare il bordo.
 ## L'ingombro è quello dello stadio corrente: le auto evolute sono più lunghe.
+## Limite laterale prudente: usa l'ingombro più largo tra quello dello stadio
+## corrente e la costante di progetto. Così nessuno stadio (anche il più largo)
+## può sporgere oltre il cordolo, qualunque sia il modello in uso.
 func _recalculate_lateral_limit() -> void:
 	var profile := evolution_profile()
-	var half_extent := profile.lateral_half_extent(GameConfig.CAR_MAX_STEER_YAW)
+	var half_width := maxf(profile.half_width, GameConfig.CAR_HALF_WIDTH)
+	var half_length := maxf(profile.half_length, GameConfig.CAR_HALF_LENGTH)
+	var half_extent := half_width * cos(GameConfig.CAR_MAX_STEER_YAW) \
+		+ half_length * sin(GameConfig.CAR_MAX_STEER_YAW)
 	lateral_limit = maxf(
 		GameConfig.TRACK_WIDTH * 0.5 - half_extent - GameConfig.CAR_EDGE_MARGIN,
 		0.0,

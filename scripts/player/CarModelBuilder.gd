@@ -111,20 +111,20 @@ static func build(profile: CarEvolutionProfile) -> Dictionary:
 
 static func _blueprint_for(silhouette: int) -> Dictionary:
 	var bp := {
-		"belt_f": 0.71,
+		"belt_f": 0.80,
 		"sill_drop": 0.085,
 		"body_top": [
 			Vector2(0.00, 0.66), Vector2(0.05, 0.77), Vector2(0.14, 0.91),
 			Vector2(0.30, 1.00), Vector2(0.55, 1.00), Vector2(0.80, 0.99),
-			Vector2(0.95, 0.96), Vector2(1.00, 0.88),
+			Vector2(0.95, 0.97), Vector2(1.00, 0.94),
 		],
 		"body_w": [
 			Vector2(0.00, 0.74), Vector2(0.05, 0.90), Vector2(0.14, 1.00),
 			Vector2(0.32, 0.98), Vector2(0.55, 0.99), Vector2(0.80, 1.03),
 			Vector2(0.93, 0.98), Vector2(1.00, 0.82),
 		],
-		"glass_span": Vector2(0.25, 0.87),
-		"roof_range": Vector2(0.30, 0.75),
+		"glass_span": Vector2(0.32, 0.70),
+		"roof_range": Vector2(0.20, 0.70),
 		"glass_top": [
 			Vector2(0.00, 0.68), Vector2(0.16, 0.93), Vector2(0.30, 0.99),
 			Vector2(0.55, 1.00), Vector2(0.75, 0.98), Vector2(0.90, 0.85),
@@ -134,12 +134,12 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 			Vector2(0.00, 0.80), Vector2(0.20, 0.84), Vector2(0.55, 0.85),
 			Vector2(0.85, 0.82), Vector2(1.00, 0.77),
 		],
-		"glass_bottom_f": 0.84,
+		"glass_bottom_f": 0.92,
 		"pillars_b": Vector2(0.46, 0.53),
-		"pillars_c": Vector2(0.80, 0.95),
-		"roof_split": 0.80,
+		"pillars_c": Vector2(0.62, 0.70),
+		"roof_split": 0.62,
 		"a_pillars": true,
-		"clad_split": 0.20,
+		"clad_split": -0.5,
 		"arch_gap": 0.05,
 		"arch_flare": "trim",
 		"light_style": "round",
@@ -332,7 +332,7 @@ static func _fender_lift_at(
 		return 0.0
 	var half := profile.wheel_radius * 1.45
 	var lift := 0.0
-	for wz in [-profile.wheel_base_z, profile.wheel_base_z]:
+	for wz: float in [-profile.wheel_base_z, profile.wheel_base_z]:
 		var dz := absf(z - wz)
 		if dz < half:
 			var shape := 0.5 + 0.5 * cos(PI * dz / half)
@@ -351,7 +351,7 @@ static func _arch_circle_bottom(
 	var radius := (h * h + rise * rise) / (2.0 * rise)
 	var center_y := crown - radius
 	var bottom := base_bottom
-	for wz in [-profile.wheel_base_z, profile.wheel_base_z]:
+	for wz: float in [-profile.wheel_base_z, profile.wheel_base_z]:
 		var dz := absf(z - wz)
 		if dz < h:
 			bottom = maxf(bottom, center_y + sqrt(maxf(radius * radius - dz * dz, 0.0)))
@@ -379,8 +379,8 @@ static func _build_shell(ctx: Dictionary) -> void:
 	var zn_set := {}
 	for i in 29:
 		zn_set[float(i) / 28.0] = true
-	for wz in [-profile.wheel_base_z, profile.wheel_base_z]:
-		var wzn := (wz + length * 0.5) / length
+	for wz: float in [-profile.wheel_base_z, profile.wheel_base_z]:
+		var wzn: float = (wz + length * 0.5) / length
 		for k in range(-4, 5):
 			zn_set[clampf(wzn + float(k) * 0.02, 0.0, 1.0)] = true
 	zn_set[0.012] = true
@@ -409,8 +409,8 @@ static func _build_shell(ctx: Dictionary) -> void:
 	var body_bucket := func(_i: int, _j: int, pa: Vector2, pb: Vector2, _z: float) -> String:
 		return BUCKET_TRIM if 0.5 * (pa.y + pb.y) < clad_split else BUCKET_PAINT
 	var shell := CarBodyFactory.build_loft(stations, BODY_SECTION, 12, body_bucket)
-	body.add_child(_instance("BodyPaint", shell[BUCKET_PAINT], m["body"]))
-	body.add_child(_instance("BodyTrim", shell[BUCKET_TRIM], m["trim"]))
+	body.add_child(_instance("BodyPaint", _bucket_mesh(shell, BUCKET_PAINT), m["body"]))
+	body.add_child(_instance("BodyTrim", _bucket_mesh(shell, BUCKET_TRIM), m["trim"]))
 
 	# Abitacolo: loft vetrato con tetto e montanti verniciati. La base è
 	# affondata nella scocca, così la giunzione non si vede mai.
@@ -423,7 +423,7 @@ static func _build_shell(ctx: Dictionary) -> void:
 	var gt_set := {}
 	for i in 21:
 		gt_set[float(i) / 20.0] = true
-	for edge in [pillars_b.x, pillars_b.y, pillars_c.x, pillars_c.y, roof_range.x, roof_range.y]:
+	for edge: float in [pillars_b.x, pillars_b.y, pillars_c.x, pillars_c.y, roof_range.x, roof_range.y]:
 		gt_set[edge] = true
 	var gt_list := gt_set.keys()
 	gt_list.sort()
@@ -441,25 +441,25 @@ static func _build_shell(ctx: Dictionary) -> void:
 
 	var roof_split := float(bp["roof_split"])
 	var a_pillars := bool(bp["a_pillars"])
+	# Finestre come fascia: tetto, spalle e due estremità dell'abitacolo
+	# sempre verniciati. Prima tutta la parte alta era vetro e la coda
+	# dell'auto diventava una lastra scura grande quanto il cofano.
 	var glass_bucket := func(_i: int, _j: int, pa: Vector2, pb: Vector2, z_mid: float) -> String:
 		var yf := 0.5 * (pa.y + pb.y)
 		var gt := ((z_mid + length * 0.5) / length - g0) / maxf(g1 - g0, 0.000001)
-		# Vernice sul colmo solo nel tratto piano: parabrezza e lunotto
-		# restano vetro pieno (effetto "a bolla" moderno).
-		if yf >= roof_split and gt >= roof_range.x and gt <= roof_range.y:
+		if yf >= roof_split:
 			return BUCKET_PAINT
-		# Montanti A ai bordi del parabrezza.
-		if a_pillars and gt < roof_range.x and yf >= 0.54 and yf <= 0.66:
+		if gt <= 0.10 or gt >= 0.90:
+			return BUCKET_PAINT
+		if a_pillars and gt < roof_range.x and yf >= 0.50:
 			return BUCKET_PAINT
 		if gt >= pillars_b.x and gt <= pillars_b.y and yf > 0.06:
 			return BUCKET_PAINT
-		if gt >= pillars_c.x and gt <= pillars_c.y and yf > 0.06:
-			return BUCKET_PAINT
 		return BUCKET_GLASS
 	var cabin := CarBodyFactory.build_loft(gstations, GLASS_SECTION, 11, glass_bucket)
-	body.add_child(_instance("CabinGlass", cabin[BUCKET_GLASS], m["glass"]))
+	body.add_child(_instance("CabinGlass", _bucket_mesh(cabin, BUCKET_GLASS), m["glass"]))
 	if cabin.has(BUCKET_PAINT):
-		body.add_child(_instance("CabinPaint", cabin[BUCKET_PAINT], m["body"]))
+		body.add_child(_instance("CabinPaint", _bucket_mesh(cabin, BUCKET_PAINT), m["body"]))
 
 
 # -------------------------------------------------------------------- Ruote --
@@ -611,7 +611,7 @@ static func _add_details(ctx: Dictionary) -> void:
 	# Fari anteriori: guscio scuro + lente emissiva, ancorati alla spalla
 	# del muso. La hypercar usa una barra luminosa continua.
 	var head_material := MaterialFactory.unique_emissive(profile.headlight_color, 1.4)
-	var tail_material := MaterialFactory.unique_emissive(profile.taillight_color, 1.3)
+	var tail_material := MaterialFactory.unique_emissive(profile.taillight_color.darkened(0.12), 0.6)
 	if String(bp["light_style"]) == "bar":
 		var bar := _instance(
 			"HeadBar", CarBodyFactory.build_capsule(0.045, hw * 1.24), head_material,
@@ -741,7 +741,7 @@ static func _add_details(ctx: Dictionary) -> void:
 	for side in sides:
 		var suffix := "L" if side < 0.0 else "R"
 		var door := 0
-		for hz_f in [0.44, 0.62]:
+		for hz_f: float in [0.44, 0.62]:
 			var hx := hw * CarBodyFactory.catmull_rom_1d(bp["body_w"], hz_f) * 0.965
 			body.add_child(_instance(
 				"Handle%s%d" % [suffix, door], handle_mesh, m["trim"],
@@ -900,8 +900,10 @@ static func _make_materials(profile: CarEvolutionProfile) -> Dictionary:
 		"trim_alt": MaterialFactory.stage_material(
 			profile.level, "trim_alt", profile.trim_alt_color, 0.40, 0.30
 		),
-		"glass": MaterialFactory.stage_material(
-			profile.level, "glass", profile.glass_color, 0.06, 0.55
+		# Vetro scuro, non uno specchio azzurro: con riflesso pieno il lunotto
+		# posteriore diventava la superficie più grande e più chiara dell'auto.
+		"glass": MaterialFactory.stage_glass(
+			profile.level, profile.glass_color.darkened(0.15)
 		),
 		"rim": MaterialFactory.stage_material(
 			profile.level, "rim", profile.rim_color, 0.20, 0.80
@@ -958,6 +960,12 @@ static func _collect_glow_materials(meshes: Array) -> Array:
 
 
 # ------------------------------------------------------------------ Helper ---
+
+## Mesh di un bucket, oppure null se quel materiale non ha facce.
+## Un MeshInstance3D senza mesh resta un nodo vuoto innocuo (niente errori).
+static func _bucket_mesh(buckets: Dictionary, name: String) -> Mesh:
+	return buckets.get(name, null) as Mesh
+
 
 static func _instance(
 	node_name: String,

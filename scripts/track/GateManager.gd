@@ -62,8 +62,24 @@ func step(_delta: float = 0.0) -> void:
 	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
 		return
 
+	# Un salto di posizione (reset, teletrasporto dei test, debug) non è un
+	# attraversamento: senza questo filtro un solo campione potrebbe "passare"
+	# attraverso più cancelli e applicare effetti mai scelti dal giocatore.
+	if not _is_continuous_step(previous_position, current_position):
+		_recycle_rows(current_position.z)
+		return
+
 	_detect_crossings(previous_position, current_position)
 	_recycle_rows(current_position.z)
+
+
+## True se lo spostamento tra i due campioni è compatibile con la guida reale.
+func _is_continuous_step(previous_position: Vector3, current_position: Vector3) -> bool:
+	var planar_delta := Vector2(
+		current_position.x - previous_position.x,
+		current_position.z - previous_position.z,
+	)
+	return planar_delta.length() <= GameConfig.GATE_TELEPORT_LIMIT
 
 
 ## Ricrea le file all'inizio della pista e azzera la sequenza dei cancelli.

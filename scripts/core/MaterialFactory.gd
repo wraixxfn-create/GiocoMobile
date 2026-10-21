@@ -168,6 +168,24 @@ static func stage_material(
 	return colored("stage_%d_%s" % [level, key], color, roughness, metallic)
 
 
+## Vetro di uno stadio: tinta scura e opaca al punto giusto.
+## Un vetro liscio rifletteva il cielo come uno specchio e l'abitacolo
+## diventava la superficie più chiara e più grande dell'auto; con una
+## rugosità media resta scuro, con solo un velo di lucido.
+static func stage_glass(level: int, color: Color) -> StandardMaterial3D:
+	var key := "stage_glass_%d_%s" % [level, color.to_html(false)]
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		# Nessun riflesso: sul lunotto inclinato il cielo diventava una lastra
+		# ciano più chiara della carrozzeria. Il vetro resta tinta piatta.
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		material.roughness = 0.45
+		material.metallic = 0.0
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
 ## Vernice di uno stadio: lucida e con clearcoat, condivisa tra le parti della
 ## stessa carrozzeria. La chiave include il livello, così due stadi con colori
 ## simili restano indipendenti.
@@ -176,11 +194,14 @@ static func stage_paint(level: int, color: Color) -> StandardMaterial3D:
 	if not _cache.has(key):
 		var material := StandardMaterial3D.new()
 		material.albedo_color = color
-		material.roughness = 0.22
-		material.metallic = 0.18
+		# Lucido "da giocattolo": il riflesso resta un velo. Con clearcoat
+		# alto il cielo si specchiava sul tetto e la vernice gialla spariva.
+		material.roughness = 0.38
+		material.metallic = 0.0
+		material.specular = 0.32
 		material.clearcoat_enabled = true
-		material.clearcoat = 0.70
-		material.clearcoat_roughness = 0.16
+		material.clearcoat = 0.28
+		material.clearcoat_roughness = 0.34
 		_cache[key] = material
 	return _cache[key] as StandardMaterial3D
 
@@ -219,14 +240,21 @@ static func taillight() -> StandardMaterial3D:
 # ------------------------------------------------------- Decorazioni 3D -----
 
 ## Materiale per MultiMesh con colore per-istanza (ciuffi d'erba e fiori).
-static func vertex_colored(key: String, roughness: float = 0.85) -> StandardMaterial3D:
-	var material_key := "vertex_" + key
+static func vertex_colored(
+	key: String,
+	roughness: float = 0.85,
+	double_sided: bool = false,
+) -> StandardMaterial3D:
+	var material_key := "vertex_" + key + ("_ds" if double_sided else "")
 	if not _cache.has(material_key):
 		var material := StandardMaterial3D.new()
 		material.albedo_color = Color(1.0, 1.0, 1.0)
 		material.vertex_color_use_as_albedo = true
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
 		material.roughness = roughness
 		material.metallic = 0.0
+		if double_sided:
+			material.cull_mode = BaseMaterial3D.CULL_DISABLED
 		_cache[material_key] = material
 	return _cache[material_key] as StandardMaterial3D
 
@@ -334,3 +362,200 @@ static func badge_material(color: Color) -> StandardMaterial3D:
 		material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
 		_cache[key] = material
 	return _cache[key] as StandardMaterial3D
+
+
+# ---------------------------------------------------------------- Scenario ---
+## Materiali dello scenario tropicale. Tutti condivisi e in cache: il livello
+## dimostrativo usa poche decine di materiali, non uno per oggetto.
+
+## Materiale opaco generico dello scenario (legno, metallo, tessuto...).
+static func scenery(
+	key: String,
+	color: Color,
+	roughness: float = 0.90,
+	metallic: float = 0.0,
+) -> StandardMaterial3D:
+	return colored("scenery_" + key, color, roughness, metallic)
+
+
+## Fogliame: opaco, leggermente più lucido ai bordi grazie al tono, senza
+## shader personalizzati. `cull_disabled` perché le fronde sono lamine.
+static func leaf(index: int, double_sided: bool = false) -> StandardMaterial3D:
+	var color := SceneryPalette.foliage(index)
+	var key := "scenery_foliage_%d_%s" % [index, "ds" if double_sided else "ss"]
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		material.roughness = 0.84
+		material.metallic = 0.0
+		if double_sided:
+			material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
+## Chioma chiara: stesso verde, un gradino più luminoso (volume leggibile).
+static func leaf_light(index: int, double_sided: bool = false) -> StandardMaterial3D:
+	var color := SceneryPalette.foliage_highlight(index)
+	var key := "scenery_foliage_light_%d_%s" % [index, "ds" if double_sided else "ss"]
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		material.roughness = 0.82
+		material.metallic = 0.0
+		if double_sided:
+			material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
+static func fern(light: bool = false) -> StandardMaterial3D:
+	var color := SceneryPalette.FERN_LIGHT if light else SceneryPalette.FERN_GREEN
+	var key := "scenery_fern_%s" % ("light" if light else "dark")
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		material.roughness = 0.86
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
+static func tree_trunk(light: bool = false) -> StandardMaterial3D:
+	var color := SceneryPalette.TRUNK_LIGHT if light else SceneryPalette.TRUNK
+	return scenery("trunk_%s" % ("light" if light else "dark"), color, 0.92, 0.0)
+
+
+static func boulder(light: bool = false) -> StandardMaterial3D:
+	var color := SceneryPalette.ROCK_LIGHT if light else SceneryPalette.ROCK
+	return scenery("rock_%s" % ("light" if light else "dark"), color, 0.93, 0.0)
+
+
+static func moss() -> StandardMaterial3D:
+	return scenery("moss", SceneryPalette.MOSS, 0.95, 0.0)
+
+
+static func sand() -> StandardMaterial3D:
+	return scenery("sand", SceneryPalette.SAND, 0.95, 0.0)
+
+
+static func wood(light: bool = false) -> StandardMaterial3D:
+	var color := SceneryPalette.WOOD_LIGHT if light else SceneryPalette.WOOD
+	return scenery("wood_%s" % ("light" if light else "dark"), color, 0.88, 0.0)
+
+
+static func thatch(dark: bool = false) -> StandardMaterial3D:
+	var color := SceneryPalette.THATCH_DARK if dark else SceneryPalette.THATCH
+	return scenery("thatch_%s" % ("dark" if dark else "light"), color, 0.94, 0.0)
+
+
+static func fabric(index: int) -> StandardMaterial3D:
+	var color := SceneryPalette.FABRIC_RED
+	if index == 1:
+		color = SceneryPalette.FABRIC_CREAM
+	elif index == 2:
+		color = SceneryPalette.FABRIC_TEAL
+	return scenery("fabric_%d" % posmod(index, 3), color, 0.80, 0.0)
+
+
+static func metal() -> StandardMaterial3D:
+	return scenery("metal", SceneryPalette.METAL, 0.42, 0.55)
+
+
+static func sign_yellow() -> StandardMaterial3D:
+	return scenery("sign_yellow", SceneryPalette.SIGN_YELLOW, 0.52, 0.0)
+
+
+static func sign_green() -> StandardMaterial3D:
+	return scenery("sign_green", SceneryPalette.SIGN_GREEN, 0.56, 0.0)
+
+
+static func sand_ground() -> StandardMaterial3D:
+	return scenery("sand_ground", SceneryPalette.SAND_DARK, 0.96, 0.0)
+
+
+## Terreno con colore per vertice: un solo materiale per tutta la prateria.
+static func terrain() -> StandardMaterial3D:
+	var key := "scenery_terrain"
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = Color.WHITE
+		material.vertex_color_use_as_albedo = true
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		material.roughness = 0.96
+		material.metallic = 0.0
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
+## Colline e sfondo: materiale opaco con una punta di emissione, così la
+## foschia le schiarisce senza shader dedicati né nebbia volumetrica.
+static func distant_hill(color: Color) -> StandardMaterial3D:
+	var key := "scenery_hill_" + color.to_html(false)
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		material.roughness = 1.0
+		material.metallic = 0.0
+		material.emission_enabled = true
+		material.emission = color.lightened(0.25)
+		material.emission_energy_multiplier = 0.10
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
+## Asfalto: texture generata a runtime (grana + piste di usura dei pneumatici
+## + bordo più sporco). Una sola texture per tutti i segmenti.
+static func asphalt() -> StandardMaterial3D:
+	var key := "scenery_asphalt"
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_texture = asphalt_texture()
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		material.roughness = 0.92
+		material.metallic = 0.0
+		material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		material.uv1_scale = Vector3(1.0, 1.0, 1.0)
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
+## Texture dell'asfalto: 128x128, generata in pochi millisecondi.
+## U attraversa la carreggiata (0 = bordo sinistro), V si ripete lungo la pista.
+static func asphalt_texture() -> ImageTexture:
+	var key := "scenery_asphalt_texture"
+	if _cache.has(key):
+		return _cache[key] as ImageTexture
+	var size := 128
+	var image := Image.create(size, size, false, Image.FORMAT_RGB8)
+	var base := SceneryPalette.ROAD_BASE
+	var edge := SceneryPalette.ROAD_EDGE
+	var wear := SceneryPalette.ROAD_WEAR
+	# Piste di usura: due per corsia, come lasciate dai pneumatici.
+	var tracks: Array[float] = [0.070, 0.263, 0.404, 0.596, 0.737, 0.930]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 20260317
+	for y in size:
+		for x in size:
+			var u := (float(x) + 0.5) / float(size)
+			var color := base
+			# Bordo carreggiata più scuro (grasso e polvere).
+			var edge_weight := smoothstep(0.085, 0.0, minf(u, 1.0 - u))
+			color = color.lerp(edge, edge_weight * 0.45)
+			for track in tracks:
+				var distance := absf(u - track)
+				color = color.lerp(wear, smoothstep(0.030, 0.010, distance) * 0.42)
+			# Grana fine e macchie larghe: due frequenze, deterministiche.
+			var grain := rng.randf_range(-0.022, 0.022)
+			var blotch := sin(u * 21.0 + float(y) * 0.09) * 0.008
+			color = Color(
+				clampf(color.r + grain + blotch, 0.0, 1.0),
+				clampf(color.g + grain + blotch, 0.0, 1.0),
+				clampf(color.b + grain + blotch, 0.0, 1.0),
+			)
+			image.set_pixel(x, y, color)
+	var texture := ImageTexture.create_from_image(image)
+	_cache[key] = texture
+	return texture

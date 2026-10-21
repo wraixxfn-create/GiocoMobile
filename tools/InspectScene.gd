@@ -1,0 +1,221 @@
+extends Node
+## Diagnostica di sviluppo: stampa lo stato della scena, gli ingombri dell'auto,
+## la composizione dell'ambiente e l'inquadratura (proiezione schermo).
+## Uso: godot --headless --path . res://tools/InspectScene.tscn
+
+const MAIN_SCENE: PackedScene = preload("res://scenes/Main.tscn")
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Watchdog: se qualcosa si blocca, il processo esce comunque.
+	get_tree().create_timer(45.0).timeout.connect(func() -> void:
+		print("INSPECT TIMEOUT")
+		get_tree().quit(2)
+	)
+	print("STEP instantiate")
+	var main := MAIN_SCENE.instantiate()
+	print("STEP add_child")
+	add_child(main)
+	print("STEP frame 1")
+	await get_tree().process_frame
+	print("STEP frame 2")
+	await get_tree().process_frame
+	print("STEP physics")
+	await get_tree().physics_frame
+	print("STEP ready")
+	var gm := main.get_node("GameManager") as GameManager
+	var car := main.get_node("Player") as CarController
+	var cam := main.get_node("CameraRig/MainCamera") as Camera3D
+	var gm_profile := gm.evolution_profile()
+	print("STATE=", gm.state, " LEVEL=", gm.evolution_level)
+	print("PROFILE level=%d half_w=%.3f half_l=%.3f body_w=%.3f body_l=%.3f" % [
+		gm_profile.level, gm_profile.half_width, gm_profile.half_length,
+		gm_profile.body_width, gm_profile.body_length])
+	print("CAR lateral_limit=%.3f extent_yaw=%.3f half_track=%.3f" % [
+		car.lateral_limit,
+		gm_profile.lateral_half_extent(GameConfig.CAR_MAX_STEER_YAW),
+		GameConfig.TRACK_WIDTH * 0.5])
+	print("CAMERA rig=", main.get_node("CameraRig").position, " fov=", cam.fov)
+	var viewport := get_viewport().get_visible_rect().size
+	print("VIEWPORT=", viewport)
+	if viewport.x > 1.0:
+		var car_pt := cam.unproject_position(car.global_position + Vector3(0, 0.6, 0))
+		print("CAR_SCREEN=", car_pt, " y_frac=%.3f" % (car_pt.y / viewport.y))
+		var gates := main.get_node("GateManager") as GateManager
+		for index in gates.rows.size():
+			var row: GateRow = gates.rows[index]
+			var p := cam.unproject_position(Vector3(0, GameConfig.GATE_HEIGHT * 0.5, row.z))
+			var top := cam.unproject_position(Vector3(0, GameConfig.GATE_HEIGHT + 0.9, row.z))
+			print("GATE row=%d z=%.1f dist=%.1f screen=(%.0f,%.0f) h=%.1fpx" % [
+				index, row.z, car.global_position.z - row.z, p.x, p.y, absf(p.y - top.y)])
+	var lights := main.find_children("*", "DirectionalLight3D", true, false)
+	print("DIRECTIONAL_LIGHTS=", lights.size())
+	for light in lights:
+		var dl := light as DirectionalLight3D
+		print("  LIGHT ", dl.name, " energy=%.2f shadow=%s dist=%.1f splits=%d" % [
+			dl.light_energy, dl.shadow_enabled, dl.directional_shadow_max_distance,
+			dl.directional_shadow_mode])
+	var env := (main.get_node("WorldEnvironment") as WorldEnvironment).environment
+	print("ENV sky=%s ambient_src=%d amb_energy=%.2f fog=%s ssao=%s glow=%s tonemap=%d" % [
+		env.sky != null, env.ambient_light_source, env.ambient_light_energy,
+		env.fog_enabled, env.ssao_enabled, env.glow_enabled, env.tonemap_mode])
+	var track := main.get_node("TrackManager") as Node3D
+	print("TRACK segments=", track.get_child_count())
+	var director := car.get_node_or_null("CarVisual") as CarEvolutionDirector
+	if director != null:
+		var stage := director.get_stage_root()
+		print("STAGE root=", stage, " children=", stage.get_child_count() if stage != null else -1)
+		var meshes := 0
+		var empty := 0
+		var tris := 0
+		for node in stage.find_children("*", "MeshInstance3D", true, false):
+			meshes += 1
+			var mi := node as MeshInstance3D
+			if mi.mesh == null or mi.mesh.get_surface_count() == 0:
+				empty += 1
+			else:
+				for s in mi.mesh.get_surface_count():
+					var arrays := mi.mesh.surface_get_arrays(s)
+					tris += (arrays[Mesh.ARRAY_INDEX] as PackedInt32Array).size() / 3 if arrays[Mesh.ARRAY_INDEX] != null else 0
+		print("CAR_MESHES=%d empty=%d tris=%d" % [meshes, empty, tris])
+	print("--- MESH INTERNALS ---")
+	var probes: Array[String] = [
+		"World/GroundField/Terrain",
+		"TrackManager/Segment_0/Asphalt",
+		"TrackManager/Segment_0/Paint",
+	]
+	for path in probes:
+		var node := main.get_node_or_null(path) as MeshInstance3D
+		if node == null:
+			print("  %s: MISSING" % path)
+			continue
+		var mesh := node.mesh
+		if mesh == null:
+			print("  %s: mesh NULL" % path)
+			continue
+		var arrays := mesh.surface_get_arrays(0)
+		var verts := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+		var idx := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+		print("  %s visible=%s layers=%d surf=%d format=%d verts=%d idx=%d first_idx=%s" % [
+			path, node.visible, node.layers, mesh.get_surface_count(), mesh.surface_get_format(0),
+			verts.size(), idx.size(), str(idx.slice(0, 6)),
+		])
+		if verts.size() >= 3:
+			print("    v0=%s v1=%s v2=%s" % [
+				node.global_transform * verts[0],
+				node.global_transform * verts[1],
+				node.global_transform * verts[2],
+			])
+
+	print("--- TRIANGLE NORMALS ---")
+	for path in probes:
+		var node := main.get_node_or_null(path) as MeshInstance3D
+		if node == null or node.mesh == null:
+			continue
+		var arrays := node.mesh.surface_get_arrays(0)
+		var verts := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+		var normals := arrays[Mesh.ARRAY_NORMAL] as PackedVector3Array
+		var idx := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+		var mat := node.material_override as StandardMaterial3D
+		var cull := mat.cull_mode if mat != null else -1
+		for tri_index in [0, 1, idx.size() / 3 - 1]:
+			var base := int(tri_index) * 3
+			if base + 2 >= idx.size():
+				continue
+			var a := verts[idx[base]]
+			var b := verts[idx[base + 1]]
+			var c := verts[idx[base + 2]]
+			var face := (b - a).cross(c - a).normalized()
+			print("  %s tri%d order=%d face=%s stored=%s cull=%d" % [
+				path, tri_index, idx[base], face, normals[idx[base]], cull])
+	print("--- SURFACES NEAR START ---")
+	for node in main.find_children("*", "MeshInstance3D", true, false):
+		var mi := node as MeshInstance3D
+		if mi.mesh == null:
+			continue
+		var box := mi.global_transform * mi.get_aabb()
+		if box.position.y > 1.5 or box.position.y + box.size.y < -1.0:
+			continue
+		if box.size.x < 2.0 and box.size.z < 2.0:
+			continue
+		var mat := mi.material_override as StandardMaterial3D
+		print("  %s y=%.3f..%.3f x=%.1f..%.1f z=%.0f..%.0f surf=%d mat=%s spec=%d" % [
+			mi.get_path(), box.position.y, box.position.y + box.size.y,
+			box.position.x, box.position.x + box.size.x,
+			box.position.z, box.position.z + box.size.z,
+			mi.mesh.get_surface_count(),
+			"tex" if mat != null and mat.albedo_texture != null else ("col" if mat != null else "none"),
+			mat.specular_mode if mat != null else -1,
+		])
+	print("  terrain color_at(0,-96)=", SceneryGroundField.color_at(0.0, -96.0))
+	print("  terrain color_at(6,-96)=", SceneryGroundField.color_at(6.0, -96.0))
+	print("  terrain height_at(0,-96)=%.3f height_at(6,-96)=%.3f" % [
+		SceneryGroundField.height_at(0.0, -96.0), SceneryGroundField.height_at(6.0, -96.0)])
+	print("  palette fog=", SceneryPalette.FOG_COLOR, " sky_ground=", SceneryPalette.SKY_GROUND)
+
+	print("--- CAR MATERIALS ---")
+	for node in car.find_children("*", "MeshInstance3D", true, false):
+		var mi := node as MeshInstance3D
+		if mi.mesh == null or mi.mesh.get_surface_count() == 0:
+			continue
+		var mat := mi.material_override as StandardMaterial3D
+		if mat == null:
+			continue
+		var aabb := mi.global_transform * mi.get_aabb()
+		if aabb.size.y < 0.002:
+			continue
+		print("  %s albedo=%s metallic=%.2f rough=%.2f y=%.2f..%.2f" % [
+			mi.name, mat.albedo_color, mat.metallic, mat.roughness,
+			aabb.position.y, aabb.position.y + aabb.size.y])
+	print("--- CAR TREE ---")
+	for node in car.find_children("*", "Node3D", true, false):
+		var n3 := node as Node3D
+		var extra := ""
+		if node is MeshInstance3D:
+			var mi := node as MeshInstance3D
+			var aabb := mi.get_aabb()
+			var global_aabb := mi.global_transform * aabb
+			extra = " mesh=%s aabb_pos=%s aabb_size=%s" % [
+				mi.mesh.get_class() if mi.mesh != null else "null",
+				global_aabb.position, global_aabb.size]
+		print("  ", car.get_path_to(n3), " pos=", n3.global_position, extra)
+	print("ASPHALT px=", _sample_asphalt())
+	var ground_node := main.get_node_or_null("World/GroundField")
+	if ground_node != null:
+		var terrain := ground_node.get_node_or_null("Terrain") as MeshInstance3D
+		if terrain != null and terrain.mesh != null:
+			var arrays := terrain.mesh.surface_get_arrays(0)
+			var colors := arrays[Mesh.ARRAY_COLOR] as PackedColorArray
+			var verts := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+			var mid_color := Color.BLACK
+			if colors.size() > 0:
+				mid_color = colors[colors.size() / 2]
+			print("TERRAIN verts=%d colors=%d sample=%s" % [
+				verts.size(), colors.size(), mid_color])
+		print("GROUND children=", ground_node.get_child_count())
+	else:
+		print("GROUND MISSING")
+	var backdrop := main.get_node_or_null("World/Backdrop")
+	if backdrop != null:
+		print("BACKDROP children=", backdrop.get_child_count())
+	else:
+		print("BACKDROP MISSING")
+	var shown := 0
+	for segment in (main.get_node("TrackManager") as Node3D).get_children():
+		if segment is TrackSegment:
+			shown += segment.get_child_count()
+	print("SEGMENT_CHILDREN total=", shown)
+	var scenery := main.get_node_or_null("Scenery")
+	print("SCENERY=", scenery)
+	get_tree().quit(0)
+
+
+func _sample_asphalt() -> String:
+	var texture := MaterialFactory.asphalt_texture()
+	if texture == null:
+		return "null"
+	var image := texture.get_image()
+	if image == null:
+		return "no-image"
+	return "%dx%d %s" % [image.get_width(), image.get_height(), image.get_pixel(64, 64)]
