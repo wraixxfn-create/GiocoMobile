@@ -15,79 +15,19 @@ ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
 WARNING: All audio drivers failed, falling back to the dummy driver.
      at: initialize (servers/audio_server.cpp:247)
 
-SCRIPT ERROR: Parse Error: Too many arguments for "box()" call. Expected at most 1 but received 2.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:111)
-SCRIPT ERROR: Parse Error: Too many arguments for "box()" call. Expected at most 1 but received 2.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:122)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/TrackSegment.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/TrackManager.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/core/GameRoot.gd:-1)
-ERROR: Failed to load script "res://scripts/core/GameRoot.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
 CAPTURE ready
 CAPTURE shot 01_start_hero
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/01_start_hero.png err=0 720x1280
 CAPTURE shot 02_approach_gates
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/02_approach_gates.png err=0 720x1280
 CAPTURE shot 03_palms_mid
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/03_palms_mid.png err=0 720x1280
 CAPTURE shot 04_road_detail
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/04_road_detail.png err=0 720x1280
 CAPTURE shot 05_car_study
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/05_car_study.png err=0 720x1280
 CAPTURE shot 06_overview
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/06_overview.png err=0 720x1280
 CAPTURE shot 07_hud_race
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/07_hud_race.png err=0 720x1280
 CAPTURE COMPLETE
