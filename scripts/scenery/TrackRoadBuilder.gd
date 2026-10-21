@@ -107,8 +107,7 @@ static func _paint() -> ArrayMesh:
 	# Cordolo principale.
 	for side: float in [-1.0, 1.0]:
 		var curb := PropMeshes.box(
-			Vector3(GameConfig.CURB_WIDTH, GameConfig.CURB_HEIGHT + 0.04, GameConfig.SEGMENT_LENGTH),
-			BEVEL,
+			Vector3(GameConfig.CURB_WIDTH, GameConfig.CURB_HEIGHT + 0.04, GameConfig.SEGMENT_LENGTH)
 		)
 		parts.append({
 			"acc": _acc(curb),
@@ -118,8 +117,7 @@ static func _paint() -> ArrayMesh:
 		# Blocchi rossi: sporgono di 1 cm, come verniciati sopra il cordolo.
 		for i in 8:
 			var accent := PropMeshes.box(
-				Vector3(GameConfig.CURB_WIDTH + 0.02, GameConfig.CURB_HEIGHT + 0.055, 2.5),
-				BEVEL,
+				Vector3(GameConfig.CURB_WIDTH + 0.02, GameConfig.CURB_HEIGHT + 0.055, 2.5)
 			)
 			parts.append({
 				"acc": _acc(accent),
