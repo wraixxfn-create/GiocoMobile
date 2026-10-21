@@ -131,7 +131,7 @@ static func _place_side(
 			"scale": rng.randf_range(0.85, 1.35),
 			"variant": rng.randi_range(0, SceneryBroadleaf.VARIANTS - 1),
 			"seed": rng.randi(),
-			"shadow": true,
+			"shadow": rng.randf() > 0.35,
 		})
 	if int(arrangement["cluster"]) > 0:
 		_add(CLUSTER_SCENE, parent, {

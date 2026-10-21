@@ -176,11 +176,11 @@ static func stage_paint(level: int, color: Color) -> StandardMaterial3D:
 	if not _cache.has(key):
 		var material := StandardMaterial3D.new()
 		material.albedo_color = color
-		material.roughness = 0.22
-		material.metallic = 0.18
+		material.roughness = 0.30
+		material.metallic = 0.08
 		material.clearcoat_enabled = true
-		material.clearcoat = 0.70
-		material.clearcoat_roughness = 0.16
+		material.clearcoat = 0.55
+		material.clearcoat_roughness = 0.22
 		_cache[key] = material
 	return _cache[key] as StandardMaterial3D
 

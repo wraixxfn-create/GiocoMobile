@@ -32,18 +32,19 @@ func build() -> void:
 	var crown_position: Vector3 = data["crown"]
 	var crown_xform := Transform3D(Basis.IDENTITY, crown_position)
 
+	var tint := (prop_seed % 3) if prop_seed >= 0 else index % 3
 	add_accumulated("Trunk", data["trunk"], MaterialFactory.tree_trunk(index % 3 == 1))
 	add_accumulated("RootFlare", data["root"], MaterialFactory.tree_trunk(true))
 	add_accumulated("CrownBoot", data["boot"], MaterialFactory.tree_trunk(true), crown_xform)
 	add_accumulated(
-		"Crown", data["crown_main"], MaterialFactory.leaf(index, true), crown_xform
+		"Crown", data["crown_main"], MaterialFactory.leaf((index + tint) % 4, true), crown_xform
 	)
 	var light_acc: Dictionary = data["crown_light"]
 	if not (light_acc["tris"] as Array).is_empty():
 		add_accumulated(
 			"CrownLight",
 			light_acc,
-			MaterialFactory.leaf_light(index + 1, true),
+			MaterialFactory.leaf_light((index + tint + 1) % 4, true),
 			crown_xform,
 		)
 	add_accumulated(

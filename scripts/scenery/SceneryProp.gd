@@ -20,6 +20,13 @@ extends Node3D
 @export var prop_seed: int = 0
 @export var shadow_casting: bool = true
 @export var view_distance: float = 210.0
+## Solo gli oggetti entro questa distanza dalla pista proiettano ombre:
+## il sole è posizionato in modo che quelle dei filari lontani non arrivino
+## mai in carreggiata, quindi il budget ombre resta minimo su mobile.
+@export var shadow_range: float = 26.0
+
+## Meta con cui il piano di scenografia segnala la quota del terreno.
+const META_GROUND_Y: StringName = &"scenery_ground_y"
 
 
 func _ready() -> void:
@@ -60,9 +67,10 @@ func add_mesh(
 	instance.mesh = mesh
 	instance.material_override = material
 	instance.transform = xform
+	var casts := shadow_casting and absf(global_position.x) <= shadow_range
 	instance.cast_shadow = (
 		GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-		if shadow_casting
+		if casts
 		else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	)
 	var distance := view_distance if view_range < 0.0 else view_range

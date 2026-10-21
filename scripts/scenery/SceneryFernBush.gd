@@ -24,7 +24,8 @@ func _ready() -> void:
 func build() -> void:
 	var index := posmod(variant, VARIANTS)
 	var data := _variant_data(index)
-	add_accumulated("Core", data["core"], MaterialFactory.leaf(index + 2, false))
+	var tint := (prop_seed % 3) if prop_seed >= 0 else 0
+	add_accumulated("Core", data["core"], MaterialFactory.leaf(index + 2 + tint, false))
 	add_accumulated("FrondsLow", data["low"], MaterialFactory.fern(false))
 	add_accumulated("FrondsHigh", data["high"], MaterialFactory.fern(true))
 

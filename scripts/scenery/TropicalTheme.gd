@@ -15,9 +15,9 @@ extends RefCounted
 
 ## Direzione del sole: da sinistra, alto, leggermente dietro la camera.
 ## Le ombre cadono in avanti a destra, leggibili sulla carreggiata.
-const SUN_ROTATION_DEG := Vector3(-48.0, -34.0, 0.0)
-const SUN_ENERGY: float = 1.02
-const AMBIENT_ENERGY: float = 0.19
+const SUN_ROTATION_DEG := Vector3(-46.0, 26.0, 0.0)
+const SUN_ENERGY: float = 1.10
+const AMBIENT_ENERGY: float = 0.24
 const SHADOW_DISTANCE: float = 62.0
 const SHADOW_OPACITY: float = 0.80
 const SHADOW_BLUR: float = 1.5

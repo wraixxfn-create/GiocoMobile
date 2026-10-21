@@ -180,6 +180,9 @@ func _build_grass() -> MultiMeshInstance3D:
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D
 	multimesh.use_colors = true
 	multimesh.mesh = _tuft()
+	# Ombra statica "dipinta": ogni ciuffo ha una macchia scura leggera ai
+	# piedi. Dà contrasto al prato senza una sola ombra dinamica in più.
+	multimesh.use_custom_data = true
 	multimesh.instance_count = GRASS_INSTANCES
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 31415
@@ -201,6 +204,9 @@ func _build_grass() -> MultiMeshInstance3D:
 			SceneryPalette.grass(rng.randi_range(0, 2)).lerp(
 				SceneryPalette.GRASS_DRY, rng.randf_range(0.0, 0.22)
 			),
+		)
+		multimesh.set_instance_custom_data(
+			index, Color(rng.randf(), 0.0, 0.0, 0.0)
 		)
 	var holder := MultiMeshInstance3D.new()
 	holder.name = "Grass"
