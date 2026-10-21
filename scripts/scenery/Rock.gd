@@ -25,7 +25,7 @@ func build() -> void:
 	var index := posmod(variant, VARIANTS)
 	var data := _variant_data(index)
 	add_accumulated(
-		"Rock", data["rock"], MaterialFactory.rock(index % 3 == 2), Transform3D.IDENTITY, true
+		"Rock", data["rock"], MaterialFactory.boulder(index % 3 == 2), Transform3D.IDENTITY, true
 	)
 	var moss_acc: Dictionary = data["moss"]
 	if not (moss_acc["tris"] as Array).is_empty():

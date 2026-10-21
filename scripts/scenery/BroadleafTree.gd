@@ -25,15 +25,15 @@ func _ready() -> void:
 func build() -> void:
 	var index := posmod(variant, VARIANTS)
 	var data := _variant_data(index)
-	add_accumulated("Trunk", data["trunk"], MaterialFactory.trunk(index % 2 == 0))
-	add_accumulated("Branches", data["branches"], MaterialFactory.trunk(true))
+	add_accumulated("Trunk", data["trunk"], MaterialFactory.tree_trunk(index % 2 == 0))
+	add_accumulated("Branches", data["branches"], MaterialFactory.tree_trunk(true))
 	add_accumulated(
-		"CanopyLow", data["canopy_low"], MaterialFactory.foliage(index, false)
+		"CanopyLow", data["canopy_low"], MaterialFactory.leaf(index, false)
 	)
 	add_accumulated(
 		"CanopyHigh",
 		data["canopy_high"],
-		MaterialFactory.foliage_light(index + 1, false),
+		MaterialFactory.leaf_light(index + 1, false),
 	)
 	add_accumulated(
 		"CanopyLeaves",

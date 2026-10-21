@@ -358,7 +358,7 @@ static func scenery(
 
 ## Fogliame: opaco, leggermente più lucido ai bordi grazie al tono, senza
 ## shader personalizzati. `cull_disabled` perché le fronde sono lamine.
-static func foliage(index: int, double_sided: bool = false) -> StandardMaterial3D:
+static func leaf(index: int, double_sided: bool = false) -> StandardMaterial3D:
 	var color := SceneryPalette.foliage(index)
 	var key := "scenery_foliage_%d_%s" % [index, "ds" if double_sided else "ss"]
 	if not _cache.has(key):
@@ -373,7 +373,7 @@ static func foliage(index: int, double_sided: bool = false) -> StandardMaterial3
 
 
 ## Chioma chiara: stesso verde, un gradino più luminoso (volume leggibile).
-static func foliage_light(index: int, double_sided: bool = false) -> StandardMaterial3D:
+static func leaf_light(index: int, double_sided: bool = false) -> StandardMaterial3D:
 	var color := SceneryPalette.foliage_highlight(index)
 	var key := "scenery_foliage_light_%d_%s" % [index, "ds" if double_sided else "ss"]
 	if not _cache.has(key):
@@ -399,12 +399,12 @@ static func fern(light: bool = false) -> StandardMaterial3D:
 	return _cache[key] as StandardMaterial3D
 
 
-static func trunk(light: bool = false) -> StandardMaterial3D:
+static func tree_trunk(light: bool = false) -> StandardMaterial3D:
 	var color := SceneryPalette.TRUNK_LIGHT if light else SceneryPalette.TRUNK
 	return scenery("trunk_%s" % ("light" if light else "dark"), color, 0.92, 0.0)
 
 
-static func rock(light: bool = false) -> StandardMaterial3D:
+static func boulder(light: bool = false) -> StandardMaterial3D:
 	var color := SceneryPalette.ROCK_LIGHT if light else SceneryPalette.ROCK
 	return scenery("rock_%s" % ("light" if light else "dark"), color, 0.93, 0.0)
 
