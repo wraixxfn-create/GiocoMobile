@@ -88,9 +88,9 @@ const METAL := Color(0.72, 0.74, 0.77)
 # ----------------------------------------------------------------- Sfondo ---
 
 ## Colline lontane: ogni fascia è più chiara e più fredda (foschia).
-const HILL_NEAR := Color(0.30, 0.52, 0.40)
-const HILL_MID := Color(0.47, 0.64, 0.55)
-const HILL_FAR := Color(0.61, 0.73, 0.70)
+const HILL_NEAR := Color(0.33, 0.55, 0.43)
+const HILL_MID := Color(0.50, 0.66, 0.58)
+const HILL_FAR := Color(0.64, 0.75, 0.72)
 const HILL_HAZE := Color(0.71, 0.80, 0.80)
 const DISTANT_TREE := Color(0.33, 0.52, 0.44)
 

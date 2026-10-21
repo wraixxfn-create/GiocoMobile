@@ -21,8 +21,8 @@ const AMBIENT_ENERGY: float = 0.34
 const SHADOW_DISTANCE: float = 62.0
 const SHADOW_OPACITY: float = 0.80
 const SHADOW_BLUR: float = 1.5
-const FOG_BEGIN: float = 135.0
-const FOG_END: float = 470.0
+const FOG_BEGIN: float = 110.0
+const FOG_END: float = 420.0
 
 
 ## Cielo procedurale: azzurro pieno in alto, orizzonte chiaro e caldo.

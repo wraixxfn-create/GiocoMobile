@@ -118,7 +118,7 @@ static func build_loft(
 	# Il verso di avvolgimento dipende dall'ordine dell'anello: lo verifichiamo
 	# sul vertice più alto (la normale deve puntare in alto). Se è invertito,
 	# l'intera superficie verrebbe illuminata dal lato sbagliato.
-	var winding_flip := not _winding_is_outward(grid, grid_normals)
+	var winding_flip := not _winding_is_outward(grid, grid_normals, ring_n, station_n)
 	if winding_flip:
 		var flipped := PackedInt32Array()
 		for t in grid_tris.size() / 3:
@@ -316,18 +316,31 @@ static func _sample_section(keys: Array, count: int) -> Array:
 
 
 ## Normali per-vertice accumulate dalle facce: shading morbido e continuo.
-## True se le normali accumulate puntano verso l'esterno: si controlla il
-## vertice più alto della griglia (la sua normale deve avere componente +Y).
+## True se le normali accumulate puntano verso l'esterno. Il test confronta
+## la normale di ogni quad con la direzione uscente dal centro dell'anello:
+## funziona con qualsiasi ordine di stazioni o di punti della sezione.
 static func _winding_is_outward(
-	grid: PackedVector3Array, normals: PackedVector3Array
+	grid: PackedVector3Array,
+	normals: PackedVector3Array,
+	ring_n: int,
+	station_n: int,
 ) -> bool:
-	var best := -INF
-	var best_index := 0
-	for i in mini(grid.size(), normals.size()):
-		if grid[i].y > best:
-			best = grid[i].y
-			best_index = i
-	return normals[best_index].y >= 0.0
+	if station_n < 2 or ring_n < 3:
+		return true
+	var score := 0.0
+	for i in station_n - 1:
+		var centre := Vector3.ZERO
+		for j in ring_n:
+			centre += grid[i * ring_n + j]
+		centre = centre / float(ring_n)
+		for j in ring_n:
+			var index := i * ring_n + j
+			var outward := grid[index] - centre
+			outward.y = 0.0
+			if outward.length_squared() < 0.000001:
+				continue
+			score += normals[index].dot(outward.normalized())
+	return score >= 0.0
 
 
 static func _accumulate_normals(

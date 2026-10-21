@@ -18,8 +18,8 @@ extends Node3D
 const WIDTH: float = 320.0
 const NEAR_Z: float = 120.0
 const FAR_Z: float = -1240.0
-const GRASS_INSTANCES: int = 4200
-const FLOWER_INSTANCES: int = 900
+const GRASS_INSTANCES: int = 6200
+const FLOWER_INSTANCES: int = 1100
 const SAND_INNER: float = 4.36
 const SAND_OUTER: float = 7.6
 const GRASS_START: float = 7.0
@@ -141,7 +141,9 @@ func _build_terrain_mesh() -> ArrayMesh:
 			var b := a + 1
 			var c := a + cols
 			var d := c + 1
-			indices.append_array([a, c, b, b, c, d])
+			# Verso orario visto dall'alto: le righe avanzano verso -Z e le
+			# colonne verso +X, quindi l'ordine corretto è a, b, c.
+			indices.append_array([a, b, c, b, d, c])
 	var arrays: Array = []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = verts
@@ -184,11 +186,11 @@ func _build_grass() -> MultiMeshInstance3D:
 	for index in GRASS_INSTANCES:
 		var side := -1.0 if index % 2 == 0 else 1.0
 		# Distribuzione a densità decrescente: fitta entro 24 m, rada oltre.
-		var spread := pow(rng.randf(), 1.9)
-		var distance := GRASS_START + spread * 62.0
+		var spread := pow(rng.randf(), 2.3)
+		var distance := GRASS_START + spread * 52.0
 		var z := rng.randf_range(FAR_Z * 0.55, NEAR_Z)
 		var x := side * distance
-		var scale_value := rng.randf_range(0.55, 1.25) * lerpf(1.0, 0.6, spread)
+		var scale_value := rng.randf_range(0.42, 0.85) * lerpf(1.0, 0.55, spread)
 		var basis := Basis(Vector3.UP, rng.randf_range(0.0, TAU)).scaled(
 			Vector3(scale_value, scale_value * rng.randf_range(0.8, 1.3), scale_value)
 		)
@@ -196,8 +198,8 @@ func _build_grass() -> MultiMeshInstance3D:
 		multimesh.set_instance_transform(index, Transform3D(basis, origin))
 		multimesh.set_instance_color(
 			index,
-			SceneryPalette.grass(rng.randi_range(0, 3)).lerp(
-				SceneryPalette.GRASS_DRY, rng.randf_range(0.0, 0.35)
+			SceneryPalette.grass(rng.randi_range(0, 2)).lerp(
+				SceneryPalette.GRASS_DRY, rng.randf_range(0.0, 0.22)
 			),
 		)
 	var holder := MultiMeshInstance3D.new()
@@ -235,8 +237,8 @@ func _build_flowers() -> MultiMeshInstance3D:
 		var distance := GRASS_START + pow(rng.randf(), 1.4) * 26.0
 		var z := rng.randf_range(FAR_Z * 0.45, NEAR_Z)
 		var x := side * distance
-		var scale_value := rng.randf_range(0.7, 1.3)
-		var origin := Vector3(x, height_at(x, z), z)
+		var scale_value := rng.randf_range(0.55, 0.95)
+		var origin := Vector3(x, height_at(x, z) + 0.02, z)
 		multimesh.set_instance_transform(
 			index, Transform3D(Basis.IDENTITY.scaled(Vector3.ONE * scale_value), origin)
 		)

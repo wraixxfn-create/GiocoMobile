@@ -86,6 +86,11 @@ static func _road() -> ArrayMesh:
 		var c := count + i + 1
 		var d := count + i
 		indices.append_array([a, b, c, a, c, d])
+	# Faccia superiore: chiude il profilo tra l'ultimo punto e il primo.
+	# Senza questa chiusura la carreggiata sarebbe un guscio aperto e si
+	# vedrebbe il cielo attraverso l'asfalto.
+	var last := count - 1
+	indices.append_array([last, 0, count, last, count, count + last])
 	_road_mesh = _mesh(verts, normals, uvs, indices)
 	return _road_mesh
 
