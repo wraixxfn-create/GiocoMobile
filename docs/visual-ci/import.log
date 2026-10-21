@@ -1,83 +1,9 @@
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
 SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarModelLibrary.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarEvolutionDirector.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarController.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/gameplay/GameManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:33)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:40)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:191)
+          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:-1)
 ERROR: Attempt to open script 'res://scripts/scenery/SceneryPalm.gd' resulted in error 'File not found'.
    at: load_source_code (modules/gdscript/gdscript.cpp:1094)
 ERROR: Failed loading resource: res://scripts/scenery/SceneryPalm.gd. Make sure resources have been imported by opening the project in the editor at least once.
@@ -116,217 +42,67 @@ SCRIPT ERROR: Compile Error:
           at: GDScript::reload (res://scripts/track/TrackSegment.gd:-1)
 SCRIPT ERROR: Compile Error: 
           at: GDScript::reload (res://scripts/track/TrackManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:154)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:157)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:158)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:159)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "badge_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:268)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/GateRow.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:154)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:157)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:158)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:159)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "badge_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:268)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/GateManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "spark_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:169)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:174)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:234)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/CoinManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/ui/HUD.gd:303)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:54)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:67)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:85)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:90)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:96)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:104)
 SCRIPT ERROR: Parse Error: Cannot find member "SCREEN_SPACE_AA_DISABLED" in base "Environment".
           at: GDScript::reload (res://scripts/scenery/TropicalTheme.gd:70)
 SCRIPT ERROR: Compile Error: 
           at: GDScript::reload (res://scripts/core/GameRoot.gd:-1)
 ERROR: Failed to load script "res://scripts/core/GameRoot.gd" with error "Parse error".
    at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Function "foliage" has the same name as a previously declared function.
-          at: GDScript::reload (res://scripts/core/MaterialFactory.gd:361)
-ERROR: Failed to load script "res://scripts/core/MaterialFactory.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/MainCarVisual.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/dev/CarShowroom.gd:-1)
-ERROR: Failed to load script "res://scripts/dev/CarShowroom.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:80)
 SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
           at: GDScript::reload (res://scripts/scenery/Backdrop.gd:95)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:131)
 ERROR: Failed to load script "res://scripts/scenery/Backdrop.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:40)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "wood" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:40)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:41)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "wood_light" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:41)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:42)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "thatch" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:42)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:43)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "thatch_dark" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:43)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:79)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:86)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:87)
-ERROR: Failed to load script "res://scripts/scenery/BeachHut.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BroadleafTree.gd:28)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BroadleafTree.gd:29)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BroadleafTree.gd:31)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BroadleafTree.gd:36)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/BroadleafTree.gd:41)
-ERROR: Failed to load script "res://scripts/scenery/BroadleafTree.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/FernBush.gd:27)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/FernBush.gd:28)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/FernBush.gd:29)
-ERROR: Failed to load script "res://scripts/scenery/FernBush.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:45)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:206)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:247)
-ERROR: Failed to load script "res://scripts/scenery/GroundField.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/MarkerPost.gd:21)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/MarkerPost.gd:28)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/MarkerPost.gd:35)
-ERROR: Failed to load script "res://scripts/scenery/MarkerPost.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Palm.gd:35)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Palm.gd:36)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Palm.gd:37)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Palm.gd:39)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Palm.gd:46)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Palm.gd:52)
-ERROR: Failed to load script "res://scripts/scenery/Palm.gd" with error "Parse error".
    at: load (modules/gdscript/gdscript.cpp:2936)
 SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
           at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-ERROR: Failed to load script "res://scripts/scenery/PropMeshes.gd" with error "Parse error".
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/SceneryProp.gd:-1)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/BeachHut.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/BeachHut.gd" with error "Compilation failed".
    at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:33)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "metal" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:33)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:42)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:43)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:45)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:52)
-ERROR: Failed to load script "res://scripts/scenery/RoadSign.gd" with error "Parse error".
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/BroadleafTree.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/BroadleafTree.gd" with error "Compilation failed".
    at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Rock.gd:28)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Rock.gd:32)
-ERROR: Failed to load script "res://scripts/scenery/Rock.gd" with error "Parse error".
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/FernBush.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/FernBush.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/GroundField.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/GroundField.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/MarkerPost.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/MarkerPost.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/Palm.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/Palm.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/RoadSign.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/RoadSign.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/Rock.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/Rock.gd" with error "Compilation failed".
    at: load (modules/gdscript/gdscript.cpp:2936)
 ERROR: Attempt to open script 'res://scripts/scenery/SceneryRock.gd' resulted in error 'File not found'.
    at: load_source_code (modules/gdscript/gdscript.cpp:1094)
@@ -336,245 +112,11 @@ ERROR: Attempt to open script 'res://scripts/scenery/SceneryFernBush.gd' resulte
    at: load_source_code (modules/gdscript/gdscript.cpp:1094)
 ERROR: Failed loading resource: res://scripts/scenery/SceneryFernBush.gd. Make sure resources have been imported by opening the project in the editor at least once.
    at: _load (core/io/resource_loader.cpp:283)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/SceneryProp.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Rock.gd:28)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Rock.gd:32)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/FernBush.gd:27)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/FernBush.gd:28)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/FernBush.gd:29)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/scenery/RockCluster.gd:-1)
-ERROR: Failed to load script "res://scripts/scenery/RockCluster.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:300)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:313)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:320)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:337)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "stripe_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:337)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:351)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "foot_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:351)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:361)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "reflector_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:361)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:385)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "chevron_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:385)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:399)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:404)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:413)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "dark_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:413)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:430)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "stripe_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:430)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:431)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "chevron_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:431)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:457)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:462)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "warning_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:462)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:472)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:507)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:507)
-SCRIPT ERROR: Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:435)
-ERROR: Failed to load script "res://scripts/track/Obstacle.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:300)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:313)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:320)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:337)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "stripe_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:337)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:351)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "foot_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:351)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:361)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "reflector_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:361)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:385)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "chevron_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:385)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:399)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:404)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:413)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "dark_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:413)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:430)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "stripe_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:430)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:431)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "chevron_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:431)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:457)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:462)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "warning_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:462)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:472)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:507)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:507)
-SCRIPT ERROR: Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:435)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/ObstacleRow.gd:-1)
-ERROR: Failed to load script "res://scripts/track/ObstacleRow.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "spark_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/ui/HUD.gd:303)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:300)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:313)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:320)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:337)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "stripe_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:337)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:351)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "foot_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:351)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:361)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "reflector_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:361)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:385)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "chevron_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:385)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:399)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:404)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:413)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "dark_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:413)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:430)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "stripe_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:430)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:431)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "chevron_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:431)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:457)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:462)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "warning_mat" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:462)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:472)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:507)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:507)
-SCRIPT ERROR: Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)
-          at: GDScript::reload (res://scripts/track/Obstacle.gd:435)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:169)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:174)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:234)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:154)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:157)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:158)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:159)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "badge_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:268)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://tests/TestRunner.gd:-1)
-ERROR: Failed to load script "res://tests/TestRunner.gd" with error "Parse error".
-   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
+          at: _tuft (res://scripts/scenery/GroundField.gd:162)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
+          at: SceneryGroundField._build_flowers (res://scripts/scenery/GroundField.gd:214)
+ERROR: Parameter "p_child" is null.
+   at: add_child (scene/main/node.cpp:1566)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)

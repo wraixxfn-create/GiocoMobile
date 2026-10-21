@@ -1,83 +1,9 @@
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
 SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarModelLibrary.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarEvolutionDirector.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarController.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/gameplay/GameManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:33)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:40)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:191)
+          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:-1)
 ERROR: Attempt to open script 'res://scripts/scenery/SceneryPalm.gd' resulted in error 'File not found'.
    at: load_source_code (modules/gdscript/gdscript.cpp:1094)
 ERROR: Failed loading resource: res://scripts/scenery/SceneryPalm.gd. Make sure resources have been imported by opening the project in the editor at least once.
@@ -132,138 +58,96 @@ SCRIPT ERROR: Compile Error:
           at: GDScript::reload (res://scripts/track/TrackSegment.gd:-1)
 SCRIPT ERROR: Compile Error: 
           at: GDScript::reload (res://scripts/track/TrackManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:154)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:157)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:158)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:159)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "badge_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:268)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/GateRow.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:154)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:157)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:158)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:159)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "badge_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:268)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/GateManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "spark_material" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:169)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:174)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/Coin.gd:234)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/track/CoinManager.gd:-1)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/ui/HUD.gd:303)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:54)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:67)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:85)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:90)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:96)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/track/FinishLine.gd:104)
 SCRIPT ERROR: Parse Error: Cannot find member "SCREEN_SPACE_AA_DISABLED" in base "Environment".
           at: GDScript::reload (res://scripts/scenery/TropicalTheme.gd:70)
 SCRIPT ERROR: Compile Error: 
           at: GDScript::reload (res://scripts/core/GameRoot.gd:-1)
 ERROR: Failed to load script "res://scripts/core/GameRoot.gd" with error "Compilation failed".
    at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:45)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:206)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/GroundField.gd:247)
-ERROR: Failed to load script "res://scripts/scenery/GroundField.gd" with error "Parse error".
+SCRIPT ERROR: Parse Error: Cannot infer the type of "base" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/PropMeshes.gd:266)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/scenery/GroundField.gd:-1)
+ERROR: Failed to load script "res://scripts/scenery/GroundField.gd" with error "Compilation failed".
    at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:80)
 SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
           at: GDScript::reload (res://scripts/scenery/Backdrop.gd:95)
-SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
-          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:131)
 ERROR: Failed to load script "res://scripts/scenery/Backdrop.gd" with error "Parse error".
    at: load (modules/gdscript/gdscript.cpp:2936)
 STEP instantiate
 STEP add_child
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: CarModelLibrary.create_stage (res://scripts/player/CarModelLibrary.gd:63)
-WARNING: Nessun modello disponibile per il livello 1.
-     at: push_warning (core/variant/variant_utility.cpp:1112)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
-          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
-          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
-          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
-          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
-          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
-          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
-SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
-          at: CoinManager._spawn_initial_coins (res://scripts/track/CoinManager.gd:80)
-SCRIPT ERROR: Trying to assign value of type 'Node3D' to a variable of type 'ObstacleManager.gd'.
-          at: GameRoot._ready (res://scripts/core/GameRoot.gd:10)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
+          at: _tuft (res://scripts/scenery/GroundField.gd:162)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_accumulator' in base 'GDScript'.
+          at: SceneryGroundField._build_flowers (res://scripts/scenery/GroundField.gd:214)
+ERROR: Parameter "p_child" is null.
+   at: add_child (scene/main/node.cpp:1566)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _paint (res://scripts/scenery/TrackRoadBuilder.gd:104)
+SCRIPT ERROR: Invalid call. Nonexistent function 'beveled_box' in base 'GDScript'.
+          at: _add_surface_variation (res://scripts/scenery/TrackRoadBuilder.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'decorate' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:36)
 SCRIPT ERROR: Invalid call. Nonexistent function 'apply_environment' in base 'GDScript'.
           at: GameRoot._setup_environment (res://scripts/core/GameRoot.gd:167)
 SCRIPT ERROR: Invalid call. Nonexistent function 'configure_sun' in base 'GDScript'.
           at: GameRoot._setup_sun (res://scripts/core/GameRoot.gd:173)
 SCRIPT ERROR: Invalid call. Nonexistent function 'configure_camera' in base 'GDScript'.
           at: GameRoot._setup_camera (res://scripts/core/GameRoot.gd:177)
-SCRIPT ERROR: Invalid access to property or key 'global_position' on a base object of type 'Nil'.
-          at: GameManager.setup (res://scripts/gameplay/GameManager.gd:75)
-SCRIPT ERROR: Invalid access to property or key 'set_distance' on a base object of type 'Nil'.
-          at: GameRoot._ready (res://scripts/core/GameRoot.gd:33)
 STEP frame 1
 STEP frame 2
 STEP physics
@@ -271,15 +155,551 @@ STEP ready
 STATE=0 LEVEL=1
 PROFILE level=1 half_w=0.820 half_l=1.560 body_w=1.500 body_l=2.860
 CAR lateral_limit=2.725 extent_yaw=1.058 half_track=3.900
-CAMERA rig=(0, 6.2, 10.2) fov=64
+CAMERA rig=(0, 3.55, 8.3) fov=64
 VIEWPORT=(540, 960)
-CAR_SCREEN=(270, 727.6298) y_frac=0.758
-GATE row=0 z=-70.0 dist=70.0 screen=(270,379) h=22.2px
-GATE row=1 z=-118.0 dist=118.0 screen=(270,362) h=14.0px
-GATE row=2 z=-166.0 dist=166.0 screen=(270,354) h=10.2px
+CAR_SCREEN=(270, 648.1505) y_frac=0.675
+GATE row=0 z=-70.0 dist=70.0 screen=(270,404) h=22.6px
+GATE row=1 z=-118.0 dist=118.0 screen=(270,396) h=14.0px
+GATE row=2 z=-166.0 dist=166.0 screen=(270,392) h=10.2px
 DIRECTIONAL_LIGHTS=1
   LIGHT Sun energy=1.00 shadow=true dist=100.0 splits=2
 SCRIPT ERROR: Invalid access to property or key 'sky' on a base object of type 'null instance'.
           at: _ready (res://tools/InspectScene.gd:60)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
