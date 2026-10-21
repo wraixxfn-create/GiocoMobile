@@ -28,11 +28,11 @@ const FOG_COLOR := Color(0.80, 0.91, 0.88)
 
 # ----------------------------------------------------------------- Strada ---
 
-const ROAD_BASE := Color(0.40, 0.44, 0.50)
-const ROAD_EDGE := Color(0.34, 0.37, 0.43)
-const ROAD_WEAR := Color(0.36, 0.40, 0.46)
-const ROAD_PATCH := Color(0.30, 0.33, 0.38)
-const ROAD_JOINT := Color(0.27, 0.30, 0.35)
+const ROAD_BASE := Color(0.34, 0.38, 0.45)
+const ROAD_EDGE := Color(0.27, 0.31, 0.37)
+const ROAD_WEAR := Color(0.40, 0.44, 0.50)
+const ROAD_PATCH := Color(0.28, 0.31, 0.37)
+const ROAD_JOINT := Color(0.23, 0.26, 0.31)
 const LANE_PAINT := Color(0.95, 0.94, 0.89)
 const CURB_LIGHT := Color(0.94, 0.93, 0.88)
 const CURB_RED := Color(0.84, 0.24, 0.24)

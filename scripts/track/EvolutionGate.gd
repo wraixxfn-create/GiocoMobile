@@ -20,19 +20,19 @@ extends Node3D
 
 ## Durata dell'animazione di attraversamento dopo l'attivazione.
 const CONSUME_DURATION: float = 0.48
-const POST_WIDTH: float = 0.24
-const POST_DEPTH: float = 0.34
-const BEAM_HEIGHT: float = 0.34
-const PANEL_ALPHA: float = 0.16
+const POST_WIDTH: float = 0.105
+const POST_DEPTH: float = 0.16
+const BEAM_HEIGHT: float = 0.20
+const PANEL_ALPHA: float = 0.055
 const PANEL_BOTTOM: float = 0.18
 const PANEL_TOP_GAP: float = 0.52
-const LABEL_FONT_SIZE: int = 128
-const LABEL_PIXEL_SIZE: float = 0.0115
-const BADGE_SIZE := Vector2(2.15, 0.92)
-const BADGE_HEIGHT: float = 0.62
+const LABEL_FONT_SIZE: int = 96
+const LABEL_PIXEL_SIZE: float = 0.0056
+const BADGE_SIZE := Vector2(1.30, 0.56)
+const BADGE_HEIGHT: float = 0.40
 const BADGE_COLOR := Color(0.05, 0.07, 0.11, 0.90)
 const POP_AMOUNT: float = 0.055
-const GLOW_STRIP_WIDTH: float = 0.05
+const GLOW_STRIP_WIDTH: float = 0.035
 const RING_START: float = 0.55
 const RING_END: float = 2.35
 const RING_ALPHA: float = 0.55
@@ -186,8 +186,8 @@ func _build(width: float) -> void:
 			_glow_material,
 		))
 		_visual.add_child(_mesh_box(
-			Vector3(POST_WIDTH + 0.14, 0.16, POST_DEPTH + 0.14),
-			Vector3(side * post_offset, 0.08, 0.0),
+			Vector3(POST_WIDTH + 0.09, 0.10, POST_DEPTH + 0.09),
+			Vector3(side * post_offset, 0.05, 0.0),
 			_frame_material,
 		))
 
@@ -198,15 +198,15 @@ func _build(width: float) -> void:
 		_accent_material,
 	))
 	_visual.add_child(_mesh_box(
-		Vector3(width, 0.06, POST_DEPTH + 0.03),
-		Vector3(0.0, height - 0.03, 0.0),
+		Vector3(width, 0.04, POST_DEPTH + 0.02),
+		Vector3(0.0, height - 0.02, 0.0),
 		_frame_material,
 	))
 
 	# Soglia colorata sull'asfalto: segna esattamente il piano di attraversamento.
 	var threshold := _mesh_box(
-		Vector3(maxf(width - POST_WIDTH * 2.0, 0.2), 0.035, 0.20),
-		Vector3(0.0, 0.03, 0.0),
+		Vector3(maxf(width - POST_WIDTH * 2.0, 0.2), 0.022, 0.16),
+		Vector3(0.0, 0.021, 0.0),
 		_glow_material,
 	)
 	threshold.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -226,8 +226,8 @@ func _build(width: float) -> void:
 	# Frecce a chevron sulla trave: indicano la direzione di marcia.
 	for side in sides:
 		var arrow := _mesh_box(
-			Vector3(0.30, 0.075, 0.05),
-			Vector3(side * 0.15, height - BEAM_HEIGHT * 0.5, POST_DEPTH * 0.5 + 0.03),
+			Vector3(0.19, 0.05, 0.03),
+			Vector3(side * 0.10, height - BEAM_HEIGHT * 0.5, POST_DEPTH * 0.5 + 0.02),
 			_frame_material,
 		)
 		arrow.rotation.z = deg_to_rad(-34.0) * side

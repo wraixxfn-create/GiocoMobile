@@ -37,8 +37,8 @@ const EVOLUTION_START_LEVEL: int = 1
 ## Colore della carrozzeria per ogni livello (indice = livello).
 const EVOLUTION_COLORS: Array[Color] = [
 	Color(0.64, 0.62, 0.53),
-	Color(1.00, 0.79, 0.08),
-	Color(1.00, 0.53, 0.11),
+	Color(0.99, 0.71, 0.05),
+	Color(1.00, 0.47, 0.09),
 	Color(0.30, 0.87, 0.38),
 	Color(0.10, 0.72, 0.96),
 	Color(0.62, 0.34, 1.00),
@@ -261,9 +261,9 @@ const COLOR_OBSTACLE_IMPACT := Color(1.0, 0.82, 0.35)
 ## Inquadratura "premium": camera più bassa e vicina, auto nel terzo inferiore
 ## e molta strada visibile davanti, così i cancelli si anticipano da lontano.
 ## L'auto resta perfettamente centrata (segue l'asse laterale 1:1).
-const CAMERA_HEIGHT: float = 3.55
-const CAMERA_DISTANCE: float = 8.3
-const CAMERA_LOOK_AHEAD: float = 11.2
+const CAMERA_HEIGHT: float = 3.15
+const CAMERA_DISTANCE: float = 7.5
+const CAMERA_LOOK_AHEAD: float = 10.2
 const CAMERA_LOOK_HEIGHT: float = 1.08
 const CAMERA_FOV: float = 60.0
 ## 1.0 = la telecamera segue completamente l'auto: l'auto resta stabile al

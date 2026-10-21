@@ -9,9 +9,9 @@ extends Node3D
 ## (come una quinta teatrale), mentre la pista scorre. Le creste sono mesh
 ## statiche, un materiale ciascuna, nessuna ombra: costo trascurabile.
 
-const RIDGE_NEAR_Z: float = -215.0
-const RIDGE_MID_Z: float = -275.0
-const RIDGE_FAR_Z: float = -345.0
+const RIDGE_NEAR_Z: float = -235.0
+const RIDGE_MID_Z: float = -305.0
+const RIDGE_FAR_Z: float = -395.0
 const TREELINE_Z: float = -165.0
 const FOLLOW_MARGIN: float = 0.0
 
@@ -33,53 +33,61 @@ func _process(_delta: float) -> void:
 
 func _build() -> void:
 	_built = true
-	_add_ridge("RidgeNear", RIDGE_NEAR_Z, 34.0, 17.0, SceneryPalette.HILL_NEAR, 0.02)
-	_add_ridge("RidgeMid", RIDGE_MID_Z, 46.0, 22.0, SceneryPalette.HILL_MID, 0.011)
-	_add_ridge("RidgeFar", RIDGE_FAR_Z, 62.0, 30.0, SceneryPalette.HILL_FAR, 0.006)
+	_add_ridge("RidgeNear", RIDGE_NEAR_Z, 18.0, 8.0, SceneryPalette.HILL_NEAR, 34.0)
+	_add_ridge("RidgeMid", RIDGE_MID_Z, 27.0, 12.0, SceneryPalette.HILL_MID, 52.0)
+	_add_ridge("RidgeFar", RIDGE_FAR_Z, 40.0, 17.0, SceneryPalette.HILL_FAR, 74.0)
 	_add_treeline("TreeLine", TREELINE_Z)
 
 
-## Una cresta: curtain verticale la cui sommità è una somma di sinusoidi.
-## Le creste più lontane sono più alte, più larghe e più chiare (foschia).
+## Una catena di colline: due file di cupole schiacciate sovrapposte, non una
+## quinta piatta. Ogni strato ha raggio, altezza e tinta propri; le cupole
+## sono irregolari e sfalsate, così la silhouette non è mai una fila di gobbe
+## uguali. La foschia le schiarisce con la distanza, in modo naturale.
 func _add_ridge(
 	node_name: String,
 	z: float,
+	radius: float,
 	height: float,
-	baseline: float,
 	color: Color,
-	frequency: float,
+	step: float,
 ) -> void:
-	var segments := 56
-	var width := 900.0
-	var verts: Array[Vector3] = []
-	var tris: Array[Vector3i] = []
-	for i in segments + 1:
-		var t := float(i) / float(segments)
-		var x := (t - 0.5) * width
-		var crest := (
-			sin(t * 8.1 + z * 0.01) * 0.55
-			+ sin(t * 15.7 + 1.7) * 0.28
-			+ sin(t * 27.3 + 4.1) * 0.14
-		) * height
-		var top := baseline + height * 0.45 + crest
-		verts.append(Vector3(x, top, z))
-		verts.append(Vector3(x, -8.0, z))
-	for i in segments:
-		var a := i * 2
-		var b := a + 1
-		var c := a + 2
-		var d := a + 3
-		tris.append(Vector3i(a, c, b))
-		tris.append(Vector3i(b, c, d))
 	var acc := PropMeshes.new_accumulator()
-	acc["verts"] = verts
-	acc["tris"] = tris
+	var rng := RandomNumberGenerator.new()
+	rng.seed = int(absf(z)) * 31 + 7
+	for layer in 2:
+		var layer_z := z - float(layer) * step * 1.15
+		var layer_height := height * (1.0 if layer == 0 else 0.78)
+		var layer_radius := radius * (1.0 if layer == 0 else 0.86)
+		var cursor := -layer_radius * 5.2 + float(layer) * step * 0.55
+		while cursor < layer_radius * 5.2:
+			var dome_radius := layer_radius * rng.randf_range(0.62, 1.16)
+			var dome_height := layer_height * rng.randf_range(0.48, 1.05)
+			var dome := PropMeshes.blob(
+				int(absf(cursor)) + int(absf(layer_z)) + layer * 97,
+				dome_radius,
+				2,
+				0.20,
+				dome_height / dome_radius,
+				true,
+			)
+			var origin := Vector3(
+				cursor + rng.randf_range(-0.3, 0.3) * step,
+				-dome_radius * 0.62,
+				layer_z + rng.randf_range(-0.3, 0.3) * step,
+			)
+			PropMeshes.append(
+				acc,
+				dome["verts"] as Array[Vector3],
+				dome["tris"] as Array[Vector3i],
+				Transform3D(Basis.IDENTITY, origin),
+			)
+			cursor += step * rng.randf_range(0.55, 0.95)
 	var instance := MeshInstance3D.new()
 	instance.name = node_name
-	instance.mesh = PropMeshes.to_mesh(acc, true)
+	instance.mesh = PropMeshes.to_mesh(acc, false)
 	instance.material_override = MaterialFactory.distant_hill(color)
 	instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	instance.visibility_range_end = 520.0
+	instance.visibility_range_end = 620.0
 	add_child(instance)
 
 

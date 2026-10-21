@@ -21,7 +21,7 @@ const FAR_Z: float = -1240.0
 const GRASS_INSTANCES: int = 6200
 const FLOWER_INSTANCES: int = 1100
 const SAND_INNER: float = 4.36
-const SAND_OUTER: float = 7.6
+const SAND_OUTER: float = 5.9
 const GRASS_START: float = 7.0
 
 static var _tuft_mesh: Mesh = null
@@ -68,17 +68,17 @@ static func height_at(x: float, z: float) -> float:
 ## Colore del terreno: sabbia calda vicino all'asfalto, poi tre verdi a chiazze.
 static func color_at(x: float, z: float) -> Color:
 	var distance := absf(x)
-	var sand := 1.0 - smoothstep(SAND_INNER, SAND_OUTER + 2.6, distance)
+	var sand := 1.0 - smoothstep(SAND_INNER, SAND_OUTER + 1.9, distance)
 	var patch_a := sin(z * 0.031 + x * 0.017) * 0.5 + 0.5
 	var patch_b := sin(z * 0.011 - x * 0.026 + 2.1) * 0.5 + 0.5
 	var grass := SceneryPalette.GRASS_BASE
-	grass = grass.lerp(SceneryPalette.GRASS_DEEP, patch_a * 0.55)
-	grass = grass.lerp(SceneryPalette.GRASS_LIGHT, patch_b * 0.45)
+	grass = grass.lerp(SceneryPalette.GRASS_DEEP, patch_a * 0.62)
+	grass = grass.lerp(SceneryPalette.GRASS_LIGHT, patch_b * 0.55)
 	# Chiazze più secche in quota: danno profondità alle colline.
 	var height_factor := smoothstep(1.0, 9.0, height_at(x, z))
 	grass = grass.lerp(SceneryPalette.GRASS_DRY, height_factor * 0.30)
 	var sand_color := SceneryPalette.SAND.lerp(SceneryPalette.SAND_DARK, patch_a * 0.35)
-	return sand_color.lerp(grass, 1.0 - sand * 0.92)
+	return sand_color.lerp(grass, 1.0 - sand)
 
 
 # ----------------------------------------------------------------- Griglia ---
@@ -162,14 +162,14 @@ static func _tuft() -> Mesh:
 		return _tuft_mesh
 	# Ciuffo d'erba: tre lamine incrociate, 6 triangoli, doppia faccia.
 	var acc := PropMeshes.new_accumulator()
-	for i in 3:
-		var yaw := TAU * float(i) / 3.0
-		var blade := PropMeshes.frond(0.52, 0.16, 0.30, 0.10, 40 + i, 0.22, 3)
+	for i in 4:
+		var yaw := TAU * float(i) / 4.0
+		var blade := PropMeshes.frond(0.46, 0.13, 0.42, 0.06, 40 + i, 0.18, 3)
 		PropMeshes.append(
 			acc,
 			blade["verts"] as Array[Vector3],
 			blade["tris"] as Array[Vector3i],
-			Transform3D(Basis(Vector3.UP, yaw) * Basis(Vector3.BACK, deg_to_rad(74.0)), Vector3.ZERO),
+			Transform3D(Basis(Vector3.UP, yaw) * Basis(Vector3.BACK, deg_to_rad(82.0)), Vector3.ZERO),
 		)
 	_tuft_mesh = PropMeshes.to_mesh(acc, false)
 	return _tuft_mesh
