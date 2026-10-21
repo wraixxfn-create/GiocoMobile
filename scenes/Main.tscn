@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/core/GameRoot.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/gameplay/GameManager.gd" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/HUD.tscn" id="6"]
 [ext_resource type="Script" path="res://scripts/track/GateManager.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/track/ObstacleManager.gd" id="8"]
+[ext_resource type="Script" path="res://scripts/track/CoinManager.gd" id="9"]
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1")
@@ -44,5 +45,8 @@ script = ExtResource("7")
 
 [node name="ObstacleManager" type="Node3D" parent="." groups=["obstacle_manager"]]
 script = ExtResource("8")
+
+[node name="CoinManager" type="Node3D" parent="." groups=["coin_manager"]]
+script = ExtResource("9")
 
 [node name="HUD" parent="." instance=ExtResource("6")]

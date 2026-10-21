@@ -1,4 +1,4 @@
-# Car Evolve 3D — Cancelli di evoluzione e ostacoli (Fase 3)
+# Car Evolve 3D — Monete, cancelli di evoluzione e ostacoli
 
 Giochino mobile 3D hyper-casual in **Godot 4.3+**, ispirato al genere di
 Car Evolve. Ambiente 3D giocabile con pista, bordi laterali rialzati, terreno
@@ -6,11 +6,12 @@ verde, cielo con prospettiva verso l'orizzonte, illuminazione con ombre leggere
 e auto stilizzata costruita con mesh semplici.
 
 La meccanica principale è giocabile: **coppie di cancelli** che evolvono o
-fanno regredire l'auto e, da questa fase, **ostacoli** che rendono la corsa
-una sfida di precisione. Il giocatore sceglie quale cancello attraversare
-sterzando, evita coni, barriere, restringimenti e blocchi mobili, e il livello
-di evoluzione (`evolution_level`) cambia con limiti minimo e massimo. Ogni
-livello ha il **proprio modello 3D**: dal rottame all'hypercar futuristica.
+fanno regredire l'auto, **ostacoli** da schivare e **monete** da raccogliere
+lungo la pista. Il giocatore sceglie quale cancello attraversare sterzando,
+evitando coni, barriere, restringimenti e blocchi mobili; ogni moneta raccolta
+aggiorna il totale della corsa e il saldo locale permanente. Il livello di
+evoluzione (`evolution_level`) cambia con limiti minimo e massimo e ogni livello
+ha il **proprio modello 3D**: dal rottame all'hypercar futuristica.
 
 ## Requisiti
 
@@ -199,6 +200,42 @@ tipo (`CONE_/BARRIER_/WALL_SPEED_FACTOR` e `_DURATION`,
 `driving_tuning.tres` (14 m/s × moltiplicatore di stadio): la progressione è
 controllata e non dipende dagli ostacoli.
 
+## Monete e punteggio
+
+`CoinManager` mantiene un pool di monete davanti all'auto e lo ricicla lungo
+la pista. Il layout usa posizioni laterali alternate; il pickup è rilevato con
+la distanza minima tra il percorso dell'auto nel frame e la moneta, quindi non
+si perde una raccolta tra due frame. Ogni `Coin` passa atomicamente da
+**disponibile** a **raccolta**: le collisioni successive vengono ignorate.
+La moneta sale e si restringe in un'animazione, mentre l'HUD aggiorna subito il
+contatore e fa un breve pop.
+
+Sono due valori distinti:
+
+- `GameManager.session_coins`: monete raccolte nella corsa corrente, mostrate
+  come **MONETE CORSA** e usate nel calcolo del punteggio finale;
+- `GameManager.permanent_coins`: saldo accumulato tra le corse, mostrato come
+  **SALDO PERMANENTE** e salvato in `user://giocomobile_save.cfg` tramite
+  `ConfigFile` di Godot. Se il file non esiste al primo avvio, il saldo parte
+  da zero e viene creato un file valido. Ogni pickup salva subito il saldo,
+  senza aspettare la chiusura o una schermata negozio.
+
+Quando viene chiamato `GameManager.end_game()`, il riepilogo HUD mostra il
+punteggio finale calcolato così:
+
+```
+floor(distanza_m × SCORE_POINTS_PER_METER)
++ livello_massimo × SCORE_POINTS_PER_EVOLUTION_LEVEL
++ monete_corsa × SCORE_POINTS_PER_COIN
+```
+
+I valori predefiniti sono 10 punti per metro, 250 per ogni livello massimo
+dell'auto raggiunto e 50 per moneta. Spawn, spaziatura, corsie, raggio di
+raccolta, valore delle monete, animazione e pesi del punteggio si configurano
+nella sezione **Monete e punteggio** di `scripts/core/GameConfig.gd`. Non è
+presente un negozio. Il traguardo/condizione automatica di fine corsa resta
+separato da questa meccanica.
+
 ## Controlli
 
 - **Smartphone**: trascina il dito a destra/sinistra per sterzare, senza
@@ -258,7 +295,8 @@ scripts/
     GameRoot.gd          # bootstrap: cielo procedurale, luce/ombre, camera prospettica
     MaterialFactory.gd   # materiali low-poly condivisi e cachiati
   gameplay/
-    GameManager.gd       # stato di gioco, punteggio e evolution_level centralizzato
+    GameManager.gd       # stato della corsa, punteggio finale e livelli evolutivi
+    CoinWalletStore.gd   # saldo persistente con ConfigFile in user://
   input/
     InputManager.gd      # input laterale unificato (touch, mouse, tastiera)
   player/
@@ -278,8 +316,10 @@ scripts/
     ObstacleManager.gd   # file di ostacoli: generazione, collisioni solide, penalità, riciclo
     ObstacleRow.gd       # una fila di ostacoli su un piano (struttura dati + varchi)
     Obstacle.gd          # un ostacolo: tipo, stato, rect di collisione, animazioni
+    CoinManager.gd       # generazione, pickup continuo e riciclo delle monete
+    Coin.gd              # moneta 3D, stato anti-duplicato e animazione di raccolta
   ui/
-    HUD.gd               # distanza, monete, stadio di evoluzione (nome e statistiche), feedback
+    HUD.gd               # distanza, monete corsa/saldo, stadio e riepilogo finale
 tests/
   TestRunner.tscn        # test headless di integrazione dei controlli
   TestRunner.gd          # touch/mouse, bordi, camera, pista, FPS, cancelli, evoluzione, ostacoli
@@ -335,12 +375,17 @@ riciclo rigeneri file integre senza orfani; e — la prova di giocabilità —
 un pilota automatico predittivo con **zero collisioni**, zero compenetrazioni,
 layout sempre legale, nessun blocco della corsa, cancelli positivi fino al
 livello massimo.
+Per il sistema di ricompense verifica inoltre: pool e generazione delle monete,
+pickup continuo quando il percorso attraversa una moneta, aggiornamento immediato
+dell'HUD, protezione da doppie collisioni, animazione, inizializzazione del
+primo salvataggio assente, ricaricamento del saldo in un nuovo manager, separazione
+del contatore di corsa dal saldo permanente e formula del punteggio finale.
 Esce con codice 0 se tutte le verifiche passano.
 
 ## Roadmap (fasi successive, non ancora implementate)
 
-- Fase 3 (completata: ostacoli): restano monete raccoglibili e modelli
-  definitivi delle evoluzioni (già sostituibili senza toccare la logica:
-  vedi "Sostituire i modelli")
-- Fase 4: traguardo, fine partita, schermata di riepilogo
-- Fase 5: audio, salvataggio locale del punteggio, export Android/iOS
+- Fase 3 (completata): cancelli, ostacoli, monete, saldo locale permanente e
+  calcolo del punteggio; restano i modelli definitivi delle evoluzioni (già
+  sostituibili senza toccare la logica: vedi "Sostituire i modelli")
+- Fase 4: traguardo/condizione di fine corsa e relativo flusso di riavvio
+- Fase 5: audio, salvataggio del record di punteggio, export Android/iOS

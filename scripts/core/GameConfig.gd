@@ -70,6 +70,36 @@ const EVOLUTION_HANDLING_MULTIPLIERS: Array[float] = [
 ## Durata dell'animazione di trasformazione, in secondi.
 const EVOLUTION_TRANSFORM_DURATION: float = 0.55
 
+# ---------------------------------------------------- Monete e punteggio ---
+## Unica posizione del salvataggio locale (ConfigFile, cartella user:// di Godot).
+const COIN_SAVE_PATH: String = "user://giocomobile_save.cfg"
+## Ogni moneta aggiunge questa quantità sia alla corsa sia al saldo permanente.
+const COIN_VALUE: int = 1
+## Prima moneta e distanza costante tra gli oggetti generati davanti all'auto.
+const COIN_FIRST_DISTANCE: float = 16.0
+const COIN_SPAWN_SPACING: float = 8.0
+const COIN_ACTIVE_COUNT: int = 20
+## Posizioni laterali alternate: pista larga 7,8 m, sempre raggiungibili.
+const COIN_LANE_PATTERN: Array[float] = [0.0, -1.8, 1.8, -0.8, 2.2, 0.0, -2.2]
+## Aspetto e moto delle monete (metri / radianti al secondo).
+const COIN_HEIGHT: float = 0.90
+const COIN_RADIUS: float = 0.34
+const COIN_THICKNESS: float = 0.09
+const COIN_PICKUP_RADIUS: float = 1.30
+const COIN_RECYCLING_OFFSET: float = 18.0
+const COIN_TELEPORT_LIMIT: float = 6.0
+const COIN_ANIMATION_DURATION: float = 0.42
+const COIN_ANIMATION_RISE: float = 0.85
+const COIN_SPIN_SPEED: float = 2.8
+const COIN_BOB_AMPLITUDE: float = 0.12
+const COIN_BOB_SPEED: float = 2.2
+## Formula finale: metri × punti/m + livello massimo × bonus + monete × bonus.
+const SCORE_POINTS_PER_METER: float = 10.0
+const SCORE_POINTS_PER_EVOLUTION_LEVEL: int = 250
+const SCORE_POINTS_PER_COIN: int = 50
+const COLOR_COIN := Color(1.0, 0.67, 0.08)
+const COLOR_COIN_HIGHLIGHT := Color(1.0, 0.92, 0.48)
+
 # --------------------------------------------------------------- Cancelli ---
 ## Distanza dall'auto della prima fila di cancelli all'avvio della corsa.
 ## Deve restare ampia: il giocatore vede i cancelli e ha il tempo di sterzare.

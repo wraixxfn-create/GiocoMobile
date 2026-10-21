@@ -7,6 +7,7 @@ extends Node
 @onready var _game_manager: GameManager = $GameManager
 @onready var _gate_manager: GateManager = $GateManager
 @onready var _obstacle_manager: ObstacleManager = $ObstacleManager
+@onready var _coin_manager: CoinManager = $CoinManager
 @onready var _hud: HUD = $HUD
 @onready var _car: CarController = $Player
 @onready var _camera_rig: Node3D = $CameraRig
@@ -22,10 +23,13 @@ func _ready() -> void:
 	_update_camera()
 
 	_game_manager.setup(_car)
-	_game_manager.score_updated.connect(_hud.set_distance)
+	_game_manager.distance_updated.connect(_hud.set_distance)
 	_game_manager.coins_updated.connect(_hud.set_coins)
+	_game_manager.permanent_coins_updated.connect(_hud.set_permanent_coins)
 	_game_manager.state_changed.connect(_hud.set_state)
 	_game_manager.evolution_changed.connect(_hud.set_evolution)
+	_game_manager.run_finished.connect(_hud.show_run_results)
+	_coin_manager.coin_collected.connect(_hud.play_coin_pickup_animation)
 	_gate_manager.gate_crossed.connect(_hud.show_gate_feedback)
 	# Collisioni con gli ostacoli: messaggio di penalità + lampeggio rosso.
 	_obstacle_manager.obstacle_hit.connect(_hud.show_obstacle_feedback)
@@ -36,8 +40,9 @@ func _ready() -> void:
 	if input_manager != null:
 		input_manager.start_requested.connect(_game_manager.start_game)
 
-	_hud.set_distance(0)
-	_hud.set_coins(0)
+	_hud.set_distance(floori(_game_manager.distance))
+	_hud.set_coins(_game_manager.session_coins)
+	_hud.set_permanent_coins(_game_manager.permanent_coins)
 	_hud.set_evolution(
 		_game_manager.evolution_level,
 		0,

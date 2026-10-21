@@ -37,7 +37,9 @@ var _camera: Camera3D
 var _track: Node3D
 var _gate_manager: GateManager
 var _obstacle_manager: ObstacleManager
+var _coin_manager: CoinManager
 var _hud: HUD
+var _wallet_test_path: String = ""
 var _initial_gate_distance: float = 0.0
 
 
@@ -45,7 +47,13 @@ func _ready() -> void:
 	print("=== TEST CONTROLLI DI GUIDA ===")
 	# Watchdog: evita che un test bloccato lasci il processo appeso in CI.
 	get_tree().create_timer(60.0).timeout.connect(_on_watchdog_timeout)
+	_wallet_test_path = "user://test_coin_wallet_%d.cfg" % Time.get_ticks_usec()
+	var existing_wallet_path := ProjectSettings.globalize_path(_wallet_test_path)
+	if FileAccess.file_exists(_wallet_test_path):
+		DirAccess.remove_absolute(existing_wallet_path)
 	_main = MAIN_SCENE.instantiate()
+	var test_game_manager := _main.get_node("GameManager") as GameManager
+	test_game_manager.wallet_save_path = _wallet_test_path
 	add_child(_main)
 	await get_tree().process_frame
 	await get_tree().physics_frame
@@ -58,6 +66,7 @@ func _ready() -> void:
 	_track = _main.get_node("TrackManager") as Node3D
 	_gate_manager = _main.get_node("GateManager") as GateManager
 	_obstacle_manager = _main.get_node("ObstacleManager") as ObstacleManager
+	_coin_manager = _main.get_node("CoinManager") as CoinManager
 	_hud = _main.get_node("HUD") as HUD
 	if _gate_manager != null and not _gate_manager.rows.is_empty():
 		_initial_gate_distance = _car.position.z - float(_gate_manager.rows[0].z)
@@ -83,6 +92,19 @@ func _ready() -> void:
 		_obstacle_manager != null and _gate_manager != null
 		and _obstacle_manager.rows.size() == _gate_manager.rows.size(),
 		"file di ostacoli generate all'avvio (una per corridoio di cancelli)",
+	)
+	_check(_coin_manager != null, "CoinManager presente nella scena")
+	_check(
+		_coin_manager != null and _coin_manager.is_in_group(&"coin_manager"),
+		"CoinManager nel gruppo coin_manager",
+	)
+	_check(
+		_coin_manager != null and _coin_manager.coins.size() == GameConfig.COIN_ACTIVE_COUNT,
+		"monete generate all'avvio secondo il pool configurato",
+	)
+	_check(
+		_game_manager.permanent_coins == 0 and FileAccess.file_exists(_wallet_test_path),
+		"primo avvio senza salvataggio: saldo a zero e file locale inizializzato",
 	)
 
 	await _test_idle_then_auto_forward()
@@ -117,6 +139,7 @@ func _ready() -> void:
 	_test_obstacle_recycling()
 	_test_obstacle_playability_run()
 	_test_obstacle_high_difficulty_run()
+	await _test_coin_collection_wallet_and_score()
 
 	_finish()
 
@@ -1790,6 +1813,113 @@ func _test_obstacle_high_difficulty_run() -> void:
 		"difficoltà massima: la difficoltà resta satura",
 	)
 	_restore_driving()
+
+
+func _test_coin_collection_wallet_and_score() -> void:
+	print("--- monete, saldo permanente e punteggio ---")
+	_coin_manager.set_physics_process(false)
+
+	var session_before := _game_manager.session_coins
+	var permanent_before := _game_manager.permanent_coins
+	var pickups_before := _coin_manager.collected_count
+	var target_coin := _coin_manager.coins[0]
+	for index in _coin_manager.coins.size():
+		var other := _coin_manager.coins[index]
+		if other == target_coin:
+			continue
+		other.setup(Vector3(100.0 + index, GameConfig.COIN_HEIGHT, -100.0), other.spawn_serial)
+	target_coin.setup(Vector3(0.0, GameConfig.COIN_HEIGHT, 0.0), 1000)
+
+	# Il segmento 2 -> -2 m attraversa il centro della moneta: il test
+	# verifica il rilevamento continuo anche senza un frame esattamente sul punto.
+	_car.global_position = Vector3(0.0, 0.0, 2.0)
+	_coin_manager._previous_car_position = _car.global_position
+	_car.global_position = Vector3(0.0, 0.0, -2.0)
+	_coin_manager.step(0.0)
+	_check(target_coin.collected, "la moneta viene raccolta passando nel raggio configurato")
+	_check(
+		_game_manager.session_coins == session_before + GameConfig.COIN_VALUE,
+		"il contatore della corsa si aggiorna subito di una sola moneta",
+	)
+	_check(
+		_game_manager.permanent_coins == permanent_before + GameConfig.COIN_VALUE,
+		"la raccolta accredita separatamente il saldo permanente",
+	)
+	_check(
+		_hud.displayed_coins() == _game_manager.session_coins
+		and _hud.displayed_permanent_coins() == _game_manager.permanent_coins,
+		"HUD aggiornato nello stesso frame per corsa e saldo",
+	)
+	_check(
+		_coin_manager.collected_count == pickups_before + 1,
+		"una sola raccolta registrata dal manager",
+	)
+
+	# Ripassare sullo stesso oggetto mentre la sua animazione è in corso non
+	# deve assegnare una seconda moneta.
+	_coin_manager._previous_car_position = Vector3(0.0, 0.0, 1.0)
+	_car.global_position = Vector3(0.0, 0.0, -1.0)
+	_coin_manager.step(0.0)
+	_check(
+		_game_manager.session_coins == session_before + GameConfig.COIN_VALUE
+		and _game_manager.permanent_coins == permanent_before + GameConfig.COIN_VALUE,
+		"collisioni ripetute sulla stessa moneta non duplicano il premio",
+	)
+	target_coin._process(GameConfig.COIN_ANIMATION_DURATION)
+	_check(
+		target_coin.state == Coin.State.COLLECTED and not target_coin.visible,
+		"l'animazione di raccolta termina nascondendo la moneta consumata",
+	)
+
+	# Simula un nuovo avvio del manager: il saldo viene riletto dal ConfigFile,
+	# mentre il totale della singola corsa riparte da zero.
+	var restarted_manager := GameManager.new()
+	restarted_manager.wallet_save_path = _wallet_test_path
+	add_child(restarted_manager)
+	await get_tree().process_frame
+	_check(
+		restarted_manager.permanent_coins == permanent_before + GameConfig.COIN_VALUE,
+		"il saldo permanente sopravvive al caricamento di un nuovo manager",
+	)
+	_check(
+		restarted_manager.session_coins == 0,
+		"una nuova sessione non eredita le monete della corsa precedente",
+	)
+	restarted_manager.queue_free()
+	await get_tree().process_frame
+
+	# Verifica anche il contatore di distanza live e la formula del riepilogo.
+	_game_manager.distance = 0.0
+	_game_manager._last_reported_distance = 0
+	_car.current_speed = 10.0
+	_game_manager._process(0.25)
+	_check(
+		absf(_game_manager.distance - 2.5) < EPSILON and _hud.displayed_distance() == 2,
+		"distanza percorsa aggiornata in metri durante la corsa",
+	)
+	_game_manager.distance = 123.7
+	_game_manager.max_evolution_level = 4
+	var expected_score := (
+		floori(_game_manager.distance * GameConfig.SCORE_POINTS_PER_METER)
+		+ _game_manager.max_evolution_level * GameConfig.SCORE_POINTS_PER_EVOLUTION_LEVEL
+		+ _game_manager.session_coins * GameConfig.SCORE_POINTS_PER_COIN
+	)
+	_game_manager.end_game()
+	_check(
+		_game_manager.final_score == expected_score,
+		"punteggio finale somma distanza, livello massimo e monete",
+	)
+	_check(_hud.results_visible(), "HUD mostra il riepilogo finale della corsa")
+	_check(
+		_hud.results_text().contains("PUNTEGGIO %d" % expected_score),
+		"riepilogo HUD riporta il punteggio calcolato",
+	)
+	var saved_balance := _game_manager.permanent_coins
+	_game_manager.start_game()
+	_check(
+		_game_manager.session_coins == 0 and _game_manager.permanent_coins == saved_balance,
+		"una nuova corsa azzera il totale di sessione ma conserva il saldo",
+	)
 
 
 # --------------------------------------------------- Helper: ostacoli --------
