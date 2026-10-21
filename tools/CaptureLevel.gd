@@ -43,6 +43,8 @@ var _debug_shots: Array[Dictionary] = [
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 	{"name": "_tmp/dx_clones", "z": -212.0, "x": 0.0, "mode": "game", "probe": "clones",
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
+	{"name": "_tmp/dx_copy", "z": -212.0, "x": 0.0, "mode": "game", "probe": "copy",
+		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 ]
 
 
@@ -158,6 +160,30 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 			asphalt_node.position.y += 0.7
 			var paint_node := _main.get_node("TrackManager/Segment_0/Paint") as MeshInstance3D
 			paint_node.position.y += 1.4
+		"copy":
+			var asphalt_src := _main.get_node("TrackManager/Segment_5/Asphalt") as MeshInstance3D
+			var z_probe := float(shot["z"]) - 18.0
+			var same_mesh := MeshInstance3D.new()
+			same_mesh.name = "ProbeSameMesh"
+			same_mesh.mesh = asphalt_src.mesh
+			same_mesh.material_override = _probe_material(Color(1.0, 0.45, 0.0))
+			same_mesh.position = Vector3(0.0, 1.0, z_probe)
+			_main.add_child(same_mesh)
+			var dup_mesh := MeshInstance3D.new()
+			dup_mesh.name = "ProbeDupMesh"
+			dup_mesh.mesh = asphalt_src.mesh.duplicate() as Mesh
+			dup_mesh.material_override = _probe_material(Color(0.1, 0.4, 1.0))
+			dup_mesh.position = Vector3(0.0, 2.0, z_probe)
+			_main.add_child(dup_mesh)
+			var plane := PlaneMesh.new()
+			plane.size = Vector2(8.0, 22.0)
+			var plane_node := MeshInstance3D.new()
+			plane_node.name = "ProbePlane"
+			plane_node.mesh = plane
+			plane_node.material_override = _probe_material(Color(0.1, 1.0, 0.3))
+			plane_node.position = Vector3(0.0, 3.0, z_probe)
+			_main.add_child(plane_node)
+			print("CAPTURE asphalt_mesh_surfaces=", asphalt_src.mesh.get_surface_count())
 		"red":
 			var flat_red := StandardMaterial3D.new()
 			flat_red.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
