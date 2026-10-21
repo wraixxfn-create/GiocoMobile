@@ -489,6 +489,17 @@ godot --headless --path . --import          # una volta, per scansionare le clas
 godot --headless --path . res://tests/TestRunner.tscn
 ```
 
+Controlli statici eseguibili anche senza il motore installato
+(gdtoolkit 4.x: `pip install gdtoolkit==4.5.0`):
+
+```bash
+find scripts tests -name '*.gd' -print0 | xargs -0 -n1 gdparse   # sintassi
+gdlint scripts tests                                             # lint (.gdlintrc)
+```
+
+L'audit del progetto e il piano di refactoring (mantenere / correggere /
+sostituire) sono documentati in [`REFACTORING_PLAN.md`](REFACTORING_PLAN.md).
+
 Il test simula `InputEventScreenTouch`/`InputEventScreenDrag` e gli eventi mouse,
 verifica il menu GIOCA e il countdown, poi prova avanzamento automatico, drag touch e mouse,
 mantenimento della posizione al rilascio, precedenza del touch sul mouse

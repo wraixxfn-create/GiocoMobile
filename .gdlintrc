@@ -1,0 +1,14 @@
+# Configurazione gdlint (gdtoolkit) per questo progetto — formato YAML.
+# Le voci non elencate usano i default di gdtoolkit.
+#
+# Deviazioni motivate:
+# - max-file-lines: tests/TestRunner.gd è una suite di integrazione volutamente
+#   monolitica (un solo runner headless che guida l'intera scena principale).
+#   La suddivisione in moduli è prevista dal piano di refactoring (vedi
+#   REFACTORING_PLAN.md), non in questa fase di stabilizzazione.
+# - max-returns: il progetto usa in modo sistematico lo stile "guard clause"
+#   (ritorni anticipati) nei gestori di input e nei predicati di validazione
+#   dei test; ristrutturare quelle funzioni solo per lo stile aumenterebbe il
+#   rischio senza benefici. Il limite è alzato, il controllo resta attivo.
+max-file-lines: 3000
+max-returns: 12

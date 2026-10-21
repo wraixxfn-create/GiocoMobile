@@ -936,7 +936,10 @@ func _test_evolution_level_sync() -> void:
 	# Richiedere lo stesso livello non ricostruisce nulla.
 	var stage := director.get_stage_root()
 	director.apply_level(GameConfig.EVOLUTION_MAX_LEVEL, true)
-	_check(director.get_stage_root() == stage, "richiedere lo stesso livello non ricostruisce il modello")
+	_check(
+		director.get_stage_root() == stage,
+		"richiedere lo stesso livello non ricostruisce il modello",
+	)
 	_check(not director.is_transforming(), "senza cambio di livello non parte alcuna animazione")
 
 	# Limiti di gioco: il modello resta dentro min/max.
@@ -1946,7 +1949,10 @@ func _test_full_game_cycle() -> void:
 	# Menu touch-first: toccare lo sfondo non avvia, il pulsante è presente e ampio.
 	_game_manager.pause_game()
 	_hud.menu_requested.emit()
-	_check(_game_manager.state == GameManager.State.IDLE, "il pulsante MENU torna alla schermata iniziale")
+	_check(
+		_game_manager.state == GameManager.State.IDLE,
+		"il pulsante MENU torna alla schermata iniziale",
+	)
 	_check(not get_tree().paused, "il ritorno al menu riattiva la scena")
 	_check(
 		_hud.find_child("PlayButton", true, false) is Button
@@ -2024,7 +2030,10 @@ func _test_full_game_cycle() -> void:
 		and _hud.results_text().contains("LIVELLO AUTO 2/5"),
 		"il riepilogo mostra punteggio e livello finale dell'auto",
 	)
-	_check(int(finish_events["count"]) == 1, "le ricompense e il risultato sono registrati una sola volta")
+	_check(
+		int(finish_events["count"]) == 1,
+		"le ricompense e il risultato sono registrati una sola volta",
+	)
 
 	var score_at_finish := _game_manager.final_score
 	var coins_at_finish := _game_manager.session_coins
