@@ -177,11 +177,11 @@ static func stage_glass(level: int, color: Color) -> StandardMaterial3D:
 	if not _cache.has(key):
 		var material := StandardMaterial3D.new()
 		material.albedo_color = color
-		material.roughness = 0.22
+		# Nessun riflesso: sul lunotto inclinato il cielo diventava una lastra
+		# ciano più chiara della carrozzeria. Il vetro resta tinta piatta.
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		material.roughness = 0.45
 		material.metallic = 0.0
-		material.clearcoat_enabled = true
-		material.clearcoat = 0.45
-		material.clearcoat_roughness = 0.12
 		_cache[key] = material
 	return _cache[key] as StandardMaterial3D
 
