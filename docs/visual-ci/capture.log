@@ -34,4 +34,10 @@ CAPTURE debug _tmp/dx_albedo
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_albedo.png err=0 720x1280
 CAPTURE debug _tmp/dx_flat_bg
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_flat_bg.png err=0 720x1280
+CAPTURE debug _tmp/dx_nofog
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_nofog.png err=0 720x1280
+CAPTURE debug _tmp/dx_redterrain
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_redterrain.png err=0 720x1280
+CAPTURE debug _tmp/dx_noterrain
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_noterrain.png err=0 720x1280
 CAPTURE COMPLETE
