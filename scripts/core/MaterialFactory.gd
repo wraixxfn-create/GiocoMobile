@@ -194,11 +194,14 @@ static func stage_paint(level: int, color: Color) -> StandardMaterial3D:
 	if not _cache.has(key):
 		var material := StandardMaterial3D.new()
 		material.albedo_color = color
-		material.roughness = 0.30
-		material.metallic = 0.08
+		# Lucido "da giocattolo": il riflesso resta un velo. Con clearcoat
+		# alto il cielo si specchiava sul tetto e la vernice gialla spariva.
+		material.roughness = 0.38
+		material.metallic = 0.0
+		material.specular = 0.32
 		material.clearcoat_enabled = true
-		material.clearcoat = 0.55
-		material.clearcoat_roughness = 0.22
+		material.clearcoat = 0.28
+		material.clearcoat_roughness = 0.34
 		_cache[key] = material
 	return _cache[key] as StandardMaterial3D
 
