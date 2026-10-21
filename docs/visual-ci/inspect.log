@@ -28,6 +28,16 @@ CAR_MESHES=83 empty=0 tris=17792
     v0=(-3.9, 0, 20) v1=(-3.033333, 0, 20) v2=(-2.166667, 0, 20)
   TrackManager/Segment_0/Paint visible=true layers=1 surf=1 format=34359742495 verts=864 idx=1296 first_idx=[0, 1, 2, 0, 2, 3]
     v0=(-4.38, 0.19, 20) v1=(-3.9, 0.19, 20) v2=(-3.9, 0.19, -20)
+--- TRIANGLE NORMALS ---
+  World/GroundField/Terrain tri0 order=0 face=(0.075947, 0.996704, -0.028513) stored=(0.075469, 0.996814, -0.025821) cull=2
+  World/GroundField/Terrain tri1 order=1 face=(0.075362, 0.996764, -0.027979) stored=(0.075819, 0.996803, -0.025212) cull=2
+  World/GroundField/Terrain tri15743 order=7994 face=(-0.062164, 0.998022, 0.009336) stored=(-0.057687, 0.99828, 0.010463) cull=2
+  TrackManager/Segment_0/Asphalt tri0 order=0 face=(0, 1, 0) stored=(0, 1, -0.000015) cull=2
+  TrackManager/Segment_0/Asphalt tri1 order=1 face=(0, 1, 0) stored=(0, 1, -0.000015) cull=2
+  TrackManager/Segment_0/Asphalt tri207 order=214 face=(1, 0, 0) stored=(1, 0, -0.000015) cull=2
+  TrackManager/Segment_0/Paint tri0 order=0 face=(0, 1, 0) stored=(0, 1, -0.000015) cull=0
+  TrackManager/Segment_0/Paint tri1 order=0 face=(0, 1, 0) stored=(0, 1, -0.000015) cull=0
+  TrackManager/Segment_0/Paint tri431 order=860 face=(0, 0, -1) stored=(0, 0, -1) cull=0
 --- SURFACES NEAR START ---
   /root/InspectScene/GameRoot/World/GroundField/Terrain y=-3.851..7.292 x=-160.0..160.0 z=-1233..120 surf=1 mat=col spec=2
   /root/InspectScene/GameRoot/World/Backdrop/RidgeNear y=-13.348..3.169 x=-88.4..91.8 z=-228..-153 surf=1 mat=col spec=0
