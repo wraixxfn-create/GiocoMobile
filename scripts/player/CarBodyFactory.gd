@@ -133,7 +133,8 @@ static func build_loft(
 				data, grid, grid_normals, (i + 1) * ring_n + j2, min_z, z_span, ring_n
 			)
 			var d := _bucket_vertex(data, grid, grid_normals, (i + 1) * ring_n + j, min_z, z_span, ring_n)
-			(data["indices"] as PackedInt32Array).append_array(PackedInt32Array([a, b, c, a, c, d]))
+			var indices: Array[int] = data["indices"]
+			indices.append_array([a, b, c, a, c, d])
 
 	_add_loft_cap(buckets, bucket, grid, grid_normals, ring, stations, 0, -1.0, min_z, z_span)
 	_add_loft_cap(
@@ -143,7 +144,14 @@ static func build_loft(
 	var meshes: Dictionary = {}
 	for name in buckets.keys():
 		var data: Dictionary = buckets[name]
-		meshes[name] = _make_mesh(data["verts"], data["normals"], data["uvs"], data["indices"])
+		if (data["indices"] as Array).is_empty():
+			continue
+		meshes[name] = _make_mesh(
+			PackedVector3Array(data["verts"]),
+			PackedVector3Array(data["normals"]),
+			PackedVector2Array(data["uvs"]),
+			PackedInt32Array(data["indices"]),
+		)
 	return meshes
 
 
@@ -330,13 +338,17 @@ static func _make_mesh(
 	return mesh
 
 
+## Accumulatore di un materiale del loft. I valori sono `Array` semplici
+## (tipo per riferimento): Packed*Array è copy-on-write e una mutazione fatta
+## su un valore letto da un dizionario andrebbe persa, lasciando la mesh vuota.
+## La conversione a Packed avviene una sola volta, in `_make_mesh`.
 static func _bucket_data(buckets: Dictionary, name: String) -> Dictionary:
 	if not buckets.has(name):
 		buckets[name] = {
-			"verts": PackedVector3Array(),
-			"normals": PackedVector3Array(),
-			"uvs": PackedVector2Array(),
-			"indices": PackedInt32Array(),
+			"verts": [] as Array[Vector3],
+			"normals": [] as Array[Vector3],
+			"uvs": [] as Array[Vector2],
+			"indices": [] as Array[int],
 			"map": {},
 		}
 	return buckets[name]
@@ -354,12 +366,15 @@ static func _bucket_vertex(
 	var map: Dictionary = data["map"]
 	if map.has(grid_index):
 		return map[grid_index]
-	var local := (data["verts"] as PackedVector3Array).size()
+	var verts: Array[Vector3] = data["verts"]
+	var local := verts.size()
 	map[grid_index] = local
 	var vertex := grid[grid_index]
-	(data["verts"] as PackedVector3Array).append(vertex)
-	(data["normals"] as PackedVector3Array).append(grid_normals[grid_index])
-	(data["uvs"] as PackedVector2Array).append(Vector2(
+	verts.append(vertex)
+	var normals: Array[Vector3] = data["normals"]
+	normals.append(grid_normals[grid_index])
+	var uvs: Array[Vector2] = data["uvs"]
+	uvs.append(Vector2(
 		(vertex.z - min_z) / z_span, float(grid_index % ring_n) / float(ring_n)
 	))
 	return local
@@ -394,19 +409,20 @@ static func _add_loft_cap(
 		var name: String = bucket.call(station_i, j, ring[j], ring[j2], z)
 		var data := _bucket_data(buckets, name)
 		if not centers.has(name):
-			var ci := (data["verts"] as PackedVector3Array).size()
-			centers[name] = ci
-			(data["verts"] as PackedVector3Array).append(center)
-			(data["normals"] as PackedVector3Array).append(
-				Vector3(0.0, 0.15, direction).normalized()
-			)
-			(data["uvs"] as PackedVector2Array).append(Vector2((z - min_z) / z_span, 0.5))
+			var cap_verts: Array[Vector3] = data["verts"]
+			centers[name] = cap_verts.size()
+			cap_verts.append(center)
+			var cap_normals: Array[Vector3] = data["normals"]
+			cap_normals.append(Vector3(0.0, 0.15, direction).normalized())
+			var cap_uvs: Array[Vector2] = data["uvs"]
+			cap_uvs.append(Vector2((z - min_z) / z_span, 0.5))
 		var ci: int = centers[name]
 		var a := _bucket_vertex(data, grid, grid_normals, station_i * ring_n + j, min_z, z_span, ring_n)
 		var b := _bucket_vertex(
 			data, grid, grid_normals, station_i * ring_n + j2, min_z, z_span, ring_n
 		)
+		var cap_indices: Array[int] = data["indices"]
 		if direction < 0.0:
-			(data["indices"] as PackedInt32Array).append_array(PackedInt32Array([ci, b, a]))
+			cap_indices.append_array([ci, b, a])
 		else:
-			(data["indices"] as PackedInt32Array).append_array(PackedInt32Array([ci, a, b]))
+			cap_indices.append_array([ci, a, b])

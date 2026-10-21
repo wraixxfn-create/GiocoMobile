@@ -409,8 +409,8 @@ static func _build_shell(ctx: Dictionary) -> void:
 	var body_bucket := func(_i: int, _j: int, pa: Vector2, pb: Vector2, _z: float) -> String:
 		return BUCKET_TRIM if 0.5 * (pa.y + pb.y) < clad_split else BUCKET_PAINT
 	var shell := CarBodyFactory.build_loft(stations, BODY_SECTION, 12, body_bucket)
-	body.add_child(_instance("BodyPaint", shell[BUCKET_PAINT], m["body"]))
-	body.add_child(_instance("BodyTrim", shell[BUCKET_TRIM], m["trim"]))
+	body.add_child(_instance("BodyPaint", _bucket_mesh(shell, BUCKET_PAINT), m["body"]))
+	body.add_child(_instance("BodyTrim", _bucket_mesh(shell, BUCKET_TRIM), m["trim"]))
 
 	# Abitacolo: loft vetrato con tetto e montanti verniciati. La base è
 	# affondata nella scocca, così la giunzione non si vede mai.
@@ -457,9 +457,9 @@ static func _build_shell(ctx: Dictionary) -> void:
 			return BUCKET_PAINT
 		return BUCKET_GLASS
 	var cabin := CarBodyFactory.build_loft(gstations, GLASS_SECTION, 11, glass_bucket)
-	body.add_child(_instance("CabinGlass", cabin[BUCKET_GLASS], m["glass"]))
+	body.add_child(_instance("CabinGlass", _bucket_mesh(cabin, BUCKET_GLASS), m["glass"]))
 	if cabin.has(BUCKET_PAINT):
-		body.add_child(_instance("CabinPaint", cabin[BUCKET_PAINT], m["body"]))
+		body.add_child(_instance("CabinPaint", _bucket_mesh(cabin, BUCKET_PAINT), m["body"]))
 
 
 # -------------------------------------------------------------------- Ruote --
@@ -958,6 +958,12 @@ static func _collect_glow_materials(meshes: Array) -> Array:
 
 
 # ------------------------------------------------------------------ Helper ---
+
+## Mesh di un bucket, oppure null se quel materiale non ha facce.
+## Un MeshInstance3D senza mesh resta un nodo vuoto innocuo (niente errori).
+static func _bucket_mesh(buckets: Dictionary, name: String) -> Mesh:
+	return buckets.get(name, null) as Mesh
+
 
 static func _instance(
 	node_name: String,

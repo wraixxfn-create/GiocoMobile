@@ -128,6 +128,7 @@ func _ready() -> void:
 	await _test_gate_recycling()
 	_test_evolution_stage_catalog()
 	_test_evolution_stage_models()
+	_test_car_geometry_integrity()
 	await _test_evolution_transformation()
 	await _test_evolution_keeps_driving()
 	await _test_evolution_level_sync()
@@ -712,6 +713,37 @@ func _director() -> CarEvolutionDirector:
 	return CarModel.find_director(_car)
 
 
+## Le mesh del modello devono contenere davvero geometria: un loft vuoto
+## (bug di copy-on-write sugli array) lascia l'auto senza carrozzeria.
+func _test_car_geometry_integrity() -> void:
+	var missing: Array[String] = []
+	var empty: Array[String] = []
+	var total_vertices := 0
+	for level in range(GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL + 1):
+		var profile := CarEvolutionCatalog.profile_for(level)
+		var built := CarModelBuilder.build(profile)
+		var root := built.get(CarModelBuilder.KEY_ROOT, null) as Node3D
+		if root == null:
+			missing.append("livello %d" % level)
+			continue
+		var body_paint := root.find_child("BodyPaint", true, false) as MeshInstance3D
+		if body_paint == null or body_paint.mesh == null:
+			missing.append("BodyPaint del livello %d" % level)
+		for node in root.find_children("*", "MeshInstance3D", true, false):
+			var instance := node as MeshInstance3D
+			if instance.mesh == null or instance.mesh.get_surface_count() == 0:
+				empty.append("%s (livello %d)" % [instance.name, level])
+				continue
+			var indices := instance.mesh.surface_get_arrays(0)[Mesh.ARRAY_INDEX] as PackedInt32Array
+			if indices.is_empty():
+				empty.append("%s senza triangoli (livello %d)" % [instance.name, level])
+			total_vertices += indices.size()
+		root.free()
+	_check(missing.is_empty(), "ogni stadio ha la mesh della carrozzeria (%s)" % ", ".join(missing))
+	_check(empty.is_empty(), "nessuna mesh vuota nel modello (%s)" % ", ".join(empty))
+	_check(total_vertices > 20000, "i sei stadi hanno geometria scolpita (%d vertici)" % total_vertices)
+
+
 func _test_evolution_stage_catalog() -> void:
 	var names: Array[String] = []
 	var silhouettes: Array[int] = []
@@ -909,10 +941,16 @@ func _test_evolution_keeps_driving() -> void:
 		wheels_after.size() > 0 and (wheels_after[0] as Node3D).rotation.x != wheel_before,
 		"le ruote del nuovo modello continuano a girare",
 	)
+	# Il limite segue l'ingombro dello stadio, ma mai meno della costante di
+	# progetto: nessuna silhouette può sporgere oltre il cordolo.
+	var profile_now := _car.evolution_profile()
+	var safe_extent := maxf(profile_now.half_width, GameConfig.CAR_HALF_WIDTH) \
+		* cos(GameConfig.CAR_MAX_STEER_YAW) \
+		+ maxf(profile_now.half_length, GameConfig.CAR_HALF_LENGTH) \
+		* sin(GameConfig.CAR_MAX_STEER_YAW)
 	_check(
 		absf(_car.lateral_limit - (GameConfig.TRACK_WIDTH * 0.5
-			- _car.evolution_profile().lateral_half_extent(GameConfig.CAR_MAX_STEER_YAW)
-			- GameConfig.CAR_EDGE_MARGIN)) < EPSILON,
+			- safe_extent - GameConfig.CAR_EDGE_MARGIN)) < EPSILON,
 		"i limiti laterali seguono l'ingombro dello stadio",
 	)
 
