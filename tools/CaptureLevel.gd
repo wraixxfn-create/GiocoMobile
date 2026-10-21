@@ -23,7 +23,7 @@ var _shots: Array[Dictionary] = [
 	{"name": "04_road_detail", "z": -212.0, "x": 0.0, "mode": "game",
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 	{"name": "05_car_study", "z": -286.0, "x": 0.7, "mode": "orbit",
-		"orbit_angle": 2.45, "orbit_distance": 4.6, "orbit_height": 1.7},
+		"orbit_angle": 2.45, "orbit_distance": 6.6, "orbit_height": 2.2, "fov": 38.0},
 	{"name": "06_overview", "z": -150.0, "x": 0.0, "mode": "overview",
 		"height": 22.0, "distance": 30.0, "look": 46.0, "look_height": 0.0, "fov": 58.0},
 	{"name": "07_hud_race", "z": -96.0, "x": 0.4, "mode": "game", "hud": true, "running": true},
@@ -47,7 +47,7 @@ var _debug_shots: Array[Dictionary] = [
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 	{"name": "_tmp/dx_car_mats", "z": -96.0, "x": 0.4, "mode": "game", "probe": "car_mats"},
 	{"name": "_tmp/dx_car_side", "z": -96.0, "x": 0.4, "mode": "orbit", "probe": "car_mats",
-		"orbit_angle": 2.45, "orbit_distance": 4.6, "orbit_height": 1.7},
+		"orbit_angle": 2.45, "orbit_distance": 6.6, "orbit_height": 2.2, "fov": 38.0},
 ]
 
 

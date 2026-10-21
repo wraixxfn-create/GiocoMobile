@@ -73,8 +73,10 @@ static func color_at(x: float, z: float) -> Color:
 	var patch_a := sin(z * 0.031 + x * 0.017) * 0.5 + 0.5
 	var patch_b := sin(z * 0.011 - x * 0.026 + 2.1) * 0.5 + 0.5
 	var grass := SceneryPalette.GRASS_BASE
-	grass = grass.lerp(SceneryPalette.GRASS_DEEP, patch_a * 0.62)
-	grass = grass.lerp(SceneryPalette.GRASS_LIGHT, patch_b * 0.55)
+	var broad := sin(z * 0.0062 + x * 0.0091 + 0.6) * 0.5 + 0.5
+	grass = grass.lerp(SceneryPalette.GRASS_DEEP, patch_a * 0.72)
+	grass = grass.lerp(SceneryPalette.GRASS_LIGHT, patch_b * 0.60)
+	grass = grass.lerp(SceneryPalette.GRASS_DEEP, broad * 0.34)
 	# Chiazze più secche in quota: danno profondità alle colline.
 	var height_factor := smoothstep(1.0, 9.0, height_at(x, z))
 	grass = grass.lerp(SceneryPalette.GRASS_DRY, height_factor * 0.30)
@@ -175,7 +177,11 @@ static func _tuft() -> Mesh:
 			blade["tris"] as Array[Vector3i],
 			Transform3D(Basis(Vector3.UP, yaw) * Basis(Vector3.BACK, deg_to_rad(82.0)), Vector3.ZERO),
 		)
-	_tuft_mesh = PropMeshes.to_mesh(acc, false)
+	# Colore per vertice bianco: serve solo a far esistere l'attributo COLOR,
+	# che il MultiMesh moltiplica per il colore della singola istanza.
+	_tuft_mesh = PropMeshes.merged_colored(
+		[{"acc": acc, "color": Color.WHITE}], true
+	)
 	return _tuft_mesh
 
 
@@ -225,7 +231,9 @@ func _build_flowers() -> MultiMeshInstance3D:
 			petal["tris"] as Array[Vector3i],
 			Transform3D(Basis.IDENTITY, Vector3(0.0, 0.16, 0.0)),
 		)
-		_flower_mesh = PropMeshes.to_mesh(acc, true)
+		_flower_mesh = PropMeshes.merged_colored(
+			[{"acc": acc, "color": Color.WHITE}], false
+		)
 	var multimesh := MultiMesh.new()
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D
 	multimesh.use_colors = true
