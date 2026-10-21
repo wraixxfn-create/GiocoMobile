@@ -35,6 +35,12 @@ var _shots: Array[Dictionary] = [
 var _debug_shots: Array[Dictionary] = [
 	{"name": "_tmp/dx_albedo", "z": -96.0, "x": 0.4, "mode": "game", "debug_draw": Viewport.DEBUG_DRAW_UNSHADED},
 	{"name": "_tmp/dx_flat_bg", "z": -96.0, "x": 0.4, "mode": "game", "flat_background": true},
+	{"name": "_tmp/dx_nofog", "z": -212.0, "x": 0.0, "mode": "game", "probe": "no_fog",
+		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
+	{"name": "_tmp/dx_redterrain", "z": -212.0, "x": 0.0, "mode": "game", "probe": "red",
+		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
+	{"name": "_tmp/dx_noterrain", "z": -212.0, "x": 0.0, "mode": "game", "probe": "no_terrain",
+		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 ]
 
 
@@ -67,6 +73,12 @@ func _ready() -> void:
 
 
 func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
+	var is_debug := shot.has("probe") or shot.has("debug_draw") or shot.has("flat_background")
+	if is_debug:
+		# Congela la corsa: le inquadrature diagnostiche devono stare ferme.
+		_car.set_physics_process(false)
+		_car.set_process(false)
+		(_main.get_node("GameManager") as Node).set_process(false)
 	_car.position = Vector3(float(shot["x"]), 0.0, float(shot["z"]))
 	_car.lateral_target = float(shot["x"])
 	hud.visible = bool(shot.get("hud", false))
@@ -115,6 +127,26 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 				Vector3(_car.position.x, float(shot.get("look_height", 0.0)), _car.position.z - look),
 				Vector3.UP,
 			)
+	match str(shot.get("probe", "")):
+		"no_fog":
+			var env_node := _main.get_node("WorldEnvironment") as WorldEnvironment
+			env_node.environment.fog_enabled = false
+		"no_terrain":
+			var ground := _main.get_node("World/GroundField/Terrain") as MeshInstance3D
+			ground.visible = false
+		"red":
+			var flat_red := StandardMaterial3D.new()
+			flat_red.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			flat_red.albedo_color = Color(1.0, 0.05, 0.05)
+			var flat_cyan := StandardMaterial3D.new()
+			flat_cyan.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			flat_cyan.albedo_color = Color(0.05, 0.6, 1.0)
+			var ground_fix := _main.get_node("World/GroundField/Terrain") as MeshInstance3D
+			ground_fix.material_override = flat_red
+			for node in (_main.get_node("TrackManager") as Node3D).get_children():
+				var asphalt := node.get_node_or_null("Asphalt") as MeshInstance3D
+				if asphalt != null:
+					asphalt.material_override = flat_cyan
 	if shot.has("debug_draw"):
 		get_viewport().debug_draw = int(shot["debug_draw"]) as Viewport.DebugDraw
 	if bool(shot.get("flat_background", false)):
