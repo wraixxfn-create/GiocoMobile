@@ -108,6 +108,42 @@ func _ready() -> void:
 		print("GROUND children=", ground.get_child_count())
 	var backdrop := main.get_node_or_null("World/Backdrop")
 	print("BACKDROP=", backdrop.get_child_count() if backdrop != null else -1)
+	print("ASPHALT px=", _sample_asphalt())
+	var ground := main.get_node_or_null("World/GroundField")
+	if ground != null:
+		var terrain := ground.get_node_or_null("Terrain") as MeshInstance3D
+		if terrain != null and terrain.mesh != null:
+			var arrays := terrain.mesh.surface_get_arrays(0)
+			var colors := arrays[Mesh.ARRAY_COLOR] as PackedColorArray
+			var verts := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+			var mid_color := Color.BLACK
+			if colors.size() > 0:
+				mid_color = colors[colors.size() / 2]
+			print("TERRAIN verts=%d colors=%d sample=%s" % [
+				verts.size(), colors.size(), mid_color])
+		print("GROUND children=", ground.get_child_count())
+	else:
+		print("GROUND MISSING")
+	var backdrop := main.get_node_or_null("World/Backdrop")
+	if backdrop != null:
+		print("BACKDROP children=", backdrop.get_child_count())
+	else:
+		print("BACKDROP MISSING")
+	var shown := 0
+	for segment in (main.get_node("TrackManager") as Node3D).get_children():
+		if segment is TrackSegment:
+			shown += segment.get_child_count()
+	print("SEGMENT_CHILDREN total=", shown)
 	var scenery := main.get_node_or_null("Scenery")
 	print("SCENERY=", scenery)
 	get_tree().quit(0)
+
+
+func _sample_asphalt() -> String:
+	var texture := MaterialFactory.asphalt_texture()
+	if texture == null:
+		return "null"
+	var image := texture.get_image()
+	if image == null:
+		return "no-image"
+	return "%dx%d %s" % [image.get_width(), image.get_height(), image.get_pixel(64, 64)]
