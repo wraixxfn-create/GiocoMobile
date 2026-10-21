@@ -91,27 +91,10 @@ func _ready() -> void:
 				mi.mesh.get_class() if mi.mesh != null else "null",
 				global_aabb.position, global_aabb.size]
 		print("  ", car.get_path_to(n3), " pos=", n3.global_position, extra)
-	var asphalt_texture := MaterialFactory.asphalt_texture()
-	if asphalt_texture != null:
-		var image := asphalt_texture.get_image()
-		print("ASPHALT_TEXTURE %dx%d px(64,64)=%s" % [
-			image.get_width(), image.get_height(), image.get_pixel(64, 64)])
-	var ground := main.get_node_or_null("World/GroundField")
-	if ground != null:
-		var terrain := ground.get_node_or_null("Terrain") as MeshInstance3D
-		if terrain != null and terrain.mesh != null:
-			var arrays := terrain.mesh.surface_get_arrays(0)
-			var colors := arrays[Mesh.ARRAY_COLOR] as PackedColorArray
-			var verts := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
-			print("TERRAIN verts=%d colors=%d sample=%s" % [
-				verts.size(), colors.size(), colors[colors.size() / 2] if colors.size() > 0 else Color.BLACK])
-		print("GROUND children=", ground.get_child_count())
-	var backdrop := main.get_node_or_null("World/Backdrop")
-	print("BACKDROP=", backdrop.get_child_count() if backdrop != null else -1)
 	print("ASPHALT px=", _sample_asphalt())
-	var ground := main.get_node_or_null("World/GroundField")
-	if ground != null:
-		var terrain := ground.get_node_or_null("Terrain") as MeshInstance3D
+	var ground_node := main.get_node_or_null("World/GroundField")
+	if ground_node != null:
+		var terrain := ground_node.get_node_or_null("Terrain") as MeshInstance3D
 		if terrain != null and terrain.mesh != null:
 			var arrays := terrain.mesh.surface_get_arrays(0)
 			var colors := arrays[Mesh.ARRAY_COLOR] as PackedColorArray
@@ -121,7 +104,7 @@ func _ready() -> void:
 				mid_color = colors[colors.size() / 2]
 			print("TERRAIN verts=%d colors=%d sample=%s" % [
 				verts.size(), colors.size(), mid_color])
-		print("GROUND children=", ground.get_child_count())
+		print("GROUND children=", ground_node.get_child_count())
 	else:
 		print("GROUND MISSING")
 	var backdrop := main.get_node_or_null("World/Backdrop")
