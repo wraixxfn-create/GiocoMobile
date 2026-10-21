@@ -9,12 +9,12 @@ STEP ready
 STATE=0 LEVEL=1
 PROFILE level=1 half_w=0.820 half_l=1.560 body_w=1.500 body_l=2.860
 CAR lateral_limit=2.725 extent_yaw=1.058 half_track=3.900
-CAMERA rig=(0, 3.15, 7.5) fov=60
+CAMERA rig=(0, 2.92, 6.7) fov=60
 VIEWPORT=(540, 960)
-CAR_SCREEN=(270, 658.3494) y_frac=0.686
-GATE row=0 z=-70.0 dist=70.0 screen=(270,402) h=24.7px
-GATE row=1 z=-118.0 dist=118.0 screen=(270,395) h=15.3px
-GATE row=2 z=-166.0 dist=166.0 screen=(270,391) h=11.0px
+CAR_SCREEN=(270, 671.5189) y_frac=0.699
+GATE row=0 z=-70.0 dist=70.0 screen=(270,408) h=24.9px
+GATE row=1 z=-118.0 dist=118.0 screen=(270,401) h=15.3px
+GATE row=2 z=-166.0 dist=166.0 screen=(270,398) h=11.1px
 DIRECTIONAL_LIGHTS=1
   LIGHT Sun energy=1.14 shadow=true dist=58.0 splits=0
 ENV sky=true ambient_src=3 amb_energy=0.30 fog=true ssao=false glow=false tonemap=2
@@ -218,7 +218,7 @@ CAR_MESHES=83 empty=0 tris=17792
   TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
   BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.08 rough=0.30 y=0.34..0.84
   BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.21..0.69
-  CabinGlass albedo=(0.038, 0.0646, 0.095, 1) metallic=0.00 rough=0.22 y=0.77..1.02
+  CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..1.02
   CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.08 rough=0.30 y=0.77..1.04
   WellFL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
   ArchFL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
@@ -242,10 +242,10 @@ CAR_MESHES=83 empty=0 tris=17792
   PlateRear albedo=(0.93, 0.94, 0.9, 1) metallic=0.00 rough=0.55 y=0.50..0.63
   MirrorStalkL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.83..0.94
   MirrorL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.88..0.99
-  MirrorGlassL albedo=(0.038, 0.0646, 0.095, 1) metallic=0.00 rough=0.22 y=0.89..0.98
+  MirrorGlassL albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.89..0.98
   MirrorStalkR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.83..0.94
   MirrorR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.88..0.99
-  MirrorGlassR albedo=(0.038, 0.0646, 0.095, 1) metallic=0.00 rough=0.22 y=0.89..0.98
+  MirrorGlassR albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.89..0.98
   HandleL0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
   HandleL1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
   HandleR0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
