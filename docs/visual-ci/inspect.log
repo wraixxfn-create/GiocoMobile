@@ -1,112 +1,285 @@
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/player/CarModelLibrary.gd:-1)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "head_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:613)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "tail_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:614)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "lit_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:874)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "off_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:875)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:896)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:897)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:900)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:903)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:906)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:909)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:912)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:918)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/player/CarEvolutionDirector.gd:-1)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/player/CarController.gd:-1)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/gameplay/GameManager.gd:-1)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:33)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:40)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/TrackRoadBuilder.gd:191)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryPalm.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryPalm.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/Palm.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryPalm.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryBroadleaf.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryBroadleaf.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/BroadleafTree.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryBroadleaf.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryFernBush.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryFernBush.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/FernBush.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryFernBush.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryRock.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryRock.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/Rock.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryRock.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryRockCluster.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryRockCluster.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/RockCluster.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryRockCluster.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryBeachHut.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryBeachHut.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/BeachHut.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryBeachHut.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryRoadSign.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryRoadSign.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/RoadSign.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryRoadSign.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: Attempt to open script 'res://scripts/scenery/SceneryMarkerPost.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1094)
+ERROR: Failed loading resource: res://scripts/scenery/SceneryMarkerPost.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:283)
+ERROR: res://scenes/scenery/MarkerPost.tscn:6 - Parse Error: [ext_resource] referenced non-existent resource at: res://scripts/scenery/SceneryMarkerPost.gd
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/SceneryPlan.gd:68)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/track/TrackSegment.gd:-1)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/track/TrackManager.gd:-1)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:154)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:157)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:158)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:159)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "badge_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:268)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/track/GateRow.gd:-1)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:154)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:157)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:158)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:159)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "badge_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:243)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/EvolutionGate.gd:268)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/track/GateManager.gd:-1)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "spark_material" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/track/ObstacleManager.gd:615)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/Coin.gd:169)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/Coin.gd:174)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/Coin.gd:234)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/track/CoinManager.gd:-1)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/ui/HUD.gd:303)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/FinishLine.gd:54)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/FinishLine.gd:67)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/FinishLine.gd:85)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/FinishLine.gd:90)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/FinishLine.gd:96)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/track/FinishLine.gd:104)
+SCRIPT ERROR: Parse Error: Cannot find member "SCREEN_SPACE_AA_DISABLED" in base "Environment".
+          at: GDScript::reload (res://scripts/scenery/TropicalTheme.gd:70)
+SCRIPT ERROR: Compile Error: 
+          at: GDScript::reload (res://scripts/core/GameRoot.gd:-1)
+ERROR: Failed to load script "res://scripts/core/GameRoot.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/GroundField.gd:45)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/GroundField.gd:206)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/GroundField.gd:247)
+ERROR: Failed to load script "res://scripts/scenery/GroundField.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:80)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:95)
+SCRIPT ERROR: Parse Error: Could not resolve class "MaterialFactory", because of a parser error.
+          at: GDScript::reload (res://scripts/scenery/Backdrop.gd:131)
+ERROR: Failed to load script "res://scripts/scenery/Backdrop.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+STEP instantiate
+STEP add_child
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: TrackSegment._build (res://scripts/track/TrackSegment.gd:35)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
+          at: CarModelLibrary.create_stage (res://scripts/player/CarModelLibrary.gd:63)
+WARNING: Nessun modello disponibile per il livello 1.
+     at: push_warning (core/variant/variant_utility.cpp:1112)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: GateManager._create_gate (res://scripts/track/GateManager.gd:194)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: CoinManager._spawn_initial_coins (res://scripts/track/CoinManager.gd:80)
+SCRIPT ERROR: Trying to assign value of type 'Node3D' to a variable of type 'ObstacleManager.gd'.
+          at: GameRoot._ready (res://scripts/core/GameRoot.gd:10)
+SCRIPT ERROR: Invalid call. Nonexistent function 'apply_environment' in base 'GDScript'.
+          at: GameRoot._setup_environment (res://scripts/core/GameRoot.gd:167)
+SCRIPT ERROR: Invalid call. Nonexistent function 'configure_sun' in base 'GDScript'.
+          at: GameRoot._setup_sun (res://scripts/core/GameRoot.gd:173)
+SCRIPT ERROR: Invalid call. Nonexistent function 'configure_camera' in base 'GDScript'.
+          at: GameRoot._setup_camera (res://scripts/core/GameRoot.gd:177)
+SCRIPT ERROR: Invalid access to property or key 'global_position' on a base object of type 'Nil'.
+          at: GameManager.setup (res://scripts/gameplay/GameManager.gd:75)
+SCRIPT ERROR: Invalid access to property or key 'set_distance' on a base object of type 'Nil'.
+          at: GameRoot._ready (res://scripts/core/GameRoot.gd:33)
+STEP frame 1
+STEP frame 2
+STEP physics
+STEP ready
 STATE=0 LEVEL=1
 PROFILE level=1 half_w=0.820 half_l=1.560 body_w=1.500 body_l=2.860
 CAR lateral_limit=2.725 extent_yaw=1.058 half_track=3.900
 CAMERA rig=(0, 6.2, 10.2) fov=64
 VIEWPORT=(540, 960)
-CAR_SCREEN=(270, 730.4405) y_frac=0.761
-GATE row=0 z=-70.0 dist=70.0 screen=(270,382) h=22.2px
-GATE row=1 z=-118.0 dist=118.0 screen=(270,364) h=14.0px
-GATE row=2 z=-166.0 dist=166.0 screen=(270,356) h=10.2px
+CAR_SCREEN=(270, 727.6298) y_frac=0.758
+GATE row=0 z=-70.0 dist=70.0 screen=(270,379) h=22.2px
+GATE row=1 z=-118.0 dist=118.0 screen=(270,362) h=14.0px
+GATE row=2 z=-166.0 dist=166.0 screen=(270,354) h=10.2px
 DIRECTIONAL_LIGHTS=1
-  LIGHT Sun energy=1.25 shadow=true dist=72.0 splits=1
-ENV sky=true ambient_src=3 amb_energy=0.95 fog=true ssao=false glow=false tonemap=2
-TRACK segments=10
-STAGE root=Stage_1:<Node3D#54727280911> children=5
-CAR_MESHES=83 empty=0 tris=17792
---- CAR TREE ---
-  CarVisual pos=(0, 0, 0)
-  CarVisual/TransformShockwave pos=(0, 0.06, 0) mesh=CylinderMesh aabb_pos=(-0.992709, 0.05, -1) aabb_size=(1.985418, 0.02, 2)
-  CarVisual/TransformFlash pos=(0, 0.9, 0)
-  CarVisual/Stage_1 pos=(0, 0, 0)
-  CarVisual/Stage_1/Body pos=(0, 0, 0)
-  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.324692, -1.485) aabb_size=(1.548381, 0.418905, 2.97)
-  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.771956, 0.210952, -1.485) aabb_size=(1.543912, 0.455253, 2.97)
-  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.619745, -0.77) aabb_size=(1.278037, 0.409855, 1.8832)
-  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.637671, -0.18304) aabb_size=(1.278037, 0.403078, 1.15258)
-  CarVisual/Stage_1/Body/WellFL pos=(-0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchFL pos=(-0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.778993, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/WellFR pos=(0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchFR pos=(0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.710056, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/WellRL pos=(-0.555, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, 0.6925) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchRL pos=(-0.759262, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.79373, 0.186989, 0.610173) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/WellRR pos=(0.555, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, 0.6925) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchRR pos=(0.759262, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.724794, 0.186989, 0.610173) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/HeadlightHousingL pos=(-0.465, 0.558816, -1.39) mesh=SphereMesh aabb_pos=(-0.625251, 0.466371, -1.499307) aabb_size=(0.320503, 0.184891, 0.218615)
-  CarVisual/Stage_1/Body/HeadlightL pos=(-0.465, 0.558816, -1.418) mesh=SphereMesh aabb_pos=(-0.598952, 0.489139, -1.505676) aabb_size=(0.267904, 0.139354, 0.175352)
-  CarVisual/Stage_1/Body/HeadlightHousingR pos=(0.465, 0.558816, -1.39) mesh=SphereMesh aabb_pos=(0.304749, 0.466371, -1.499307) aabb_size=(0.320503, 0.184891, 0.218615)
-  CarVisual/Stage_1/Body/HeadlightR pos=(0.465, 0.558816, -1.418) mesh=SphereMesh aabb_pos=(0.331048, 0.489139, -1.505676) aabb_size=(0.267904, 0.139354, 0.175352)
-  CarVisual/Stage_1/Body/TaillightL pos=(-0.435, 0.643459, 1.405) mesh=ArrayMesh aabb_pos=(-0.601346, 0.581459, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
-  CarVisual/Stage_1/Body/TaillightR pos=(0.435, 0.643459, 1.405) mesh=ArrayMesh aabb_pos=(0.268654, 0.581459, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
-  CarVisual/Stage_1/Body/BumperFront pos=(0, 0.33, -1.405) mesh=ArrayMesh aabb_pos=(-0.5264, 0.242, -1.458731) aabb_size=(1.0528, 0.176, 0.107462)
-  CarVisual/Stage_1/Body/BumperRear pos=(0, 0.34, 1.405) mesh=ArrayMesh aabb_pos=(-0.5264, 0.252, 1.351269) aabb_size=(1.0528, 0.176, 0.107462)
-  CarVisual/Stage_1/Body/Intake pos=(0, 0.44304, -1.432) mesh=ArrayMesh aabb_pos=(-0.3485, 0.358336, -1.482143) aabb_size=(0.697, 0.169408, 0.100286)
-  CarVisual/Stage_1/Body/Badge pos=(0, 0.44304, -1.466) mesh=CylinderMesh aabb_pos=(-0.046, 0.39704, -1.479) aabb_size=(0.092, 0.092, 0.026)
-  CarVisual/Stage_1/Body/TailPanel pos=(0, 0.55953, 1.464) mesh=ArrayMesh aabb_pos=(-0.42075, 0.50453, 1.43421) aabb_size=(0.8415, 0.11, 0.059581)
-  CarVisual/Stage_1/Body/PlateRear pos=(0, 0.502112, 1.48) mesh=BoxMesh aabb_pos=(-0.18, 0.4359, 1.458288) aabb_size=(0.36, 0.132424, 0.043424)
-  CarVisual/Stage_1/Body/MirrorStalkL pos=(-0.69, 0.7934, -0.53768) mesh=CylinderMesh aabb_pos=(-0.770025, 0.738183, -0.55768) aabb_size=(0.160051, 0.110433, 0.04)
-  CarVisual/Stage_1/Body/MirrorL pos=(-0.7625, 0.8434, -0.53768) mesh=ArrayMesh aabb_pos=(-0.85658, 0.7874, -0.574078) aabb_size=(0.18816, 0.112, 0.072797)
-  CarVisual/Stage_1/Body/MirrorGlassL pos=(-0.7625, 0.8434, -0.50768) mesh=CylinderMesh aabb_pos=(-0.8045, 0.8014, -0.51368) aabb_size=(0.084, 0.084, 0.012)
-  CarVisual/Stage_1/Body/MirrorStalkR pos=(0.69, 0.7934, -0.53768) mesh=CylinderMesh aabb_pos=(0.609975, 0.738183, -0.55768) aabb_size=(0.160051, 0.110433, 0.04)
-  CarVisual/Stage_1/Body/MirrorR pos=(0.7625, 0.8434, -0.53768) mesh=ArrayMesh aabb_pos=(0.66842, 0.7874, -0.574078) aabb_size=(0.18816, 0.112, 0.072797)
-  CarVisual/Stage_1/Body/MirrorGlassR pos=(0.7625, 0.8434, -0.50768) mesh=CylinderMesh aabb_pos=(0.7205, 0.8014, -0.51368) aabb_size=(0.084, 0.084, 0.012)
-  CarVisual/Stage_1/Body/HandleL0 pos=(-0.710342, 0.66456, -0.1716) mesh=ArrayMesh aabb_pos=(-0.723942, 0.647818, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/HandleL1 pos=(-0.724881, 0.66456, 0.3432) mesh=ArrayMesh aabb_pos=(-0.738481, 0.647818, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/HandleR0 pos=(0.710342, 0.66456, -0.1716) mesh=ArrayMesh aabb_pos=(0.696742, 0.647818, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/HandleR1 pos=(0.724881, 0.66456, 0.3432) mesh=ArrayMesh aabb_pos=(0.711281, 0.647818, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/Exhaust0 pos=(-0.42, 0.2, 1.44) mesh=CylinderMesh aabb_pos=(-0.462, 0.158, 1.37) aabb_size=(0.084, 0.084, 0.14)
-  CarVisual/Stage_1/Body/SharkFin pos=(0, 1.056817, 0.561704) mesh=CylinderMesh aabb_pos=(-0.012839, 1.014317, 0.489704) aabb_size=(0.025679, 0.085, 0.144)
-  CarVisual/Stage_1/Body/SpoilerLip pos=(0, 1.007434, 0.730828) mesh=ArrayMesh aabb_pos=(-0.26796, 0.952998, 0.676744) aabb_size=(0.53592, 0.108872, 0.108167)
-  CarVisual/Stage_1/Body/EvolutionPips pos=(0, 1.1, 0)
-  CarVisual/Stage_1/Body/EvolutionPips/PipBase pos=(0, 1.052, 0) mesh=ArrayMesh aabb_pos=(-0.51, 1.032, -0.063028) aabb_size=(1.02, 0.04, 0.126055)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip0 pos=(-0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.505, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip1 pos=(-0.22, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.285, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip2 pos=(0, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.065, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip3 pos=(0.22, 1.1, 0) mesh=BoxMesh aabb_pos=(0.155, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip4 pos=(0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(0.375, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Wheel0 pos=(-0.72, 0.3, -1.02)
-  CarVisual/Stage_1/Wheel0/Tire pos=(-0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.84, 0, -1.32) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel0/RimBarrel pos=(-0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.816, 0.12, -1.2) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel0/RimLip pos=(-0.818, 0.3, -1.02) mesh=TorusMesh aabb_pos=(-0.832266, 0.1185, -1.2015) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel0/Spoke0 pos=(-0.81, 0.39, -1.02) mesh=BoxMesh aabb_pos=(-0.8325, 0.315, -1.0515) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel0/Spoke1 pos=(-0.81, 0.327812, -0.934405) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, -1.015468) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel0/Spoke2 pos=(-0.81, 0.227188, -0.967099) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, -1.036667) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel0/Spoke3 pos=(-0.81, 0.227188, -1.072901) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, -1.142469) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel0/Spoke4 pos=(-0.81, 0.327812, -1.105595) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, -1.186658) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel0/Hub pos=(-0.81, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.8375, 0.244429, -1.077) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel0/HubCap pos=(-0.842, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.852, 0.2745, -1.0455) aabb_size=(0.02, 0.051, 0.051)
-  CarVisual/Stage_1/Wheel1 pos=(0.72, 0.3, -1.02)
-  CarVisual/Stage_1/Wheel1/Tire pos=(0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.6, 0, -1.32) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel1/RimBarrel pos=(0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.6144, 0.12, -1.2) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel1/RimLip pos=(0.818, 0.3, -1.02) mesh=TorusMesh aabb_pos=(0.803734, 0.1185, -1.2015) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel1/Spoke0 pos=(0.81, 0.39, -1.02) mesh=BoxMesh aabb_pos=(0.7875, 0.315, -1.0515) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel1/Spoke1 pos=(0.81, 0.327812, -0.934405) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, -1.015468) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel1/Spoke2 pos=(0.81, 0.227188, -0.967099) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, -1.036667) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel1/Spoke3 pos=(0.81, 0.227188, -1.072901) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, -1.142469) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel1/Spoke4 pos=(0.81, 0.327812, -1.105595) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, -1.186658) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel1/Hub pos=(0.81, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.7825, 0.244429, -1.077) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel1/HubCap pos=(0.842, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.832, 0.2745, -1.0455) aabb_size=(0.02, 0.051, 0.051)
-  CarVisual/Stage_1/Wheel2 pos=(-0.72, 0.3, 1.02)
-  CarVisual/Stage_1/Wheel2/Tire pos=(-0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.84, 0, 0.72) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel2/RimBarrel pos=(-0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.816, 0.12, 0.84) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel2/RimLip pos=(-0.818, 0.3, 1.02) mesh=TorusMesh aabb_pos=(-0.832266, 0.1185, 0.8385) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel2/Spoke0 pos=(-0.81, 0.39, 1.02) mesh=BoxMesh aabb_pos=(-0.8325, 0.315, 0.9885) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel2/Spoke1 pos=(-0.81, 0.327812, 1.105595) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, 1.024532) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel2/Spoke2 pos=(-0.81, 0.227188, 1.072901) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, 1.003333) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel2/Spoke3 pos=(-0.81, 0.227188, 0.967099) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, 0.897531) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel2/Spoke4 pos=(-0.81, 0.327812, 0.934405) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, 0.853342) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel2/Hub pos=(-0.81, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.8375, 0.244429, 0.963) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel2/HubCap pos=(-0.842, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.852, 0.2745, 0.9945) aabb_size=(0.02, 0.051, 0.051)
-  CarVisual/Stage_1/Wheel3 pos=(0.72, 0.3, 1.02)
-  CarVisual/Stage_1/Wheel3/Tire pos=(0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.6, 0, 0.72) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel3/RimBarrel pos=(0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.6144, 0.12, 0.84) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel3/RimLip pos=(0.818, 0.3, 1.02) mesh=TorusMesh aabb_pos=(0.803734, 0.1185, 0.8385) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel3/Spoke0 pos=(0.81, 0.39, 1.02) mesh=BoxMesh aabb_pos=(0.7875, 0.315, 0.9885) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel3/Spoke1 pos=(0.81, 0.327812, 1.105595) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, 1.024532) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel3/Spoke2 pos=(0.81, 0.227188, 1.072901) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, 1.003333) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel3/Spoke3 pos=(0.81, 0.227188, 0.967099) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, 0.897531) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel3/Spoke4 pos=(0.81, 0.327812, 0.934405) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, 0.853342) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel3/Hub pos=(0.81, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.7825, 0.244429, 0.963) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel3/HubCap pos=(0.842, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.832, 0.2745, 0.9945) aabb_size=(0.02, 0.051, 0.051)
-SCENERY=<Object#null>
+  LIGHT Sun energy=1.00 shadow=true dist=100.0 splits=2
+SCRIPT ERROR: Invalid access to property or key 'sky' on a base object of type 'null instance'.
+          at: _ready (res://tools/InspectScene.gd:60)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
