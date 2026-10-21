@@ -116,15 +116,15 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 		"body_top": [
 			Vector2(0.00, 0.66), Vector2(0.05, 0.77), Vector2(0.14, 0.91),
 			Vector2(0.30, 1.00), Vector2(0.55, 1.00), Vector2(0.80, 0.99),
-			Vector2(0.95, 0.96), Vector2(1.00, 0.88),
+			Vector2(0.95, 0.97), Vector2(1.00, 0.94),
 		],
 		"body_w": [
 			Vector2(0.00, 0.74), Vector2(0.05, 0.90), Vector2(0.14, 1.00),
 			Vector2(0.32, 0.98), Vector2(0.55, 0.99), Vector2(0.80, 1.03),
 			Vector2(0.93, 0.98), Vector2(1.00, 0.82),
 		],
-		"glass_span": Vector2(0.30, 0.80),
-		"roof_range": Vector2(0.24, 0.80),
+		"glass_span": Vector2(0.32, 0.70),
+		"roof_range": Vector2(0.20, 0.70),
 		"glass_top": [
 			Vector2(0.00, 0.68), Vector2(0.16, 0.93), Vector2(0.30, 0.99),
 			Vector2(0.55, 1.00), Vector2(0.75, 0.98), Vector2(0.90, 0.85),
@@ -136,7 +136,7 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 		],
 		"glass_bottom_f": 0.92,
 		"pillars_b": Vector2(0.46, 0.53),
-		"pillars_c": Vector2(0.80, 0.95),
+		"pillars_c": Vector2(0.62, 0.70),
 		"roof_split": 0.62,
 		"a_pillars": true,
 		"clad_split": 0.20,
