@@ -32,31 +32,4 @@ CAPTURE shot 06_overview
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/06_overview.png err=0 720x1280
 CAPTURE shot 07_hud_race
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/07_hud_race.png err=0 720x1280
-CAPTURE debug _tmp/dx_albedo
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_albedo.png err=0 720x1280
-CAPTURE debug _tmp/dx_flat_bg
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_flat_bg.png err=0 720x1280
-CAPTURE debug _tmp/dx_nofog
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_nofog.png err=0 720x1280
-CAPTURE debug _tmp/dx_redterrain
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_redterrain.png err=0 720x1280
-CAPTURE debug _tmp/dx_noterrain
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_noterrain.png err=0 720x1280
-CAPTURE debug _tmp/dx_clones
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_clones.png err=0 720x1280
-CAPTURE debug _tmp/dx_copy
-CAPTURE asphalt_mesh_surfaces=1
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_copy.png err=0 720x1280
-CAPTURE debug _tmp/dx_car_mats
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_car_mats.png err=0 720x1280
-CAPTURE debug _tmp/dx_car_side
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_car_side.png err=0 720x1280
-CAPTURE debug _tmp/dx_ov_noterrain
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_ov_noterrain.png err=0 720x1280
-CAPTURE debug _tmp/dx_ov_red
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_ov_red.png err=0 720x1280
-CAPTURE debug _tmp/dx_top
-PROBE asphalt visible=true layers=1 aabb=[P: (-3.96, -0.26, -20), S: (7.92, 0.26, 40)] pos=(0, 0, -560) scale=(1, 1, 1)
-PROBE plane added at (0, 0.02, -150)
-SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_top.png err=0 720x1280
 CAPTURE COMPLETE
