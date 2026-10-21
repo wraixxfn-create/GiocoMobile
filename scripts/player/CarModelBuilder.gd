@@ -139,7 +139,7 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 		"pillars_c": Vector2(0.62, 0.70),
 		"roof_split": 0.62,
 		"a_pillars": true,
-		"clad_split": 0.055,
+		"clad_split": -0.5,
 		"arch_gap": 0.05,
 		"arch_flare": "trim",
 		"light_style": "round",
@@ -454,8 +454,6 @@ static func _build_shell(ctx: Dictionary) -> void:
 		if a_pillars and gt < roof_range.x and yf >= 0.50:
 			return BUCKET_PAINT
 		if gt >= pillars_b.x and gt <= pillars_b.y and yf > 0.06:
-			return BUCKET_PAINT
-		if gt >= pillars_c.x and gt <= pillars_c.y and yf > 0.06:
 			return BUCKET_PAINT
 		return BUCKET_GLASS
 	var cabin := CarBodyFactory.build_loft(gstations, GLASS_SECTION, 11, glass_bucket)
