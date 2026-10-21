@@ -1,0 +1,18 @@
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+STATE=0 LEVEL=1
+PROFILE level=1 half_w=0.820 half_l=1.560 body_w=1.500 body_l=2.860
+CAR lateral_limit=2.792 extent_yaw=1.058 half_track=3.900
+CAMERA rig=(0, 6.2, 10.2) fov=64
+VIEWPORT=(540, 960)
+CAR_SCREEN=(270, 730.4405) y_frac=0.761
+GATE row=0 z=-70.0 dist=70.0 screen=(270,382) h=22.2px
+GATE row=1 z=-118.0 dist=118.0 screen=(270,364) h=14.0px
+GATE row=2 z=-166.0 dist=166.0 screen=(270,356) h=10.2px
+DIRECTIONAL_LIGHTS=1
+  LIGHT Sun energy=1.25 shadow=true dist=72.0 splits=1
+ENV sky=true ambient_src=3 amb_energy=0.95 fog=true ssao=false glow=false tonemap=2
+TRACK segments=10
+STAGE root=Stage_1:<Node3D#54727280911> children=5
+CAR_MESHES=83 empty=4 tris=14596
+SCENERY=<Object#null>
