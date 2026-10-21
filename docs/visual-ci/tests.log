@@ -1,22 +1,6 @@
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
 === TEST CONTROLLI DI GUIDA ===
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  nodi principali presenti
   PASS  limite laterale calcolato
   PASS  InputManager nel gruppo input_manager
@@ -300,22 +284,6 @@ ERROR: Parameter "m" is null.
   PASS  bordo sinistro: nessuna parte dell'auto esce dall'asfalto (3.631 <= 3.900)
   PASS  drag alternati violenti restano sempre dentro i bordi
   PASS  limite geometrico coerente con ingombro e cordoli
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -505,22 +473,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -622,22 +574,6 @@ ERROR: Parameter "m" is null.
   PASS  i segmenti riciclati restano contigui (nessun buco)
   PASS  i segmenti vengono riciclati in fondo
   PASS  numero segmenti invariato
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  sterzo identico a 60 e 120 FPS
   PASS  sterzo identico a 60 e 30 FPS
   PASS  avanzamento identico a 60 e 120 FPS
@@ -822,38 +758,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  avvicinarsi al cancello non lo attiva
   PASS  nessun effetto prima dell'attraversamento
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -1165,38 +1069,6 @@ ERROR: Parameter "m" is null.
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  esiste una fila con cancello negativo davanti all'auto
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -1666,38 +1538,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  fila con cancello positivo per il test del massimo
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
@@ -2134,38 +1974,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  fila con cancello negativo per il test del minimo
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
@@ -2609,73 +2417,9 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  fila disponibile per il test di attivazione singola
   PASS  l'attraversamento calcola la X esatta sul piano del cancello
   PASS  il verso di marcia conta: nessun attraversamento all'indietro
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  un passo grande supera il cancello e viene rilevato
   PASS  l'effetto del passo grande viene applicato una volta
   PASS  ripetere lo stesso attraversamento non riapplica l'effetto
@@ -3533,140 +3277,12 @@ ERROR: Parameter "m" is null.
   PASS  i livelli fuori range vengono riportati dentro i limiti
   PASS  anche una richiesta fuori range produce uno stadio valido
   PASS  l'auto ha il direttore delle evoluzioni (CarVisual)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  ogni stadio viene applicato al modello
   PASS  ogni stadio ha proporzioni da automobile plausibili
   PASS  ogni stadio monta quattro ruote collegate al movimento
   PASS  ogni stadio ha un colore di carrozzeria diverso
   PASS  le spie accese sul modello corrispondono al livello mostrato
   PASS  le 6 silhouette sono tutte diverse: non cambia solo il colore
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -4271,6 +3887,9 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+  PASS  ogni stadio ha la mesh della carrozzeria ()
+  PASS  nessuna mesh vuota nel modello ()
+  PASS  i sei stadi hanno geometria scolpita (299220 vertici)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -4483,38 +4102,610 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  il livello sale e il modello cambia subito (0 -> 1)
   PASS  la trasformazione parte con il modello compresso (0.58)
   PASS  il nodo del modello viene sostituito senza distruggere l'auto
@@ -4694,38 +4885,6 @@ ERROR: Parameter "m" is null.
   PASS  le luci dello stadio tornano ai valori base
   PASS  il lampo di trasformazione si spegne
   PASS  l'onda d'urto sparisce a fine animazione
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -4938,38 +5097,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -5170,75 +5297,11 @@ ERROR: Parameter "m" is null.
   PASS  l'auto continua ad avanzare durante la trasformazione
   PASS  il nuovo modello ha tutte e quattro le ruote
   PASS  le ruote del nuovo modello continuano a girare
-  FAIL  i limiti laterali seguono l'ingombro dello stadio
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
+  PASS  i limiti laterali seguono l'ingombro dello stadio
   PASS  un livello troppo basso viene riportato al minimo
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  un livello troppo alto viene riportato al massimo
   PASS  richiedere lo stesso livello non ricostruisce il modello
   PASS  senza cambio di livello non parte alcuna animazione
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -5640,38 +5703,6 @@ ERROR: Parameter "m" is null.
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  al minimo né il livello né il modello scendono oltre
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -5841,70 +5872,6 @@ ERROR: Parameter "m" is null.
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  al massimo né il livello né il modello salgono oltre
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -6281,38 +6248,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -6525,38 +6460,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -6749,38 +6652,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -6993,38 +6864,6 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -7242,22 +7081,6 @@ ERROR: Parameter "m" is null.
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  dopo ogni cambio il modello è allineato al vero evolution_level
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -7364,106 +7187,10 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  CarModel.apply_evolution_level allinea il modello
   PASS  l'auto espone una barra di 5 spie di evoluzione
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  le parti di carrozzeria da ricolorare sono state trovate
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  la carrozzeria cambia aspetto con il livello
   PASS  il livello applicato al modello è quello richiesto
   PASS  il nome dello stadio mostrato è quello del livello
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
@@ -8069,38 +7796,6 @@ ERROR: Parameter "m" is null.
   PASS  i varchi si restringono al crescere della difficoltà (3.56 -> 2.64 m)
   PASS  a difficoltà massima compaiono tutte e quattro le tipologie
   PASS  a difficoltà zero compaiono solo coni e barriere
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  barriera generata per il test
   PASS  barriera: la simulazione termina in tempo finito
   PASS  barriera: la collisione viene rilevata
@@ -8128,75 +7823,11 @@ ERROR: Condition "err != OK" is true.
   PASS  coni: l'evoluzione NON cambia (mai entrambe le penalità)
   PASS  coni: l'animazione di caduta si completa
   PASS  coni: la penalità scade da sola
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  blocco mobile generato per il test
   PASS  il blocco mobile è solido
   PASS  il blocco mobile penalizza l'evoluzione
   PASS  il blocco mobile resta in carreggiata con moto predicibile
   PASS  la previsione della posizione coincide con lo stato corrente
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  blocco mobile: il contatto viene rilevato
   FAIL  blocco mobile: l'auto non attraversa mai il solido
   PASS  blocco mobile: si perde esattamente un livello di evoluzione (3 -> 2)
@@ -8223,38 +7854,6 @@ ERROR: Condition "err != OK" is true.
   PASS  restringimento: fattore di penalità configurato
   PASS  restringimento: l'evoluzione NON cambia (mai entrambe le penalità)
   PASS  restringimento: l'auto riprende la corsa dopo l'urto
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  coni: la collisione avviene
   PASS  coni: esattamente UNA penalità (velocità XOR evoluzione)
   PASS  coni: il canale di penalità è quello configurato
@@ -8267,38 +7866,6 @@ ERROR: Condition "err != OK" is true.
   PASS  muro: esattamente UNA penalità (velocità XOR evoluzione)
   PASS  muro: il canale di penalità è quello configurato
   PASS  muro: last_penalty_kind coerente
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  blocco mobile: la collisione avviene
   PASS  blocco mobile: esattamente UNA penalità (velocità XOR evoluzione)
   PASS  blocco mobile: il canale di penalità è quello configurato
@@ -8314,201 +7881,9 @@ ERROR: Condition "err != OK" is true.
   PASS  feedback: gli effetti 3D si autodistruggono
   PASS  feedback: il lampeggio HUD si spegne
   PASS  feedback: nessun nodo effetto orfano
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  blocchi mobili: superati con il giusto tempo (8/8)
   PASS  blocchi mobili: mai compenetrazione durante le manovre
   FAIL  blocchi mobili: nessun urto con guida predittiva
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  riciclo: 300 m completati
   PASS  riciclo: il layout resta legale durante la corsa
   PASS  riciclo: nessuna compenetrazione con i solidi
@@ -8519,262 +7894,6 @@ ERROR: Condition "err != OK" is true.
   PASS  riciclo: le file vengono rigenerate viaggiando (4 nuove)
   PASS  riciclo: la difficoltà non diminuisce mai
   PASS  riciclo: le file rigenerate hanno ostacoli integri
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  giocabilità: la corsa da 1500 m si completa
   FAIL  giocabilità: ZERO collisioni in 1500 m tra cancelli e ostacoli
   PASS  giocabilità: l'auto non compenetra mai un ostacolo solido
@@ -8785,72 +7904,8 @@ ERROR: Condition "err != OK" is true.
   PASS  giocabilità: il livello resta sempre entro i limiti
   PASS  giocabilità: la difficoltà raggiunge il massimo sulla distanza
   PASS  giocabilità: molte combinazioni generate e riciclate (31)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  difficoltà massima: tutte le file rigenerate a d=1
   PASS  difficoltà massima: il layout resta legale
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  difficoltà massima: 600 m completati
   PASS  difficoltà massima: ZERO collisioni (partita sempre giocabile)
   PASS  difficoltà massima: nessuna compenetrazione
@@ -18473,52 +17528,12 @@ ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Parameter "m" is null.
-   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Parameter "m" is null.
-   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Parameter "m" is null.
-   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-ERROR: Parameter "m" is null.
-   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  il saldo permanente sopravvive al caricamento di un nuovo manager
   PASS  una nuova sessione non eredita le monete della corsa precedente
   PASS  la distanza segue l'avanzamento reale dell'auto
   PASS  punteggio finale somma distanza, livello massimo e monete
   PASS  HUD mostra il riepilogo finale della corsa
   PASS  riepilogo HUD riporta il punteggio calcolato
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  una nuova corsa azzera il totale di sessione ma conserva il saldo
 --- ciclo completo: menu, corsa, traguardo, replay e menu ---
 ERROR: Parameter "m" is null.
@@ -19474,38 +18489,6 @@ ERROR: Parameter "m" is null.
   PASS  il pulsante PAUSA attiva lo stato di pausa
   PASS  in pausa l'auto resta immobile
   PASS  RIPRENDI riattiva correttamente la corsa
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  una moneta in corsa accredita la ricompensa
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
@@ -19729,38 +18712,6 @@ ERROR: Parameter "m" is null.
   PASS  un pickup dopo la fine non accredita monete
   PASS  chiamate ripetute a fine corsa non alterano il risultato né duplicano premi
   PASS  un cancello non può modificare una corsa già conclusa
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
-ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
-   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
-ERROR: Condition "err != OK" is true.
-   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
   PASS  RIGIOCA avvia subito una nuova corsa
   PASS  il replay resetta distanza, monete di corsa ed evoluzione
   PASS  il replay conserva il saldo e ripristina HUD e pool delle monete
@@ -19769,7 +18720,6 @@ ERROR: Condition "err != OK" is true.
   PASS  una sconfitta mostra lo stesso riepilogo senza segnare una vittoria
   PASS  il ritorno finale al menu conserva il saldo e rimuove la pausa
 --------------------------------
-FALLITO: i limiti laterali seguono l'ingombro dello stadio
 FALLITO: barriera: fattore di penalità configurato (0.87)
 FALLITO: coni: penalità leggera configurata (1.00)
 FALLITO: blocco mobile: l'auto non attraversa mai il solido
@@ -19778,7 +18728,7 @@ FALLITO: blocco mobile: si abbatte dopo più contatti
 FALLITO: blocco mobile: nessuna compenetrazione per tutta la spinta
 FALLITO: blocchi mobili: nessun urto con guida predittiva
 FALLITO: giocabilità: ZERO collisioni in 1500 m tra cancelli e ostacoli
-TEST FALLITI: 9 su 375
+TEST FALLITI: 8 su 378
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.

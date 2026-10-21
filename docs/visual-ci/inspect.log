@@ -14,17 +14,17 @@ DIRECTIONAL_LIGHTS=1
 ENV sky=true ambient_src=3 amb_energy=0.95 fog=true ssao=false glow=false tonemap=2
 TRACK segments=10
 STAGE root=Stage_1:<Node3D#54727280911> children=5
-CAR_MESHES=83 empty=4 tris=14596
+CAR_MESHES=83 empty=0 tris=17792
 --- CAR TREE ---
   CarVisual pos=(0, 0, 0)
   CarVisual/TransformShockwave pos=(0, 0.06, 0) mesh=CylinderMesh aabb_pos=(-0.992709, 0.05, -1) aabb_size=(1.985418, 0.02, 2)
   CarVisual/TransformFlash pos=(0, 0.9, 0)
   CarVisual/Stage_1 pos=(0, 0, 0)
   CarVisual/Stage_1/Body pos=(0, 0, 0)
-  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(0, 0, 0) aabb_size=(0, 0, 0)
-  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(0, 0, 0) aabb_size=(0, 0, 0)
-  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(0, 0, 0) aabb_size=(0, 0, 0)
-  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(0, 0, 0) aabb_size=(0, 0, 0)
+  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.324692, -1.485) aabb_size=(1.548381, 0.418905, 2.97)
+  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.771956, 0.210952, -1.485) aabb_size=(1.543912, 0.455253, 2.97)
+  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.619745, -0.77) aabb_size=(1.278037, 0.409855, 1.8832)
+  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.637671, -0.18304) aabb_size=(1.278037, 0.403078, 1.15258)
   CarVisual/Stage_1/Body/WellFL pos=(-0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
   CarVisual/Stage_1/Body/ArchFL pos=(-0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.778993, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
   CarVisual/Stage_1/Body/WellFR pos=(0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
