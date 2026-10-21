@@ -31,9 +31,15 @@ var _shots: Array[Dictionary] = [
 
 
 func _ready() -> void:
+	# Watchdog: la cattura non deve mai blocare la CI.
+	get_tree().create_timer(600.0).timeout.connect(func() -> void:
+		print("CAPTURE TIMEOUT")
+		get_tree().quit(3)
+	)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT_DIR))
 	_main = MAIN_SCENE.instantiate()
 	add_child(_main)
+	print("CAPTURE ready")
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_car = _main.get_node("Player") as CarController
@@ -41,6 +47,7 @@ func _ready() -> void:
 	_rig = _main.get_node("CameraRig") as Node3D
 	var hud := _main.get_node("HUD") as CanvasLayer
 	for shot in _shots:
+		print("CAPTURE shot ", shot["name"])
 		await _capture(shot, hud)
 	print("CAPTURE COMPLETE")
 	get_tree().quit(0)
@@ -52,7 +59,7 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 	hud.visible = bool(shot.get("hud", false))
 	var mode: String = str(shot.get("mode", "game"))
 	# Lascia aggiornare pista, scenario e camera di gioco.
-	for i in 10:
+	for i in 3:
 		await get_tree().process_frame
 	if mode == "game":
 		var height := float(shot.get("height", GameConfig.CAMERA_HEIGHT))
@@ -89,7 +96,7 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 				Vector3(_car.position.x, float(shot.get("look_height", 0.0)), _car.position.z - look),
 				Vector3.UP,
 			)
-	for i in 4:
+	for i in 2:
 		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	var image := get_viewport().get_texture().get_image()

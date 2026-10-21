@@ -6,13 +6,14 @@ on:
       - 'arena/**'
   workflow_dispatch:
 
-permissions:
-  contents: write
+concurrency:
+  group: visual-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - name: Install renderer stack
@@ -27,38 +28,54 @@ jobs:
           /tmp/godot/Godot_v4.3-stable_linux.x86_64 --version
       - name: Import project
         run: |
-          /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . --import 2>&1 | tee /tmp/import.log
-      - name: Inspect scene
-        run: |
-          mkdir -p docs/visual-ci
-          /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . res://tools/InspectScene.tscn 2>&1 | grep -v "ERROR\|WARNING\|at:" | tee docs/visual-ci/inspect.log
-      - name: Run headless tests
-        continue-on-error: true
-        run: |
-          mkdir -p docs/visual-ci
-          /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . res://tests/TestRunner.tscn 2>&1 | tee docs/visual-ci/tests.log
+          timeout 300 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . --import 2>&1 | tee import.log
       - name: Capture screenshots
         run: |
           set -o pipefail
           xvfb-run -a -s "-screen 0 1080x1700x24" \
-            /tmp/godot/Godot_v4.3-stable_linux.x86_64 --path . \
-            --rendering-driver vulkan --rendering-method mobile \
-            --resolution 900x1600 res://tools/CaptureLevel.tscn 2>&1 | tee /tmp/capture.log || \
-          xvfb-run -a -s "-screen 0 1080x1700x24" \
-            /tmp/godot/Godot_v4.3-stable_linux.x86_64 --path . \
-            --rendering-driver opengl3 --rendering-method gl_compatibility \
-            --resolution 900x1600 res://tools/CaptureLevel.tscn 2>&1 | tee /tmp/capture.log
-      - name: Publish screenshots
+            env __GL_SYNC_TO_VBLANK=0 \
+            timeout 900 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --path . \
+            --quit-after 4000 --rendering-driver vulkan --rendering-method mobile \
+            --resolution 720x1280 res://tools/CaptureLevel.tscn 2>&1 | tee capture.log
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: |
+            docs/screenshots/*.png
+            capture.log
+            import.log
+          if-no-files-found: warn
+
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Godot 4.3
         run: |
-          mkdir -p docs/visual-ci
-          cp /tmp/import.log docs/visual-ci/import.log || true
-          cp /tmp/capture.log docs/visual-ci/capture.log || true
-          git config user.name "visual-ci"
-          git config user.email "visual-ci@users.noreply.github.com"
-          git add docs/screenshots docs/visual-ci
-          if git diff --cached --quiet; then
-            echo "Nessuna modifica da pubblicare"
-          else
-            git commit -m "chore(visual): screenshot del livello [skip ci]"
-            git push
-          fi
+          curl -sL -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          unzip -o -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.3-stable_linux.x86_64
+      - name: Import project
+        run: |
+          timeout 300 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . --import 2>&1 | tee import.log
+      - name: Inspect scene
+        run: |
+          timeout 180 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . \
+            --quit-after 3000 res://tools/InspectScene.tscn 2>&1 | tee inspect.log
+      - name: Run headless tests
+        run: |
+          timeout 1500 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . \
+            --quit-after 200000 res://tests/TestRunner.tscn 2>&1 | tee tests.log
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: |
+            import.log
+            inspect.log
+            tests.log
+          if-no-files-found: warn

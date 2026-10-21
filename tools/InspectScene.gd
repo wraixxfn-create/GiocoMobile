@@ -8,11 +8,22 @@ const MAIN_SCENE: PackedScene = preload("res://scenes/Main.tscn")
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Watchdog: se qualcosa si blocca, il processo esce comunque.
+	get_tree().create_timer(45.0).timeout.connect(func() -> void:
+		print("INSPECT TIMEOUT")
+		get_tree().quit(2)
+	)
+	print("STEP instantiate")
 	var main := MAIN_SCENE.instantiate()
+	print("STEP add_child")
 	add_child(main)
+	print("STEP frame 1")
 	await get_tree().process_frame
+	print("STEP frame 2")
 	await get_tree().process_frame
+	print("STEP physics")
 	await get_tree().physics_frame
+	print("STEP ready")
 	var gm := main.get_node("GameManager") as GameManager
 	var car := main.get_node("Player") as CarController
 	var cam := main.get_node("CameraRig/MainCamera") as Camera3D
