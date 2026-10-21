@@ -378,7 +378,8 @@ static func _test_live_swap_preserves_driving_collisions_and_camera(runner: Node
 	if viewport_size.x > 1.0:
 		centered = absf(projected.x - viewport_size.x * 0.5) < viewport_size.x * 0.12
 
-	var obs_extents := runner._obstacle_manager._car_half_extents()
+	var obs_mgr := runner.get("_obstacle_manager") as ObstacleManager
+	var obs_extents: Vector2 = obs_mgr._car_half_extents()
 	runner._check(
 		boosted_speed > base_speed + 1.0,
 		"i modificatori di gameplay dei componenti aggiornano subito la velocità (%.2f -> %.2f m/s)"
@@ -391,6 +392,11 @@ static func _test_live_swap_preserves_driving_collisions_and_camera(runner: Node
 	runner._check(
 		centered and obs_extents.x > GameConfig.CAR_HALF_WIDTH,
 		"telecamera e ingombro di collisione ostacoli restano coerenti dopo la sostituzione",
+	)
+	runner._check(
+		_mesh_outward_dot(director.get_slot_visual(CarPartSlot.Type.BODY)) > 0.0
+		and _mesh_outward_dot(director.get_slot_visual(CarPartSlot.Type.SPOILER)) > 0.0,
+		"le superfici procedurali della carrozzeria e dei componenti hanno avvolgimento CW esterno",
 	)
 
 
@@ -539,3 +545,32 @@ static func _collect_mesh_instances(node: Node, out: Array) -> void:
 		out.append(node)
 	for child in node.get_children():
 		_collect_mesh_instances(child, out)
+
+
+static func _mesh_outward_dot(root_node: Node3D) -> float:
+	if root_node == null:
+		return 0.0
+	var meshes: Array = []
+	_collect_mesh_instances(root_node, meshes)
+	var total := 0.0
+	for item in meshes:
+		var mi := item as MeshInstance3D
+		var arr_mesh := mi.mesh as ArrayMesh if mi != null else null
+		if arr_mesh == null or arr_mesh.get_surface_count() == 0:
+			continue
+		var arrays := arr_mesh.surface_get_arrays(0)
+		var verts: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+		if verts.is_empty() or indices.is_empty():
+			continue
+		var centroid := Vector3.ZERO
+		for v in verts:
+			centroid += v
+		centroid /= float(verts.size())
+		for t in indices.size() / 3:
+			var a := verts[indices[t * 3]]
+			var b := verts[indices[t * 3 + 1]]
+			var c := verts[indices[t * 3 + 2]]
+			var n := (c - a).cross(b - a)
+			total += n.dot(((a + b + c) / 3.0) - centroid)
+	return total

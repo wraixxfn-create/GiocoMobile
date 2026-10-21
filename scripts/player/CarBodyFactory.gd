@@ -198,8 +198,8 @@ static func build_lathe_x(profile: Array, segments: int, side_sign: float = 1.0)
 				indices.append_array(PackedInt32Array([a, b, c, a, c, d]))
 			else:
 				indices.append_array(PackedInt32Array([a, c, b, a, d, c]))
-	var normals := _accumulate_normals(verts, indices)
-	return _make_mesh(verts, normals, uvs, indices)
+	var fixed := _ensure_outward_from_center(verts, indices)
+	return _make_mesh(verts, fixed[1], uvs, fixed[0])
 
 
 ## Arco di toro nel piano XY, centrato verso l'alto (+Y), con tappi di
@@ -250,7 +250,13 @@ static func build_torus_arc(
 				indices.append_array(PackedInt32Array([ci, q, p]))
 			else:
 				indices.append_array(PackedInt32Array([ci, p, q]))
+	# Per il toro verifichiamo la normale rispetto all'asse locale del tubo.
 	var normals := _accumulate_normals(verts, indices)
+	var mid_center := Vector3(0.0, ring_radius, 0.0)
+	var mid_vert := verts[(segments / 2) * tube_segments]
+	if normals[(segments / 2) * tube_segments].dot(mid_vert - mid_center) < 0.0:
+		indices = _flip_triangle_indices(indices)
+		normals = _accumulate_normals(verts, indices)
 	return _make_mesh(verts, normals, uvs, indices)
 
 
@@ -426,8 +432,8 @@ static func build_capsule(
 			var c := (i + 1) * segments + s2
 			var d := (i + 1) * segments + s
 			indices.append_array(PackedInt32Array([a, b, c, a, c, d]))
-	var normals := _accumulate_normals(verts, indices)
-	return _make_mesh(verts, normals, uvs, indices)
+	var fixed := _ensure_outward_from_center(verts, indices)
+	return _make_mesh(verts, fixed[1], uvs, fixed[0])
 
 
 # ----------------------------------------------------------------- Interni ---
@@ -487,7 +493,9 @@ static func _accumulate_normals(
 		var ia := indices[t * 3]
 		var ib := indices[t * 3 + 1]
 		var ic := indices[t * 3 + 2]
-		var face := (verts[ib] - verts[ia]).cross(verts[ic] - verts[ia])
+		# In Godot 4 (Vulkan CW front-face), la normale uscente di (ia, ib, ic) è
+		# (ic - ia) x (ib - ia).
+		var face := (verts[ic] - verts[ia]).cross(verts[ib] - verts[ia])
 		normals[ia] = normals[ia] + face
 		normals[ib] = normals[ib] + face
 		normals[ic] = normals[ic] + face
@@ -495,6 +503,35 @@ static func _accumulate_normals(
 		var n := normals[i]
 		normals[i] = n.normalized() if n.length() > 0.000001 else Vector3.UP
 	return normals
+
+
+static func _flip_triangle_indices(indices: PackedInt32Array) -> PackedInt32Array:
+	var flipped := PackedInt32Array()
+	for t in indices.size() / 3:
+		flipped.append_array([
+			indices[t * 3], indices[t * 3 + 2], indices[t * 3 + 1],
+		])
+	return flipped
+
+
+static func _ensure_outward_from_center(
+	verts: PackedVector3Array, indices: PackedInt32Array
+) -> Array:
+	var normals := _accumulate_normals(verts, indices)
+	var centroid := Vector3.ZERO
+	for v in verts:
+		centroid += v
+	if not verts.is_empty():
+		centroid /= float(verts.size())
+	var dot_sum := 0.0
+	for i in verts.size():
+		var radial := verts[i] - centroid
+		if radial.length_squared() > 0.000001:
+			dot_sum += normals[i].dot(radial.normalized())
+	if dot_sum < 0.0:
+		indices = _flip_triangle_indices(indices)
+		normals = _accumulate_normals(verts, indices)
+	return [indices, normals]
 
 
 static func _make_mesh(
@@ -593,12 +630,15 @@ static func _add_loft_cap(
 			var cap_uvs: Array[Vector2] = data["uvs"]
 			cap_uvs.append(Vector2((z - min_z) / z_span, 0.5))
 		var ci: int = centers[name]
+		var va := grid[station_i * ring_n + j]
+		var vb := grid[station_i * ring_n + j2]
 		var a := _bucket_vertex(data, grid, grid_normals, station_i * ring_n + j, min_z, z_span, ring_n)
 		var b := _bucket_vertex(
 			data, grid, grid_normals, station_i * ring_n + j2, min_z, z_span, ring_n
 		)
 		var cap_indices: Array[int] = data["indices"]
-		if direction < 0.0:
-			cap_indices.append_array([ci, b, a])
-		else:
+		var cw_normal := (vb - center).cross(va - center)
+		if cw_normal.z * direction >= 0.0:
 			cap_indices.append_array([ci, a, b])
+		else:
+			cap_indices.append_array([ci, b, a])

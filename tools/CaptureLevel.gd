@@ -124,33 +124,40 @@ func _capture_customization_lineups(hud: CanvasLayer) -> void:
 	_main.set_process(false)
 	_car.visible = false
 	hud.visible = false
+	var hidden_track: Array[Node3D] = []
+	for node_name: String in ["CoinManager", "ObstacleManager", "GateManager"]:
+		var n := _main.get_node_or_null(node_name) as Node3D
+		if n != null and n.visible:
+			n.visible = false
+			hidden_track.append(n)
 
 	var base_z := _car.position.z - 22.0
 	var root := Node3D.new()
 	root.name = "ModularLineup"
 	_main.add_child(root)
 
-	# 08: Confronto 3/4 posteriore delle 3 varianti Spoiler sulla medesima scocca
+	# 08: Scaglione 3/4 posteriore delle 3 varianti Spoiler sulla medesima scocca
 	var spoiler_setups := [
-		[-1.90, 3, [&"spoiler_ducktail"]],
-		[0.0, 3, [&"spoiler_gt_wing"]],
-		[1.90, 3, [&"spoiler_biplane_swan"]],
+		[-1.30, 3.3, 3, [&"spoiler_ducktail"]],
+		[0.0, 0.0, 3, [&"spoiler_gt_wing"]],
+		[1.30, -3.3, 3, [&"spoiler_biplane_swan"]],
 	]
 	await _render_lineup(
 		root,
 		base_z,
 		spoiler_setups,
-		0.40,
-		Vector3(0.0, 2.35, -5.8),
-		Vector3(0.0, 0.72, 0.0),
-		44.0,
+		0.52,
+		Vector3(-0.35, 3.05, 8.6),
+		Vector3(0.0, 0.62, -0.3),
+		45.0,
 		"08_modular_spoilers_study",
 	)
 
-	# 09: Confronto 3/4 anteriore di Ruote, Paraurti, Motore ed Aerodinamica
+	# 09: Scaglione 3/4 anteriore di Ruote, Paraurti, Motore ed Aerodinamica
 	var custom_setups := [
 		[
-			-1.95,
+			-1.32,
+			3.4,
 			2,
 			[
 				&"wheels_classic_5spoke",
@@ -161,6 +168,7 @@ func _capture_customization_lineups(hud: CanvasLayer) -> void:
 		],
 		[
 			0.0,
+			0.0,
 			3,
 			[
 				&"wheels_sport_multispoke",
@@ -170,7 +178,8 @@ func _capture_customization_lineups(hud: CanvasLayer) -> void:
 			],
 		],
 		[
-			1.95,
+			1.32,
+			-3.4,
 			3,
 			[
 				&"wheels_racing_turbofan",
@@ -184,37 +193,40 @@ func _capture_customization_lineups(hud: CanvasLayer) -> void:
 		root,
 		base_z,
 		custom_setups,
-		-2.42,
-		Vector3(0.0, 2.25, 6.0),
-		Vector3(0.0, 0.60, 0.0),
+		-2.46,
+		Vector3(0.35, 2.95, 8.8),
+		Vector3(0.0, 0.56, -0.3),
 		45.0,
 		"09_modular_wheels_bumpers_study",
 	)
 
-	# 10: Progressione fisica completa dei 6 stadi evolutivi (0..5)
+	# 10: Progressione fisica completa dei 6 stadi evolutivi (0..5) su 3 righe × 2 corsie
 	_clear_children(root)
 	_populate_row(
 		root,
-		Vector3(0.0, 0.0, base_z + 1.8),
-		[[-2.05, 0, []], [0.0, 1, []], [2.05, 2, []]],
-		-2.55,
-	)
-	_populate_row(
-		root,
-		Vector3(0.0, 0.0, base_z - 3.6),
-		[[-2.05, 3, []], [0.0, 4, []], [2.05, 5, []]],
-		-2.55,
+		Vector3(0.0, 0.0, base_z),
+		[
+			[-1.28, 3.8, 0, []],
+			[1.28, 3.8, 1, []],
+			[-1.28, 0.0, 2, []],
+			[1.28, 0.0, 3, []],
+			[-1.28, -3.8, 4, []],
+			[1.28, -3.8, 5, []],
+		],
+		-2.52,
 	)
 	_camera.fov = 46.0
 	_camera.look_at_from_position(
-		Vector3(0.0, 4.45, base_z + 9.4),
-		Vector3(0.0, 0.70, base_z - 1.1),
+		Vector3(0.0, 4.85, base_z + 10.6),
+		Vector3(0.0, 0.65, base_z - 0.6),
 		Vector3.UP,
 	)
 	await _flush_and_save("10_evolution_stages_lineup")
 
 	_clear_children(root)
 	root.queue_free()
+	for n in hidden_track:
+		n.visible = true
 	_car.visible = true
 	_main.set_process(true)
 
@@ -244,12 +256,12 @@ func _populate_row(root: Node3D, origin: Vector3, setups: Array, yaw: float) -> 
 	for entry in setups:
 		var item: Array = entry
 		var vis := MainCarVisual.new()
-		vis.level = int(item[1])
-		vis.position = origin + Vector3(float(item[0]), 0.0, 0.0)
+		vis.level = int(item[2])
+		vis.position = origin + Vector3(float(item[0]), 0.0, float(item[1]))
 		vis.rotation.y = yaw
 		root.add_child(vis)
 		vis.rebuild()
-		var part_ids: Array = item[2]
+		var part_ids: Array = item[3]
 		for pid in part_ids:
 			vis.equip_part_by_id(pid as StringName)
 
