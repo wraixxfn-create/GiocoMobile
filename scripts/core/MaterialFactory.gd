@@ -198,7 +198,7 @@ static func stage_paint(level: int, color: Color) -> StandardMaterial3D:
 		# alto il cielo si specchiava sul tetto e la vernice gialla spariva.
 		material.roughness = 0.38
 		material.metallic = 0.0
-		material.specular = 0.32
+		material.metallic_specular = 0.32
 		material.clearcoat_enabled = true
 		material.clearcoat = 0.28
 		material.clearcoat_roughness = 0.34

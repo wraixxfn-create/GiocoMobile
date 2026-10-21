@@ -33,9 +33,11 @@ var current_speed: float = 0.0
 var lateral_limit: float = 0.0
 ## Posizione laterale desiderata: resta ferma quando il dito viene sollevato.
 var lateral_target: float = 0.0
-## Moltiplicatori dello stadio corrente (letti dal profilo di evoluzione).
+## Moltiplicatori effettivi calcolati dal profilo e dai componenti equipaggiati.
 var evolution_speed_multiplier: float = 1.0
 var evolution_handling_multiplier: float = 1.0
+var effective_half_width: float = GameConfig.CAR_HALF_WIDTH
+var effective_half_length: float = GameConfig.CAR_HALF_LENGTH
 ## Se true la velocità non viene aggiornata al cambio di evoluzione
 ## (usato dai test e da eventuali pause: la marcia resta congelata).
 var speed_locked: bool = false
@@ -83,6 +85,7 @@ func _setup_evolution_visual() -> void:
 	_director = _resolve_director()
 	if _director != null:
 		_director.stage_ready.connect(_on_stage_ready)
+		_director.part_changed.connect(_on_part_changed)
 		var initial_level := (
 			_game_manager.evolution_level if _game_manager != null
 			else GameConfig.EVOLUTION_START_LEVEL
@@ -126,10 +129,62 @@ func _apply_evolution_stats(profile: CarEvolutionProfile) -> void:
 		profile = evolution_profile()
 	if profile == null:
 		return
-	evolution_speed_multiplier = profile.speed_multiplier
-	evolution_handling_multiplier = profile.handling_multiplier
+	if _director != null and _director.get_rig() != null:
+		var stats := _director.effective_stats()
+		evolution_speed_multiplier = float(stats.get("speed_multiplier", profile.speed_multiplier))
+		evolution_handling_multiplier = float(
+			stats.get("handling_multiplier", profile.handling_multiplier)
+		)
+		effective_half_width = float(stats.get("half_width", profile.half_width))
+		effective_half_length = float(stats.get("half_length", profile.half_length))
+	else:
+		evolution_speed_multiplier = profile.speed_multiplier
+		evolution_handling_multiplier = profile.handling_multiplier
+		effective_half_width = profile.half_width
+		effective_half_length = profile.half_length
 	_recalculate_lateral_limit()
 	_refresh_speed()
+
+
+## Sostituisce un singolo componente modulare sul veicolo senza ricostruire la
+## gerarchia e ricalcola immediatamente statistiche e ingombri fisici.
+func equip_part(
+	part: CarPartDefinition,
+	enforce_level: bool = false,
+	pin_across_stages: bool = false,
+) -> Dictionary:
+	if _director == null:
+		return {"ok": false, "changed": false, "reason": -1, "message": "Direttore assente"}
+	return _director.equip_part(part, enforce_level, pin_across_stages)
+
+
+func equip_part_by_id(
+	part_id: StringName,
+	enforce_level: bool = false,
+	pin_across_stages: bool = false,
+) -> Dictionary:
+	if _director == null:
+		return {"ok": false, "changed": false, "reason": -1, "message": "Direttore assente"}
+	return _director.equip_part_by_id(part_id, enforce_level, pin_across_stages)
+
+
+func get_equipped_part(slot: int) -> CarPartDefinition:
+	return _director.get_equipped_part(slot) if _director != null else null
+
+
+func get_equipped_part_id(slot: int) -> StringName:
+	return _director.get_equipped_part_id(slot) if _director != null else &""
+
+
+## Semi-assi fisici XZ dell'auto ruotata di `yaw`, inclusivi delle parti montate.
+func effective_half_extents(yaw: float) -> Vector2:
+	var profile := evolution_profile()
+	var hw := effective_half_width if effective_half_width > 0.0 else profile.half_width
+	var hl := effective_half_length if effective_half_length > 0.0 else profile.half_length
+	return Vector2(
+		CarStatsAggregator.lateral_half_extent(hw, hl, yaw),
+		CarStatsAggregator.longitudinal_half_extent(hw, hl, yaw),
+	)
 
 
 func _refresh_speed() -> void:
@@ -233,10 +288,18 @@ func _on_stage_ready(_level: int, _profile: CarEvolutionProfile) -> void:
 	if _director == null:
 		return
 	_wheels = _director.get_wheels()
-	_recalculate_lateral_limit()
+	_apply_evolution_stats(_profile)
 	lateral_target = clampf(lateral_target, -lateral_limit, lateral_limit)
 	position.x = clampf(position.x, -lateral_limit, lateral_limit)
-	_refresh_speed()
+
+
+func _on_part_changed(_slot: int, _part: CarPartDefinition) -> void:
+	if _director == null:
+		return
+	_wheels = _director.get_wheels()
+	_apply_evolution_stats(evolution_profile())
+	lateral_target = clampf(lateral_target, -lateral_limit, lateral_limit)
+	position.x = clampf(position.x, -lateral_limit, lateral_limit)
 
 
 # ---------------------------------------------------------------- Movimento --
@@ -336,8 +399,10 @@ func _update_visual_feedback(lateral_velocity: float, step: float) -> void:
 ## può sporgere oltre il cordolo, qualunque sia il modello in uso.
 func _recalculate_lateral_limit() -> void:
 	var profile := evolution_profile()
-	var half_width := maxf(profile.half_width, GameConfig.CAR_HALF_WIDTH)
-	var half_length := maxf(profile.half_length, GameConfig.CAR_HALF_LENGTH)
+	var base_hw := effective_half_width if effective_half_width > 0.0 else profile.half_width
+	var base_hl := effective_half_length if effective_half_length > 0.0 else profile.half_length
+	var half_width := maxf(base_hw, GameConfig.CAR_HALF_WIDTH)
+	var half_length := maxf(base_hl, GameConfig.CAR_HALF_LENGTH)
 	var half_extent := half_width * cos(GameConfig.CAR_MAX_STEER_YAW) \
 		+ half_length * sin(GameConfig.CAR_MAX_STEER_YAW)
 	lateral_limit = maxf(

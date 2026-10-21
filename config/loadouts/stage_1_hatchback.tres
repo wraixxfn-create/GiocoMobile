@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CarLoadout" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarLoadout.gd" id="1_loadout"]
+[ext_resource type="Resource" path="res://config/parts/bodies/body_hatchback.tres" id="2_body"]
+[ext_resource type="Resource" path="res://config/parts/bumpers_front/bumper_front_street.tres" id="3_bumper_front"]
+[ext_resource type="Resource" path="res://config/parts/bumpers_rear/bumper_rear_street.tres" id="4_bumper_rear"]
+[ext_resource type="Resource" path="res://config/parts/wheels/wheels_classic_5spoke.tres" id="5_wheels"]
+[ext_resource type="Resource" path="res://config/parts/engines/engine_hood_aspirated.tres" id="6_engine"]
+[ext_resource type="Resource" path="res://config/parts/exhausts/exhaust_single_steel.tres" id="7_exhaust"]
+[ext_resource type="Resource" path="res://config/parts/spoilers/spoiler_ducktail.tres" id="8_spoiler"]
+[ext_resource type="Resource" path="res://config/parts/aero/aero_street_skirts.tres" id="9_aero"]
+
+[resource]
+script = ExtResource("1_loadout")
+id = &"stage_1_hatchback"
+display_name = "Stadio 1 - Utilitaria"
+stage_level = 1
+body = ExtResource("2_body")
+bumper_front = ExtResource("3_bumper_front")
+bumper_rear = ExtResource("4_bumper_rear")
+wheels = ExtResource("5_wheels")
+engine = ExtResource("6_engine")
+exhaust = ExtResource("7_exhaust")
+spoiler = ExtResource("8_spoiler")
+aero = ExtResource("9_aero")

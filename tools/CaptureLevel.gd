@@ -50,6 +50,7 @@ func _ready() -> void:
 	for shot in _shots:
 		print("CAPTURE shot ", shot["name"])
 		await _capture(shot, hud)
+	await _capture_customization_lineups(hud)
 	print("CAPTURE COMPLETE")
 	get_tree().quit(0)
 
@@ -117,3 +118,153 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 	print("SHOT %s err=%d %dx%d" % [path, error, image.get_width(), image.get_height()])
 	if mode != "game":
 		_main.set_process(true)
+
+
+func _capture_customization_lineups(hud: CanvasLayer) -> void:
+	_main.set_process(false)
+	_car.visible = false
+	hud.visible = false
+
+	var base_z := _car.position.z - 22.0
+	var root := Node3D.new()
+	root.name = "ModularLineup"
+	_main.add_child(root)
+
+	# 08: Confronto 3/4 posteriore delle 3 varianti Spoiler sulla medesima scocca
+	var spoiler_setups := [
+		[-1.90, 3, [&"spoiler_ducktail"]],
+		[0.0, 3, [&"spoiler_gt_wing"]],
+		[1.90, 3, [&"spoiler_biplane_swan"]],
+	]
+	await _render_lineup(
+		root,
+		base_z,
+		spoiler_setups,
+		0.40,
+		Vector3(0.0, 2.35, -5.8),
+		Vector3(0.0, 0.72, 0.0),
+		44.0,
+		"08_modular_spoilers_study",
+	)
+
+	# 09: Confronto 3/4 anteriore di Ruote, Paraurti, Motore ed Aerodinamica
+	var custom_setups := [
+		[
+			-1.95,
+			2,
+			[
+				&"wheels_classic_5spoke",
+				&"bumper_front_street",
+				&"engine_hood_aspirated",
+				&"aero_street_skirts",
+			],
+		],
+		[
+			0.0,
+			3,
+			[
+				&"wheels_sport_multispoke",
+				&"bumper_front_splitter",
+				&"engine_hood_twinturbo",
+				&"aero_track_skirts",
+			],
+		],
+		[
+			1.95,
+			3,
+			[
+				&"wheels_racing_turbofan",
+				&"bumper_front_gt_aero",
+				&"engine_hood_blower",
+				&"aero_hyper_venturi",
+			],
+		],
+	]
+	await _render_lineup(
+		root,
+		base_z,
+		custom_setups,
+		-2.42,
+		Vector3(0.0, 2.25, 6.0),
+		Vector3(0.0, 0.60, 0.0),
+		45.0,
+		"09_modular_wheels_bumpers_study",
+	)
+
+	# 10: Progressione fisica completa dei 6 stadi evolutivi (0..5)
+	_clear_children(root)
+	_populate_row(
+		root,
+		Vector3(0.0, 0.0, base_z + 1.8),
+		[[-2.05, 0, []], [0.0, 1, []], [2.05, 2, []]],
+		-2.55,
+	)
+	_populate_row(
+		root,
+		Vector3(0.0, 0.0, base_z - 3.6),
+		[[-2.05, 3, []], [0.0, 4, []], [2.05, 5, []]],
+		-2.55,
+	)
+	_camera.fov = 46.0
+	_camera.look_at_from_position(
+		Vector3(0.0, 4.45, base_z + 9.4),
+		Vector3(0.0, 0.70, base_z - 1.1),
+		Vector3.UP,
+	)
+	await _flush_and_save("10_evolution_stages_lineup")
+
+	_clear_children(root)
+	root.queue_free()
+	_car.visible = true
+	_main.set_process(true)
+
+
+func _render_lineup(
+	root: Node3D,
+	base_z: float,
+	setups: Array,
+	car_yaw: float,
+	cam_offset: Vector3,
+	look_offset: Vector3,
+	fov_deg: float,
+	out_name: String,
+) -> void:
+	_clear_children(root)
+	_populate_row(root, Vector3(0.0, 0.0, base_z), setups, car_yaw)
+	_camera.fov = fov_deg
+	_camera.look_at_from_position(
+		Vector3(0.0, 0.0, base_z) + cam_offset,
+		Vector3(0.0, 0.0, base_z) + look_offset,
+		Vector3.UP,
+	)
+	await _flush_and_save(out_name)
+
+
+func _populate_row(root: Node3D, origin: Vector3, setups: Array, yaw: float) -> void:
+	for entry in setups:
+		var item: Array = entry
+		var vis := MainCarVisual.new()
+		vis.level = int(item[1])
+		vis.position = origin + Vector3(float(item[0]), 0.0, 0.0)
+		vis.rotation.y = yaw
+		root.add_child(vis)
+		vis.rebuild()
+		var part_ids: Array = item[2]
+		for pid in part_ids:
+			vis.equip_part_by_id(pid as StringName)
+
+
+func _clear_children(node: Node) -> void:
+	for c in node.get_children():
+		node.remove_child(c)
+		c.free()
+
+
+func _flush_and_save(shot_name: String) -> void:
+	for i in 3:
+		await get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	var image := get_viewport().get_texture().get_image()
+	var path := ProjectSettings.globalize_path("%s/%s.png" % [OUTPUT_DIR, shot_name])
+	var error := image.save_png(path)
+	print("SHOT %s err=%d %dx%d" % [path, error, image.get_width(), image.get_height()])

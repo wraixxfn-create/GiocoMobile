@@ -1,20 +1,14 @@
 extends Node3D
-## Scena di presentazione TEMPORANEA dell'auto principale.
+## Scena di sviluppo per l'ispezione del sistema modulare dell'auto.
 ##
-## Sfondo neutro da studio, podio, tre luci curate e telecamera orbitale
-## (trascina per ruotare, rotella/pinch per zoomare; da fermo la vista
-## ruota lentamente da sola). I pulsanti — o i tasti 1..6 — cambiano lo
-## stadio di evoluzione mostrato, così si possono valutare tutte le
-## silhouette senza avviare una partita.
-##
-## Non è collegata alla scena di guida e non condivide stato con il gioco:
-## quando non servirà più si possono cancellare questa scena e il suo
-## script senza toccare altro. Ambiente, luci e interfaccia sono costruiti
-## da codice per tenere la scena ispezionabile in un unico file.
+## Consente di ruotare/zoomare attorno al veicolo, cambiare stadio evolutivo
+## (pulsanti `< STADIO / STADIO >` o tasti 1..6) e sostituire in tempo reale
+## i singoli componenti compatibili di ogni slot senza ricostruire l'auto.
+## Non contiene alcun negozio, valuta, rarità casuale o monetizzazione.
 
 const PODIUM_TOP: float = 0.14
 const TARGET := Vector3(0.0, 0.55, 0.0)
-const MIN_DISTANCE: float = 3.0
+const MIN_DISTANCE: float = 2.8
 const MAX_DISTANCE: float = 8.5
 const MIN_PITCH: float = 0.05
 const MAX_PITCH: float = 1.15
@@ -22,12 +16,14 @@ const IDLE_BEFORE_ROTATION: float = 2.5
 const AUTO_ROTATION_SPEED: float = 0.35
 
 var _yaw: float = 0.65
-var _pitch: float = 0.32
-var _distance: float = 5.4
+var _pitch: float = 0.30
+var _distance: float = 5.2
 var _dragging: bool = false
 var _idle: float = 0.0
 var _auto_rotate: bool = true
 var _stage_label: Label = null
+var _stats_label: Label = null
+var _slot_buttons: Dictionary = {}
 
 @onready var _camera: Camera3D = $Camera3D
 @onready var _car: MainCarVisual = $MainCar
@@ -40,7 +36,7 @@ func _ready() -> void:
 	_build_lights()
 	_build_floor()
 	_build_ui()
-	_refresh_stage_label()
+	_refresh_labels()
 	_update_camera(0.0)
 
 
@@ -101,11 +97,34 @@ func _set_level(new_level: int) -> void:
 	_car.set_level(clampi(
 		new_level, GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL
 	))
-	_refresh_stage_label()
+	_refresh_labels()
 	_idle = 0.0
 
 
-func _refresh_stage_label() -> void:
+func _cycle_slot(slot: int) -> void:
+	var rig := _car.get_rig()
+	if rig == null:
+		return
+	var candidates := CarPartRegistry.compatible_parts_for_slot(
+		slot,
+		rig.get_equipped_part(CarPartSlot.Type.BODY),
+		rig.get_sockets(),
+		rig.equipped_parts(),
+	)
+	if candidates.is_empty():
+		return
+	var current_id := rig.get_equipped_part_id(slot)
+	var next_idx := 0
+	for i in candidates.size():
+		if candidates[i].id == current_id:
+			next_idx = (i + 1) % candidates.size()
+			break
+	_car.equip_part(candidates[next_idx], false)
+	_refresh_labels()
+	_idle = 0.0
+
+
+func _refresh_labels() -> void:
 	if _stage_label != null:
 		var stage_profile := _car.profile()
 		_stage_label.text = "%s · STADIO %d/%d" % [
@@ -113,12 +132,25 @@ func _refresh_stage_label() -> void:
 			_car.level - GameConfig.EVOLUTION_MIN_LEVEL + 1,
 			GameConfig.EVOLUTION_MAX_LEVEL - GameConfig.EVOLUTION_MIN_LEVEL + 1,
 		]
+	var rig := _car.get_rig()
+	if rig != null and _stats_label != null:
+		var stats := rig.effective_stats()
+		_stats_label.text = "VEL ×%.2f   STERZO ×%.2f   INGOMBRO %.2f×%.2f m" % [
+			float(stats["speed_multiplier"]),
+			float(stats["handling_multiplier"]),
+			float(stats["half_width"]) * 2.0,
+			float(stats["half_length"]) * 2.0,
+		]
+	for slot in _slot_buttons.keys():
+		var btn := _slot_buttons[slot] as Button
+		var part := rig.get_equipped_part(int(slot)) if rig != null else null
+		if btn != null:
+			btn.text = "%s: %s" % [
+				CarPartSlot.label_it(int(slot)),
+				part.display_name if part != null else "-",
+			]
 
 
-# -------------------------------------------------------------------- Scena --
-
-## Ambiente da studio: fondo neutro chiaro, luce ambiente morbida, ACES per
-## un contrasto fotografico e un accenno di bloom sulle parti emissive.
 func _build_environment() -> void:
 	var environment := Environment.new()
 	environment.background_mode = Environment.BG_COLOR
@@ -137,8 +169,6 @@ func _build_environment() -> void:
 	add_child(world)
 
 
-## Tre luci: chiave calda con ombre morbide, riempimento freddo opposto e
-## un punto luce posteriore che stacca la sagoma dal fondo.
 func _build_lights() -> void:
 	var key := DirectionalLight3D.new()
 	key.name = "KeyLight"
@@ -167,7 +197,6 @@ func _build_lights() -> void:
 	add_child(rim)
 
 
-## Pavimento chiaro senza giunte e podio scuro con anello luminoso.
 func _build_floor() -> void:
 	var ground_material := StandardMaterial3D.new()
 	ground_material.albedo_color = Color(0.86, 0.87, 0.90)
@@ -200,55 +229,58 @@ func _build_floor() -> void:
 	podium.position = Vector3(0.0, PODIUM_TOP * 0.5, 0.0)
 	add_child(podium)
 
-	var ring_material := StandardMaterial3D.new()
-	ring_material.albedo_color = Color(0.75, 0.85, 1.0)
-	ring_material.emission_enabled = true
-	ring_material.emission = Color(0.75, 0.85, 1.0)
-	ring_material.emission_energy_multiplier = 0.7
-	var ring_mesh := TorusMesh.new()
-	ring_mesh.inner_radius = 2.24
-	ring_mesh.outer_radius = 2.30
-	ring_mesh.rings = 64
-	ring_mesh.ring_segments = 8
-	var ring := MeshInstance3D.new()
-	ring.name = "PodiumRing"
-	ring.mesh = ring_mesh
-	ring.material_override = ring_material
-	ring.position = Vector3(0.0, PODIUM_TOP + 0.002, 0.0)
-	ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	add_child(ring)
 
-
-## Interfaccia minima da scena di sviluppo: titolo, nome dello stadio,
-## pulsanti precedente/successivo e interruttore della rotazione lenta.
 func _build_ui() -> void:
 	var layer := CanvasLayer.new()
 	layer.name = "UI"
 	add_child(layer)
 
 	var title := Label.new()
-	title.text = "SHOWROOM · SCENA DI PRESENTAZIONE (temporanea)"
+	title.text = "SHOWROOM TECNICO · TEST COMPONENTI MODULARI"
 	title.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.offset_top = 12.0
-	title.add_theme_font_size_override("font_size", 18)
+	title.offset_top = 10.0
+	title.add_theme_font_size_override("font_size", 16)
 	layer.add_child(title)
 
 	_stage_label = Label.new()
 	_stage_label.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	_stage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_stage_label.offset_top = 40.0
-	_stage_label.add_theme_font_size_override("font_size", 30)
+	_stage_label.offset_top = 34.0
+	_stage_label.add_theme_font_size_override("font_size", 26)
 	layer.add_child(_stage_label)
+
+	_stats_label = Label.new()
+	_stats_label.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	_stats_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_stats_label.offset_top = 68.0
+	_stats_label.add_theme_font_size_override("font_size", 15)
+	layer.add_child(_stats_label)
 
 	var bottom := VBoxContainer.new()
 	bottom.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	bottom.offset_left = 16.0
-	bottom.offset_right = -16.0
-	bottom.offset_top = -118.0
-	bottom.offset_bottom = -14.0
-	bottom.add_theme_constant_override("separation", 8)
+	bottom.offset_left = 12.0
+	bottom.offset_right = -12.0
+	bottom.offset_top = -270.0
+	bottom.offset_bottom = -12.0
+	bottom.add_theme_constant_override("separation", 6)
 	layer.add_child(bottom)
+
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 6)
+	bottom.add_child(grid)
+
+	for slot in CarPartSlot.ATTACHED:
+		var slot_btn := Button.new()
+		slot_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		slot_btn.custom_minimum_size = Vector2(0.0, 34.0)
+		slot_btn.add_theme_font_size_override("font_size", 12)
+		var captured_slot := slot
+		slot_btn.pressed.connect(func() -> void: _cycle_slot(captured_slot))
+		grid.add_child(slot_btn)
+		_slot_buttons[slot] = slot_btn
 
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -256,28 +288,19 @@ func _build_ui() -> void:
 	bottom.add_child(row)
 
 	var prev := Button.new()
-	prev.text = "<  STADIO"
-	prev.custom_minimum_size = Vector2(130.0, 46.0)
+	prev.text = "< STADIO"
+	prev.custom_minimum_size = Vector2(124.0, 42.0)
 	prev.pressed.connect(func() -> void: _set_level(_car.level - 1))
 	row.add_child(prev)
 
 	var next := Button.new()
-	next.text = "STADIO  >"
-	next.custom_minimum_size = Vector2(130.0, 46.0)
+	next.text = "STADIO >"
+	next.custom_minimum_size = Vector2(124.0, 42.0)
 	next.pressed.connect(func() -> void: _set_level(_car.level + 1))
 	row.add_child(next)
 
 	var toggle := CheckButton.new()
-	toggle.text = "Rotazione lenta"
+	toggle.text = "Rotazione"
 	toggle.button_pressed = _auto_rotate
 	toggle.toggled.connect(func(on: bool) -> void: _auto_rotate = on)
 	row.add_child(toggle)
-
-	var hint := Label.new()
-	hint.text = (
-		"Trascina per ruotare · rotella o pinch per zoom · "
-		+ "tasti 1-6 per lo stadio · R rotazione"
-	)
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hint.add_theme_font_size_override("font_size", 14)
-	bottom.add_child(hint)

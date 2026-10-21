@@ -1,29 +1,29 @@
 @tool
 class_name MainCarVisual
 extends Node3D
-## Scena dedicata all'auto principale: contiene solo il modello visivo,
-## nessuna logica di guida (che resta in `CarController`/`Car.tscn`).
+## Scena dedicata all'auto principale: contiene il solo `VehicleRig` modulare,
+## senza logica di guida (`CarController`).
 ##
-## Il modello è generato da `CarModelBuilder` a partire dal profilo del
-## livello scelto: stessa fonte di verità del gioco, nessuna geometria
-## duplicata. In editor il modello è visibile e cambia muovendo `level`
-## nell'inspector; i nodi generati non hanno owner, quindi non vengono
-## mai salvati dentro la scena.
-##
-## Uso tipico: ispezione dell'asset, scena di presentazione
-## (`scenes/CarShowroom.tscn`), futuri garage/negozi.
+## Permette di cambiare stadio evolutivo (`level`), assegnare un `CarLoadout`
+## personalizzato o sostituire singoli componenti (`equip_part()` /
+## `equip_part_by_id()`) senza ricostruire l'intera gerarchia del veicolo.
 
-## Livello di evoluzione mostrato. L'intervallo segue GameConfig
-## (EVOLUTION_MIN_LEVEL..EVOLUTION_MAX_LEVEL, oggi 0..5).
 @export_range(0, 5, 1) var level: int = 1:
 	set(value):
 		level = clampi(value, GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL)
 		if is_inside_tree():
 			rebuild()
 
-## Radice del modello generato (Stage_N), per chi deve animarlo dall'esterno.
+@export var custom_loadout: CarLoadout = null:
+	set(value):
+		custom_loadout = value
+		if is_inside_tree():
+			rebuild()
+
+## Alias retrocompatibile che punta al `VehicleRig` persistente.
 var stage_root: Node3D = null
 
+var _rig: VehicleRig = null
 var _wheels: Array = []
 
 
@@ -31,32 +31,46 @@ func _ready() -> void:
 	rebuild()
 
 
-## Cambia il livello mostrato e ricostruisce il modello.
 func set_level(new_level: int) -> void:
 	level = new_level
 
 
-## Profilo (dati) dello stadio attualmente mostrato.
 func profile() -> CarEvolutionProfile:
 	return CarEvolutionCatalog.profile_for(level)
 
 
-## Perni delle ruote del modello corrente (stesso ordine del gioco:
-## anteriori prima, poi posteriori). Vuoto finché non è stato costruito.
+func get_rig() -> VehicleRig:
+	return _rig
+
+
 func get_wheels() -> Array:
 	return _wheels
 
 
-## (Ri)costruisce il modello del livello corrente, liberando il precedente.
+func equip_part(part: CarPartDefinition, enforce_level: bool = false) -> Dictionary:
+	if _rig == null:
+		rebuild()
+	var res := _rig.equip_part(part, level, enforce_level)
+	_wheels = _rig.get_wheel_hubs()
+	return res
+
+
+func equip_part_by_id(part_id: StringName, enforce_level: bool = false) -> Dictionary:
+	return equip_part(CarPartRegistry.part_by_id(part_id), enforce_level)
+
+
+func get_equipped_part(slot: int) -> CarPartDefinition:
+	return _rig.get_equipped_part(slot) if _rig != null else null
+
+
 func rebuild() -> void:
-	if stage_root != null and is_instance_valid(stage_root):
-		remove_child(stage_root)
-		stage_root.queue_free()
-	stage_root = null
-	_wheels = []
-	var built := CarModelBuilder.build(profile())
-	stage_root = built.get(CarModelBuilder.KEY_ROOT, null) as Node3D
-	if stage_root == null:
-		return
-	_wheels = built.get(CarModelBuilder.KEY_WHEELS, [])
-	add_child(stage_root)
+	if _rig == null or not is_instance_valid(_rig):
+		_rig = VehicleRig.new()
+		_rig.name = "VehicleRig"
+		add_child(_rig)
+	var active_loadout := (
+		custom_loadout if custom_loadout != null else CarPartRegistry.loadout_for_stage(level)
+	)
+	_rig.apply_loadout(active_loadout, profile())
+	stage_root = _rig
+	_wheels = _rig.get_wheel_hubs()

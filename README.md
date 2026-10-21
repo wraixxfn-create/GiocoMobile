@@ -10,9 +10,14 @@ La meccanica principale è giocabile: **coppie di cancelli** che evolvono o
 fanno regredire l'auto, **ostacoli** da schivare e **monete** da raccogliere
 lungo la pista. Il giocatore sceglie quale cancello attraversare sterzando,
 evitando coni, barriere, restringimenti e blocchi mobili; ogni moneta raccolta
-aggiorna il totale della corsa e il saldo locale permanente. Il livello di
-evoluzione (`evolution_level`) cambia con limiti minimo e massimo e ogni livello
-ha il **proprio modello 3D**: dal rottame all'hypercar futuristica.
+aggiorna il totale della corsa e il saldo locale permanente. Il veicolo è
+organizzato in **8 slot componenti fisici sostituibili singolarmente**
+(`Carrozzeria`, `Paraurti Anteriore`, `Paraurti Posteriore`, `Set di Ruote`,
+`Motore / Elemento Meccanico`, `Scarico`, `Spoiler`, `Aerodinamica Aggiuntiva`)
+descritti da risorse dati pure (`CarPartDefinition` / `CarLoadout` in
+`config/parts/` e `config/loadouts/`) separate dalla logica di montaggio
+(`VehicleRig`), con oltre 3 varianti visive per paraurti, ruote e spoiler
+(dettagli architetturali e stato dei prototipi in `docs/CAR_MODEL.md`).
 
 ## Requisiti
 

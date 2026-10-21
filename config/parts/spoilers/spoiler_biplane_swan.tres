@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="CarPartDefinition" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarPartDefinition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarGameplayModifiers.gd" id="2_mod"]
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarPartCompatibility.gd" id="3_cmp"]
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarPartVisualSpec.gd" id="4_vis"]
+
+[sub_resource type="Resource" id="Resource_mod"]
+script = ExtResource("2_mod")
+speed_bonus = 0.04
+handling_bonus = 0.08
+half_width_delta = 0.02
+front_overhang_delta = 0.0
+rear_overhang_delta = 0.11
+wheel_radius_scale = 1.0
+wheel_width_scale = 1.0
+
+[sub_resource type="Resource" id="Resource_cmp"]
+script = ExtResource("3_cmp")
+compatible_silhouettes = PackedInt32Array()
+required_mount_tags = PackedStringArray("spoiler_mount")
+incompatible_part_ids = PackedStringArray()
+reference_width = 1.66
+reference_length = 0.42
+min_fit_scale = 0.82
+max_fit_scale = 1.22
+
+[sub_resource type="Resource" id="Resource_vis"]
+script = ExtResource("4_vis")
+archetype = &"spoiler_biplane"
+body_silhouette = 5
+primary_scale = Vector3(1.12, 1.28, 1.15)
+secondary_scale = Vector3(1.0, 1.0, 1.0)
+element_count = 2
+has_accent_stripe = true
+accent_color = Color(0.98, 0.78, 0.16, 1.0)
+
+[resource]
+script = ExtResource("1_def")
+id = &"spoiler_biplane_swan"
+display_name = "Alettone Biplano Swan-Neck"
+slot = 6
+required_level = 4
+rarity = 3
+mount_offset = Vector3(0.0, 0.0, 0.0)
+mount_rotation_degrees = Vector3(0.0, 0.0, 0.0)
+modifiers = SubResource("Resource_mod")
+compatibility = SubResource("Resource_cmp")
+visual_spec = SubResource("Resource_vis")
+is_procedural_prototype = true
+asset_upgrade_notes = "Prototipo alare modulare: sostituire con doppio piano alare Time Attack / Hypercar con attacchi swan-neck superiori e feritoie Louver sulle endplate."

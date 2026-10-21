@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="CarPartDefinition" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarPartDefinition.gd" id="1_def"]
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarGameplayModifiers.gd" id="2_mod"]
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarPartCompatibility.gd" id="3_cmp"]
+[ext_resource type="Script" path="res://scripts/vehicle/data/CarPartVisualSpec.gd" id="4_vis"]
+
+[sub_resource type="Resource" id="Resource_mod"]
+script = ExtResource("2_mod")
+speed_bonus = -0.01
+handling_bonus = -0.01
+half_width_delta = 0.0
+front_overhang_delta = 0.0
+rear_overhang_delta = 0.02
+wheel_radius_scale = 1.0
+wheel_width_scale = 1.0
+
+[sub_resource type="Resource" id="Resource_cmp"]
+script = ExtResource("3_cmp")
+compatible_silhouettes = PackedInt32Array(0, 1, 2)
+required_mount_tags = PackedStringArray("rear_fascia")
+incompatible_part_ids = PackedStringArray("exhaust_center_triple")
+reference_width = 1.3
+reference_length = 0.18
+min_fit_scale = 0.82
+max_fit_scale = 1.22
+
+[sub_resource type="Resource" id="Resource_vis"]
+script = ExtResource("4_vis")
+archetype = &"rear_raw"
+body_silhouette = 0
+primary_scale = Vector3(1.0, 1.0, 1.0)
+secondary_scale = Vector3(1.0, 1.0, 1.0)
+element_count = 1
+has_accent_stripe = false
+accent_color = Color(0.42, 0.29, 0.2, 1.0)
+
+[resource]
+script = ExtResource("1_def")
+id = &"bumper_rear_raw"
+display_name = "Paraurti Posteriore Grezzo"
+slot = 2
+required_level = 0
+rarity = 0
+mount_offset = Vector3(0.0, 0.0, 0.0)
+mount_rotation_degrees = Vector3(0.0, 0.0, 0.0)
+modifiers = SubResource("Resource_mod")
+compatibility = SubResource("Resource_cmp")
+visual_spec = SubResource("Resource_vis")
+is_procedural_prototype = true
+asset_upgrade_notes = "Prototipo modulare: sostituire con traversa metallica ammaccata con staffe bullonate a vista."

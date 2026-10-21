@@ -254,6 +254,140 @@ static func build_torus_arc(
 	return _make_mesh(verts, normals, uvs, indices)
 
 
+## Profilo alare / lama aerodinamica estrusa lungo l'asse X da `-half_span` a
+## `+half_span`, con corda lungo Z (`-chord*0.5` bordo d'attacco verso -Z,
+## `+chord*0.5` bordo d'uscita verso +Z), freccia `sweep_z`, incurvamento
+## verticale `arch_y` e rastremazione alle estremità `tip_scale`.
+static func build_wing_span(
+	half_span: float,
+	chord: float,
+	thickness: float,
+	camber: float = 0.02,
+	sweep_z: float = 0.0,
+	arch_y: float = 0.0,
+	tip_scale: float = 0.85,
+	span_steps: int = 12,
+) -> ArrayMesh:
+	var foil: Array = [
+		Vector2(-0.50, 0.00),
+		Vector2(-0.44, 0.36),
+		Vector2(-0.24, 0.56),
+		Vector2(0.05, 0.50),
+		Vector2(0.32, 0.30),
+		Vector2(0.50, 0.06),
+		Vector2(0.50, -0.05),
+		Vector2(0.22, -0.20),
+		Vector2(-0.15, -0.30),
+		Vector2(-0.42, -0.22),
+	]
+	var foil_n := foil.size()
+	var stations_n := maxi(span_steps, 2) + 1
+	var verts := PackedVector3Array()
+	var uvs := PackedVector2Array()
+	for i in stations_n:
+		var t := -1.0 + 2.0 * float(i) / float(stations_n - 1)
+		var abs_t := absf(t)
+		var scale_k := lerpf(1.0, tip_scale, abs_t * abs_t)
+		var x := t * half_span
+		var y_off := arch_y * (1.0 - abs_t * abs_t)
+		var z_off := sweep_z * abs_t * abs_t
+		for j in foil_n:
+			var p: Vector2 = foil[j]
+			var local_y := p.y * thickness * scale_k + camber * (1.0 - 4.0 * p.x * p.x) * scale_k
+			var local_z := p.x * chord * scale_k + z_off
+			verts.append(Vector3(x, y_off + local_y, local_z))
+			uvs.append(Vector2(float(i) / float(stations_n - 1), float(j) / float(foil_n)))
+
+	var indices := PackedInt32Array()
+	for i in stations_n - 1:
+		for j in foil_n:
+			var j2 := (j + 1) % foil_n
+			var a := i * foil_n + j
+			var b := i * foil_n + j2
+			var c := (i + 1) * foil_n + j2
+			var d := (i + 1) * foil_n + j
+			indices.append_array(PackedInt32Array([a, b, c, a, c, d]))
+
+	for end_idx: int in [0, stations_n - 1]:
+		var center := Vector3.ZERO
+		for j in foil_n:
+			center += verts[end_idx * foil_n + j]
+		center /= float(foil_n)
+		var ci := verts.size()
+		verts.append(center)
+		uvs.append(Vector2(0.5, 0.5))
+		for j in foil_n:
+			var j2 := (j + 1) % foil_n
+			var p := end_idx * foil_n + j
+			var q := end_idx * foil_n + j2
+			if end_idx == 0:
+				indices.append_array(PackedInt32Array([ci, q, p]))
+			else:
+				indices.append_array(PackedInt32Array([ci, p, q]))
+
+	var normals := _accumulate_normals(verts, indices)
+	var mid_top := (stations_n / 2) * foil_n + 2
+	if normals[mid_top].y < 0.0:
+		var flipped := PackedInt32Array()
+		for tri in indices.size() / 3:
+			flipped.append_array([indices[tri * 3], indices[tri * 3 + 2], indices[tri * 3 + 1]])
+		indices = flipped
+		normals = _accumulate_normals(verts, indices)
+	return _make_mesh(verts, normals, uvs, indices)
+
+
+## Blocco trapezoidale smussato lungo Z (`front_size` a `-length*0.5`,
+## `rear_size` a `+length*0.5`), utile per scoop cofano, bancate motore,
+## estrattori e piloni aerodinamici sagomati.
+static func build_tapered_block(
+	front_size: Vector2,
+	rear_size: Vector2,
+	length: float,
+	front_y_offset: float = 0.0,
+	rear_y_offset: float = 0.0,
+	bevel: float = 0.14,
+) -> ArrayMesh:
+	var b := clampf(bevel, 0.02, 0.45)
+	var section: Array = [
+		Vector2(0.0, 0.0),
+		Vector2(1.0 - b, 0.0),
+		Vector2(1.0, b),
+		Vector2(1.0, 1.0 - b),
+		Vector2(1.0 - b, 1.0),
+		Vector2(0.0, 1.0),
+	]
+	var stations: Array = [
+		{
+			"z": -length * 0.5,
+			"hw": maxf(front_size.x * 0.5, 0.005),
+			"bottom": front_y_offset - front_size.y * 0.5,
+			"top": front_y_offset + front_size.y * 0.5,
+		},
+		{
+			"z": 0.0,
+			"hw": maxf(lerpf(front_size.x, rear_size.x, 0.5) * 0.5, 0.005),
+			"bottom": lerpf(front_y_offset, rear_y_offset, 0.5)
+				- lerpf(front_size.y, rear_size.y, 0.5) * 0.5,
+			"top": lerpf(front_y_offset, rear_y_offset, 0.5)
+				+ lerpf(front_size.y, rear_size.y, 0.5) * 0.5,
+		},
+		{
+			"z": length * 0.5,
+			"hw": maxf(rear_size.x * 0.5, 0.005),
+			"bottom": rear_y_offset - rear_size.y * 0.5,
+			"top": rear_y_offset + rear_size.y * 0.5,
+		},
+	]
+	var buckets := build_loft(
+		stations,
+		section,
+		6,
+		func(_i: int, _j: int, _pa: Vector2, _pb: Vector2, _z: float) -> String:
+			return "main"
+	)
+	return buckets.get("main", null) as ArrayMesh
+
+
 ## Capsula con asse lungo Y (lunghezza totale = `cylinder_length` + 2*raggio),
 ## generata come lathe: stessa geometria e stesse trasformazioni in ogni
 ## punto del modello (paraurti, fanali, specchietti, maniglie...).

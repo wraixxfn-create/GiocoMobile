@@ -133,6 +133,7 @@ func _ready() -> void:
 	await _test_evolution_keeps_driving()
 	await _test_evolution_level_sync()
 	await _test_car_evolution_visual()
+	await CarCustomizationTests.run(self)
 	_test_obstacle_layout()
 	_test_obstacle_difficulty_curve()
 	_test_obstacle_collision_barrier()
@@ -829,7 +830,8 @@ func _test_evolution_transformation() -> void:
 	_force_evolution(GameConfig.EVOLUTION_MIN_LEVEL)
 	await _physics_frames(1)
 	var level_before := director.current_level
-	var stage_before := director.get_stage_root()
+	var rig_before := director.get_stage_root()
+	var body_before := director.get_slot_visual(CarPartSlot.Type.BODY)
 
 	_game_manager.apply_evolution(1)
 	# Campionato subito: se la macchina è lenta, l'animazione potrebbe essere
@@ -845,8 +847,10 @@ func _test_evolution_transformation() -> void:
 		"la trasformazione parte con il modello compresso (%.2f)" % scale_at_start.x,
 	)
 	_check(
-		director.get_stage_root() != stage_before and is_instance_valid(director.get_stage_root()),
-		"il nodo del modello viene sostituito senza distruggere l'auto",
+		director.get_stage_root() == rig_before
+		and director.get_slot_visual(CarPartSlot.Type.BODY) != body_before
+		and is_instance_valid(director.get_slot_visual(CarPartSlot.Type.BODY)),
+		"la carrozzeria viene aggiornata mantenendo intatta la gerarchia del veicolo",
 	)
 	_check(director.is_transforming(), "parte l'animazione di trasformazione")
 

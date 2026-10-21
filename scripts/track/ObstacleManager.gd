@@ -551,14 +551,11 @@ func _resolve_position(obstacle: Obstacle, previous_position: Vector3) -> void:
 ## Semi-assi XZ dell'auto ruotata (stesso criterio dei bordi pista): nemmeno
 ## gli angoli della carrozzeria possono entrare in un ostacolo.
 func _car_half_extents() -> Vector2:
-	var profile := _player.evolution_profile()
-	if profile == null:
-		profile = CarEvolutionCatalog.profile_for(GameConfig.EVOLUTION_START_LEVEL)
-	var yaw := absf(_player.rotation.y)
 	var margin := GameConfig.OBSTACLE_CAR_MARGIN
-	var half_x := profile.lateral_half_extent(yaw) + margin
-	var half_z := profile.half_width * sin(yaw) + profile.half_length * cos(yaw) + margin
-	return Vector2(half_x, half_z)
+	if _player != null:
+		return _player.effective_half_extents(absf(_player.rotation.y)) + Vector2(margin, margin)
+	var profile := CarEvolutionCatalog.profile_for(GameConfig.EVOLUTION_START_LEVEL)
+	return Vector2(profile.half_width + margin, profile.half_length + margin)
 
 
 # ------------------------------------------------------------------ Effetti --
