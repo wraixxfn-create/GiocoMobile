@@ -220,8 +220,8 @@ CAR_MESHES=83 empty=0 tris=17792
   TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
   BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.34..0.84
   BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.21..0.69
-  CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..1.02
-  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.77..1.04
+  CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..1.03
+  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.79..1.04
   WellFL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
   ArchFL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
   WellFR albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
@@ -234,13 +234,13 @@ CAR_MESHES=83 empty=0 tris=17792
   HeadlightL albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.56..0.70
   HeadlightHousingR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.54..0.72
   HeadlightR albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.56..0.70
-  TaillightL albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.66..0.79
-  TaillightR albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.66..0.79
+  TaillightL albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.68..0.80
+  TaillightR albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.68..0.80
   BumperFront albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.24..0.42
   BumperRear albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.25..0.43
   Intake albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.41..0.58
   Badge albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.45..0.55
-  TailPanel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.58..0.69
+  TailPanel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.59..0.70
   PlateRear albedo=(0.93, 0.94, 0.9, 1) metallic=0.00 rough=0.55 y=0.50..0.63
   MirrorStalkL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.83..0.94
   MirrorL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.88..0.99
@@ -254,7 +254,7 @@ CAR_MESHES=83 empty=0 tris=17792
   HandleR1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
   Exhaust0 albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.16..0.24
   SharkFin albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=1.01..1.10
-  SpoilerLip albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.91..1.02
+  SpoilerLip albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.98..1.09
   PipBase albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=1.03..1.07
   Pip0 albedo=(1, 0.87, 0.389, 1) metallic=0.00 rough=0.35 y=1.07..1.13
   Pip1 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
@@ -307,10 +307,10 @@ CAR_MESHES=83 empty=0 tris=17792
   CarVisual/TransformFlash pos=(0, 0.9, 0)
   CarVisual/Stage_1 pos=(0, 0, 0)
   CarVisual/Stage_1/Body pos=(0, 0, 0)
-  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.344808, -1.485) aabb_size=(1.548381, 0.493047, 2.97)
-  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.771956, 0.210899, -1.485) aabb_size=(1.543912, 0.475076, 2.97)
-  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765105, -0.627) aabb_size=(1.278037, 0.25176, 1.54)
-  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.768646, -0.2288) aabb_size=(1.278037, 0.272103, 1.0153)
+  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.344802, -1.485) aabb_size=(1.548381, 0.493053, 2.97)
+  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.771956, 0.210899, -1.485) aabb_size=(1.543912, 0.475303, 2.97)
+  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765105, -0.5698) aabb_size=(1.278037, 0.26807, 1.1968)
+  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.791642, -0.29744) aabb_size=(1.278037, 0.249107, 0.5434)
   CarVisual/Stage_1/Body/WellFL pos=(-0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
   CarVisual/Stage_1/Body/ArchFL pos=(-0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.778993, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
   CarVisual/Stage_1/Body/WellFR pos=(0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
@@ -323,27 +323,27 @@ CAR_MESHES=83 empty=0 tris=17792
   CarVisual/Stage_1/Body/HeadlightL pos=(-0.465, 0.631553, -1.418) mesh=SphereMesh aabb_pos=(-0.598952, 0.561876, -1.505676) aabb_size=(0.267904, 0.139354, 0.175352)
   CarVisual/Stage_1/Body/HeadlightHousingR pos=(0.465, 0.631553, -1.39) mesh=SphereMesh aabb_pos=(0.304749, 0.539108, -1.499307) aabb_size=(0.320503, 0.184891, 0.218615)
   CarVisual/Stage_1/Body/HeadlightR pos=(0.465, 0.631553, -1.418) mesh=SphereMesh aabb_pos=(0.331048, 0.561876, -1.505676) aabb_size=(0.267904, 0.139354, 0.175352)
-  CarVisual/Stage_1/Body/TaillightL pos=(-0.435, 0.725025, 1.405) mesh=ArrayMesh aabb_pos=(-0.601346, 0.663025, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
-  CarVisual/Stage_1/Body/TaillightR pos=(0.435, 0.725025, 1.405) mesh=ArrayMesh aabb_pos=(0.268654, 0.663025, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
+  CarVisual/Stage_1/Body/TaillightL pos=(-0.435, 0.738374, 1.405) mesh=ArrayMesh aabb_pos=(-0.601346, 0.676374, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
+  CarVisual/Stage_1/Body/TaillightR pos=(0.435, 0.738374, 1.405) mesh=ArrayMesh aabb_pos=(0.268654, 0.676374, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
   CarVisual/Stage_1/Body/BumperFront pos=(0, 0.33, -1.405) mesh=ArrayMesh aabb_pos=(-0.5264, 0.242, -1.458731) aabb_size=(1.0528, 0.176, 0.107462)
   CarVisual/Stage_1/Body/BumperRear pos=(0, 0.34, 1.405) mesh=ArrayMesh aabb_pos=(-0.5264, 0.252, 1.351269) aabb_size=(1.0528, 0.176, 0.107462)
   CarVisual/Stage_1/Body/Intake pos=(0, 0.4992, -1.432) mesh=ArrayMesh aabb_pos=(-0.3485, 0.414496, -1.482143) aabb_size=(0.697, 0.169408, 0.100286)
   CarVisual/Stage_1/Body/Badge pos=(0, 0.4992, -1.466) mesh=CylinderMesh aabb_pos=(-0.046, 0.4532, -1.479) aabb_size=(0.092, 0.092, 0.026)
-  CarVisual/Stage_1/Body/TailPanel pos=(0, 0.630456, 1.464) mesh=ArrayMesh aabb_pos=(-0.42075, 0.575456, 1.43421) aabb_size=(0.8415, 0.11, 0.059581)
+  CarVisual/Stage_1/Body/TailPanel pos=(0, 0.642064, 1.464) mesh=ArrayMesh aabb_pos=(-0.42075, 0.587064, 1.43421) aabb_size=(0.8415, 0.11, 0.059581)
   CarVisual/Stage_1/Body/PlateRear pos=(0, 0.56576, 1.48) mesh=BoxMesh aabb_pos=(-0.18, 0.499548, 1.458288) aabb_size=(0.36, 0.132424, 0.043424)
-  CarVisual/Stage_1/Body/MirrorStalkL pos=(-0.69, 0.887, -0.429) mesh=CylinderMesh aabb_pos=(-0.770025, 0.831783, -0.449) aabb_size=(0.160051, 0.110433, 0.04)
-  CarVisual/Stage_1/Body/MirrorL pos=(-0.7625, 0.937, -0.429) mesh=ArrayMesh aabb_pos=(-0.85658, 0.881, -0.465398) aabb_size=(0.18816, 0.112, 0.072797)
-  CarVisual/Stage_1/Body/MirrorGlassL pos=(-0.7625, 0.937, -0.399) mesh=CylinderMesh aabb_pos=(-0.8045, 0.895, -0.405) aabb_size=(0.084, 0.084, 0.012)
-  CarVisual/Stage_1/Body/MirrorStalkR pos=(0.69, 0.887, -0.429) mesh=CylinderMesh aabb_pos=(0.609975, 0.831783, -0.449) aabb_size=(0.160051, 0.110433, 0.04)
-  CarVisual/Stage_1/Body/MirrorR pos=(0.7625, 0.937, -0.429) mesh=ArrayMesh aabb_pos=(0.66842, 0.881, -0.465398) aabb_size=(0.18816, 0.112, 0.072797)
-  CarVisual/Stage_1/Body/MirrorGlassR pos=(0.7625, 0.937, -0.399) mesh=CylinderMesh aabb_pos=(0.7205, 0.895, -0.405) aabb_size=(0.084, 0.084, 0.012)
+  CarVisual/Stage_1/Body/MirrorStalkL pos=(-0.69, 0.887, -0.40612) mesh=CylinderMesh aabb_pos=(-0.770025, 0.831783, -0.42612) aabb_size=(0.160051, 0.110433, 0.04)
+  CarVisual/Stage_1/Body/MirrorL pos=(-0.7625, 0.937, -0.40612) mesh=ArrayMesh aabb_pos=(-0.85658, 0.881, -0.442519) aabb_size=(0.18816, 0.112, 0.072797)
+  CarVisual/Stage_1/Body/MirrorGlassL pos=(-0.7625, 0.937, -0.37612) mesh=CylinderMesh aabb_pos=(-0.8045, 0.895, -0.38212) aabb_size=(0.084, 0.084, 0.012)
+  CarVisual/Stage_1/Body/MirrorStalkR pos=(0.69, 0.887, -0.40612) mesh=CylinderMesh aabb_pos=(0.609975, 0.831783, -0.42612) aabb_size=(0.160051, 0.110433, 0.04)
+  CarVisual/Stage_1/Body/MirrorR pos=(0.7625, 0.937, -0.40612) mesh=ArrayMesh aabb_pos=(0.66842, 0.881, -0.442519) aabb_size=(0.18816, 0.112, 0.072797)
+  CarVisual/Stage_1/Body/MirrorGlassR pos=(0.7625, 0.937, -0.37612) mesh=CylinderMesh aabb_pos=(0.7205, 0.895, -0.38212) aabb_size=(0.084, 0.084, 0.012)
   CarVisual/Stage_1/Body/HandleL0 pos=(-0.710342, 0.7488, -0.1716) mesh=ArrayMesh aabb_pos=(-0.723942, 0.732058, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
   CarVisual/Stage_1/Body/HandleL1 pos=(-0.724881, 0.7488, 0.3432) mesh=ArrayMesh aabb_pos=(-0.738481, 0.732058, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
   CarVisual/Stage_1/Body/HandleR0 pos=(0.710342, 0.7488, -0.1716) mesh=ArrayMesh aabb_pos=(0.696742, 0.732058, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
   CarVisual/Stage_1/Body/HandleR1 pos=(0.724881, 0.7488, 0.3432) mesh=ArrayMesh aabb_pos=(0.711281, 0.732058, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
   CarVisual/Stage_1/Body/Exhaust0 pos=(-0.42, 0.2, 1.44) mesh=CylinderMesh aabb_pos=(-0.462, 0.158, 1.37) aabb_size=(0.084, 0.084, 0.14)
-  CarVisual/Stage_1/Body/SharkFin pos=(0, 1.056817, 0.4576) mesh=CylinderMesh aabb_pos=(-0.012839, 1.014317, 0.3856) aabb_size=(0.025679, 0.085, 0.144)
-  CarVisual/Stage_1/Body/SpoilerLip pos=(0, 0.961566, 0.6742) mesh=ArrayMesh aabb_pos=(-0.26796, 0.90713, 0.620116) aabb_size=(0.53592, 0.108872, 0.108167)
+  CarVisual/Stage_1/Body/SharkFin pos=(0, 1.056817, 0.267696) mesh=CylinderMesh aabb_pos=(-0.012839, 1.014317, 0.195696) aabb_size=(0.025679, 0.085, 0.144)
+  CarVisual/Stage_1/Body/SpoilerLip pos=(0, 1.037858, 0.334432) mesh=ArrayMesh aabb_pos=(-0.26796, 0.983422, 0.280348) aabb_size=(0.53592, 0.108872, 0.108167)
   CarVisual/Stage_1/Body/EvolutionPips pos=(0, 1.1, 0)
   CarVisual/Stage_1/Body/EvolutionPips/PipBase pos=(0, 1.052, 0) mesh=ArrayMesh aabb_pos=(-0.51, 1.032, -0.063028) aabb_size=(1.02, 0.04, 0.126055)
   CarVisual/Stage_1/Body/EvolutionPips/Pip0 pos=(-0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.505, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
