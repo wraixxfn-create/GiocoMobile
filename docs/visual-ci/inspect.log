@@ -2,6 +2,8 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
 STEP instantiate
 STEP add_child
+WARNING: Godot 3.x SpatialMaterial remapped parameter not found: specular
+     at: _set (scene/resources/material.cpp:3541)
 STEP frame 1
 STEP frame 2
 STEP physics
@@ -216,10 +218,10 @@ CAR_MESHES=83 empty=0 tris=17792
   palette fog=(0.66, 0.82, 0.84, 1) sky_ground=(0.3, 0.46, 0.38, 1)
 --- CAR MATERIALS ---
   TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
-  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.08 rough=0.30 y=0.34..0.84
+  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.34..0.84
   BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.21..0.69
   CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..1.02
-  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.08 rough=0.30 y=0.77..1.04
+  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.77..1.04
   WellFL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
   ArchFL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
   WellFR albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
@@ -234,8 +236,8 @@ CAR_MESHES=83 empty=0 tris=17792
   HeadlightR albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.56..0.70
   TaillightL albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.66..0.79
   TaillightR albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.66..0.79
-  BumperFront albedo=(1, 0.8, 0.06, 1) metallic=0.08 rough=0.30 y=0.24..0.42
-  BumperRear albedo=(1, 0.8, 0.06, 1) metallic=0.08 rough=0.30 y=0.25..0.43
+  BumperFront albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.24..0.42
+  BumperRear albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.25..0.43
   Intake albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.41..0.58
   Badge albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.45..0.55
   TailPanel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.58..0.69
@@ -251,7 +253,7 @@ CAR_MESHES=83 empty=0 tris=17792
   HandleR0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
   HandleR1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
   Exhaust0 albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.16..0.24
-  SharkFin albedo=(1, 0.8, 0.06, 1) metallic=0.08 rough=0.30 y=1.01..1.10
+  SharkFin albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=1.01..1.10
   SpoilerLip albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.91..1.02
   PipBase albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=1.03..1.07
   Pip0 albedo=(1, 0.87, 0.389, 1) metallic=0.00 rough=0.35 y=1.07..1.13
