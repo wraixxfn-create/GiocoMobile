@@ -15,8 +15,6 @@ ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
 WARNING: All audio drivers failed, falling back to the dummy driver.
      at: initialize (servers/audio_server.cpp:247)
 
-WARNING: Godot 3.x SpatialMaterial remapped parameter not found: specular
-     at: _set (scene/resources/material.cpp:3541)
 CAPTURE ready
 CAPTURE shot 01_start_hero
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/01_start_hero.png err=0 720x1280
@@ -32,4 +30,7 @@ CAPTURE shot 06_overview
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/06_overview.png err=0 720x1280
 CAPTURE shot 07_hud_race
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/07_hud_race.png err=0 720x1280
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/08_modular_spoilers_study.png err=0 720x1280
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/09_modular_wheels_bumpers_study.png err=0 720x1280
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/10_evolution_stages_lineup.png err=0 720x1280
 CAPTURE COMPLETE

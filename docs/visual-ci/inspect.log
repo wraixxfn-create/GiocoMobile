@@ -2,8 +2,6 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
 STEP instantiate
 STEP add_child
-WARNING: Godot 3.x SpatialMaterial remapped parameter not found: specular
-     at: _set (scene/resources/material.cpp:3541)
 STEP frame 1
 STEP frame 2
 STEP physics
@@ -21,8 +19,8 @@ DIRECTIONAL_LIGHTS=1
   LIGHT Sun energy=1.14 shadow=true dist=58.0 splits=0
 ENV sky=true ambient_src=3 amb_energy=0.30 fog=true ssao=false glow=false tonemap=2
 TRACK segments=10
-STAGE root=Stage_1:<Node3D#98314489505> children=5
-CAR_MESHES=83 empty=1 tris=17792
+STAGE root=VehicleRig:<Node3D#108179492522> children=5
+CAR_MESHES=94 empty=0 tris=50024
 --- MESH INTERNALS ---
   World/GroundField/Terrain visible=true layers=1 surf=1 format=34359742479 verts=8060 idx=47232 first_idx=[0, 1, 65, 1, 66, 65]
     v0=(-160, 5.499938, 120) v1=(-150, 4.755785, 120) v2=(-134, 3.579826, 120)
@@ -196,209 +194,274 @@ CAR_MESHES=83 empty=1 tris=17792
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@184 y=0.018..0.038 x=-3.9..3.9 z=-801..-801 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@185 y=0.018..0.038 x=-3.9..3.9 z=-799..-799 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/Player/CarVisual/TransformShockwave y=0.050..0.070 x=-1.0..1.0 z=-1..1 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyPaint y=0.211..0.838 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@203 y=0.010..0.032 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@204 y=0.180..2.230 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/GateNegative/Visual/@MeshInstance3D@215 y=0.010..0.032 x=-1.2..3.6 z=-70..-70 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/GateNegative/Visual/@MeshInstance3D@216 y=0.180..2.230 x=-1.2..3.6 z=-70..-70 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@219/Visual/@MeshInstance3D@228 y=0.010..0.032 x=-3.6..-0.1 z=-118..-118 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@219/Visual/@MeshInstance3D@229 y=0.180..2.230 x=-3.6..-0.1 z=-118..-118 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@232/Visual/@MeshInstance3D@241 y=0.010..0.032 x=0.1..3.6 z=-118..-118 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@232/Visual/@MeshInstance3D@242 y=0.180..2.230 x=0.1..3.6 z=-118..-118 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@245/Visual/@MeshInstance3D@254 y=0.010..0.032 x=-3.6..1.2 z=-166..-166 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@245/Visual/@MeshInstance3D@255 y=0.180..2.230 x=-3.6..1.2 z=-166..-166 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@258/Visual/@MeshInstance3D@267 y=0.010..0.032 x=1.4..3.6 z=-166..-166 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/GateManager/@Node3D@258/Visual/@MeshInstance3D@268 y=0.180..2.230 x=1.4..3.6 z=-166..-166 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/ObstacleManager/ObstacleBarrier/Visual/@MeshInstance3D@271 y=0.120..1.160 x=-3.8..0.3 z=-94..-94 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/ObstacleManager/ObstacleBarrier/Visual/@MeshInstance3D@276 y=1.140..1.260 x=-3.8..0.3 z=-94..-94 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/Player/CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/BodyPaint y=0.238..0.817 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/Player/CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/BodyTrim y=0.201..0.654 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/Player/CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/ChassisPan y=0.197..0.252 x=-0.6..0.6 z=-1..1 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@212 y=0.010..0.032 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@213 y=0.180..2.230 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/GateNegative/Visual/@MeshInstance3D@224 y=0.010..0.032 x=-1.2..3.6 z=-70..-70 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/GateNegative/Visual/@MeshInstance3D@225 y=0.180..2.230 x=-1.2..3.6 z=-70..-70 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@228/Visual/@MeshInstance3D@237 y=0.010..0.032 x=-3.6..-0.1 z=-118..-118 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@228/Visual/@MeshInstance3D@238 y=0.180..2.230 x=-3.6..-0.1 z=-118..-118 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@241/Visual/@MeshInstance3D@250 y=0.010..0.032 x=0.1..3.6 z=-118..-118 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@241/Visual/@MeshInstance3D@251 y=0.180..2.230 x=0.1..3.6 z=-118..-118 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@254/Visual/@MeshInstance3D@263 y=0.010..0.032 x=-3.6..1.2 z=-166..-166 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@254/Visual/@MeshInstance3D@264 y=0.180..2.230 x=-3.6..1.2 z=-166..-166 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@267/Visual/@MeshInstance3D@276 y=0.010..0.032 x=1.4..3.6 z=-166..-166 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/GateManager/@Node3D@267/Visual/@MeshInstance3D@277 y=0.180..2.230 x=1.4..3.6 z=-166..-166 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/ObstacleManager/ObstacleBarrier/Visual/@MeshInstance3D@280 y=0.120..1.160 x=-3.8..0.3 z=-94..-94 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/ObstacleManager/ObstacleBarrier/Visual/@MeshInstance3D@285 y=1.140..1.260 x=-3.8..0.3 z=-94..-94 surf=1 mat=col spec=0
   terrain color_at(0,-96)=(0.7574, 0.6522, 0.4525, 1)
   terrain color_at(6,-96)=(0.3241, 0.5869, 0.3129, 1)
   terrain height_at(0,-96)=-0.120 height_at(6,-96)=-0.120
   palette fog=(0.66, 0.82, 0.84, 1) sky_ground=(0.3, 0.46, 0.38, 1)
 --- CAR MATERIALS ---
   TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
-  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.21..0.84
-  CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..0.94
-  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.77..1.04
+  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.24..0.82
+  BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.20..0.65
+  ChassisPan albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.20..0.25
+  CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.73..0.92
+  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.73..1.04
   WellFL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
-  ArchFL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
+  ArchFL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.21..0.71
   WellFR albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
-  ArchFR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
+  ArchFR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.21..0.71
   WellRL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
-  ArchRL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
+  ArchRL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.21..0.71
   WellRR albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
-  ArchRR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
-  HeadlightHousingL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.54..0.72
-  HeadlightL albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.56..0.70
-  HeadlightHousingR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.54..0.72
-  HeadlightR albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.56..0.70
-  TaillightL albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.68..0.80
-  TaillightR albedo=(0.8448, 0.1584, 0.1584, 1) metallic=0.00 rough=0.35 y=0.68..0.80
-  BumperFront albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.24..0.42
-  BumperRear albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.25..0.43
-  Intake albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.41..0.58
-  Badge albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.45..0.55
-  TailPanel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.59..0.70
-  PlateRear albedo=(0.93, 0.94, 0.9, 1) metallic=0.00 rough=0.55 y=0.50..0.63
-  MirrorStalkL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.83..0.94
-  MirrorL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.88..0.99
-  MirrorGlassL albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.89..0.98
-  MirrorStalkR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.83..0.94
-  MirrorR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.88..0.99
-  MirrorGlassR albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.89..0.98
-  HandleL0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
-  HandleL1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
-  HandleR0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
-  HandleR1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.73..0.77
-  Exhaust0 albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.16..0.24
-  SharkFin albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=1.01..1.10
-  SpoilerLip albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.98..1.09
-  PipBase albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=1.03..1.07
+  ArchRR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.21..0.71
+  HeadHousingL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.53..0.71
+  HeadLensL albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.55..0.68
+  TailLightL albedo=(0.864, 0.162, 0.162, 1) metallic=0.00 rough=0.35 y=0.66..0.78
+  HeadHousingR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.53..0.71
+  HeadLensR albedo=(1, 0.96, 0.78, 1) metallic=0.00 rough=0.35 y=0.55..0.68
+  TailLightR albedo=(0.864, 0.162, 0.162, 1) metallic=0.00 rough=0.35 y=0.66..0.78
+  TailTrimBar albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.59..0.69
+  NoseGrille albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.42..0.57
+  NoseBadge albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.45..0.54
+  LicensePlate albedo=(0.93, 0.94, 0.9, 1) metallic=0.00 rough=0.55 y=0.48..0.61
+  MirrorStalkL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.81..0.92
+  MirrorCapL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.86..0.97
+  MirrorLensL albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.87..0.96
+  DoorHandleL0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.71..0.75
+  DoorHandleL1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.71..0.75
+  MirrorStalkR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.81..0.92
+  MirrorCapR albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.86..0.97
+  MirrorLensR albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.87..0.96
+  DoorHandleR0 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.71..0.75
+  DoorHandleR1 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.71..0.75
+  PipBase albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=1.03..1.07
   Pip0 albedo=(1, 0.87, 0.389, 1) metallic=0.00 rough=0.35 y=1.07..1.13
   Pip1 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
   Pip2 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
   Pip3 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
   Pip4 albedo=(0.24, 0.26, 0.3, 1) metallic=0.15 rough=0.55 y=1.07..1.13
+  FasciaMain albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.29..0.40
+  LowerAirDam albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.23..0.32
+  StreetChin albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.22..0.25
+  FogLamp albedo=(1, 0.94, 0.72, 1) metallic=0.00 rough=0.35 y=0.26..0.33
+  @MeshInstance3D@195 albedo=(1, 0.94, 0.72, 1) metallic=0.00 rough=0.35 y=0.26..0.33
+  RearValence albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.31..0.42
+  Lower Apron albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.24..0.29
+  RearReflector albedo=(0.92, 0.16, 0.16, 1) metallic=0.15 rough=0.35 y=0.27..0.30
+  @MeshInstance3D@197 albedo=(0.92, 0.16, 0.16, 1) metallic=0.15 rough=0.35 y=0.27..0.30
+  PowerDome albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.71..0.87
+  ScoopSlot albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.73..0.77
+  SilencerBox albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.19..0.27
+  TailPipe0 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.18..0.26
+  PipeBore0 albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.19..0.25
+  DucktailBlade albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.93..1.09
+  GurneyFlap albedo=(0.11, 0.12, 0.14, 1) metallic=0.25 rough=0.32 y=1.01..1.08
+  StreetSkirt albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.19..0.25
+  @MeshInstance3D@202 albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.44 y=0.19..0.25
+  RoofSharkFin albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=1.03..1.12
   Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
-  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
-  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
-  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
-  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
-  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
+  Barrel albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.13..0.47
+  ClassicLip albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.12..0.48
+  ClassicSpoke0 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.31..0.46
+  ClassicSpoke1 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicSpoke2 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke3 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke4 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicHub albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.24..0.36
   Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
-  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
-  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
-  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
-  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
-  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
+  Barrel albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.13..0.47
+  ClassicLip albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.12..0.48
+  ClassicSpoke0 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.31..0.46
+  ClassicSpoke1 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicSpoke2 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke3 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke4 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicHub albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.24..0.36
   Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
-  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
-  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
-  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
-  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
-  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
+  Barrel albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.13..0.47
+  ClassicLip albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.12..0.48
+  ClassicSpoke0 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.31..0.46
+  ClassicSpoke1 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicSpoke2 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke3 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke4 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicHub albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.24..0.36
   Tire albedo=(0.09, 0.1, 0.12, 1) metallic=0.00 rough=0.94 y=0.00..0.60
-  RimBarrel albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.12..0.48
-  RimLip albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.12..0.48
-  Spoke0 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.31..0.47
-  Spoke1 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Spoke2 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke3 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.15..0.31
-  Spoke4 albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.27..0.38
-  Hub albedo=(0.78, 0.8, 0.84, 1) metallic=0.80 rough=0.20 y=0.24..0.36
-  HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
+  Barrel albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=0.13..0.47
+  ClassicLip albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.12..0.48
+  ClassicSpoke0 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.31..0.46
+  ClassicSpoke1 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicSpoke2 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke3 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.15..0.31
+  ClassicSpoke4 albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.28..0.38
+  ClassicHub albedo=(0.86, 0.89, 0.94, 1) metallic=0.88 rough=0.18 y=0.24..0.36
 --- CAR TREE ---
   CarVisual pos=(0, 0, 0)
   CarVisual/TransformShockwave pos=(0, 0.06, 0) mesh=CylinderMesh aabb_pos=(-0.992709, 0.05, -1) aabb_size=(1.985418, 0.02, 2)
   CarVisual/TransformFlash pos=(0, 0.9, 0)
-  CarVisual/Stage_1 pos=(0, 0, 0)
-  CarVisual/Stage_1/Body pos=(0, 0, 0)
-  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.210899, -1.485) aabb_size=(1.548381, 0.626956, 2.97)
-  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=null aabb_pos=(0, 0, 0) aabb_size=(0, 0, 0)
-  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765105, -0.40612) aabb_size=(1.278037, 0.171642, 0.86944)
-  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765296, -0.5698) aabb_size=(1.278037, 0.275453, 1.1968)
-  CarVisual/Stage_1/Body/WellFL pos=(-0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchFL pos=(-0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.778993, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/WellFR pos=(0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchFR pos=(0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.710056, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/WellRL pos=(-0.555, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, 0.6925) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchRL pos=(-0.759262, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.79373, 0.186989, 0.610173) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/WellRR pos=(0.555, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, 0.6925) aabb_size=(0.03, 0.655, 0.655)
-  CarVisual/Stage_1/Body/ArchRR pos=(0.759262, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.724794, 0.186989, 0.610173) aabb_size=(0.068937, 0.523011, 0.819653)
-  CarVisual/Stage_1/Body/HeadlightHousingL pos=(-0.465, 0.631553, -1.39) mesh=SphereMesh aabb_pos=(-0.625251, 0.539108, -1.499307) aabb_size=(0.320503, 0.184891, 0.218615)
-  CarVisual/Stage_1/Body/HeadlightL pos=(-0.465, 0.631553, -1.418) mesh=SphereMesh aabb_pos=(-0.598952, 0.561876, -1.505676) aabb_size=(0.267904, 0.139354, 0.175352)
-  CarVisual/Stage_1/Body/HeadlightHousingR pos=(0.465, 0.631553, -1.39) mesh=SphereMesh aabb_pos=(0.304749, 0.539108, -1.499307) aabb_size=(0.320503, 0.184891, 0.218615)
-  CarVisual/Stage_1/Body/HeadlightR pos=(0.465, 0.631553, -1.418) mesh=SphereMesh aabb_pos=(0.331048, 0.561876, -1.505676) aabb_size=(0.267904, 0.139354, 0.175352)
-  CarVisual/Stage_1/Body/TaillightL pos=(-0.435, 0.738374, 1.405) mesh=ArrayMesh aabb_pos=(-0.601346, 0.676374, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
-  CarVisual/Stage_1/Body/TaillightR pos=(0.435, 0.738374, 1.405) mesh=ArrayMesh aabb_pos=(0.268654, 0.676374, 1.329077) aabb_size=(0.332692, 0.124, 0.151846)
-  CarVisual/Stage_1/Body/BumperFront pos=(0, 0.33, -1.405) mesh=ArrayMesh aabb_pos=(-0.5264, 0.242, -1.458731) aabb_size=(1.0528, 0.176, 0.107462)
-  CarVisual/Stage_1/Body/BumperRear pos=(0, 0.34, 1.405) mesh=ArrayMesh aabb_pos=(-0.5264, 0.252, 1.351269) aabb_size=(1.0528, 0.176, 0.107462)
-  CarVisual/Stage_1/Body/Intake pos=(0, 0.4992, -1.432) mesh=ArrayMesh aabb_pos=(-0.3485, 0.414496, -1.482143) aabb_size=(0.697, 0.169408, 0.100286)
-  CarVisual/Stage_1/Body/Badge pos=(0, 0.4992, -1.466) mesh=CylinderMesh aabb_pos=(-0.046, 0.4532, -1.479) aabb_size=(0.092, 0.092, 0.026)
-  CarVisual/Stage_1/Body/TailPanel pos=(0, 0.642064, 1.464) mesh=ArrayMesh aabb_pos=(-0.42075, 0.587064, 1.43421) aabb_size=(0.8415, 0.11, 0.059581)
-  CarVisual/Stage_1/Body/PlateRear pos=(0, 0.56576, 1.48) mesh=BoxMesh aabb_pos=(-0.18, 0.499548, 1.458288) aabb_size=(0.36, 0.132424, 0.043424)
-  CarVisual/Stage_1/Body/MirrorStalkL pos=(-0.69, 0.887, -0.40612) mesh=CylinderMesh aabb_pos=(-0.770025, 0.831783, -0.42612) aabb_size=(0.160051, 0.110433, 0.04)
-  CarVisual/Stage_1/Body/MirrorL pos=(-0.7625, 0.937, -0.40612) mesh=ArrayMesh aabb_pos=(-0.85658, 0.881, -0.442519) aabb_size=(0.18816, 0.112, 0.072797)
-  CarVisual/Stage_1/Body/MirrorGlassL pos=(-0.7625, 0.937, -0.37612) mesh=CylinderMesh aabb_pos=(-0.8045, 0.895, -0.38212) aabb_size=(0.084, 0.084, 0.012)
-  CarVisual/Stage_1/Body/MirrorStalkR pos=(0.69, 0.887, -0.40612) mesh=CylinderMesh aabb_pos=(0.609975, 0.831783, -0.42612) aabb_size=(0.160051, 0.110433, 0.04)
-  CarVisual/Stage_1/Body/MirrorR pos=(0.7625, 0.937, -0.40612) mesh=ArrayMesh aabb_pos=(0.66842, 0.881, -0.442519) aabb_size=(0.18816, 0.112, 0.072797)
-  CarVisual/Stage_1/Body/MirrorGlassR pos=(0.7625, 0.937, -0.37612) mesh=CylinderMesh aabb_pos=(0.7205, 0.895, -0.38212) aabb_size=(0.084, 0.084, 0.012)
-  CarVisual/Stage_1/Body/HandleL0 pos=(-0.710342, 0.7488, -0.1716) mesh=ArrayMesh aabb_pos=(-0.723942, 0.732058, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/HandleL1 pos=(-0.724881, 0.7488, 0.3432) mesh=ArrayMesh aabb_pos=(-0.738481, 0.732058, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/HandleR0 pos=(0.710342, 0.7488, -0.1716) mesh=ArrayMesh aabb_pos=(0.696742, 0.732058, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/HandleR1 pos=(0.724881, 0.7488, 0.3432) mesh=ArrayMesh aabb_pos=(0.711281, 0.732058, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
-  CarVisual/Stage_1/Body/Exhaust0 pos=(-0.42, 0.2, 1.44) mesh=CylinderMesh aabb_pos=(-0.462, 0.158, 1.37) aabb_size=(0.084, 0.084, 0.14)
-  CarVisual/Stage_1/Body/SharkFin pos=(0, 1.056817, 0.267696) mesh=CylinderMesh aabb_pos=(-0.012839, 1.014317, 0.195696) aabb_size=(0.025679, 0.085, 0.144)
-  CarVisual/Stage_1/Body/SpoilerLip pos=(0, 1.037858, 0.334432) mesh=ArrayMesh aabb_pos=(-0.26796, 0.983422, 0.280348) aabb_size=(0.53592, 0.108872, 0.108167)
-  CarVisual/Stage_1/Body/EvolutionPips pos=(0, 1.1, 0)
-  CarVisual/Stage_1/Body/EvolutionPips/PipBase pos=(0, 1.052, 0) mesh=ArrayMesh aabb_pos=(-0.51, 1.032, -0.063028) aabb_size=(1.02, 0.04, 0.126055)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip0 pos=(-0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.505, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip1 pos=(-0.22, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.285, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip2 pos=(0, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.065, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip3 pos=(0.22, 1.1, 0) mesh=BoxMesh aabb_pos=(0.155, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Body/EvolutionPips/Pip4 pos=(0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(0.375, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
-  CarVisual/Stage_1/Wheel0 pos=(-0.72, 0.3, -1.02)
-  CarVisual/Stage_1/Wheel0/Tire pos=(-0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.84, 0, -1.32) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel0/RimBarrel pos=(-0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.816, 0.12, -1.2) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel0/RimLip pos=(-0.818, 0.3, -1.02) mesh=TorusMesh aabb_pos=(-0.832266, 0.1185, -1.2015) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel0/Spoke0 pos=(-0.81, 0.39, -1.02) mesh=BoxMesh aabb_pos=(-0.8325, 0.315, -1.0515) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel0/Spoke1 pos=(-0.81, 0.327812, -0.934405) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, -1.015468) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel0/Spoke2 pos=(-0.81, 0.227188, -0.967099) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, -1.036667) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel0/Spoke3 pos=(-0.81, 0.227188, -1.072901) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, -1.142469) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel0/Spoke4 pos=(-0.81, 0.327812, -1.105595) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, -1.186658) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel0/Hub pos=(-0.81, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.8375, 0.244429, -1.077) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel0/HubCap pos=(-0.842, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.852, 0.2745, -1.0455) aabb_size=(0.02, 0.051, 0.051)
-  CarVisual/Stage_1/Wheel1 pos=(0.72, 0.3, -1.02)
-  CarVisual/Stage_1/Wheel1/Tire pos=(0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.6, 0, -1.32) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel1/RimBarrel pos=(0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.6144, 0.12, -1.2) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel1/RimLip pos=(0.818, 0.3, -1.02) mesh=TorusMesh aabb_pos=(0.803734, 0.1185, -1.2015) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel1/Spoke0 pos=(0.81, 0.39, -1.02) mesh=BoxMesh aabb_pos=(0.7875, 0.315, -1.0515) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel1/Spoke1 pos=(0.81, 0.327812, -0.934405) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, -1.015468) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel1/Spoke2 pos=(0.81, 0.227188, -0.967099) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, -1.036667) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel1/Spoke3 pos=(0.81, 0.227188, -1.072901) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, -1.142469) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel1/Spoke4 pos=(0.81, 0.327812, -1.105595) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, -1.186658) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel1/Hub pos=(0.81, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.7825, 0.244429, -1.077) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel1/HubCap pos=(0.842, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.832, 0.2745, -1.0455) aabb_size=(0.02, 0.051, 0.051)
-  CarVisual/Stage_1/Wheel2 pos=(-0.72, 0.3, 1.02)
-  CarVisual/Stage_1/Wheel2/Tire pos=(-0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.84, 0, 0.72) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel2/RimBarrel pos=(-0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.816, 0.12, 0.84) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel2/RimLip pos=(-0.818, 0.3, 1.02) mesh=TorusMesh aabb_pos=(-0.832266, 0.1185, 0.8385) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel2/Spoke0 pos=(-0.81, 0.39, 1.02) mesh=BoxMesh aabb_pos=(-0.8325, 0.315, 0.9885) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel2/Spoke1 pos=(-0.81, 0.327812, 1.105595) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, 1.024532) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel2/Spoke2 pos=(-0.81, 0.227188, 1.072901) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, 1.003333) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel2/Spoke3 pos=(-0.81, 0.227188, 0.967099) mesh=BoxMesh aabb_pos=(-0.8325, 0.147997, 0.897531) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel2/Spoke4 pos=(-0.81, 0.327812, 0.934405) mesh=BoxMesh aabb_pos=(-0.8325, 0.274677, 0.853342) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel2/Hub pos=(-0.81, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.8375, 0.244429, 0.963) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel2/HubCap pos=(-0.842, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.852, 0.2745, 0.9945) aabb_size=(0.02, 0.051, 0.051)
-  CarVisual/Stage_1/Wheel3 pos=(0.72, 0.3, 1.02)
-  CarVisual/Stage_1/Wheel3/Tire pos=(0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.6, 0, 0.72) aabb_size=(0.24, 0.6, 0.6)
-  CarVisual/Stage_1/Wheel3/RimBarrel pos=(0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.6144, 0.12, 0.84) aabb_size=(0.2016, 0.36, 0.36)
-  CarVisual/Stage_1/Wheel3/RimLip pos=(0.818, 0.3, 1.02) mesh=TorusMesh aabb_pos=(0.803734, 0.1185, 0.8385) aabb_size=(0.028532, 0.363, 0.363)
-  CarVisual/Stage_1/Wheel3/Spoke0 pos=(0.81, 0.39, 1.02) mesh=BoxMesh aabb_pos=(0.7875, 0.315, 0.9885) aabb_size=(0.045, 0.15, 0.063)
-  CarVisual/Stage_1/Wheel3/Spoke1 pos=(0.81, 0.327812, 1.105595) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, 1.024532) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel3/Spoke2 pos=(0.81, 0.227188, 1.072901) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, 1.003333) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel3/Spoke3 pos=(0.81, 0.227188, 0.967099) mesh=BoxMesh aabb_pos=(0.7875, 0.147997, 0.897531) aabb_size=(0.045, 0.158383, 0.139136)
-  CarVisual/Stage_1/Wheel3/Spoke4 pos=(0.81, 0.327812, 0.934405) mesh=BoxMesh aabb_pos=(0.7875, 0.274677, 0.853342) aabb_size=(0.045, 0.106269, 0.162127)
-  CarVisual/Stage_1/Wheel3/Hub pos=(0.81, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.7825, 0.244429, 0.963) aabb_size=(0.055, 0.111142, 0.114)
-  CarVisual/Stage_1/Wheel3/HubCap pos=(0.842, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.832, 0.2745, 0.9945) aabb_size=(0.02, 0.051, 0.051)
+  CarVisual/VehicleRig pos=(0, 0, 0)
+  CarVisual/VehicleRig/SprungChassis pos=(0, 0, 0)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body pos=(0, 0, 0)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis pos=(0, 0, 0)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.781444, 0.238165, -1.485) aabb_size=(1.562887, 0.578743, 2.97)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.751161, 0.201416, -1.485) aabb_size=(1.502322, 0.452676, 2.97)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/ChassisPan pos=(0, 0.225, 0) mesh=BoxMesh aabb_pos=(-0.585, 0.1975, -1.2298) aabb_size=(1.17, 0.055, 2.4596)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.646343, 0.729703, -0.44044) aabb_size=(1.292686, 0.19369, 1.05248)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.646409, 0.72988, -0.627) aabb_size=(1.292818, 0.310869, 1.4256)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/WellFL pos=(-0.545, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.625, -0.02925, -1.34925) aabb_size=(0.16, 0.6585, 0.6585)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/ArchFL pos=(-0.744304, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.783696, 0.20822, -1.426922) aabb_size=(0.078785, 0.49978, 0.813843)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/WellFR pos=(0.545, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.465, -0.02925, -1.34925) aabb_size=(0.16, 0.6585, 0.6585)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/ArchFR pos=(0.744304, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.704912, 0.20822, -1.426922) aabb_size=(0.078785, 0.49978, 0.813843)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/WellRL pos=(-0.545, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.625, -0.02925, 0.69075) aabb_size=(0.16, 0.6585, 0.6585)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/ArchRL pos=(-0.759988, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.79938, 0.20822, 0.613078) aabb_size=(0.078785, 0.49978, 0.813843)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/WellRR pos=(0.545, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.465, -0.02925, 0.69075) aabb_size=(0.16, 0.6585, 0.6585)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/ArchRR pos=(0.759988, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.720596, 0.20822, 0.613078) aabb_size=(0.078785, 0.49978, 0.813843)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/HeadHousingL pos=(-0.465, 0.615389, -1.382) mesh=SphereMesh aabb_pos=(-0.624162, 0.52529, -1.489566) aabb_size=(0.318324, 0.180199, 0.215133)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/HeadLensL pos=(-0.465, 0.615389, -1.408) mesh=SphereMesh aabb_pos=(-0.59889, 0.547053, -1.494845) aabb_size=(0.26778, 0.136672, 0.173691)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/TailLightL pos=(-0.45, 0.721978, 1.402) mesh=ArrayMesh aabb_pos=(-0.621692, 0.663978, 1.332431) aabb_size=(0.343383, 0.116, 0.139138)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/HeadHousingR pos=(0.465, 0.615389, -1.382) mesh=SphereMesh aabb_pos=(0.305838, 0.52529, -1.489566) aabb_size=(0.318324, 0.180199, 0.215133)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/HeadLensR pos=(0.465, 0.615389, -1.408) mesh=SphereMesh aabb_pos=(0.33111, 0.547053, -1.494845) aabb_size=(0.26778, 0.136672, 0.173691)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/TailLightR pos=(0.45, 0.721978, 1.402) mesh=ArrayMesh aabb_pos=(0.278308, 0.663978, 1.332431) aabb_size=(0.343383, 0.116, 0.139138)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/TailTrimBar pos=(0, 0.635655, 1.452) mesh=ArrayMesh aabb_pos=(-0.423, 0.585655, 1.424918) aabb_size=(0.846, 0.1, 0.054164)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/NoseGrille pos=(0, 0.494832, -1.424) mesh=ArrayMesh aabb_pos=(-0.3276, 0.418599, -1.469129) aabb_size=(0.6552, 0.152467, 0.090257)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/NoseBadge pos=(0, 0.494832, -1.454) mesh=CylinderMesh aabb_pos=(-0.044, 0.450832, -1.466) aabb_size=(0.088, 0.088, 0.024)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/LicensePlate pos=(0, 0.543504, 1.468) mesh=BoxMesh aabb_pos=(-0.18, 0.477501, 1.448277) aabb_size=(0.36, 0.132006, 0.039446)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/MirrorStalkL pos=(-0.69, 0.8662, -0.44044) mesh=CylinderMesh aabb_pos=(-0.770025, 0.810983, -0.46044) aabb_size=(0.160051, 0.110433, 0.04)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/MirrorCapL pos=(-0.7625, 0.9162, -0.44044) mesh=ArrayMesh aabb_pos=(-0.8556, 0.8612, -0.476188) aabb_size=(0.1862, 0.11, 0.071497)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/MirrorLensL pos=(-0.7625, 0.9162, -0.41044) mesh=CylinderMesh aabb_pos=(-0.8045, 0.8742, -0.41644) aabb_size=(0.084, 0.084, 0.012)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/DoorHandleL0 pos=(-0.716621, 0.73008, -0.1716) mesh=ArrayMesh aabb_pos=(-0.730221, 0.713338, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/DoorHandleL1 pos=(-0.730134, 0.73008, 0.3432) mesh=ArrayMesh aabb_pos=(-0.743734, 0.713338, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/MirrorStalkR pos=(0.69, 0.8662, -0.44044) mesh=CylinderMesh aabb_pos=(0.609975, 0.810983, -0.46044) aabb_size=(0.160051, 0.110433, 0.04)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/MirrorCapR pos=(0.7625, 0.9162, -0.44044) mesh=ArrayMesh aabb_pos=(0.6694, 0.8612, -0.476188) aabb_size=(0.1862, 0.11, 0.071497)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/MirrorLensR pos=(0.7625, 0.9162, -0.41044) mesh=CylinderMesh aabb_pos=(0.7205, 0.8742, -0.41644) aabb_size=(0.084, 0.084, 0.012)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/DoorHandleR0 pos=(0.716621, 0.73008, -0.1716) mesh=ArrayMesh aabb_pos=(0.703021, 0.713338, -0.2311) aabb_size=(0.0272, 0.033484, 0.119)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/DoorHandleR1 pos=(0.730134, 0.73008, 0.3432) mesh=ArrayMesh aabb_pos=(0.716534, 0.713338, 0.2837) aabb_size=(0.0272, 0.033484, 0.119)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/EvolutionPips pos=(0, 1.1, 0)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/EvolutionPips/PipBase pos=(0, 1.052, 0) mesh=ArrayMesh aabb_pos=(-0.51, 1.032, -0.063028) aabb_size=(1.02, 0.04, 0.126055)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/EvolutionPips/Pip0 pos=(-0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.505, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/EvolutionPips/Pip1 pos=(-0.22, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.285, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/EvolutionPips/Pip2 pos=(0, 1.1, 0) mesh=BoxMesh aabb_pos=(-0.065, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/EvolutionPips/Pip3 pos=(0.22, 1.1, 0) mesh=BoxMesh aabb_pos=(0.155, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
+  CarVisual/VehicleRig/SprungChassis/Anchor_body/BodyChassis/EvolutionPips/Pip4 pos=(0.44, 1.1, 0) mesh=BoxMesh aabb_pos=(0.375, 1.07, -0.12) aabb_size=(0.13, 0.06, 0.24)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_front pos=(0, 0.29, -1.405)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_front/@Node3D@196 pos=(0, 0.29, -1.405)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_front/@Node3D@196/FasciaMain pos=(0, 0.32, -1.415) mesh=ArrayMesh aabb_pos=(-0.66975, 0.29465, -1.5) aabb_size=(1.3395, 0.109694, 0.2098)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_front/@Node3D@196/LowerAirDam pos=(0, 0.28, -1.46) mesh=BoxMesh aabb_pos=(-0.3384, 0.235, -1.49) aabb_size=(0.6768, 0.09, 0.06)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_front/@Node3D@196/StreetChin pos=(0, 0.235, -1.45) mesh=ArrayMesh aabb_pos=(-0.6486, 0.2245, -1.505) aabb_size=(1.2972, 0.0301, 0.1445)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_front/@Node3D@196/FogLamp pos=(-0.5076, 0.295, -1.48) mesh=SphereMesh aabb_pos=(-0.541561, 0.261, -1.513962) aabb_size=(0.067923, 0.068, 0.067923)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_front/@Node3D@196/@MeshInstance3D@195 pos=(0.5076, 0.295, -1.48) mesh=SphereMesh aabb_pos=(0.473639, 0.261, -1.513962) aabb_size=(0.067923, 0.068, 0.067923)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_rear pos=(0, 0.3, 1.405)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_rear/@Node3D@198 pos=(0, 0.3, 1.405)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_rear/@Node3D@198/RearValence pos=(0, 0.335, 1.42) mesh=ArrayMesh aabb_pos=(-0.71285, 0.30692, 1.308) aabb_size=(1.4257, 0.110115, 0.192)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_rear/@Node3D@198/Lower Apron pos=(0, 0.255, 1.44) mesh=ArrayMesh aabb_pos=(-0.668297, 0.2385, 1.3605) aabb_size=(1.336594, 0.0473, 0.1345)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_rear/@Node3D@198/RearReflector pos=(-0.504935, 0.285, 1.493) mesh=BoxMesh aabb_pos=(-0.584935, 0.272, 1.4805) aabb_size=(0.16, 0.026, 0.025)
+  CarVisual/VehicleRig/SprungChassis/Anchor_bumper_rear/@Node3D@198/@MeshInstance3D@197 pos=(0.504935, 0.285, 1.493) mesh=BoxMesh aabb_pos=(0.424935, 0.272, 1.4805) aabb_size=(0.16, 0.026, 0.025)
+  CarVisual/VehicleRig/SprungChassis/Anchor_engine pos=(0, 0.754453, -0.8866)
+  CarVisual/VehicleRig/SprungChassis/Anchor_engine/@Node3D@199 pos=(0, 0.754453, -0.8866)
+  CarVisual/VehicleRig/SprungChassis/Anchor_engine/@Node3D@199/PowerDome pos=(0, 0.754453, -0.8866) mesh=ArrayMesh aabb_pos=(-0.2703, 0.707034, -1.237924) aabb_size=(0.5406, 0.166328, 0.694084)
+  CarVisual/VehicleRig/SprungChassis/Anchor_engine/@Node3D@199/ScoopSlot pos=(0, 0.753299, -1.165289) mesh=BoxMesh aabb_pos=(-0.1749, 0.734736, -1.189532) aabb_size=(0.3498, 0.037125, 0.048486)
+  CarVisual/VehicleRig/SprungChassis/Anchor_exhaust pos=(0, 0.22, 1.415)
+  CarVisual/VehicleRig/SprungChassis/Anchor_exhaust/@Node3D@200 pos=(0, 0.22, 1.415)
+  CarVisual/VehicleRig/SprungChassis/Anchor_exhaust/@Node3D@200/SilencerBox pos=(0, 0.23, 1.325) mesh=BoxMesh aabb_pos=(-0.343059, 0.1925, 1.245) aabb_size=(0.686118, 0.075, 0.16)
+  CarVisual/VehicleRig/SprungChassis/Anchor_exhaust/@Node3D@200/TailPipe0 pos=(-0.324347, 0.22, 1.478) mesh=CylinderMesh aabb_pos=(-0.366347, 0.178, 1.388) aabb_size=(0.084, 0.084, 0.18)
+  CarVisual/VehicleRig/SprungChassis/Anchor_exhaust/@Node3D@200/PipeBore0 pos=(-0.324347, 0.22, 1.5626) mesh=CylinderMesh aabb_pos=(-0.355427, 0.18892, 1.5476) aabb_size=(0.06216, 0.06216, 0.03)
+  CarVisual/VehicleRig/SprungChassis/Anchor_spoiler pos=(0, 0.944254, 0.533104)
+  CarVisual/VehicleRig/SprungChassis/Anchor_spoiler/@Node3D@201 pos=(0, 0.944254, 0.533104)
+  CarVisual/VehicleRig/SprungChassis/Anchor_spoiler/@Node3D@201/DucktailBlade pos=(0, 0.996254, 0.608104) mesh=ArrayMesh aabb_pos=(-0.690105, 0.934695, 0.506922) aabb_size=(1.380211, 0.159951, 0.242136)
+  CarVisual/VehicleRig/SprungChassis/Anchor_spoiler/@Node3D@201/GurneyFlap pos=(0, 1.046254, 0.698104) mesh=ArrayMesh aabb_pos=(-0.682438, 1.009099, 0.673627) aabb_size=(1.364875, 0.073155, 0.08617)
+  CarVisual/VehicleRig/SprungChassis/Anchor_aero pos=(0, 0.205, 0)
+  CarVisual/VehicleRig/SprungChassis/Anchor_aero/@Node3D@203 pos=(0, 0.205, 0)
+  CarVisual/VehicleRig/SprungChassis/Anchor_aero/@Node3D@203/StreetSkirt pos=(-0.73875, 0.22, 0) mesh=BoxMesh aabb_pos=(-0.76625, 0.1925, -0.666) aabb_size=(0.055, 0.055, 1.332)
+  CarVisual/VehicleRig/SprungChassis/Anchor_aero/@Node3D@203/@MeshInstance3D@202 pos=(0.73875, 0.22, 0) mesh=BoxMesh aabb_pos=(0.71125, 0.1925, -0.666) aabb_size=(0.055, 0.055, 1.332)
+  CarVisual/VehicleRig/SprungChassis/Anchor_aero/@Node3D@203/RoofSharkFin pos=(0, 1.07, 0.281544) mesh=CylinderMesh aabb_pos=(-0.0144, 1.025, 0.204744) aabb_size=(0.0288, 0.09, 0.1536)
+  CarVisual/VehicleRig/Wheel0 pos=(-0.72, 0.3, -1.02)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly pos=(-0.72, 0.3, -1.02)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/Tire pos=(-0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.84, 0, -1.32) aabb_size=(0.24, 0.6, 0.6)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/Barrel pos=(-0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.8232, 0.126, -1.194) aabb_size=(0.2112, 0.348, 0.348)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/ClassicLip pos=(-0.828, 0.3, -1.02) mesh=TorusMesh aabb_pos=(-0.843692, 0.12, -1.2) aabb_size=(0.031385, 0.36, 0.36)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/ClassicSpoke0 pos=(-0.8208, 0.387, -1.02) mesh=BoxMesh aabb_pos=(-0.8438, 0.312, -1.05) aabb_size=(0.046, 0.15, 0.06)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/ClassicSpoke1 pos=(-0.8208, 0.326884, -0.937258) mesh=BoxMesh aabb_pos=(-0.8438, 0.275176, -1.017858) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/ClassicSpoke2 pos=(-0.8208, 0.229616, -0.968863) mesh=BoxMesh aabb_pos=(-0.8438, 0.151306, -1.037217) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/ClassicSpoke3 pos=(-0.8208, 0.229616, -1.071137) mesh=BoxMesh aabb_pos=(-0.8438, 0.151306, -1.139492) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/ClassicSpoke4 pos=(-0.8208, 0.326884, -1.102742) mesh=BoxMesh aabb_pos=(-0.8438, 0.275176, -1.183342) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel0/WheelAssembly/ClassicHub pos=(-0.8232, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.8507, 0.243, -1.077) aabb_size=(0.055, 0.114, 0.114)
+  CarVisual/VehicleRig/Wheel1 pos=(0.72, 0.3, -1.02)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly pos=(0.72, 0.3, -1.02)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/Tire pos=(0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.6, 0, -1.32) aabb_size=(0.24, 0.6, 0.6)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/Barrel pos=(0.72, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(0.612, 0.126, -1.194) aabb_size=(0.2112, 0.348, 0.348)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/ClassicLip pos=(0.828, 0.3, -1.02) mesh=TorusMesh aabb_pos=(0.812308, 0.12, -1.2) aabb_size=(0.031385, 0.36, 0.36)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/ClassicSpoke0 pos=(0.8208, 0.387, -1.02) mesh=BoxMesh aabb_pos=(0.7978, 0.312, -1.05) aabb_size=(0.046, 0.15, 0.06)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/ClassicSpoke1 pos=(0.8208, 0.326884, -0.937258) mesh=BoxMesh aabb_pos=(0.7978, 0.275176, -1.017858) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/ClassicSpoke2 pos=(0.8208, 0.229616, -0.968863) mesh=BoxMesh aabb_pos=(0.7978, 0.151306, -1.037217) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/ClassicSpoke3 pos=(0.8208, 0.229616, -1.071137) mesh=BoxMesh aabb_pos=(0.7978, 0.151306, -1.139492) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/ClassicSpoke4 pos=(0.8208, 0.326884, -1.102742) mesh=BoxMesh aabb_pos=(0.7978, 0.275176, -1.183342) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel1/WheelAssembly/ClassicHub pos=(0.8232, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.7957, 0.243, -1.077) aabb_size=(0.055, 0.114, 0.114)
+  CarVisual/VehicleRig/Wheel2 pos=(-0.72, 0.3, 1.02)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly pos=(-0.72, 0.3, 1.02)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/Tire pos=(-0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.84, 0, 0.72) aabb_size=(0.24, 0.6, 0.6)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/Barrel pos=(-0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(-0.8232, 0.126, 0.846) aabb_size=(0.2112, 0.348, 0.348)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/ClassicLip pos=(-0.828, 0.3, 1.02) mesh=TorusMesh aabb_pos=(-0.843692, 0.12, 0.84) aabb_size=(0.031385, 0.36, 0.36)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/ClassicSpoke0 pos=(-0.8208, 0.387, 1.02) mesh=BoxMesh aabb_pos=(-0.8438, 0.312, 0.99) aabb_size=(0.046, 0.15, 0.06)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/ClassicSpoke1 pos=(-0.8208, 0.326884, 1.102742) mesh=BoxMesh aabb_pos=(-0.8438, 0.275176, 1.022142) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/ClassicSpoke2 pos=(-0.8208, 0.229616, 1.071137) mesh=BoxMesh aabb_pos=(-0.8438, 0.151306, 1.002783) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/ClassicSpoke3 pos=(-0.8208, 0.229616, 0.968863) mesh=BoxMesh aabb_pos=(-0.8438, 0.151306, 0.900508) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/ClassicSpoke4 pos=(-0.8208, 0.326884, 0.937258) mesh=BoxMesh aabb_pos=(-0.8438, 0.275176, 0.856658) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel2/WheelAssembly/ClassicHub pos=(-0.8232, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(-0.8507, 0.243, 0.963) aabb_size=(0.055, 0.114, 0.114)
+  CarVisual/VehicleRig/Wheel3 pos=(0.72, 0.3, 1.02)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly pos=(0.72, 0.3, 1.02)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/Tire pos=(0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.6, 0, 0.72) aabb_size=(0.24, 0.6, 0.6)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/Barrel pos=(0.72, 0.3, 1.02) mesh=ArrayMesh aabb_pos=(0.612, 0.126, 0.846) aabb_size=(0.2112, 0.348, 0.348)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/ClassicLip pos=(0.828, 0.3, 1.02) mesh=TorusMesh aabb_pos=(0.812308, 0.12, 0.84) aabb_size=(0.031385, 0.36, 0.36)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/ClassicSpoke0 pos=(0.8208, 0.387, 1.02) mesh=BoxMesh aabb_pos=(0.7978, 0.312, 0.99) aabb_size=(0.046, 0.15, 0.06)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/ClassicSpoke1 pos=(0.8208, 0.326884, 1.102742) mesh=BoxMesh aabb_pos=(0.7978, 0.275176, 1.022142) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/ClassicSpoke2 pos=(0.8208, 0.229616, 1.071137) mesh=BoxMesh aabb_pos=(0.7978, 0.151306, 1.002783) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/ClassicSpoke3 pos=(0.8208, 0.229616, 0.968863) mesh=BoxMesh aabb_pos=(0.7978, 0.151306, 0.900508) aabb_size=(0.046, 0.15662, 0.136709)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/ClassicSpoke4 pos=(0.8208, 0.326884, 0.937258) mesh=BoxMesh aabb_pos=(0.7978, 0.275176, 0.856658) aabb_size=(0.046, 0.103416, 0.1612)
+  CarVisual/VehicleRig/Wheel3/WheelAssembly/ClassicHub pos=(0.8232, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.7957, 0.243, 0.963) aabb_size=(0.055, 0.114, 0.114)
 ASPHALT px=128x128 (0.5059, 0.5137, 0.5451, 1)
 TERRAIN verts=8060 colors=8060 sample=(0.4471, 0.6353, 0.3608, 1)
 GROUND children=3
 BACKDROP children=4
 SEGMENT_CHILDREN total=240
 SCENERY=<Object#null>
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
+ERROR: Parameter "m" is null.
+   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
