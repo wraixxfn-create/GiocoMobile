@@ -44,13 +44,13 @@ const CURB_SIDE := Color(0.78, 0.77, 0.73)
 # ---------------------------------------------------------------- Terreno ---
 
 ## Fascia sabbiosa subito fuori dal cordolo.
-const SAND := Color(0.66, 0.55, 0.37)
-const SAND_DARK := Color(0.52, 0.43, 0.28)
+const SAND := Color(0.83, 0.73, 0.52)
+const SAND_DARK := Color(0.69, 0.58, 0.39)
 ## Prato: tre toni che si alternano a chiazze morbide.
-const GRASS_DEEP := Color(0.12, 0.31, 0.18)
-const GRASS_BASE := Color(0.18, 0.40, 0.22)
-const GRASS_LIGHT := Color(0.28, 0.51, 0.25)
-const GRASS_DRY := Color(0.43, 0.49, 0.26)
+const GRASS_DEEP := Color(0.20, 0.44, 0.25)
+const GRASS_BASE := Color(0.29, 0.56, 0.31)
+const GRASS_LIGHT := Color(0.42, 0.68, 0.34)
+const GRASS_DRY := Color(0.60, 0.65, 0.36)
 
 # ------------------------------------------------------------- Vegetazione ---
 

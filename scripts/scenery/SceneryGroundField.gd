@@ -69,22 +69,26 @@ static func height_at(x: float, z: float) -> float:
 ## Colore del terreno: sabbia calda vicino all'asfalto, poi tre verdi a chiazze.
 static func color_at(x: float, z: float) -> Color:
 	var distance := absf(x)
-	var sand := 1.0 - smoothstep(SAND_INNER, SAND_OUTER + 1.9, distance)
 	var patch_a := sin(z * 0.031 + x * 0.017) * 0.5 + 0.5
-	var patch_b := sin(z * 0.011 - x * 0.026 + 2.1) * 0.5 + 0.5
+	var patch_b := sin(z * 0.017 - x * 0.041 + 2.1) * 0.5 + 0.5
+	var broad := sin(z * 0.0082 + x * 0.011 + 0.6) * 0.5 + 0.5
+	# Tre frequenze: chiazze larghe (colline), medie (prato) e sottili.
 	var grass := SceneryPalette.GRASS_BASE
-	var broad := sin(z * 0.0062 + x * 0.0091 + 0.6) * 0.5 + 0.5
-	grass = grass.lerp(SceneryPalette.GRASS_DEEP, patch_a * 0.72)
-	grass = grass.lerp(SceneryPalette.GRASS_LIGHT, patch_b * 0.60)
-	grass = grass.lerp(SceneryPalette.GRASS_DEEP, broad * 0.34)
-	# Chiazze più secche in quota: danno profondità alle colline.
-	var height_factor := smoothstep(1.0, 9.0, height_at(x, z))
-	grass = grass.lerp(SceneryPalette.GRASS_DRY, height_factor * 0.30)
-	var sand_color := SceneryPalette.SAND.lerp(SceneryPalette.SAND_DARK, patch_a * 0.35)
-	# Bordo sabbia mai pulito: l'erba lo invade a chiazze.
-	var speck := sin(x * 2.7 + z * 1.9) * 0.5 + 0.5
-	sand_color = sand_color.lerp(SceneryPalette.GRASS_DRY, speck * 0.16)
-	return sand_color.lerp(grass, 1.0 - sand * 0.72)
+	grass = grass.lerp(SceneryPalette.GRASS_LIGHT, broad * 0.55)
+	grass = grass.lerp(SceneryPalette.GRASS_DEEP, patch_a * 0.42)
+	grass = grass.lerp(SceneryPalette.GRASS_LIGHT, patch_b * 0.30)
+	# In quota l'erba si fa più secca: le colline si leggono a colpo d'occhio.
+	var height_factor := smoothstep(1.2, 9.0, height_at(x, z))
+	grass = grass.lerp(SceneryPalette.GRASS_DRY, height_factor * 0.34)
+	# Bordo strada: una lingua di sabbia calda, irregolare, che sfuma nell'erba.
+	var sand_band := 1.0 - smoothstep(4.2, 6.6, distance)
+	var speck := sin(x * 1.7 + z * 1.1) * 0.5 + 0.5
+	sand_band = clampf(sand_band + (speck - 0.5) * 0.45, 0.0, 1.0)
+	var sand_color := SceneryPalette.SAND.lerp(SceneryPalette.SAND_DARK, patch_a * 0.30)
+	# Solco scuro subito fuori dal cordolo: appoggia la strada al terreno.
+	var gutter := 1.0 - smoothstep(3.9, 4.9, distance)
+	sand_color = sand_color.lerp(SceneryPalette.SAND_DARK, gutter * 0.45)
+	return grass.lerp(sand_color, sand_band)
 
 
 # ----------------------------------------------------------------- Griglia ---
