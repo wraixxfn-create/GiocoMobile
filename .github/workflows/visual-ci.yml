@@ -10,27 +10,46 @@ permissions:
   contents: write
 
 jobs:
-  probe:
+  render:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Probe Godot download and display stack
+      - name: Install renderer stack
         run: |
-          echo "runner: $(uname -a)"
-          which xvfb-run || true
-          ls /usr/lib/x86_64-linux-gnu/dri 2>/dev/null | head
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb mesa-vulkan-drivers mesa-utils libgl1-mesa-dri libglx-mesa0
+      - name: Download Godot 4.3
+        run: |
           curl -sL -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
           unzip -o -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.3-stable_linux.x86_64
           /tmp/godot/Godot_v4.3-stable_linux.x86_64 --version
-      - name: Write probe result
+      - name: Import project
+        run: |
+          /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . --import 2>&1 | tee /tmp/import.log
+      - name: Capture screenshots
+        run: |
+          set -o pipefail
+          xvfb-run -a -s "-screen 0 1080x1700x24" \
+            /tmp/godot/Godot_v4.3-stable_linux.x86_64 --path . \
+            --rendering-driver vulkan --rendering-method mobile \
+            --resolution 900x1600 res://tools/CaptureLevel.tscn 2>&1 | tee /tmp/capture.log || \
+          xvfb-run -a -s "-screen 0 1080x1700x24" \
+            /tmp/godot/Godot_v4.3-stable_linux.x86_64 --path . \
+            --rendering-driver opengl3 --rendering-method gl_compatibility \
+            --resolution 900x1600 res://tools/CaptureLevel.tscn 2>&1 | tee /tmp/capture.log
+      - name: Publish screenshots
         run: |
           mkdir -p docs/visual-ci
-          date -u +"%Y-%m-%dT%H:%M:%SZ" > docs/visual-ci/last-probe.txt
-          echo "ok" >> docs/visual-ci/last-probe.txt
-      - name: Commit probe
-        run: |
+          cp /tmp/import.log docs/visual-ci/import.log || true
+          cp /tmp/capture.log docs/visual-ci/capture.log || true
           git config user.name "visual-ci"
           git config user.email "visual-ci@users.noreply.github.com"
-          git add docs/visual-ci/last-probe.txt
-          git commit -m "chore(ci): visual pipeline probe [skip ci]"
-          git push
+          git add docs/screenshots docs/visual-ci
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica da pubblicare"
+          else
+            git commit -m "chore(visual): screenshot del livello [skip ci]"
+            git push
+          fi
