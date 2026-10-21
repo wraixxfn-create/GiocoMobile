@@ -68,6 +68,18 @@ func _ready() -> void:
 					var arrays := mi.mesh.surface_get_arrays(s)
 					tris += (arrays[Mesh.ARRAY_INDEX] as PackedInt32Array).size() / 3 if arrays[Mesh.ARRAY_INDEX] != null else 0
 		print("CAR_MESHES=%d empty=%d tris=%d" % [meshes, empty, tris])
+	print("--- CAR TREE ---")
+	for node in car.find_children("*", "Node3D", true, false):
+		var n3 := node as Node3D
+		var extra := ""
+		if node is MeshInstance3D:
+			var mi := node as MeshInstance3D
+			var aabb := mi.get_aabb()
+			var global_aabb := mi.global_transform * aabb
+			extra = " mesh=%s aabb_pos=%s aabb_size=%s" % [
+				mi.mesh.get_class() if mi.mesh != null else "null",
+				global_aabb.position, global_aabb.size]
+		print("  ", car.get_path_to(n3), " pos=", n3.global_position, extra)
 	var scenery := main.get_node_or_null("Scenery")
 	print("SCENERY=", scenery)
 	get_tree().quit(0)

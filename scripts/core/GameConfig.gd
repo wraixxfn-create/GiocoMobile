@@ -13,6 +13,11 @@ const SEGMENT_LENGTH: float = 40.0
 const SEGMENT_COUNT: int = 10
 
 # -------------------------------------------------------------------- Car ---
+## Spostamenti dell'auto oltre questo limite (in un solo passo) sono trattati
+## come teletrasporti (test, reset, debug) e non generano attraversamenti di
+## cancelli: in gioco reale l'auto avanza al massimo di ~1 m per passo fisico.
+const GATE_TELEPORT_LIMIT: float = 8.0
+
 ## Ingombro dell'auto (le ruote sono la parte più larga, la carrozzeria la più lunga).
 const CAR_HALF_WIDTH: float = 0.86
 const CAR_HALF_LENGTH: float = 1.73
