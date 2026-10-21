@@ -177,11 +177,11 @@ static func stage_glass(level: int, color: Color) -> StandardMaterial3D:
 	if not _cache.has(key):
 		var material := StandardMaterial3D.new()
 		material.albedo_color = color
-		material.roughness = 0.34
+		material.roughness = 0.18
 		material.metallic = 0.0
 		material.clearcoat_enabled = true
-		material.clearcoat = 0.30
-		material.clearcoat_roughness = 0.28
+		material.clearcoat = 0.60
+		material.clearcoat_roughness = 0.10
 		_cache[key] = material
 	return _cache[key] as StandardMaterial3D
 

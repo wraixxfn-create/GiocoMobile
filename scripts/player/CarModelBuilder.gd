@@ -903,7 +903,7 @@ static func _make_materials(profile: CarEvolutionProfile) -> Dictionary:
 		# Vetro scuro, non uno specchio azzurro: con riflesso pieno il lunotto
 		# posteriore diventava la superficie più grande e più chiara dell'auto.
 		"glass": MaterialFactory.stage_glass(
-			profile.level, profile.glass_color.darkened(0.42)
+			profile.level, profile.glass_color.lightened(0.25)
 		),
 		"rim": MaterialFactory.stage_material(
 			profile.level, "rim", profile.rim_color, 0.20, 0.80

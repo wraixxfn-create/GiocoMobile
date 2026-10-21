@@ -28,11 +28,14 @@ const FOG_COLOR := Color(0.66, 0.82, 0.84)
 
 # ----------------------------------------------------------------- Strada ---
 
-const ROAD_BASE := Color(0.35, 0.37, 0.42)
-const ROAD_EDGE := Color(0.28, 0.30, 0.34)
-const ROAD_WEAR := Color(0.41, 0.43, 0.47)
-const ROAD_PATCH := Color(0.28, 0.31, 0.37)
-const ROAD_JOINT := Color(0.23, 0.26, 0.31)
+## Nota: queste tinte finiscono in una texture, quindi vengono codificate in
+## sRGB. Sono più chiare di quanto sembri perché il renderer le converte in
+## lineare: erano troppo scure e la strada leggeva come blu notte.
+const ROAD_BASE := Color(0.52, 0.53, 0.56)
+const ROAD_EDGE := Color(0.42, 0.43, 0.46)
+const ROAD_WEAR := Color(0.58, 0.59, 0.62)
+const ROAD_PATCH := Color(0.40, 0.41, 0.45)
+const ROAD_JOINT := Color(0.34, 0.35, 0.38)
 const LANE_PAINT := Color(0.95, 0.94, 0.89)
 const CURB_LIGHT := Color(0.94, 0.93, 0.88)
 const CURB_RED := Color(0.84, 0.24, 0.24)
