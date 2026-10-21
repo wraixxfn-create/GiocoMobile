@@ -41,6 +41,8 @@ var _debug_shots: Array[Dictionary] = [
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 	{"name": "_tmp/dx_noterrain", "z": -212.0, "x": 0.0, "mode": "game", "probe": "no_terrain",
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
+	{"name": "_tmp/dx_clones", "z": -212.0, "x": 0.0, "mode": "game", "probe": "clones",
+		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 ]
 
 
@@ -70,6 +72,13 @@ func _ready() -> void:
 			await _capture(shot, hud)
 	print("CAPTURE COMPLETE")
 	get_tree().quit(0)
+
+
+func _probe_material(color: Color) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.albedo_color = color
+	return material
 
 
 func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
@@ -134,6 +143,21 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 		"no_terrain":
 			var ground := _main.get_node("World/GroundField/Terrain") as MeshInstance3D
 			ground.visible = false
+		"clones":
+			var z_probe := float(shot["z"]) - 16.0
+			var box := BoxMesh.new()
+			box.size = Vector3(7.0, 0.2, 18.0)
+			var box_node := MeshInstance3D.new()
+			box_node.name = "ProbeBox"
+			box_node.mesh = box
+			box_node.material_override = _probe_material(Color(0.1, 1.0, 0.2))
+			box_node.position = Vector3(0.0, 0.4, z_probe)
+			_main.add_child(box_node)
+			var asphalt_node := _main.get_node("TrackManager/Segment_0/Asphalt") as MeshInstance3D
+			asphalt_node.material_override = _probe_material(Color(1.0, 0.55, 0.0))
+			asphalt_node.position.y += 0.7
+			var paint_node := _main.get_node("TrackManager/Segment_0/Paint") as MeshInstance3D
+			paint_node.position.y += 1.4
 		"red":
 			var flat_red := StandardMaterial3D.new()
 			flat_red.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
