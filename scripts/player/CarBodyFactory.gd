@@ -115,6 +115,18 @@ static func build_loft(
 			var d := (i + 1) * ring_n + j
 			grid_tris.append_array(PackedInt32Array([a, b, c, a, c, d]))
 	var grid_normals := _accumulate_normals(grid, grid_tris)
+	# Il verso di avvolgimento dipende dall'ordine dell'anello: lo verifichiamo
+	# sul vertice più alto (la normale deve puntare in alto). Se è invertito,
+	# l'intera superficie verrebbe illuminata dal lato sbagliato.
+	var winding_flip := not _winding_is_outward(grid, grid_normals)
+	if winding_flip:
+		var flipped := PackedInt32Array()
+		for t in grid_tris.size() / 3:
+			flipped.append_array([
+				grid_tris[t * 3], grid_tris[t * 3 + 2], grid_tris[t * 3 + 1],
+			])
+		grid_tris = flipped
+		grid_normals = _accumulate_normals(grid, grid_tris)
 
 	# Smistamento in bucket: vertici duplicati per bucket, normali copiate.
 	var buckets: Dictionary = {}
@@ -134,7 +146,10 @@ static func build_loft(
 			)
 			var d := _bucket_vertex(data, grid, grid_normals, (i + 1) * ring_n + j, min_z, z_span, ring_n)
 			var indices: Array[int] = data["indices"]
-			indices.append_array([a, b, c, a, c, d])
+			if winding_flip:
+				indices.append_array([a, c, b, a, d, c])
+			else:
+				indices.append_array([a, b, c, a, c, d])
 
 	_add_loft_cap(buckets, bucket, grid, grid_normals, ring, stations, 0, -1.0, min_z, z_span)
 	_add_loft_cap(
@@ -301,6 +316,20 @@ static func _sample_section(keys: Array, count: int) -> Array:
 
 
 ## Normali per-vertice accumulate dalle facce: shading morbido e continuo.
+## True se le normali accumulate puntano verso l'esterno: si controlla il
+## vertice più alto della griglia (la sua normale deve avere componente +Y).
+static func _winding_is_outward(
+	grid: PackedVector3Array, normals: PackedVector3Array
+) -> bool:
+	var best := -INF
+	var best_index := 0
+	for i in mini(grid.size(), normals.size()):
+		if grid[i].y > best:
+			best = grid[i].y
+			best_index = i
+	return normals[best_index].y >= 0.0
+
+
 static func _accumulate_normals(
 	verts: PackedVector3Array, indices: PackedInt32Array
 ) -> PackedVector3Array:

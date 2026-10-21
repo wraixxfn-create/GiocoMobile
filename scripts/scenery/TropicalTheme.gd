@@ -16,13 +16,13 @@ extends RefCounted
 ## Direzione del sole: da sinistra, alto, leggermente dietro la camera.
 ## Le ombre cadono in avanti a destra, leggibili sulla carreggiata.
 const SUN_ROTATION_DEG := Vector3(-48.0, -34.0, 0.0)
-const SUN_ENERGY: float = 1.42
-const AMBIENT_ENERGY: float = 0.92
+const SUN_ENERGY: float = 1.22
+const AMBIENT_ENERGY: float = 0.34
 const SHADOW_DISTANCE: float = 62.0
-const SHADOW_OPACITY: float = 0.72
+const SHADOW_OPACITY: float = 0.80
 const SHADOW_BLUR: float = 1.5
-const FOG_BEGIN: float = 92.0
-const FOG_END: float = 330.0
+const FOG_BEGIN: float = 135.0
+const FOG_END: float = 470.0
 
 
 ## Cielo procedurale: azzurro pieno in alto, orizzonte chiaro e caldo.
@@ -50,18 +50,18 @@ static func apply_environment(environment: Environment) -> void:
 	environment.sky = build_sky()
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
 	environment.ambient_light_color = SceneryPalette.AMBIENT_COLOR
-	environment.ambient_light_sky_contribution = 0.62
+	environment.ambient_light_sky_contribution = 0.45
 	environment.ambient_light_energy = AMBIENT_ENERGY
 	environment.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
 
 	# Nessun effetto pesante: solo tonemapping e correzioni colore.
 	environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	environment.tonemap_exposure = 1.02
-	environment.tonemap_white = 1.18
+	environment.tonemap_exposure = 1.0
+	environment.tonemap_white = 1.0
 	environment.adjustment_enabled = true
 	environment.adjustment_brightness = 1.01
-	environment.adjustment_contrast = 1.06
-	environment.adjustment_saturation = 1.10
+	environment.adjustment_contrast = 1.10
+	environment.adjustment_saturation = 1.08
 	environment.glow_enabled = false
 	environment.ssao_enabled = false
 	environment.ssil_enabled = false
@@ -75,8 +75,8 @@ static func apply_environment(environment: Environment) -> void:
 	environment.fog_light_energy = 1.0
 	environment.fog_depth_begin = FOG_BEGIN
 	environment.fog_depth_end = FOG_END
-	environment.fog_depth_curve = 1.35
-	environment.fog_sky_affect = 0.18
+	environment.fog_depth_curve = 1.6
+	environment.fog_sky_affect = 0.10
 
 
 ## Configura l'unica luce direzionale della scena.
