@@ -26,7 +26,7 @@ var _shots: Array[Dictionary] = [
 		"orbit_angle": 2.45, "orbit_distance": 4.6, "orbit_height": 1.7},
 	{"name": "06_overview", "z": -150.0, "x": 0.0, "mode": "overview",
 		"height": 22.0, "distance": 30.0, "look": 46.0, "look_height": 0.0, "fov": 58.0},
-	{"name": "07_hud_race", "z": -96.0, "x": 0.4, "mode": "game", "hud": true},
+	{"name": "07_hud_race", "z": -96.0, "x": 0.4, "mode": "game", "hud": true, "running": true},
 ]
 
 
@@ -58,6 +58,12 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 	_car.lateral_target = float(shot["x"])
 	hud.visible = bool(shot.get("hud", false))
 	var mode: String = str(shot.get("mode", "game"))
+	if bool(shot.get("running", false)):
+		var manager := _main.get_node("GameManager") as GameManager
+		if manager.state != GameManager.State.PLAYING:
+			manager.start_game()
+		# Aspetta il countdown e un attimo di corsa reale.
+		await get_tree().create_timer(3.2).timeout
 	# Lascia aggiornare pista, scenario e camera di gioco.
 	for i in 3:
 		await get_tree().process_frame

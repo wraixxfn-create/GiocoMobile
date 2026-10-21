@@ -1255,6 +1255,7 @@ func _test_obstacle_collision_barrier() -> void:
 	var penetration := false
 	var hit_seen := false
 	var z_at_hit := 0.0
+	var factor_at_hit := 1.0
 	var guard := 0
 	# L'auto attraversa la zona: urto, arresto sulla faccia, sfondamento e ripresa.
 	while _car.position.z > front_face - 6.0 and guard < 900:
@@ -1264,6 +1265,7 @@ func _test_obstacle_collision_barrier() -> void:
 		if not hit_seen and _obstacle_manager.hit_count > hits_before:
 			hit_seen = true
 			z_at_hit = _car.position.z
+			factor_at_hit = _car.speed_penalty_factor
 		guard += 1
 
 	_check(guard < 900, "barriera: la simulazione termina in tempo finito")
@@ -1279,8 +1281,8 @@ func _test_obstacle_collision_barrier() -> void:
 	_check(_obstacle_manager.hit_count == hits_before + 1, "barriera: un solo urto contato")
 	_check(_car.is_speed_penalized(), "barriera: perdita di velocità temporanea attiva")
 	_check(
-		absf(_car.speed_penalty_factor - GameConfig.OBSTACLE_BARRIER_SPEED_FACTOR) < 0.001,
-		"barriera: fattore di penalità configurato (%.2f)" % _car.speed_penalty_factor,
+		absf(factor_at_hit - GameConfig.OBSTACLE_BARRIER_SPEED_FACTOR) < 0.001,
+		"barriera: fattore di penalità configurato nell'istante dell'urto (%.2f)" % factor_at_hit,
 	)
 	_check(
 		_game_manager.evolution_level == level_before,
@@ -1330,8 +1332,11 @@ func _test_obstacle_collision_cone() -> void:
 	var hits_before := _obstacle_manager.hit_count
 	var level_before := _game_manager.evolution_level
 	var guard := 0
+	var factor_at_hit := 1.0
 	while _car.position.z > row.z - 5.0 and guard < 600:
 		_drive_step(OBSTACLE_TEST_DT)
+		if factor_at_hit == 1.0 and _obstacle_manager.hit_count > hits_before:
+			factor_at_hit = _car.speed_penalty_factor
 		guard += 1
 
 	_check(guard < 600, "coni: la simulazione termina in tempo finito")
@@ -1343,9 +1348,11 @@ func _test_obstacle_collision_cone() -> void:
 	_check(target.state == Obstacle.State.HIT, "coni: il cono urtato si abbatte")
 	_check(not target.is_collidable(), "coni: il cono abbattuto non collide più")
 	_check(_car.is_speed_penalized(), "coni: perdita di velocità leggera attiva")
+	# Il fattore si verifica all'istante dell'urto: poi il recupero soft lo
+	# riporta gradualmente verso 1.0 (comportamento voluto).
 	_check(
-		absf(_car.speed_penalty_factor - GameConfig.OBSTACLE_CONE_SPEED_FACTOR) < 0.001,
-		"coni: penalità leggera configurata (%.2f)" % _car.speed_penalty_factor,
+		absf(factor_at_hit - GameConfig.OBSTACLE_CONE_SPEED_FACTOR) < 0.001,
+		"coni: penalità leggera configurata nell'istante dell'urto (%.2f)" % factor_at_hit,
 	)
 	_check(
 		_game_manager.evolution_level == level_before,
@@ -1526,18 +1533,22 @@ func _test_obstacle_wall_precision() -> void:
 	var level_before := _game_manager.evolution_level
 	var penetration := false
 	guard = 0
+	var wall_factor_at_hit := 1.0
 	while _obstacle_manager.hit_count == hits_before and guard < 600:
 		_drive_step(OBSTACLE_TEST_DT)
 		if wall.is_collidable() and _car_touches_rect(wall.collision_rect()):
 			penetration = true
+		if _obstacle_manager.hit_count > hits_before:
+			wall_factor_at_hit = _car.speed_penalty_factor
 		guard += 1
 	_check(guard < 600, "restringimento: l'urto col muro viene rilevato")
 	_check(not penetration, "restringimento: l'auto non attraversa il muro")
 	_check(wall.state == Obstacle.State.BROKEN, "restringimento: il muro si sfonda")
 	_check(_car.is_speed_penalized(), "restringimento: perdita di velocità temporanea")
 	_check(
-		absf(_car.speed_penalty_factor - GameConfig.OBSTACLE_WALL_SPEED_FACTOR) < 0.001,
-		"restringimento: fattore di penalità configurato",
+		absf(wall_factor_at_hit - GameConfig.OBSTACLE_WALL_SPEED_FACTOR) < 0.001,
+		"restringimento: fattore di penalità configurato nell'istante dell'urto (%.2f)"
+		% wall_factor_at_hit,
 	)
 	_check(
 		_game_manager.evolution_level == level_before,

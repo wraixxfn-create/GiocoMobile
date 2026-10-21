@@ -205,7 +205,7 @@ static func _apply_palette(profile: CarEvolutionProfile, _level: int) -> void:
 			profile.glow_color = Color(0.68, 0.58, 0.30)
 			profile.headlight_color = Color(1.0, 0.90, 0.62)
 		CarEvolutionProfile.Silhouette.HATCHBACK:
-			profile.glass_color = Color(0.14, 0.23, 0.31)
+			profile.glass_color = Color(0.10, 0.17, 0.25)
 			profile.rim_color = Color(0.78, 0.80, 0.84)
 			profile.trim_alt_color = Color(0.22, 0.23, 0.27)
 		CarEvolutionProfile.Silhouette.SEDAN:
