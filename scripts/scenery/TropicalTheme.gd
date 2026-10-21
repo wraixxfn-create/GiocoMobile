@@ -16,8 +16,8 @@ extends RefCounted
 ## Direzione del sole: da sinistra, alto, leggermente dietro la camera.
 ## Le ombre cadono in avanti a destra, leggibili sulla carreggiata.
 const SUN_ROTATION_DEG := Vector3(-46.0, 26.0, 0.0)
-const SUN_ENERGY: float = 1.10
-const AMBIENT_ENERGY: float = 0.24
+const SUN_ENERGY: float = 1.14
+const AMBIENT_ENERGY: float = 0.30
 const SHADOW_DISTANCE: float = 62.0
 const SHADOW_OPACITY: float = 0.80
 const SHADOW_BLUR: float = 1.5
@@ -50,18 +50,18 @@ static func apply_environment(environment: Environment) -> void:
 	environment.sky = build_sky()
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
 	environment.ambient_light_color = SceneryPalette.AMBIENT_COLOR
-	environment.ambient_light_sky_contribution = 0.38
+	environment.ambient_light_sky_contribution = 0.18
 	environment.ambient_light_energy = AMBIENT_ENERGY
 	environment.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
 
 	# Nessun effetto pesante: solo tonemapping e correzioni colore.
 	environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	environment.tonemap_exposure = 1.0
-	environment.tonemap_white = 1.0
+	environment.tonemap_exposure = 0.97
+	environment.tonemap_white = 1.18
 	environment.adjustment_enabled = true
 	environment.adjustment_brightness = 1.01
-	environment.adjustment_contrast = 1.08
-	environment.adjustment_saturation = 1.16
+	environment.adjustment_contrast = 1.10
+	environment.adjustment_saturation = 1.20
 	environment.glow_enabled = false
 	environment.ssao_enabled = false
 	environment.ssil_enabled = false

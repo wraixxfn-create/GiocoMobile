@@ -29,6 +29,14 @@ var _shots: Array[Dictionary] = [
 	{"name": "07_hud_race", "z": -96.0, "x": 0.4, "mode": "game", "hud": true, "running": true},
 ]
 
+## Inquadrature diagnostiche (solo con GIOCO_DEBUG=1): mostrano l'albedo
+## puro e il fondo sostituito da un colore pieno, per distinguere un difetto
+## di luce da un buco nella geometria.
+var _debug_shots: Array[Dictionary] = [
+	{"name": "_tmp/dx_albedo", "z": -96.0, "x": 0.4, "mode": "game", "debug_draw": Viewport.DEBUG_DRAW_UNSHADED},
+	{"name": "_tmp/dx_flat_bg", "z": -96.0, "x": 0.4, "mode": "game", "flat_background": true},
+]
+
 
 func _ready() -> void:
 	# Watchdog: la cattura non deve mai blocare la CI.
@@ -37,6 +45,7 @@ func _ready() -> void:
 		get_tree().quit(3)
 	)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT_DIR))
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT_DIR + "/_tmp"))
 	_main = MAIN_SCENE.instantiate()
 	add_child(_main)
 	print("CAPTURE ready")
@@ -49,6 +58,10 @@ func _ready() -> void:
 	for shot in _shots:
 		print("CAPTURE shot ", shot["name"])
 		await _capture(shot, hud)
+	if OS.get_environment("GIOCO_DEBUG") == "1":
+		for shot in _debug_shots:
+			print("CAPTURE debug ", shot["name"])
+			await _capture(shot, hud)
 	print("CAPTURE COMPLETE")
 	get_tree().quit(0)
 
@@ -102,6 +115,13 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 				Vector3(_car.position.x, float(shot.get("look_height", 0.0)), _car.position.z - look),
 				Vector3.UP,
 			)
+	if shot.has("debug_draw"):
+		get_viewport().debug_draw = int(shot["debug_draw"]) as Viewport.DebugDraw
+	if bool(shot.get("flat_background", false)):
+		var world_env := _main.get_node("WorldEnvironment") as WorldEnvironment
+		world_env.environment.background_mode = Environment.BG_COLOR
+		world_env.environment.background_color = Color(1.0, 0.0, 1.0)
+		world_env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	for i in 2:
 		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
@@ -109,5 +129,6 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 	var path := ProjectSettings.globalize_path("%s/%s.png" % [OUTPUT_DIR, shot["name"]])
 	var error := image.save_png(path)
 	print("SHOT %s err=%d %dx%d" % [path, error, image.get_width(), image.get_height()])
+	get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
 	if mode != "game":
 		_main.set_process(true)

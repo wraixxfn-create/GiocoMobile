@@ -20,11 +20,11 @@ extends RefCounted
 # ------------------------------------------------------------------ Cielo ---
 
 const SKY_TOP := Color(0.13, 0.53, 0.82)
-const SKY_HORIZON := Color(0.77, 0.92, 0.91)
-const SKY_GROUND := Color(0.72, 0.87, 0.80)
+const SKY_HORIZON := Color(0.70, 0.87, 0.90)
+const SKY_GROUND := Color(0.40, 0.58, 0.48)
 const SUN_COLOR := Color(1.0, 0.95, 0.84)
 const AMBIENT_COLOR := Color(0.78, 0.90, 1.0)
-const FOG_COLOR := Color(0.72, 0.87, 0.85)
+const FOG_COLOR := Color(0.66, 0.82, 0.84)
 
 # ----------------------------------------------------------------- Strada ---
 
@@ -41,13 +41,13 @@ const CURB_SIDE := Color(0.78, 0.77, 0.73)
 # ---------------------------------------------------------------- Terreno ---
 
 ## Fascia sabbiosa subito fuori dal cordolo.
-const SAND := Color(0.80, 0.70, 0.50)
-const SAND_DARK := Color(0.69, 0.59, 0.41)
+const SAND := Color(0.66, 0.55, 0.37)
+const SAND_DARK := Color(0.52, 0.43, 0.28)
 ## Prato: tre toni che si alternano a chiazze morbide.
-const GRASS_DEEP := Color(0.15, 0.38, 0.23)
-const GRASS_BASE := Color(0.23, 0.48, 0.27)
-const GRASS_LIGHT := Color(0.33, 0.57, 0.30)
-const GRASS_DRY := Color(0.52, 0.62, 0.35)
+const GRASS_DEEP := Color(0.12, 0.31, 0.18)
+const GRASS_BASE := Color(0.18, 0.40, 0.22)
+const GRASS_LIGHT := Color(0.28, 0.51, 0.25)
+const GRASS_DRY := Color(0.43, 0.49, 0.26)
 
 # ------------------------------------------------------------- Vegetazione ---
 

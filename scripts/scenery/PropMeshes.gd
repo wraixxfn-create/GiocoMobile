@@ -608,7 +608,6 @@ static func box(size: Vector3) -> Dictionary:
 		var v := normal.cross(u).normalized()
 		u = v.cross(normal).normalized()
 		var center := Vector3(normal.x * half.x, normal.y * half.y, normal.z * half.z)
-		var eu := absf(u.dot(half)) + absf(v.dot(half)) * 0.0
 		var extent_u := absf(u.x) * half.x + absf(u.y) * half.y + absf(u.z) * half.z
 		var extent_v := absf(v.x) * half.x + absf(v.y) * half.y + absf(v.z) * half.z
 		var base := verts.size()

@@ -79,6 +79,20 @@ func _ready() -> void:
 					var arrays := mi.mesh.surface_get_arrays(s)
 					tris += (arrays[Mesh.ARRAY_INDEX] as PackedInt32Array).size() / 3 if arrays[Mesh.ARRAY_INDEX] != null else 0
 		print("CAR_MESHES=%d empty=%d tris=%d" % [meshes, empty, tris])
+	print("--- CAR MATERIALS ---")
+	for node in car.find_children("*", "MeshInstance3D", true, false):
+		var mi := node as MeshInstance3D
+		if mi.mesh == null or mi.mesh.get_surface_count() == 0:
+			continue
+		var mat := mi.material_override as StandardMaterial3D
+		if mat == null:
+			continue
+		var aabb := mi.global_transform * mi.get_aabb()
+		if aabb.size.y < 0.002:
+			continue
+		print("  %s albedo=%s metallic=%.2f rough=%.2f y=%.2f..%.2f" % [
+			mi.name, mat.albedo_color, mat.metallic, mat.roughness,
+			aabb.position.y, aabb.position.y + aabb.size.y])
 	print("--- CAR TREE ---")
 	for node in car.find_children("*", "Node3D", true, false):
 		var n3 := node as Node3D

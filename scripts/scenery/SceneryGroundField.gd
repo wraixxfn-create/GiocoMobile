@@ -20,8 +20,8 @@ const NEAR_Z: float = 120.0
 const FAR_Z: float = -1240.0
 const GRASS_INSTANCES: int = 6200
 const FLOWER_INSTANCES: int = 420
-const SAND_INNER: float = 4.36
-const SAND_OUTER: float = 5.4
+const SAND_INNER: float = 3.72
+const SAND_OUTER: float = 4.85
 const GRASS_START: float = 7.0
 
 static var _tuft_mesh: Mesh = null
@@ -78,7 +78,10 @@ static func color_at(x: float, z: float) -> Color:
 	var height_factor := smoothstep(1.0, 9.0, height_at(x, z))
 	grass = grass.lerp(SceneryPalette.GRASS_DRY, height_factor * 0.30)
 	var sand_color := SceneryPalette.SAND.lerp(SceneryPalette.SAND_DARK, patch_a * 0.35)
-	return sand_color.lerp(grass, 1.0 - sand)
+	# Bordo sabbia mai pulito: l'erba lo invade a chiazze.
+	var speck := sin(x * 2.7 + z * 1.9) * 0.5 + 0.5
+	sand_color = sand_color.lerp(SceneryPalette.GRASS_DRY, speck * 0.16)
+	return sand_color.lerp(grass, 1.0 - sand * 0.72)
 
 
 # ----------------------------------------------------------------- Griglia ---
@@ -180,9 +183,6 @@ func _build_grass() -> MultiMeshInstance3D:
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D
 	multimesh.use_colors = true
 	multimesh.mesh = _tuft()
-	# Ombra statica "dipinta": ogni ciuffo ha una macchia scura leggera ai
-	# piedi. Dà contrasto al prato senza una sola ombra dinamica in più.
-	multimesh.use_custom_data = true
 	multimesh.instance_count = GRASS_INSTANCES
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 31415
@@ -204,9 +204,6 @@ func _build_grass() -> MultiMeshInstance3D:
 			SceneryPalette.grass(rng.randi_range(0, 2)).lerp(
 				SceneryPalette.GRASS_DRY, rng.randf_range(0.0, 0.22)
 			),
-		)
-		multimesh.set_instance_custom_data(
-			index, Color(rng.randf(), 0.0, 0.0, 0.0)
 		)
 	var holder := MultiMeshInstance3D.new()
 	holder.name = "Grass"

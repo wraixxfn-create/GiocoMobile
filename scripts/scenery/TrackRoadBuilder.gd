@@ -55,44 +55,97 @@ static func _road() -> ArrayMesh:
 	var half_length := GameConfig.SEGMENT_LENGTH * 0.5
 	var chamfer := 0.06
 	var thickness := 0.26
-	# Profilo trasversale: (x, y, u).
-	var profile: Array[Vector3] = [
-		Vector3(-half_width, 0.0, 0.0),
-		Vector3(-half_width - chamfer, -0.035, -0.012),
-		Vector3(-half_width - chamfer, -thickness, -0.012),
-		Vector3(half_width + chamfer, -thickness, 1.012),
-		Vector3(half_width + chamfer, -0.035, 1.012),
-		Vector3(half_width, 0.0, 1.0),
-	]
-	var verts := PackedVector3Array()
-	var normals := PackedVector3Array()
-	var uvs := PackedVector2Array()
-	var indices := PackedInt32Array()
-	var z_values: Array[float] = [-half_length, half_length]
-	for z in z_values:
-		for point in profile:
-			verts.append(Vector3(point.x, point.y, z))
-			uvs.append(Vector2(point.z, (z + half_length) / ROAD_UV_LENGTH))
-			if point.y > -0.001:
-				normals.append(Vector3.UP)
-			elif point.x < 0.0:
-				normals.append(Vector3.LEFT if point.y < -0.1 else Vector3(-0.5, 0.86, 0.0).normalized())
-			else:
-				normals.append(Vector3.RIGHT if point.y < -0.1 else Vector3(0.5, 0.86, 0.0).normalized())
-	var count := profile.size()
-	for i in count - 1:
-		var a := i
-		var b := i + 1
-		var c := count + i + 1
-		var d := count + i
-		indices.append_array([a, b, c, a, c, d])
-	# Faccia superiore: chiude il profilo tra l'ultimo punto e il primo.
-	# Senza questa chiusura la carreggiata sarebbe un guscio aperto e si
-	# vedrebbe il cielo attraverso l'asfalto.
-	var last := count - 1
-	indices.append_array([last, 0, count, last, count, count + last])
-	_road_mesh = _mesh(verts, normals, uvs, indices)
+	# Array non tipizzati (riferimenti condivisi): così `_push_quad` può
+	# accumulare. I Packed*Array vengono convertiti solo alla fine.
+	var verts: Array[Vector3] = []
+	var normals: Array[Vector3] = []
+	var uvs: Array[Vector2] = []
+	var indices: Array[int] = []
+
+	# Piano di guida a griglia: la texture dell'asfalto non viene più stirata
+	# su due soli triangoli da 40 m (era la causa delle bande chiare/scure).
+	var across := 9
+	var along := 8
+	for row in along + 1:
+		var z := half_length - GameConfig.SEGMENT_LENGTH * float(row) / float(along)
+		for col in across + 1:
+			var x := -half_width + GameConfig.TRACK_WIDTH * float(col) / float(across)
+			verts.append(Vector3(x, 0.0, z))
+			normals.append(Vector3.UP)
+			uvs.append(Vector2((x + half_width) / GameConfig.TRACK_WIDTH, z / ROAD_UV_LENGTH))
+	for row in along:
+		for col in across:
+			var a := row * (across + 1) + col
+			var b := a + 1
+			var c := a + across + 1
+			var d := c + 1
+			indices.append_array([a, b, c, b, d, c])
+
+	# Bordi: smusso superiore e spessore laterale visibile.
+	for row in along:
+		var z0 := half_length - GameConfig.SEGMENT_LENGTH * float(row) / float(along)
+		var z1 := z0 - GameConfig.SEGMENT_LENGTH / float(along)
+		for side: float in [-1.0, 1.0]:
+			var normal_side := Vector3(side, 0.0, 0.0)
+			var normal_chamfer := Vector3(side * 0.5, 0.86, 0.0).normalized()
+			var top_in := Vector3(side * half_width, 0.0, z0)
+			var top_in_far := Vector3(side * half_width, 0.0, z1)
+			var top_out := Vector3(side * (half_width + chamfer), -0.035, z0)
+			var top_out_far := Vector3(side * (half_width + chamfer), -0.035, z1)
+			var bottom := Vector3(side * (half_width + chamfer), -thickness, z0)
+			var bottom_far := Vector3(side * (half_width + chamfer), -thickness, z1)
+			_push_quad(
+				verts, normals, uvs, indices,
+				top_in, top_in_far, top_out_far, top_out,
+				Vector2(0.0, z0 / ROAD_UV_LENGTH), Vector2(0.0, z1 / ROAD_UV_LENGTH),
+				Vector2(0.02, z1 / ROAD_UV_LENGTH), Vector2(0.02, z0 / ROAD_UV_LENGTH),
+				normal_chamfer,
+			)
+			_push_quad(
+				verts, normals, uvs, indices,
+				top_out, top_out_far, bottom_far, bottom,
+				Vector2(0.0, z0 / ROAD_UV_LENGTH), Vector2(0.0, z1 / ROAD_UV_LENGTH),
+				Vector2(0.1, z1 / ROAD_UV_LENGTH), Vector2(0.1, z0 / ROAD_UV_LENGTH),
+				normal_side,
+			)
+
+	_road_mesh = _mesh(
+		PackedVector3Array(verts),
+		PackedVector3Array(normals),
+		PackedVector2Array(uvs),
+		PackedInt32Array(indices),
+	)
 	return _road_mesh
+
+
+## Aggiunge un quad scegliendo da sé il verso giusto: la faccia guarda
+## `face_normal`. Evita di dover ragionare sull'ordine dei vertici a mano.
+static func _push_quad(
+	verts: Array,
+	normals: Array,
+	uvs: Array,
+	indices: Array,
+	p0: Vector3,
+	p1: Vector3,
+	p2: Vector3,
+	p3: Vector3,
+	uv0: Vector2,
+	uv1: Vector2,
+	uv2: Vector2,
+	uv3: Vector2,
+	face_normal: Vector3,
+) -> void:
+	var points: Array[Vector3] = [p0, p1, p2, p3]
+	var coords: Array[Vector2] = [uv0, uv1, uv2, uv3]
+	if (p1 - p0).cross(p2 - p0).dot(face_normal) < 0.0:
+		points = [p0, p3, p2, p1]
+		coords = [uv0, uv3, uv2, uv1]
+	var base := verts.size()
+	for index in 4:
+		verts.append(points[index])
+		normals.append(face_normal)
+		uvs.append(coords[index])
+	indices.append_array([base, base + 1, base + 2, base, base + 2, base + 3])
 
 
 ## Cordoli + strisce, in una sola mesh colorata per vertice.
