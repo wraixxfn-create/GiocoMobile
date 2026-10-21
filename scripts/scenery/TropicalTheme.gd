@@ -13,9 +13,10 @@ extends RefCounted
 ## - camera più bassa e vicina: l'auto resta il soggetto, la strada si apre
 ##   davanti e i cancelli sono visibili molto prima di attraversarli.
 
-## Direzione del sole: da sinistra, alto, leggermente dietro la camera.
-## Le ombre cadono in avanti a destra, leggibili sulla carreggiata.
-const SUN_ROTATION_DEG := Vector3(-46.0, 26.0, 0.0)
+## Direzione del sole: alto, da sinistra e alle spalle della camera.
+## Così la coda dell'auto (la parte che si vede sempre) è illuminata e le
+## ombre cadono in avanti, visibili invece che nascoste dietro agli oggetti.
+const SUN_ROTATION_DEG := Vector3(-44.0, -30.0, 0.0)
 const SUN_ENERGY: float = 1.14
 const AMBIENT_ENERGY: float = 0.30
 const SHADOW_DISTANCE: float = 58.0
