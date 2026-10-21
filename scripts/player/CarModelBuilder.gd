@@ -137,7 +137,7 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 		"glass_bottom_f": 0.84,
 		"pillars_b": Vector2(0.46, 0.53),
 		"pillars_c": Vector2(0.80, 0.95),
-		"roof_split": 0.80,
+		"roof_split": 0.62,
 		"a_pillars": true,
 		"clad_split": 0.20,
 		"arch_gap": 0.05,
@@ -611,7 +611,7 @@ static func _add_details(ctx: Dictionary) -> void:
 	# Fari anteriori: guscio scuro + lente emissiva, ancorati alla spalla
 	# del muso. La hypercar usa una barra luminosa continua.
 	var head_material := MaterialFactory.unique_emissive(profile.headlight_color, 1.4)
-	var tail_material := MaterialFactory.unique_emissive(profile.taillight_color, 1.3)
+	var tail_material := MaterialFactory.unique_emissive(profile.taillight_color.darkened(0.12), 0.6)
 	if String(bp["light_style"]) == "bar":
 		var bar := _instance(
 			"HeadBar", CarBodyFactory.build_capsule(0.045, hw * 1.24), head_material,
@@ -903,7 +903,7 @@ static func _make_materials(profile: CarEvolutionProfile) -> Dictionary:
 		# Vetro scuro, non uno specchio azzurro: con riflesso pieno il lunotto
 		# posteriore diventava la superficie più grande e più chiara dell'auto.
 		"glass": MaterialFactory.stage_material(
-			profile.level, "glass", profile.glass_color.darkened(0.30), 0.38, 0.10
+			profile.level, "glass", profile.glass_color.darkened(0.15), 0.14, 0.35
 		),
 		"rim": MaterialFactory.stage_material(
 			profile.level, "rim", profile.rim_color, 0.20, 0.80

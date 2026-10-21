@@ -22,7 +22,7 @@ const GRASS_INSTANCES: int = 6200
 const FLOWER_INSTANCES: int = 420
 const SAND_INNER: float = 3.72
 const SAND_OUTER: float = 4.85
-const GRASS_START: float = 7.0
+const GRASS_START: float = 5.6
 
 static var _tuft_mesh: Mesh = null
 static var _flower_mesh: Mesh = null
@@ -55,11 +55,12 @@ func build() -> void:
 ## lontano, con creste che diventano colline verso l'orizzonte.
 static func height_at(x: float, z: float) -> float:
 	var distance := absf(x)
-	var near_flat := smoothstep(9.0, 34.0, distance)
+	# Sponde basse vicino alla pista: niente "muri verdi" dietro l'auto.
+	var near_flat := smoothstep(13.0, 46.0, distance)
 	var rolling := (
-		sin(z * 0.019 + x * 0.008) * 1.35
-		+ sin(z * 0.0087 - 0.7) * 2.10
-		+ sin(x * 0.028 + z * 0.0041 + 1.7) * 0.75
+		sin(z * 0.019 + x * 0.008) * 0.85
+		+ sin(z * 0.0087 - 0.7) * 1.20
+		+ sin(x * 0.028 + z * 0.0041 + 1.7) * 0.50
 	)
 	var ridge := smoothstep(70.0, 210.0, distance) * (4.2 + sin(z * 0.0055 + 1.2) * 2.8)
 	return -0.12 + near_flat * rolling + ridge

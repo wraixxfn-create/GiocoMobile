@@ -23,7 +23,7 @@ const SKY_TOP := Color(0.13, 0.53, 0.82)
 const SKY_HORIZON := Color(0.62, 0.83, 0.88)
 const SKY_GROUND := Color(0.30, 0.46, 0.38)
 const SUN_COLOR := Color(1.0, 0.95, 0.84)
-const AMBIENT_COLOR := Color(0.78, 0.90, 1.0)
+const AMBIENT_COLOR := Color(0.86, 0.91, 0.97)
 const FOG_COLOR := Color(0.66, 0.82, 0.84)
 
 # ----------------------------------------------------------------- Strada ---

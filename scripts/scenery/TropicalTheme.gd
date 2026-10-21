@@ -21,7 +21,7 @@ const AMBIENT_ENERGY: float = 0.30
 const SHADOW_DISTANCE: float = 58.0
 const SHADOW_OPACITY: float = 0.82
 const SHADOW_BLUR: float = 1.6
-const FOG_BEGIN: float = 150.0
+const FOG_BEGIN: float = 165.0
 const FOG_END: float = 460.0
 
 
