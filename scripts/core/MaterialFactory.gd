@@ -461,6 +461,7 @@ static func terrain() -> StandardMaterial3D:
 		material.albedo_color = Color.WHITE
 		material.vertex_color_use_as_albedo = true
 		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
 		material.roughness = 0.96
 		material.metallic = 0.0
 		_cache[key] = material
@@ -491,6 +492,7 @@ static func asphalt() -> StandardMaterial3D:
 		var material := StandardMaterial3D.new()
 		material.albedo_texture = asphalt_texture()
 		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
 		material.roughness = 0.92
 		material.metallic = 0.0
 		material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS

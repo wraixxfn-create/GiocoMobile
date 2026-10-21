@@ -108,6 +108,27 @@ func _ready() -> void:
 				node.global_transform * verts[2],
 			])
 
+	print("--- TRIANGLE NORMALS ---")
+	for path in probes:
+		var node := main.get_node_or_null(path) as MeshInstance3D
+		if node == null or node.mesh == null:
+			continue
+		var arrays := node.mesh.surface_get_arrays(0)
+		var verts := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+		var normals := arrays[Mesh.ARRAY_NORMAL] as PackedVector3Array
+		var idx := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+		var mat := node.material_override as StandardMaterial3D
+		var cull := mat.cull_mode if mat != null else -1
+		for tri_index in [0, 1, idx.size() / 3 - 1]:
+			var base := int(tri_index) * 3
+			if base + 2 >= idx.size():
+				continue
+			var a := verts[idx[base]]
+			var b := verts[idx[base + 1]]
+			var c := verts[idx[base + 2]]
+			var face := (b - a).cross(c - a).normalized()
+			print("  %s tri%d order=%d face=%s stored=%s cull=%d" % [
+				path, tri_index, idx[base], face, normals[idx[base]], cull])
 	print("--- SURFACES NEAR START ---")
 	for node in main.find_children("*", "MeshInstance3D", true, false):
 		var mi := node as MeshInstance3D
