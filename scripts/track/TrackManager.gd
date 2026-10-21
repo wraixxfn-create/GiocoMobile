@@ -29,3 +29,12 @@ func _process(_delta: float) -> void:
 			# Il segmento è ormai dietro la telecamera: spostalo in fondo all'orizzonte.
 			segment.position.z -= total_length
 			segment.rebuild(segment.segment_index + GameConfig.SEGMENT_COUNT)
+
+
+## Riporta la pista alla configurazione iniziale per replay e ritorno al menu.
+func reset_run() -> void:
+	for index in _segments.size():
+		var segment := _segments[index]
+		segment.position.z = -index * GameConfig.SEGMENT_LENGTH
+		if segment.segment_index != index:
+			segment.rebuild(index)

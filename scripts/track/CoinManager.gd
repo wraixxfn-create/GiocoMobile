@@ -40,15 +40,38 @@ func step(_delta: float = 0.0) -> void:
 	var previous_position := _previous_car_position
 	_previous_car_position = current_position
 
-	var can_collect := _game_manager == null or _game_manager.state == GameManager.State.PLAYING
+	# Nel menu, countdown, pausa e riepilogo le monete restano immobili e non
+	# vengono raccolte/riciclate; collect_coin ha comunque una seconda guardia.
+	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
+		return
+
 	var travel_length := Vector2(
 		current_position.x - previous_position.x,
 		current_position.z - previous_position.z,
 	).length()
-	if can_collect and travel_length <= GameConfig.COIN_TELEPORT_LIMIT:
+	if travel_length <= GameConfig.COIN_TELEPORT_LIMIT:
 		_detect_collections(previous_position, current_position)
 
 	_recycle_passed_coins(current_position.z)
+
+
+## Riattiva il pool all'inizio della pista senza creare nuove istanze a ogni replay.
+func reset_run() -> void:
+	if _player == null:
+		return
+	var start_z := _player.global_position.z
+	while coins.size() < GameConfig.COIN_ACTIVE_COUNT:
+		var coin := Coin.new()
+		coin.name = "Coin_%d" % coins.size()
+		add_child(coin)
+		coins.append(coin)
+	collected_count = 0
+	last_collected_coin = null
+	_next_spawn_serial = coins.size()
+	for index in coins.size():
+		var coin_z := start_z - GameConfig.COIN_FIRST_DISTANCE - index * GameConfig.COIN_SPAWN_SPACING
+		_spawn_coin(coins[index], index, coin_z)
+	_previous_car_position = _player.global_position
 
 
 func _spawn_initial_coins() -> void:

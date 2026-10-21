@@ -341,14 +341,40 @@ func _recalculate_lateral_limit() -> void:
 
 
 func _on_game_state_changed(new_state: GameManager.State) -> void:
-	# All'avvio (e in un eventuale reset) riallinea il target alla posizione
-	# reale, senza trascinare input accumulato prima della partita.
-	if new_state == GameManager.State.PLAYING or new_state == GameManager.State.IDLE:
+	# Riallinea il target ai cambi di fase: niente drag accumulato nel menu o
+	# durante il countdown. In FINISHED la velocità effettiva viene azzerata.
+	if (
+		new_state == GameManager.State.PLAYING
+		or new_state == GameManager.State.COUNTDOWN
+		or new_state == GameManager.State.IDLE
+	):
 		lateral_target = clampf(position.x, -lateral_limit, lateral_limit)
+	elif new_state == GameManager.State.FINISHED:
+		current_speed = 0.0
+		speed_changed.emit(current_speed)
+
+
+## Ripristina i dati di guida tra due corse, senza toccare il saldo permanente.
+func reset_for_new_run() -> void:
+	position = Vector3.ZERO
+	rotation = Vector3.ZERO
+	speed_locked = false
+	_penalty_factor = 1.0
+	_penalty_time_left = 0.0
+	_penalty_duration = 0.0
+	speed_penalty_factor = 1.0
+	_shake_time_left = 0.0
+	_shake_intensity = 0.0
+	lateral_target = 0.0
+	current_speed = 0.0
+	_refresh_speed()
+	for wheel in _wheels:
+		if is_instance_valid(wheel):
+			wheel.rotation = Vector3.ZERO
 
 
 ## Imposta la velocità di avanzamento. Con `lock = true` la velocità resta
-## fissata anche quando cambia l'evoluzione (serve ai test e alle pause).
+## fissata anche quando cambia l'evoluzione (serve ai test).
 func set_speed(value: float, lock: bool = false) -> void:
 	current_speed = maxf(value, 0.0)
 	if lock:

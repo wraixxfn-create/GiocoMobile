@@ -78,37 +78,66 @@ func _physics_process(delta: float) -> void:
 func step(delta: float = 0.0) -> void:
 	if _player == null:
 		return
-	var dt := clampf(delta, 0.0, GameConfig.OBSTACLE_MAX_STEP_DT)
-	_sim_time += dt
-
 	var current_position := _player.global_position
 	var previous_position := _previous_car_position
 	_previous_car_position = current_position
 
+	# In menu, countdown, pausa e riepilogo il mondo è immobile: nessun urto,
+	# animazione di ostacolo o riciclo può modificare una corsa già conclusa.
+	if _game_manager != null and _game_manager.state != GameManager.State.PLAYING:
+		return
+
+	var dt := clampf(delta, 0.0, GameConfig.OBSTACLE_MAX_STEP_DT)
+	_sim_time += dt
 	_sync_rows()
 
-	var playing := _game_manager == null or _game_manager.state == GameManager.State.PLAYING
 	for row in rows:
 		for piece in row.obstacles:
 			var obstacle := piece as Obstacle
 			if obstacle == null:
 				continue
 			obstacle.prev_frame_x = obstacle.position.x
-			obstacle.advance(dt, playing)
+			obstacle.advance(dt, true)
 
-	if playing:
-		var travel := Vector2(current_position.x - previous_position.x, current_position.z - previous_position.z)
-		var path_length := travel.length()
-		# I teletrasporti (test/reset) non generano collisioni né distanza;
-		# in gioco reale il passo è limitato in CarController e non accade mai.
-		if path_length > 0.000001 and path_length <= GameConfig.OBSTACLE_TELEPORT_LIMIT:
-			_travel_distance += absf(current_position.z - previous_position.z)
-			_detect_collisions(previous_position, current_position)
+	var travel := Vector2(current_position.x - previous_position.x, current_position.z - previous_position.z)
+	var path_length := travel.length()
+	# I teletrasporti (test/reset) non generano collisioni; il passo reale è limitato.
+	if path_length > 0.000001 and path_length <= GameConfig.OBSTACLE_TELEPORT_LIMIT:
+		_travel_distance += absf(current_position.z - previous_position.z)
+		_detect_collisions(previous_position, current_position)
 
 	# La risoluzione delle collisioni può avere spostato l'auto: il campione
 	# "precedente" del prossimo passo è la posizione reale corrente.
 	_previous_car_position = _player.global_position
 	_advance_effects(dt)
+
+
+## Elimina gli effetti e ricrea file/contatori per una nuova corsa.
+func reset_run() -> void:
+	for row in rows:
+		_clear_row_pieces(row)
+	rows.clear()
+	for effect in _effects:
+		var entry: Dictionary = effect
+		var root := entry.get("root", null) as Node3D
+		if root == null or not is_instance_valid(root):
+			continue
+		if root.get_parent() == self:
+			remove_child(root)
+		root.queue_free()
+	_effects.clear()
+	_row_serial = 0
+	_sim_time = 0.0
+	_travel_distance = 0.0
+	hit_count = 0
+	penalties_applied = 0
+	rows_generated = 0
+	formations_seen.clear()
+	last_hit_obstacle = null
+	last_penalty_kind = GameConfig.OBSTACLE_PENALTY_SPEED
+	last_evolution_delta = 0
+	_previous_car_position = _player.global_position if _player != null else Vector3.ZERO
+	_build_initial_rows()
 
 
 # ---------------------------------------------------------------- Query -----

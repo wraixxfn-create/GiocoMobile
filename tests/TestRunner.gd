@@ -44,6 +44,7 @@ var _initial_gate_distance: float = 0.0
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	print("=== TEST CONTROLLI DI GUIDA ===")
 	# Watchdog: evita che un test bloccato lasci il processo appeso in CI.
 	get_tree().create_timer(60.0).timeout.connect(_on_watchdog_timeout)
@@ -54,6 +55,10 @@ func _ready() -> void:
 	_main = MAIN_SCENE.instantiate()
 	var test_game_manager := _main.get_node("GameManager") as GameManager
 	test_game_manager.wallet_save_path = _wallet_test_path
+	# Countdown breve e traguardo esteso per i test di meccanica; il ciclo
+	# completo prova poi esplicitamente un traguardo ravvicinato.
+	test_game_manager.countdown_duration = 0.05
+	test_game_manager.race_distance_meters = 100000.0
 	add_child(_main)
 	await get_tree().process_frame
 	await get_tree().physics_frame
@@ -140,6 +145,7 @@ func _ready() -> void:
 	_test_obstacle_playability_run()
 	_test_obstacle_high_difficulty_run()
 	await _test_coin_collection_wallet_and_score()
+	await _test_full_game_cycle()
 
 	_finish()
 
@@ -152,7 +158,14 @@ func _test_idle_then_auto_forward() -> void:
 	_check(absf(_car.position.z - start_z) < EPSILON, "in IDLE l'auto non avanza")
 
 	_send_touch(0, true)
-	_check(_game_manager.state == GameManager.State.PLAYING, "il touch avvia la partita")
+	_check(
+		_game_manager.state == GameManager.State.IDLE,
+		"il menu non avvia la corsa con un tocco fuori dal pulsante GIOCA",
+	)
+	_game_manager.start_game()
+	_check(_game_manager.state == GameManager.State.COUNTDOWN, "GIOCA avvia il breve countdown")
+	await _wait_for_state(GameManager.State.PLAYING, 30)
+	_check(_game_manager.state == GameManager.State.PLAYING, "il countdown avvia la corsa")
 
 	await _physics_frames(30)
 	var travelled := start_z - _car.position.z
@@ -1891,11 +1904,12 @@ func _test_coin_collection_wallet_and_score() -> void:
 	# Verifica anche il contatore di distanza live e la formula del riepilogo.
 	_game_manager.distance = 0.0
 	_game_manager._last_reported_distance = 0
-	_car.current_speed = 10.0
+	_game_manager._last_car_z = _car.global_position.z
+	_car.global_position = _car.global_position + Vector3(0.0, 0.0, -2.5)
 	_game_manager._process(0.25)
 	_check(
 		absf(_game_manager.distance - 2.5) < EPSILON and _hud.displayed_distance() == 2,
-		"distanza percorsa aggiornata in metri durante la corsa",
+		"la distanza segue l'avanzamento reale dell'auto",
 	)
 	_game_manager.distance = 123.7
 	_game_manager.max_evolution_level = 4
@@ -1919,6 +1933,171 @@ func _test_coin_collection_wallet_and_score() -> void:
 	_check(
 		_game_manager.session_coins == 0 and _game_manager.permanent_coins == saved_balance,
 		"una nuova corsa azzera il totale di sessione ma conserva il saldo",
+	)
+
+
+func _test_full_game_cycle() -> void:
+	print("--- ciclo completo: menu, corsa, traguardo, replay e menu ---")
+	await _wait_for_state(GameManager.State.PLAYING, 60)
+	if _game_manager.state != GameManager.State.PLAYING:
+		_check(false, "la corsa precedente esce dal countdown")
+		return
+
+	# Menu touch-first: toccare lo sfondo non avvia, il pulsante è presente e ampio.
+	_game_manager.pause_game()
+	_hud.menu_requested.emit()
+	_check(_game_manager.state == GameManager.State.IDLE, "il pulsante MENU torna alla schermata iniziale")
+	_check(not get_tree().paused, "il ritorno al menu riattiva la scena")
+	_check(
+		_hud.find_child("PlayButton", true, false) is Button
+		and (_hud.find_child("PlayButton", true, false) as Button).custom_minimum_size.y >= 72.0,
+		"il menu contiene un pulsante GIOCA grande e touch-friendly",
+	)
+	_check(
+		_hud.displayed_permanent_coins() == _game_manager.permanent_coins,
+		"il menu mostra il saldo permanente",
+	)
+
+	_game_manager.countdown_duration = 0.0
+	_game_manager.race_distance_meters = 100000.0
+	_hud.play_requested.emit()
+	_check(_game_manager.state == GameManager.State.PLAYING, "il pulsante GIOCA avvia una nuova corsa")
+	_check(_car.position.is_zero_approx(), "la nuova corsa riparte dalla posizione iniziale")
+
+	# La pausa congela la posizione e riprende senza trascinamenti residui.
+	_game_manager.pause_game()
+	var paused_position := _car.global_position
+	await _process_frames(4)
+	_check(
+		_game_manager.state == GameManager.State.PAUSED and get_tree().paused,
+		"il pulsante PAUSA attiva lo stato di pausa",
+	)
+	_check(_car.global_position.is_equal_approx(paused_position), "in pausa l'auto resta immobile")
+	_hud.resume_requested.emit()
+	_check(
+		_game_manager.state == GameManager.State.PLAYING and not get_tree().paused,
+		"RIPRENDI riattiva correttamente la corsa",
+	)
+
+	_game_manager.apply_evolution(1)
+	var balance_before := _game_manager.permanent_coins
+	_check(_game_manager.collect_coin(), "una moneta in corsa accredita la ricompensa")
+	var distance_before_finish := _game_manager.distance
+	_game_manager.race_distance_meters = distance_before_finish + 3.0
+	var finish_events := {"count": 0}
+	var finish_callback: Callable = func(
+		_score: int,
+		_distance: int,
+		_max_level: int,
+		_coins: int,
+		_final_level: int,
+		_result: GameManager.Outcome,
+	) -> void:
+		finish_events["count"] += 1
+	_game_manager.run_finished.connect(finish_callback)
+
+	var frame_guard := 0
+	while _game_manager.state != GameManager.State.FINISHED and frame_guard < 120:
+		await get_tree().physics_frame
+		frame_guard += 1
+	if _game_manager.state != GameManager.State.FINISHED:
+		await _wait_for_state(GameManager.State.FINISHED, 20)
+
+	_check(_game_manager.state == GameManager.State.FINISHED, "la distanza massima chiude la corsa")
+	_check(_game_manager.outcome == GameManager.Outcome.VICTORY, "il traguardo produce una vittoria")
+	_check(
+		get_tree().paused and is_zero_approx(_car.current_speed) and not _input_manager.is_dragging(),
+		"alla fine si fermano la scena, l'auto e i controlli",
+	)
+	_check(
+		absf(_game_manager.distance - _game_manager.race_distance_meters) < EPSILON,
+		"la distanza si ferma esattamente al traguardo",
+	)
+	_check(
+		_game_manager.session_coins == 1
+		and _game_manager.permanent_coins == balance_before + 1,
+		"il riepilogo conserva monete corsa e saldo aggiornato",
+	)
+	_check(
+		_hud.results_visible()
+		and _hud.results_text().contains("PUNTEGGIO")
+		and _hud.results_text().contains("LIVELLO AUTO 2/5"),
+		"il riepilogo mostra punteggio e livello finale dell'auto",
+	)
+	_check(int(finish_events["count"]) == 1, "le ricompense e il risultato sono registrati una sola volta")
+
+	var score_at_finish := _game_manager.final_score
+	var coins_at_finish := _game_manager.session_coins
+	var balance_at_finish := _game_manager.permanent_coins
+	_check(not _game_manager.collect_coin(), "un pickup dopo la fine non accredita monete")
+	_game_manager.end_game()
+	_game_manager.end_game()
+	_check(
+		_game_manager.final_score == score_at_finish
+		and _game_manager.session_coins == coins_at_finish
+		and _game_manager.permanent_coins == balance_at_finish
+		and int(finish_events["count"]) == 1,
+		"chiamate ripetute a fine corsa non alterano il risultato né duplicano premi",
+	)
+
+	# I cancelli ignorano anche un attraversamento forzato dopo la vittoria.
+	var row := _gate_manager.rows[0]
+	var gate := row.gates[0] as EvolutionGate
+	var evolution_at_finish := _game_manager.evolution_level
+	var saved_car_position := _car.global_position
+	var gate_x := (gate.span_start + gate.span_end) * 0.5
+	_gate_manager._previous_car_position = Vector3(gate_x, 0.0, gate.position.z + 2.0)
+	_car.global_position = Vector3(gate_x, 0.0, gate.position.z - 2.0)
+	_gate_manager.step()
+	_car.global_position = saved_car_position
+	_check(
+		not row.passed and _game_manager.evolution_level == evolution_at_finish,
+		"un cancello non può modificare una corsa già conclusa",
+	)
+	_game_manager.run_finished.disconnect(finish_callback)
+
+	# Replay: azzera stato e pool, ma mantiene il portafoglio persistente.
+	_game_manager.race_distance_meters = 100000.0
+	_hud.replay_requested.emit()
+	_check(_game_manager.state == GameManager.State.PLAYING, "RIGIOCA avvia subito una nuova corsa")
+	_check(
+		is_zero_approx(_game_manager.distance)
+		and _game_manager.session_coins == 0
+		and _game_manager.evolution_level == GameConfig.EVOLUTION_START_LEVEL,
+		"il replay resetta distanza, monete di corsa ed evoluzione",
+	)
+	_check(
+		_game_manager.permanent_coins == balance_at_finish
+		and not _hud.results_visible()
+		and _coin_manager.collected_count == 0
+		and _coin_manager.coins[0].is_available(),
+		"il replay conserva il saldo e ripristina HUD e pool delle monete",
+	)
+	_check(
+		_gate_manager.rows.size() == GameConfig.GATE_ROW_COUNT
+		and is_equal_approx(_gate_manager.rows[0].z, -GameConfig.GATE_FIRST_ROW_DISTANCE)
+		and not _gate_manager.rows[0].passed
+		and _obstacle_manager.hit_count == 0
+		and is_zero_approx(_obstacle_manager._travel_distance),
+		"il replay resetta cancelli, ostacoli e difficoltà della corsa",
+	)
+	_check(_car.position.is_zero_approx(), "il replay riposiziona l'auto sulla linea di partenza")
+
+	# Il progetto attuale non ha ostacoli letali; fail_run è il punto d'ingresso
+	# idempotente per un'eventuale sconfitta/collisione fatale futura.
+	_game_manager.fail_run()
+	_check(
+		_game_manager.outcome == GameManager.Outcome.DEFEAT
+		and _hud.results_visible()
+		and _hud.results_text().contains("PUNTEGGIO"),
+		"una sconfitta mostra lo stesso riepilogo senza segnare una vittoria",
+	)
+	_hud.menu_requested.emit()
+	_check(
+		_game_manager.state == GameManager.State.IDLE
+		and not get_tree().paused
+		and _game_manager.permanent_coins == balance_at_finish,
+		"il ritorno finale al menu conserva il saldo e rimuove la pausa",
 	)
 
 
@@ -2414,7 +2593,7 @@ func _send_touch(index: int, pressed: bool) -> void:
 	event.index = index
 	event.pressed = pressed
 	event.position = TOUCH_START
-	_input_manager._input(event)
+	_input_manager._unhandled_input(event)
 
 
 func _send_touch_drag(index: int, relative: Vector2) -> void:
@@ -2422,7 +2601,7 @@ func _send_touch_drag(index: int, relative: Vector2) -> void:
 	event.index = index
 	event.position = TOUCH_START + relative
 	event.relative = relative
-	_input_manager._input(event)
+	_input_manager._unhandled_input(event)
 
 
 func _send_mouse_button(pressed: bool) -> void:
@@ -2430,7 +2609,7 @@ func _send_mouse_button(pressed: bool) -> void:
 	event.button_index = MOUSE_BUTTON_LEFT
 	event.pressed = pressed
 	event.position = TOUCH_START
-	_input_manager._input(event)
+	_input_manager._unhandled_input(event)
 
 
 func _send_mouse_motion(relative: Vector2, with_left_button: bool) -> void:
@@ -2439,7 +2618,7 @@ func _send_mouse_motion(relative: Vector2, with_left_button: bool) -> void:
 	event.relative = relative
 	if with_left_button:
 		event.button_mask = MOUSE_BUTTON_MASK_LEFT
-	_input_manager._input(event)
+	_input_manager._unhandled_input(event)
 
 
 func _segment_indices() -> Array[int]:
@@ -2462,6 +2641,13 @@ func _physics_frames(count: int) -> void:
 
 func _process_frames(count: int) -> void:
 	for _i in count:
+		await get_tree().process_frame
+
+
+func _wait_for_state(target: GameManager.State, max_frames: int) -> void:
+	for _i in max_frames:
+		if _game_manager.state == target:
+			return
 		await get_tree().process_frame
 
 
