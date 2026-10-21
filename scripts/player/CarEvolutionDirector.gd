@@ -38,6 +38,18 @@ const HOP_HEIGHT: float = 0.09
 
 const NODE_FLASH: String = "TransformFlash"
 const NODE_SHOCKWAVE: String = "TransformShockwave"
+
+## Nome del nodo figlio del CarController che ospita questo direttore.
+## Definito qui (fonte unica): in passato viveva in CarModel, che a sua volta
+## dipendeva da questa classe, creando una dipendenza circolare tra script.
+const DIRECTOR_NODE_NAME: String = "CarVisual"
+## Raggio ruota di ripiego quando il profilo non ne fornisce uno valido.
+const WHEEL_RADIUS: float = 0.33
+
+## Chiavi dei metadati di servizio esposti sul nodo proprietario (l'auto).
+const META_BODY_MESHES: StringName = &"evolution_body_meshes"
+const META_PIPS: StringName = &"evolution_pips"
+const META_LEVEL: StringName = &"evolution_level"
 const META_STAGE_NAME: StringName = &"evolution_stage_name"
 
 ## Libreria dei modelli: se null viene caricata quella di default del progetto.
@@ -48,7 +60,7 @@ const META_STAGE_NAME: StringName = &"evolution_stage_name"
 ## Livello attualmente mostrato (-1 = nessun modello ancora costruito).
 var current_level: int = GameConfig.EVOLUTION_MIN_LEVEL - 1
 var current_profile: CarEvolutionProfile = null
-var wheel_radius: float = CarModel.WHEEL_RADIUS
+var wheel_radius: float = WHEEL_RADIUS
 
 var _stage_root: Node3D = null
 var _wheels: Array[Node3D] = []
@@ -184,7 +196,7 @@ func _swap_stage(level: int) -> void:
 	_glow = glow_entries
 
 	wheel_radius = (
-		current_profile.wheel_radius if current_profile != null else CarModel.WHEEL_RADIUS
+		current_profile.wheel_radius if current_profile != null else WHEEL_RADIUS
 	)
 	_apply_metas(built)
 	stage_ready.emit(level, current_profile)
@@ -196,11 +208,11 @@ func _apply_metas(built: Dictionary) -> void:
 		return
 	# Metadati di servizio (riferimenti ai nodi + specchio del livello):
 	# comodi per debug e test, ma nessuno li usa come fonte di verità.
-	owner_node.set_meta(CarModel.META_LEVEL, current_level)
+	owner_node.set_meta(META_LEVEL, current_level)
 	if current_profile != null:
 		owner_node.set_meta(META_STAGE_NAME, current_profile.stage_name)
-	owner_node.set_meta(CarModel.META_BODY_MESHES, built.get(CarModelBuilder.KEY_BODY_MESHES, []))
-	owner_node.set_meta(CarModel.META_PIPS, _pips)
+	owner_node.set_meta(META_BODY_MESHES, built.get(CarModelBuilder.KEY_BODY_MESHES, []))
+	owner_node.set_meta(META_PIPS, _pips)
 
 
 # ---------------------------------------------------------- Animazione ------
@@ -351,7 +363,7 @@ static func _as_node_array(values: Variant) -> Array[Node3D]:
 static func find_on(car: Node) -> CarEvolutionDirector:
 	if car == null:
 		return null
-	var found := car.get_node_or_null(CarModel.DIRECTOR_NODE_NAME) as CarEvolutionDirector
+	var found := car.get_node_or_null(DIRECTOR_NODE_NAME) as CarEvolutionDirector
 	if found != null:
 		return found
 	return car as CarEvolutionDirector

@@ -1,8 +1,8 @@
 class_name CarModel
 extends RefCounted
-## Compatibilità con le chiamate storiche del modello dell'auto.
+## Strato di compatibilità con le chiamate storiche del modello dell'auto.
 ##
-## La geometria non vive più qui: ogni stadio è descritto da un
+## La geometria non vive qui: ogni stadio è descritto da un
 ## `CarEvolutionProfile` (dati), costruito da `CarModelBuilder` (blockout
 ## procedurale oppure scena esterna via `CarModelLibrary`) e mostrato da
 ## `CarEvolutionDirector` (che è il nodo "CarVisual" figlio del CarController).
@@ -10,20 +10,23 @@ extends RefCounted
 ## Questo file resta come sottile strato di compatibilità: le chiamate a
 ## `apply_evolution_level()` continuano a funzionare e diventano semplicemente
 ## "allinea il modello al livello richiesto", senza duplicare stati.
+##
+## Dipendenza a senso unico: le costanti sono alias di quelle definite da
+## `CarEvolutionDirector` (fonte unica). In passato le costanti vivevano qui e
+## il direttore le referenziava, creando una dipendenza circolare tra i due
+## script (fragile in fase di caricamento/export); ora CarModel dipende dal
+## direttore e mai viceversa.
 
 ## Nome del nodo figlio che ospita il modello visibile.
-const DIRECTOR_NODE_NAME: String = "CarVisual"
+const DIRECTOR_NODE_NAME: String = CarEvolutionDirector.DIRECTOR_NODE_NAME
 
-## Costanti di ingombro della taratura di base (usate come fallback).
-const WHEEL_RADIUS: float = 0.33
-const WHEEL_WIDTH: float = 0.26
-const WHEEL_BASE_X: float = 0.73
-const WHEEL_BASE_Z: float = 1.04
+## Raggio ruota della taratura di base (usato come fallback).
+const WHEEL_RADIUS: float = CarEvolutionDirector.WHEEL_RADIUS
 
 ## Chiavi con cui il modello espone i nodi da aggiornare al cambio di livello.
-const META_BODY_MESHES: StringName = &"evolution_body_meshes"
-const META_PIPS: StringName = &"evolution_pips"
-const META_LEVEL: StringName = &"evolution_level"
+const META_BODY_MESHES: StringName = CarEvolutionDirector.META_BODY_MESHES
+const META_PIPS: StringName = CarEvolutionDirector.META_PIPS
+const META_LEVEL: StringName = CarEvolutionDirector.META_LEVEL
 
 
 ## Allinea l'auto al livello indicato. È una scorciatoia di
@@ -37,11 +40,7 @@ static func apply_evolution_level(car: Node, level: int, animated: bool = true) 
 	director.apply_level(level, animated)
 
 
-## Direttore associato all'auto: prima il figlio "CarVisual", poi il nodo stesso.
+## Direttore associato all'auto: delega a `CarEvolutionDirector.find_on()`
+## (prima il figlio "CarVisual", poi il nodo stesso).
 static func find_director(car: Node) -> CarEvolutionDirector:
-	if car == null:
-		return null
-	var child := car.get_node_or_null(DIRECTOR_NODE_NAME) as CarEvolutionDirector
-	if child != null:
-		return child
-	return car as CarEvolutionDirector
+	return CarEvolutionDirector.find_on(car)

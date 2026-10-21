@@ -4,9 +4,6 @@ extends Node
 ## pausa e riepilogo. Le ricompense sono accreditate solo da collect_coin();
 ## il saldo permanente è salvato localmente da CoinWalletStore.
 
-enum State { IDLE, COUNTDOWN, PLAYING, PAUSED, FINISHED }
-enum Outcome { NONE, VICTORY, DEFEAT }
-
 signal score_updated(score: int)
 signal distance_updated(distance_meters: int)
 ## `coins_updated` comunica solo le monete raccolte nella corsa corrente.
@@ -29,6 +26,9 @@ signal run_finished(
 ## Emesso a ogni variazione effettiva del livello (delta già limitato).
 signal evolution_changed(level: int, delta: int, profile: CarEvolutionProfile)
 
+enum State { IDLE, COUNTDOWN, PLAYING, PAUSED, FINISHED }
+enum Outcome { NONE, VICTORY, DEFEAT }
+
 ## Percorso ConfigFile locale. Modificabile dall'Inspector o nei test.
 @export var wallet_save_path: String = GameConfig.COIN_SAVE_PATH
 @export_range(100.0, 10000.0, 50.0) var race_distance_meters: float = GameConfig.RUN_DISTANCE_METERS
@@ -44,10 +44,6 @@ var final_score: int = 0
 var final_evolution_level: int = GameConfig.EVOLUTION_START_LEVEL
 ## Quantità raccolta nella singola corsa; non è il saldo persistente.
 var session_coins: int = 0
-## Alias di sola lettura mantenuto per il vecchio nome del contatore di corsa.
-var coins: int:
-	get:
-		return session_coins
 ## Saldo conservato tra le corse e i riavvii.
 var permanent_coins: int = 0
 ## Livello evolutivo corrente: fonte di verità per modello e statistiche.
@@ -219,11 +215,6 @@ func collect_coin(amount: int = GameConfig.COIN_VALUE) -> bool:
 	permanent_coins_updated.emit(permanent_coins)
 	_wallet_store.save_balance(permanent_coins)
 	return true
-
-
-## Compatibilità con chiamanti che usavano il vecchio nome del metodo.
-func add_coins(amount: int) -> void:
-	collect_coin(amount)
 
 
 ## Applica una variazione al livello rispettando i limiti. In pausa, countdown

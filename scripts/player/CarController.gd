@@ -93,11 +93,11 @@ func _setup_evolution_visual() -> void:
 
 
 func _resolve_director() -> CarEvolutionDirector:
-	var found := get_node_or_null(CarModel.DIRECTOR_NODE_NAME) as CarEvolutionDirector
+	var found := get_node_or_null(CarEvolutionDirector.DIRECTOR_NODE_NAME) as CarEvolutionDirector
 	if found == null:
 		# La scena può essere istanziata senza il nodo (es. test): lo creiamo.
 		found = CarEvolutionDirector.new()
-		found.name = CarModel.DIRECTOR_NODE_NAME
+		found.name = CarEvolutionDirector.DIRECTOR_NODE_NAME
 		add_child(found)
 	return found
 
@@ -310,7 +310,7 @@ func _update_visual_feedback(lateral_velocity: float, step: float) -> void:
 	rotation.z = lerpf(rotation.z, target_tilt, steer_blend)
 
 	# Rotazione ruote e sterzata delle due ruote anteriori.
-	var wheel_radius := CarModel.WHEEL_RADIUS
+	var wheel_radius := CarEvolutionDirector.WHEEL_RADIUS
 	if _director != null:
 		wheel_radius = maxf(_director.wheel_radius, 0.05)
 	var wheel_spin := current_speed * step / wheel_radius

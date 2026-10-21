@@ -29,3 +29,7 @@ window/stretch/mode="canvas_items"
 anti_aliasing/quality/msaa_3d=1
 renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="mobile"
+; Compressione VRAM per Android/iOS: oggi il progetto genera tutte le texture
+; a runtime, ma qualsiasi asset importato in futuro (modelli .glb, immagini)
+; deve essere comprimibile in ETC2/ASTC per funzionare su dispositivo mobile.
+textures/vram_compression/import_etc2_astc=true
