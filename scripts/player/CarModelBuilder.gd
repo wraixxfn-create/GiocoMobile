@@ -332,7 +332,7 @@ static func _fender_lift_at(
 		return 0.0
 	var half := profile.wheel_radius * 1.45
 	var lift := 0.0
-	for wz in [-profile.wheel_base_z, profile.wheel_base_z]:
+	for wz: float in [-profile.wheel_base_z, profile.wheel_base_z]:
 		var dz := absf(z - wz)
 		if dz < half:
 			var shape := 0.5 + 0.5 * cos(PI * dz / half)
@@ -351,7 +351,7 @@ static func _arch_circle_bottom(
 	var radius := (h * h + rise * rise) / (2.0 * rise)
 	var center_y := crown - radius
 	var bottom := base_bottom
-	for wz in [-profile.wheel_base_z, profile.wheel_base_z]:
+	for wz: float in [-profile.wheel_base_z, profile.wheel_base_z]:
 		var dz := absf(z - wz)
 		if dz < h:
 			bottom = maxf(bottom, center_y + sqrt(maxf(radius * radius - dz * dz, 0.0)))
@@ -379,8 +379,8 @@ static func _build_shell(ctx: Dictionary) -> void:
 	var zn_set := {}
 	for i in 29:
 		zn_set[float(i) / 28.0] = true
-	for wz in [-profile.wheel_base_z, profile.wheel_base_z]:
-		var wzn := (wz + length * 0.5) / length
+	for wz: float in [-profile.wheel_base_z, profile.wheel_base_z]:
+		var wzn: float = (wz + length * 0.5) / length
 		for k in range(-4, 5):
 			zn_set[clampf(wzn + float(k) * 0.02, 0.0, 1.0)] = true
 	zn_set[0.012] = true
@@ -423,7 +423,7 @@ static func _build_shell(ctx: Dictionary) -> void:
 	var gt_set := {}
 	for i in 21:
 		gt_set[float(i) / 20.0] = true
-	for edge in [pillars_b.x, pillars_b.y, pillars_c.x, pillars_c.y, roof_range.x, roof_range.y]:
+	for edge: float in [pillars_b.x, pillars_b.y, pillars_c.x, pillars_c.y, roof_range.x, roof_range.y]:
 		gt_set[edge] = true
 	var gt_list := gt_set.keys()
 	gt_list.sort()
@@ -741,7 +741,7 @@ static func _add_details(ctx: Dictionary) -> void:
 	for side in sides:
 		var suffix := "L" if side < 0.0 else "R"
 		var door := 0
-		for hz_f in [0.44, 0.62]:
+		for hz_f: float in [0.44, 0.62]:
 			var hx := hw * CarBodyFactory.catmull_rom_1d(bp["body_w"], hz_f) * 0.965
 			body.add_child(_instance(
 				"Handle%s%d" % [suffix, door], handle_mesh, m["trim"],

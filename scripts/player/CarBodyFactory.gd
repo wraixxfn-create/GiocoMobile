@@ -214,8 +214,8 @@ static func build_torus_arc(
 			var d := i * tube_segments + j2
 			indices.append_array(PackedInt32Array([a, b, c, a, c, d]))
 	# Tappi alle estremità (ventaglio dal centro del tubo).
-	for end_i in [0, segments]:
-		var a := a0 if end_i == 0 else a1
+	for end_i: int in [0, segments]:
+		var a: float = a0 if end_i == 0 else a1
 		var ci := verts.size()
 		verts.append(Vector3(ring_radius * cos(a), ring_radius * sin(a), 0.0))
 		uvs.append(Vector2(0.5, 0.5))
