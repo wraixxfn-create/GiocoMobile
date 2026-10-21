@@ -28,6 +28,10 @@ jobs:
       - name: Import project
         run: |
           /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . --import 2>&1 | tee /tmp/import.log
+      - name: Inspect scene
+        run: |
+          mkdir -p docs/visual-ci
+          /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . res://tools/InspectScene.tscn 2>&1 | grep -v "ERROR\|WARNING\|at:" | tee docs/visual-ci/inspect.log
       - name: Run headless tests
         continue-on-error: true
         run: |
