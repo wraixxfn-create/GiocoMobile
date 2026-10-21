@@ -332,7 +332,7 @@ ERROR: Parameter "m" is null.
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
   PASS  il countdown avvia la corsa
-  PASS  l'auto avanza automaticamente (6.77 m)
+  PASS  l'auto avanza automaticamente (7.00 m)
   PASS  senza drag resta al centro
   PASS  il drag aggiorna il target (0.840 m)
   PASS  l'auto segue il target con interpolazione (x=0.840)
@@ -649,7 +649,7 @@ SCRIPT ERROR: Invalid assignment of property or key 'prop_seed' with value of ty
           at: _place_markers (res://scripts/scenery/SceneryPlan.gd:66)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
-  PASS  la pista scorre mentre l'auto avanza (46.7 m)
+  PASS  la pista scorre mentre l'auto avanza (46.6 m)
   PASS  la telecamera avanza con l'auto
   PASS  i segmenti riciclati restano contigui (nessun buco)
   PASS  i segmenti vengono riciclati in fondo
