@@ -55,4 +55,8 @@ CAPTURE debug _tmp/dx_ov_noterrain
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_ov_noterrain.png err=0 720x1280
 CAPTURE debug _tmp/dx_ov_red
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_ov_red.png err=0 720x1280
+CAPTURE debug _tmp/dx_top
+PROBE asphalt visible=true layers=1 aabb=[P: (-3.96, -0.26, -20), S: (7.92, 0.26, 40)] pos=(0, 0, -560) scale=(1, 1, 1)
+PROBE plane added at (0, 0.02, -150)
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_top.png err=0 720x1280
 CAPTURE COMPLETE
