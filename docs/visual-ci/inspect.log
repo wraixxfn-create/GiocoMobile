@@ -211,8 +211,8 @@ CAR_MESHES=83 empty=1 tris=17792
   /root/InspectScene/GameRoot/GateManager/@Node3D@258/Visual/@MeshInstance3D@268 y=0.180..2.230 x=1.4..3.6 z=-166..-166 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/ObstacleManager/ObstacleBarrier/Visual/@MeshInstance3D@271 y=0.120..1.160 x=-3.8..0.3 z=-94..-94 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/ObstacleManager/ObstacleBarrier/Visual/@MeshInstance3D@276 y=1.140..1.260 x=-3.8..0.3 z=-94..-94 surf=1 mat=col spec=0
-  terrain color_at(0,-96)=(0.5133, 0.506, 0.3169, 1)
-  terrain color_at(6,-96)=(0.2669, 0.453, 0.2436, 1)
+  terrain color_at(0,-96)=(0.5093, 0.5006, 0.3147, 1)
+  terrain color_at(6,-96)=(0.2536, 0.4348, 0.2363, 1)
   terrain height_at(0,-96)=-0.120 height_at(6,-96)=-0.120
   palette fog=(0.66, 0.82, 0.84, 1) sky_ground=(0.3, 0.46, 0.38, 1)
 --- CAR MATERIALS ---
@@ -394,7 +394,7 @@ CAR_MESHES=83 empty=1 tris=17792
   CarVisual/Stage_1/Wheel3/Hub pos=(0.81, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.7825, 0.244429, 0.963) aabb_size=(0.055, 0.111142, 0.114)
   CarVisual/Stage_1/Wheel3/HubCap pos=(0.842, 0.3, 1.02) mesh=CylinderMesh aabb_pos=(0.832, 0.2745, 0.9945) aabb_size=(0.02, 0.051, 0.051)
 ASPHALT px=128x128 (0.5059, 0.5137, 0.5451, 1)
-TERRAIN verts=8060 colors=8060 sample=(0.2157, 0.4314, 0.2275, 1)
+TERRAIN verts=8060 colors=8060 sample=(0.1882, 0.3961, 0.2118, 1)
 GROUND children=3
 BACKDROP children=4
 SEGMENT_CHILDREN total=240
