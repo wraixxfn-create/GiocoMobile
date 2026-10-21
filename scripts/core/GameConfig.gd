@@ -108,8 +108,8 @@ const COIN_BOB_SPEED: float = 2.2
 const SCORE_POINTS_PER_METER: float = 10.0
 const SCORE_POINTS_PER_EVOLUTION_LEVEL: int = 250
 const SCORE_POINTS_PER_COIN: int = 50
-const COLOR_COIN := Color(1.0, 0.67, 0.08)
-const COLOR_COIN_HIGHLIGHT := Color(1.0, 0.92, 0.48)
+const COLOR_COIN := SceneryPalette.COIN_GOLD
+const COLOR_COIN_HIGHLIGHT := SceneryPalette.COIN_HIGHLIGHT
 
 # --------------------------------------------------------------- Cancelli ---
 ## Distanza dall'auto della prima fila di cancelli all'avvio della corsa.
@@ -137,9 +137,9 @@ const GATE_SPLIT_PATTERN: Array[float] = [-1.3, 0.0, 1.3, 0.7, -0.7]
 ## Valori dei cancelli positivi (i più grandi sono blu, i piccoli verdi).
 const GATE_POSITIVE_PATTERN: Array[int] = [1, 2, 1, 2, 1]
 
-const COLOR_GATE_POSITIVE := Color(0.16, 0.90, 0.44)
-const COLOR_GATE_POSITIVE_STRONG := Color(0.16, 0.62, 1.00)
-const COLOR_GATE_NEGATIVE := Color(0.96, 0.24, 0.30)
+const COLOR_GATE_POSITIVE := SceneryPalette.GATE_GREEN
+const COLOR_GATE_POSITIVE_STRONG := SceneryPalette.GATE_BLUE
+const COLOR_GATE_NEGATIVE := SceneryPalette.GATE_RED
 const COLOR_GATE_FRAME := Color(0.98, 0.99, 1.0)
 const COLOR_GATE_OFF := Color(0.40, 0.43, 0.48)
 
@@ -258,52 +258,57 @@ const COLOR_OBSTACLE_BEACON := Color(1.0, 0.62, 0.10)
 const COLOR_OBSTACLE_IMPACT := Color(1.0, 0.82, 0.35)
 
 # ----------------------------------------------------------------- Camera ---
-const CAMERA_HEIGHT: float = 6.2
-const CAMERA_DISTANCE: float = 10.2
-const CAMERA_LOOK_AHEAD: float = 16.5
-const CAMERA_LOOK_HEIGHT: float = 1.15
-const CAMERA_FOV: float = 64.0
+## Inquadratura "premium": camera più bassa e vicina, auto nel terzo inferiore
+## e molta strada visibile davanti, così i cancelli si anticipano da lontano.
+## L'auto resta perfettamente centrata (segue l'asse laterale 1:1).
+const CAMERA_HEIGHT: float = 3.55
+const CAMERA_DISTANCE: float = 8.3
+const CAMERA_LOOK_AHEAD: float = 11.2
+const CAMERA_LOOK_HEIGHT: float = 1.08
+const CAMERA_FOV: float = 60.0
 ## 1.0 = la telecamera segue completamente l'auto: l'auto resta stabile al
 ## centro dell'inquadratura ed è la pista a scorrere lateralmente.
 const CAMERA_LATERAL_FOLLOW: float = 1.0
 
 # --------------------------------------------------------- Cielo / Luce -----
-const COLOR_SKY_TOP := Color(0.16, 0.50, 0.94)
-const COLOR_SKY_HORIZON := Color(0.76, 0.91, 1.0)
-const COLOR_GROUND_HORIZON := Color(0.78, 0.92, 0.99)
-const COLOR_AMBIENT := Color(0.80, 0.88, 0.98)
-const COLOR_SUN := Color(1.0, 0.96, 0.87)
+## Palette del livello tropicale: cielo, luce e superfici vengono da
+## `SceneryPalette`, così scenario e interfaccia restano coordinati.
+const COLOR_SKY_TOP := SceneryPalette.SKY_TOP
+const COLOR_SKY_HORIZON := SceneryPalette.SKY_HORIZON
+const COLOR_GROUND_HORIZON := SceneryPalette.FOG_COLOR
+const COLOR_AMBIENT := SceneryPalette.AMBIENT_COLOR
+const COLOR_SUN := SceneryPalette.SUN_COLOR
 
 # --------------------------------------------------------- Pista / Prato ----
-const COLOR_ROAD := Color(0.31, 0.34, 0.39)
-const COLOR_ROAD_ALT := Color(0.33, 0.36, 0.41)
-const COLOR_LANE := Color(0.98, 0.99, 1.0)
-const COLOR_CURB_PRIMARY := Color(0.97, 0.98, 1.0)
-const COLOR_CURB_ACCENT := Color(0.93, 0.22, 0.26)
-## Fascia chiara tra cordolo e prato: stacca la pista dallo sfondo verde.
-const COLOR_VERGE := Color(0.84, 0.83, 0.67)
+const COLOR_ROAD := SceneryPalette.ROAD_BASE
+const COLOR_ROAD_ALT := SceneryPalette.ROAD_WEAR
+const COLOR_LANE := SceneryPalette.LANE_PAINT
+const COLOR_CURB_PRIMARY := SceneryPalette.CURB_LIGHT
+const COLOR_CURB_ACCENT := SceneryPalette.CURB_RED
+## Fascia sabbiosa tra cordolo e prato: stacca la pista dallo sfondo verde.
+const COLOR_VERGE := SceneryPalette.SAND
 
-const COLOR_GRASS := Color(0.32, 0.71, 0.34)
-const COLOR_GRASS_ALT := Color(0.27, 0.64, 0.31)
-const COLOR_HILL := Color(0.31, 0.66, 0.41)
+const COLOR_GRASS := SceneryPalette.GRASS_BASE
+const COLOR_GRASS_ALT := SceneryPalette.GRASS_DEEP
+const COLOR_HILL := SceneryPalette.HILL_NEAR
 
 # --------------------------------------------------------- Decorazioni ------
-const COLOR_TRUNK := Color(0.44, 0.30, 0.18)
+const COLOR_TRUNK := SceneryPalette.TRUNK
 const FOLIAGE_COLORS: Array[Color] = [
-	Color(0.16, 0.55, 0.30),
-	Color(0.24, 0.66, 0.33),
-	Color(0.13, 0.47, 0.28),
-	Color(0.34, 0.75, 0.36),
+	SceneryPalette.FOLIAGE_DEEP,
+	SceneryPalette.FOLIAGE_MID,
+	SceneryPalette.FOLIAGE_LIGHT,
+	SceneryPalette.FOLIAGE_TIP,
 ]
 ## Fiori low-poly sparsi sul prato (MultiMesh: un solo draw call per segmento).
 const FLOWER_COLORS: Array[Color] = [
-	Color(1.0, 0.94, 0.55),
-	Color(1.0, 0.55, 0.68),
-	Color(0.98, 0.98, 1.0),
+	SceneryPalette.FLOWER_A,
+	SceneryPalette.FLOWER_B,
+	SceneryPalette.FLOWER_C,
 	Color(0.72, 0.62, 1.0),
 ]
-const COLOR_ROCK := Color(0.56, 0.59, 0.63)
-const COLOR_POST := Color(0.95, 0.96, 0.99)
+const COLOR_ROCK := SceneryPalette.ROCK
+const COLOR_POST := SceneryPalette.CURB_LIGHT
 const COLOR_POST_REFLECTOR := Color(1.0, 0.42, 0.16)
 
 # --------------------------------------------------- Traguardo / Interfaccia -

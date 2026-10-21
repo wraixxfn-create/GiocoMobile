@@ -161,72 +161,18 @@ func _update_camera() -> void:
 
 
 func _setup_environment() -> void:
-	# Cielo limpido da "giorno di gara": azzurro in alto, orizzonte quasi bianco.
-	# Niente glow né SSAO: costano troppo su mobile e qui non servono.
-	var sky_material := ProceduralSkyMaterial.new()
-	sky_material.sky_top_color = GameConfig.COLOR_SKY_TOP
-	sky_material.sky_horizon_color = GameConfig.COLOR_SKY_HORIZON
-	sky_material.sky_curve = 0.16
-	sky_material.sky_energy_multiplier = 1.05
-	sky_material.ground_horizon_color = GameConfig.COLOR_GROUND_HORIZON
-	sky_material.ground_bottom_color = GameConfig.COLOR_GRASS_ALT
-	sky_material.ground_curve = 0.03
-	sky_material.sun_angle_max = 18.0
-	sky_material.sun_curve = 0.10
-
-	var sky := Sky.new()
-	sky.sky_material = sky_material
-	# Radiance bassa: i riflessi metallici delle auto bastano e avanzano.
-	sky.radiance_size = Sky.RADIANCE_SIZE_128
-
+	# Direzione artistica centralizzata in `TropicalTheme`: cielo, tonemapping,
+	# foschia e limiti di prestazioni (nessun SSAO/glow/SSR) in un solo posto.
 	var environment := Environment.new()
-	environment.background_mode = Environment.BG_SKY
-	environment.sky = sky
-	environment.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	environment.ambient_light_color = GameConfig.COLOR_AMBIENT
-	environment.ambient_light_sky_contribution = 0.60
-	environment.ambient_light_energy = 0.95
-	environment.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
-	# Mappatura tonale morbida + un filo di saturazione: colori vivi ma puliti.
-	environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	environment.tonemap_exposure = 1.05
-	environment.tonemap_white = 1.15
-	environment.adjustment_enabled = true
-	environment.adjustment_brightness = 1.02
-	environment.adjustment_contrast = 1.04
-	environment.adjustment_saturation = 1.12
-
-	environment.fog_enabled = true
-	environment.fog_mode = Environment.FOG_MODE_DEPTH
-	environment.fog_light_color = GameConfig.COLOR_SKY_HORIZON
-	environment.fog_light_energy = 1.0
-	environment.fog_depth_begin = 105.0
-	environment.fog_depth_end = 290.0
-	environment.fog_depth_curve = 1.2
-	environment.fog_sky_affect = 0.15
+	TropicalTheme.apply_environment(environment)
 	_world_environment.environment = environment
 
 
 func _setup_sun() -> void:
-	# Sole caldo e leggermente frontale: l'auto resta illuminata e la sua ombra
-	# cade dietro, senza mai scurire il muso.
-	_sun.rotation = Vector3(deg_to_rad(-52.0), deg_to_rad(22.0), 0.0)
-	_sun.light_color = GameConfig.COLOR_SUN
-	_sun.light_energy = 1.25
-	_sun.shadow_enabled = true
-	_sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
-	_sun.directional_shadow_max_distance = 72.0
-	_sun.directional_shadow_fade_start = 0.85
-	_sun.shadow_opacity = 0.62
-	_sun.shadow_blur = 1.15
-	_sun.shadow_bias = 0.03
-	_sun.shadow_normal_bias = 1.2
+	# Una sola luce direzionale: ombre morbide a due split, 62 m di distanza.
+	TropicalTheme.configure_sun(_sun)
 
 
 func _setup_camera() -> void:
-	_camera.projection = Camera3D.PROJECTION_PERSPECTIVE
-	_camera.keep_aspect = Camera3D.KEEP_HEIGHT
+	TropicalTheme.configure_camera(_camera)
 	_camera.current = true
-	_camera.fov = GameConfig.CAMERA_FOV
-	_camera.near = 0.15
-	_camera.far = 380.0

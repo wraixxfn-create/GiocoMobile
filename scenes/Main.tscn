@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/core/GameRoot.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/gameplay/GameManager.gd" id="2"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://scripts/track/CoinManager.gd" id="9"]
 [ext_resource type="Script" path="res://scripts/core/SfxDirector.gd" id="10"]
 [ext_resource type="Script" path="res://scripts/track/FinishLine.gd" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/scenery/GroundField.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://scenes/scenery/Backdrop.tscn" id="13"]
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1")
@@ -26,6 +28,12 @@ script = ExtResource("3")
 
 [node name="GameManager" type="Node" parent="." groups=["game_manager"]]
 script = ExtResource("2")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="GroundField" parent="World" instance=ExtResource("12")]
+
+[node name="Backdrop" parent="World" instance=ExtResource("13")]
 
 [node name="TrackManager" type="Node3D" parent="."]
 script = ExtResource("4")
