@@ -42,4 +42,7 @@ CAPTURE debug _tmp/dx_noterrain
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_noterrain.png err=0 720x1280
 CAPTURE debug _tmp/dx_clones
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_clones.png err=0 720x1280
+CAPTURE debug _tmp/dx_copy
+CAPTURE asphalt_mesh_surfaces=1
+SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/_tmp/dx_copy.png err=0 720x1280
 CAPTURE COMPLETE
