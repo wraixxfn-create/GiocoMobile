@@ -18,11 +18,11 @@ extends RefCounted
 const SUN_ROTATION_DEG := Vector3(-46.0, 26.0, 0.0)
 const SUN_ENERGY: float = 1.14
 const AMBIENT_ENERGY: float = 0.30
-const SHADOW_DISTANCE: float = 62.0
-const SHADOW_OPACITY: float = 0.80
-const SHADOW_BLUR: float = 1.5
-const FOG_BEGIN: float = 130.0
-const FOG_END: float = 430.0
+const SHADOW_DISTANCE: float = 58.0
+const SHADOW_OPACITY: float = 0.82
+const SHADOW_BLUR: float = 1.6
+const FOG_BEGIN: float = 150.0
+const FOG_END: float = 460.0
 
 
 ## Cielo procedurale: azzurro pieno in alto, orizzonte chiaro e caldo.
@@ -90,7 +90,7 @@ static func configure_sun(sun: DirectionalLight3D) -> void:
 	sun.light_energy = SUN_ENERGY
 	sun.light_specular = 0.55
 	sun.shadow_enabled = true
-	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
 	sun.directional_shadow_max_distance = SHADOW_DISTANCE
 	sun.directional_shadow_fade_start = 0.86
 	sun.directional_shadow_split_1 = 0.28

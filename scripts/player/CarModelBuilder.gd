@@ -123,7 +123,7 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 			Vector2(0.32, 0.98), Vector2(0.55, 0.99), Vector2(0.80, 1.03),
 			Vector2(0.93, 0.98), Vector2(1.00, 0.82),
 		],
-		"glass_span": Vector2(0.25, 0.87),
+		"glass_span": Vector2(0.30, 0.80),
 		"roof_range": Vector2(0.24, 0.80),
 		"glass_top": [
 			Vector2(0.00, 0.68), Vector2(0.16, 0.93), Vector2(0.30, 0.99),
@@ -903,7 +903,7 @@ static func _make_materials(profile: CarEvolutionProfile) -> Dictionary:
 		# Vetro scuro, non uno specchio azzurro: con riflesso pieno il lunotto
 		# posteriore diventava la superficie più grande e più chiara dell'auto.
 		"glass": MaterialFactory.stage_material(
-			profile.level, "glass", profile.glass_color, 0.30, 0.22
+			profile.level, "glass", profile.glass_color.darkened(0.30), 0.38, 0.10
 		),
 		"rim": MaterialFactory.stage_material(
 			profile.level, "rim", profile.rim_color, 0.20, 0.80

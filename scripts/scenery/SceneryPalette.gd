@@ -20,17 +20,17 @@ extends RefCounted
 # ------------------------------------------------------------------ Cielo ---
 
 const SKY_TOP := Color(0.13, 0.53, 0.82)
-const SKY_HORIZON := Color(0.70, 0.87, 0.90)
-const SKY_GROUND := Color(0.40, 0.58, 0.48)
+const SKY_HORIZON := Color(0.62, 0.83, 0.88)
+const SKY_GROUND := Color(0.30, 0.46, 0.38)
 const SUN_COLOR := Color(1.0, 0.95, 0.84)
 const AMBIENT_COLOR := Color(0.78, 0.90, 1.0)
 const FOG_COLOR := Color(0.66, 0.82, 0.84)
 
 # ----------------------------------------------------------------- Strada ---
 
-const ROAD_BASE := Color(0.34, 0.38, 0.45)
-const ROAD_EDGE := Color(0.27, 0.31, 0.37)
-const ROAD_WEAR := Color(0.40, 0.44, 0.50)
+const ROAD_BASE := Color(0.35, 0.37, 0.42)
+const ROAD_EDGE := Color(0.28, 0.30, 0.34)
+const ROAD_WEAR := Color(0.41, 0.43, 0.47)
 const ROAD_PATCH := Color(0.28, 0.31, 0.37)
 const ROAD_JOINT := Color(0.23, 0.26, 0.31)
 const LANE_PAINT := Color(0.95, 0.94, 0.89)

@@ -522,10 +522,10 @@ static func asphalt_texture() -> ImageTexture:
 			var color := base
 			# Bordo carreggiata più scuro (grasso e polvere).
 			var edge_weight := smoothstep(0.085, 0.0, minf(u, 1.0 - u))
-			color = color.lerp(edge, edge_weight * 0.55)
+			color = color.lerp(edge, edge_weight * 0.45)
 			for track in tracks:
 				var distance := absf(u - track)
-				color = color.lerp(wear, smoothstep(0.030, 0.010, distance) * 0.6)
+				color = color.lerp(wear, smoothstep(0.030, 0.010, distance) * 0.42)
 			# Grana fine e macchie larghe: due frequenze, deterministiche.
 			var grain := rng.randf_range(-0.022, 0.022)
 			var blotch := sin(u * 21.0 + float(y) * 0.09) * 0.008

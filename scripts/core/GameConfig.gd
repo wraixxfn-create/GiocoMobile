@@ -37,7 +37,7 @@ const EVOLUTION_START_LEVEL: int = 1
 ## Colore della carrozzeria per ogni livello (indice = livello).
 const EVOLUTION_COLORS: Array[Color] = [
 	Color(0.64, 0.62, 0.53),
-	Color(0.97, 0.63, 0.03),
+	Color(1.00, 0.80, 0.06),
 	Color(1.00, 0.47, 0.09),
 	Color(0.30, 0.87, 0.38),
 	Color(0.10, 0.72, 0.96),
