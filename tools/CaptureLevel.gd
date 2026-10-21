@@ -45,6 +45,9 @@ var _debug_shots: Array[Dictionary] = [
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
 	{"name": "_tmp/dx_copy", "z": -212.0, "x": 0.0, "mode": "game", "probe": "copy",
 		"height": 2.55, "distance": 5.6, "look": 8.4, "look_height": 0.85, "fov": 54.0},
+	{"name": "_tmp/dx_car_mats", "z": -96.0, "x": 0.4, "mode": "game", "probe": "car_mats"},
+	{"name": "_tmp/dx_car_side", "z": -96.0, "x": 0.4, "mode": "orbit", "probe": "car_mats",
+		"orbit_angle": 2.45, "orbit_distance": 4.6, "orbit_height": 1.7},
 ]
 
 
@@ -184,6 +187,22 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 			plane_node.position = Vector3(0.0, 3.0, z_probe)
 			_main.add_child(plane_node)
 			print("CAPTURE asphalt_mesh_surfaces=", asphalt_src.mesh.get_surface_count())
+		"car_mats":
+			var flat_paint := _probe_material(Color(1.0, 1.0, 0.0))
+			var flat_glass := _probe_material(Color(1.0, 0.0, 1.0))
+			var flat_trim := _probe_material(Color(0.25, 0.25, 0.25))
+			for node in _car.find_children("*", "MeshInstance3D", true, false):
+				var mi := node as MeshInstance3D
+				var mat := mi.material_override as StandardMaterial3D
+				if mat == null:
+					continue
+				var name := String(mi.name)
+				if name.contains("Glass"):
+					mi.material_override = flat_glass
+				elif name.contains("Trim") or name.contains("Arch") or name.contains("Well"):
+					mi.material_override = flat_trim
+				elif name.contains("Paint") or name.contains("Bumper"):
+					mi.material_override = flat_paint
 		"red":
 			var flat_red := StandardMaterial3D.new()
 			flat_red.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED

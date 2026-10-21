@@ -48,6 +48,8 @@ jobs:
             timeout 900 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --path . \
             --quit-after 4000 --rendering-driver vulkan --rendering-method mobile \
             --resolution 720x1280 res://tools/CaptureLevel.tscn 2>&1 | tee capture.log
+        env:
+          GIOCO_DEBUG: "1"
       - name: Publish results
         if: always()
         run: |
