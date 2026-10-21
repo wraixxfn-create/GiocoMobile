@@ -31,6 +31,18 @@ func _process(_delta: float) -> void:
 			segment.rebuild(segment.segment_index + GameConfig.SEGMENT_COUNT)
 
 
+## Riposiziona i segmenti attorno a una quota Z del mondo (strumenti e
+## replay): i segmenti sono figli di questo nodo, quindi si ragiona in
+## coordinate locali = mondiali finché il manager resta all'origine.
+func snap_to(world_z: float) -> void:
+	for index in _segments.size():
+		var segment := _segments[index]
+		segment.position.z = world_z + GameConfig.SEGMENT_LENGTH * 0.5 \
+			- index * GameConfig.SEGMENT_LENGTH
+		if segment.segment_index != index:
+			segment.rebuild(index)
+
+
 ## Riporta la pista alla configurazione iniziale per replay e ritorno al menu.
 func reset_run() -> void:
 	for index in _segments.size():

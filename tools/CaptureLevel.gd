@@ -61,8 +61,7 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 	# da una posizione all'altra) va riportata sotto l'auto, altrimenti si
 	# fotografa il prato dove dovrebbe esserci l'asfalto.
 	var track := _main.get_node("TrackManager") as TrackManager
-	track.reset_run()
-	track.global_position = Vector3(_car.position.x, track.global_position.y, _car.position.z)
+	track.snap_to(_car.position.z)
 	hud.visible = bool(shot.get("hud", false))
 	var mode: String = str(shot.get("mode", "game"))
 	if bool(shot.get("running", false)):
