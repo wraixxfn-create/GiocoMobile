@@ -48,6 +48,10 @@ var _debug_shots: Array[Dictionary] = [
 	{"name": "_tmp/dx_car_mats", "z": -96.0, "x": 0.4, "mode": "game", "probe": "car_mats"},
 	{"name": "_tmp/dx_car_side", "z": -96.0, "x": 0.4, "mode": "orbit", "probe": "car_mats",
 		"orbit_angle": 2.45, "orbit_distance": 6.6, "orbit_height": 2.2, "fov": 38.0},
+	{"name": "_tmp/dx_ov_noterrain", "z": -150.0, "x": 0.0, "mode": "overview",
+		"height": 22.0, "distance": 30.0, "look": 46.0, "fov": 58.0, "probe": "no_terrain"},
+	{"name": "_tmp/dx_ov_red", "z": -150.0, "x": 0.0, "mode": "overview",
+		"height": 22.0, "distance": 30.0, "look": 46.0, "fov": 58.0, "probe": "red"},
 ]
 
 

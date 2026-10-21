@@ -225,7 +225,7 @@ static func _add_surface_variation(
 		var shade: float = rng.randf_range(0.0, 1.0)
 		parts.append({
 			"acc": _acc(patch),
-			"color": SceneryPalette.ROAD_PATCH.lerp(SceneryPalette.ROAD_EDGE, shade * 0.35),
+			"color": SceneryPalette.ROAD_BASE.lerp(SceneryPalette.ROAD_PATCH, 0.35 + shade * 0.25),
 			"xform": Transform3D(Basis(Vector3.UP, rng.randf_range(-0.08, 0.08)), Vector3(x, 0.003, z)),
 		})
 	# Giunti trasversali ogni 10 m: leggeri, mai sopra la segnaletica.
@@ -233,7 +233,7 @@ static func _add_surface_variation(
 		var joint := PropMeshes.box(Vector3(GameConfig.TRACK_WIDTH - 0.9, 0.004, 0.035))
 		parts.append({
 			"acc": _acc(joint),
-			"color": SceneryPalette.ROAD_JOINT,
+			"color": SceneryPalette.ROAD_BASE.lerp(SceneryPalette.ROAD_JOINT, 0.45),
 			"xform": Transform3D(
 				Basis.IDENTITY,
 				Vector3(0.0, 0.0035, -half_length + 5.0 + i * 10.0),
