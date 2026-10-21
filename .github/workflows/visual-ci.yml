@@ -10,6 +10,9 @@ concurrency:
   group: visual-ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -29,6 +32,14 @@ jobs:
       - name: Import project
         run: |
           timeout 300 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . --import 2>&1 | tee import.log
+      - name: Inspect scene
+        run: |
+          timeout 180 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . \
+            --quit-after 3000 res://tools/InspectScene.tscn 2>&1 | tee inspect.log
+      - name: Run headless tests
+        run: |
+          timeout 900 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . \
+            --quit-after 200000 res://tests/TestRunner.tscn 2>&1 | tee tests.log
       - name: Capture screenshots
         run: |
           set -o pipefail
@@ -37,45 +48,23 @@ jobs:
             timeout 900 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --path . \
             --quit-after 4000 --rendering-driver vulkan --rendering-method mobile \
             --resolution 720x1280 res://tools/CaptureLevel.tscn 2>&1 | tee capture.log
-      - name: Upload screenshots
+      - name: Publish results
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: |
-            docs/screenshots/*.png
-            capture.log
-            import.log
-          if-no-files-found: warn
-
-  verify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download Godot 4.3
         run: |
-          curl -sL -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
-          unzip -o -q /tmp/godot.zip -d /tmp/godot
-          chmod +x /tmp/godot/Godot_v4.3-stable_linux.x86_64
-      - name: Import project
-        run: |
-          timeout 300 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . --import 2>&1 | tee import.log
-      - name: Inspect scene
-        run: |
-          timeout 180 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . \
-            --quit-after 3000 res://tools/InspectScene.tscn 2>&1 | tee inspect.log
-      - name: Run headless tests
-        run: |
-          timeout 1500 /tmp/godot/Godot_v4.3-stable_linux.x86_64 --headless --path . \
-            --quit-after 200000 res://tests/TestRunner.tscn 2>&1 | tee tests.log
-      - name: Upload logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs
-          path: |
-            import.log
-            inspect.log
-            tests.log
-          if-no-files-found: warn
+          mkdir -p docs/visual-ci
+          cp import.log docs/visual-ci/import.log 2>/dev/null || true
+          cp inspect.log docs/visual-ci/inspect.log 2>/dev/null || true
+          cp tests.log docs/visual-ci/tests.log 2>/dev/null || true
+          cp capture.log docs/visual-ci/capture.log 2>/dev/null || true
+          git config user.name "visual-ci"
+          git config user.email "visual-ci@users.noreply.github.com"
+          git add docs/screenshots docs/visual-ci
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica da pubblicare"
+            exit 0
+          fi
+          git commit -m "chore(visual): screenshot e log della scena [skip ci]"
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && break
+            sleep 4
+          done
