@@ -25,7 +25,7 @@ var _shots: Array[Dictionary] = [
 	{"name": "05_car_study", "z": -286.0, "x": 0.7, "mode": "orbit",
 		"orbit_angle": 2.45, "orbit_distance": 6.6, "orbit_height": 2.2, "fov": 38.0},
 	{"name": "06_overview", "z": -150.0, "x": 0.0, "mode": "overview",
-		"height": 19.0, "distance": 6.0, "look": 62.0, "look_height": 0.0, "fov": 60.0},
+		"height": 17.0, "distance": 17.0, "look": 58.0, "look_height": 0.0, "fov": 62.0},
 	{"name": "07_hud_race", "z": -96.0, "x": 0.4, "mode": "game", "hud": true, "running": true},
 ]
 
