@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/core/GameRoot.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/gameplay/GameManager.gd" id="2"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://scripts/track/GateManager.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/track/ObstacleManager.gd" id="8"]
 [ext_resource type="Script" path="res://scripts/track/CoinManager.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/core/SfxDirector.gd" id="10"]
+[ext_resource type="Script" path="res://scripts/track/FinishLine.gd" id="11"]
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1")
@@ -27,6 +29,9 @@ script = ExtResource("2")
 
 [node name="TrackManager" type="Node3D" parent="."]
 script = ExtResource("4")
+
+[node name="FinishLine" type="Node3D" parent="." groups=["finish_line"]]
+script = ExtResource("11")
 
 [node name="CameraRig" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2, 10.2)
@@ -48,5 +53,8 @@ script = ExtResource("8")
 
 [node name="CoinManager" type="Node3D" parent="." groups=["coin_manager"]]
 script = ExtResource("9")
+
+[node name="SfxDirector" type="Node" parent="." groups=["sfx"]]
+script = ExtResource("10")
 
 [node name="HUD" parent="." instance=ExtResource("6")]

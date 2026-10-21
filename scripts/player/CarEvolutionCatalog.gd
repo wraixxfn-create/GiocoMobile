@@ -186,36 +186,51 @@ static func _apply_shape(profile: CarEvolutionProfile, level: int) -> void:
 
 
 ## Colori derivati da quello della carrozzeria, con eccezioni per stadio.
-static func _apply_palette(profile: CarEvolutionProfile, level: int) -> void:
+static func _apply_palette(profile: CarEvolutionProfile, _level: int) -> void:
 	profile.glow_color = profile.body_color.lightened(0.35)
 	profile.rim_color = profile.body_color.lightened(0.15)
+	profile.trim_color = Color(0.11, 0.12, 0.15)
+	profile.trim_alt_color = Color(0.26, 0.27, 0.31)
+	profile.glass_color = Color(0.12, 0.18, 0.25)
+	profile.tire_color = GameConfig.COLOR_TIRE
+	profile.headlight_color = Color(1.0, 0.96, 0.78)
+	profile.taillight_color = Color(0.96, 0.18, 0.18)
 	match profile.silhouette:
 		CarEvolutionProfile.Silhouette.WRECK:
 			# Ruggine e plastica sbiadita: niente cromature.
 			profile.trim_color = Color(0.16, 0.15, 0.16)
-			profile.trim_alt_color = Color(0.38, 0.26, 0.19)
-			profile.glass_color = Color(0.22, 0.27, 0.29)
-			profile.rim_color = Color(0.34, 0.34, 0.36)
-			profile.glow_color = Color(0.62, 0.55, 0.30)
+			profile.trim_alt_color = Color(0.40, 0.27, 0.19)
+			profile.glass_color = Color(0.20, 0.25, 0.27)
+			profile.rim_color = Color(0.36, 0.36, 0.38)
+			profile.glow_color = Color(0.68, 0.58, 0.30)
+			profile.headlight_color = Color(1.0, 0.90, 0.62)
+		CarEvolutionProfile.Silhouette.HATCHBACK:
+			profile.glass_color = Color(0.14, 0.23, 0.31)
+			profile.rim_color = Color(0.78, 0.80, 0.84)
+			profile.trim_alt_color = Color(0.22, 0.23, 0.27)
 		CarEvolutionProfile.Silhouette.SEDAN:
 			profile.trim_color = Color(0.13, 0.14, 0.17)
-			profile.trim_alt_color = Color(0.72, 0.74, 0.78)  # profili cromati
-			profile.rim_color = Color(0.80, 0.82, 0.86)
+			profile.trim_alt_color = Color(0.80, 0.82, 0.86)  # profili cromati
+			profile.glass_color = Color(0.12, 0.21, 0.29)
+			profile.rim_color = Color(0.86, 0.88, 0.92)
+		CarEvolutionProfile.Silhouette.COUPE:
+			profile.trim_color = Color(0.09, 0.10, 0.12)
+			profile.trim_alt_color = Color(0.24, 0.25, 0.29)
+			profile.glass_color = Color(0.09, 0.16, 0.23)
+			profile.rim_color = Color(0.30, 0.32, 0.36)
+		CarEvolutionProfile.Silhouette.SUPERCAR:
+			profile.trim_color = Color(0.08, 0.09, 0.12)
+			profile.trim_alt_color = Color(0.20, 0.21, 0.25)
+			profile.glass_color = Color(0.07, 0.14, 0.21)
+			profile.rim_color = Color(0.16, 0.17, 0.20)
 		CarEvolutionProfile.Silhouette.HYPERCAR:
 			profile.trim_color = Color(0.09, 0.09, 0.13)
 			profile.trim_alt_color = Color(0.20, 0.20, 0.28)
 			profile.glass_color = Color(0.30, 0.62, 0.86)
 			profile.glow_color = Color(0.62, 0.92, 1.0)
 			profile.headlight_color = Color(0.78, 0.96, 1.0)
-		_:
-			profile.trim_color = Color(0.11, 0.12, 0.15)
-			profile.trim_alt_color = Color(0.26, 0.27, 0.31)
-	profile.tire_color = GameConfig.COLOR_TIRE
-	profile.headlight_color = Color(1.0, 0.96, 0.76)
-	profile.taillight_color = Color(0.96, 0.18, 0.18)
-	if profile.silhouette == CarEvolutionProfile.Silhouette.HYPERCAR:
-		profile.headlight_color = Color(0.78, 0.96, 1.0)
-		profile.taillight_color = Color(1.0, 0.35, 0.55)
+			profile.taillight_color = Color(1.0, 0.35, 0.55)
+			profile.rim_color = Color(0.92, 0.94, 1.0)
 
 
 static func _silhouette(level: int) -> int:

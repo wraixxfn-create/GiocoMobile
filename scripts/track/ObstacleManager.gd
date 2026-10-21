@@ -99,7 +99,10 @@ func step(delta: float = 0.0) -> void:
 			obstacle.prev_frame_x = obstacle.position.x
 			obstacle.advance(dt, true)
 
-	var travel := Vector2(current_position.x - previous_position.x, current_position.z - previous_position.z)
+	var travel := Vector2(
+		current_position.x - previous_position.x,
+		current_position.z - previous_position.z,
+	)
 	var path_length := travel.length()
 	# I teletrasporti (test/reset) non generano collisioni; il passo reale è limitato.
 	if path_length > 0.000001 and path_length <= GameConfig.OBSTACLE_TELEPORT_LIMIT:
@@ -486,7 +489,7 @@ func _resolve_hit(obstacle: Obstacle, contact: Vector3, previous_position: Vecto
 		hit_dir = 1.0
 	obstacle.register_hit(hit_dir)
 
-	_spawn_impact(Vector3(contact.x, 0.55, obstacle.position.z + obstacle.half_extents.z))
+	_spawn_impact(Vector3(contact.x, 0.40, obstacle.position.z + obstacle.half_extents.z))
 	_player.add_impact_shake(1.0 if obstacle.solid else 0.6)
 	hit_count += 1
 	last_hit_obstacle = obstacle
@@ -560,7 +563,9 @@ func _car_half_extents() -> Vector2:
 
 # ------------------------------------------------------------------ Effetti --
 
-## Effetto d'impatto: anello che si espande, lampo di luce e scintille.
+## Effetto d'impatto: anello che si espande, lampo di luce breve e poche
+## scintille. Volutamente contenuto (niente schermate bianche o pioggia di
+## particelle): dà il "colpo" senza coprire la pista.
 ## Autogestito e limitato a OBSTACLE_MAX_EFFECTS istanze simultanee.
 func _spawn_impact(at: Vector3) -> void:
 	if _effects.size() >= GameConfig.OBSTACLE_MAX_EFFECTS:
@@ -599,21 +604,21 @@ func _spawn_impact(at: Vector3) -> void:
 
 	var light := OmniLight3D.new()
 	light.light_color = GameConfig.COLOR_OBSTACLE_IMPACT
-	light.omni_range = 5.5
-	light.light_energy = 6.5
+	light.omni_range = 4.2
+	light.light_energy = 2.6
 	light.shadow_enabled = false
-	light.position = Vector3(0.0, 0.45, 0.0)
+	light.position = Vector3(0.0, 0.40, 0.0)
 	root.add_child(light)
 
 	var spark_mesh := BoxMesh.new()
-	spark_mesh.size = Vector3(0.1, 0.1, 0.1)
+	spark_mesh.size = Vector3(0.075, 0.075, 0.075)
 	var spark_material := MaterialFactory.emissive(
 		"obstacle_spark", GameConfig.COLOR_OBSTACLE_IMPACT, 1.6
 	)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(int(_sim_time * 1000.0) + hit_count * 31 + 7)
 	var sparks: Array = []
-	for _index in 6:
+	for _index in 4:
 		var spark := MeshInstance3D.new()
 		spark.mesh = spark_mesh
 		spark.material_override = spark_material
@@ -649,13 +654,13 @@ func _advance_effects(dt: float) -> void:
 		)
 
 		var ring: MeshInstance3D = effect["ring"]
-		var ring_scale := lerpf(0.35, 2.2, progress)
+		var ring_scale := lerpf(0.32, 1.75, progress)
 		ring.scale = Vector3(ring_scale, 1.0, ring_scale)
 		var ring_material: StandardMaterial3D = effect["ring_material"]
 		ring_material.albedo_color.a = 0.85 * (1.0 - progress)
 
 		var light: OmniLight3D = effect["light"]
-		light.light_energy = 6.5 * pow(1.0 - progress, 2.0)
+		light.light_energy = 2.6 * pow(1.0 - progress, 2.0)
 		light.visible = progress < 1.0
 
 		for spark_entry in effect["sparks"]:

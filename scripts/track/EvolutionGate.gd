@@ -12,17 +12,30 @@ extends Node3D
 ## - valore > 0 (verde/blu): evoluzione positiva;
 ## - valore < 0 (rosso): regressione;
 ## - un cancello si attiva UNA sola volta (`consumed`) e poi si spegne.
+##
+## Aspetto: piloni colorati con striscia luminosa, trave superiore, soglia
+## sull'asfalto, pannello traslucido e un cartello "pillola" con il valore.
+## All'attraversamento parte un feedback breve (pop dell'arcata, lampo,
+## onda a terra) che non tocca mai posizione o stato del cancello.
 
-## Durata dell'animazione di spegnimento dopo l'attraversamento.
-const CONSUME_DURATION: float = 0.45
-const POST_WIDTH: float = 0.22
-const POST_DEPTH: float = 0.32
-const BEAM_HEIGHT: float = 0.30
-const PANEL_ALPHA: float = 0.20
-const PANEL_BOTTOM: float = 0.20
-const PANEL_TOP_GAP: float = 0.55
+## Durata dell'animazione di attraversamento dopo l'attivazione.
+const CONSUME_DURATION: float = 0.48
+const POST_WIDTH: float = 0.24
+const POST_DEPTH: float = 0.34
+const BEAM_HEIGHT: float = 0.34
+const PANEL_ALPHA: float = 0.16
+const PANEL_BOTTOM: float = 0.18
+const PANEL_TOP_GAP: float = 0.52
 const LABEL_FONT_SIZE: int = 128
-const LABEL_PIXEL_SIZE: float = 0.012
+const LABEL_PIXEL_SIZE: float = 0.0115
+const BADGE_SIZE := Vector2(2.15, 0.92)
+const BADGE_HEIGHT: float = 0.62
+const BADGE_COLOR := Color(0.05, 0.07, 0.11, 0.90)
+const POP_AMOUNT: float = 0.055
+const GLOW_STRIP_WIDTH: float = 0.05
+const RING_START: float = 0.55
+const RING_END: float = 2.35
+const RING_ALPHA: float = 0.55
 
 ## Variazione applicata al livello di evoluzione (+1, +2, -1, ...).
 var value: int = 1
@@ -35,8 +48,11 @@ var consumed: bool = false
 var _visual: Node3D
 var _panel: MeshInstance3D
 var _label: Label3D
+var _ring: MeshInstance3D
+var _ring_material: StandardMaterial3D
 var _frame_material: StandardMaterial3D
 var _accent_material: StandardMaterial3D
+var _glow_material: StandardMaterial3D
 var _panel_material: StandardMaterial3D
 var _base_color: Color = GameConfig.COLOR_GATE_POSITIVE
 var _consuming: bool = false
@@ -44,7 +60,7 @@ var _consume_time: float = 0.0
 
 
 func _ready() -> void:
-	# L'animazione di spegnimento parte solo quando serve.
+	# L'animazione di attraversamento parte solo quando serve.
 	set_process(false)
 
 
@@ -135,9 +151,19 @@ func _process(delta: float) -> void:
 
 func _build(width: float) -> void:
 	_base_color = _color_for_value(value)
-	_frame_material = _make_material(GameConfig.COLOR_GATE_FRAME, 0.45)
-	_accent_material = _make_material(_base_color, 0.30, 1.35)
-	_panel_material = _make_material(_base_color, 0.70, 0.55, PANEL_ALPHA)
+	_frame_material = MaterialFactory.colored(
+		"gate_frame", GameConfig.COLOR_GATE_FRAME, 0.40, 0.10
+	)
+	_accent_material = MaterialFactory.unique_emissive(_base_color, 1.30)
+	_glow_material = MaterialFactory.unique_emissive(_base_color.lightened(0.35), 2.10)
+	_panel_material = MaterialFactory.translucent(
+		Color(_base_color.r, _base_color.g, _base_color.b, PANEL_ALPHA),
+		0.55,
+	)
+
+	if _visual != null and is_instance_valid(_visual):
+		remove_child(_visual)
+		_visual.queue_free()
 
 	_visual = Node3D.new()
 	_visual.name = "Visual"
@@ -153,44 +179,111 @@ func _build(width: float) -> void:
 			Vector3(side * post_offset, height * 0.5, 0.0),
 			_accent_material,
 		))
-		# Basamento bianco: ancora il cancello all'asfalto e lo rende leggibile.
+		# Striscia luminosa interna: rende il varco leggibile già da lontano.
 		_visual.add_child(_mesh_box(
-			Vector3(POST_WIDTH + 0.18, 0.14, POST_DEPTH + 0.18),
-			Vector3(side * post_offset, 0.07, 0.0),
+			Vector3(GLOW_STRIP_WIDTH, height * 0.82, 0.045),
+			Vector3(side * (post_offset - POST_WIDTH * 0.5 - 0.005), height * 0.5, 0.0),
+			_glow_material,
+		))
+		_visual.add_child(_mesh_box(
+			Vector3(POST_WIDTH + 0.14, 0.16, POST_DEPTH + 0.14),
+			Vector3(side * post_offset, 0.08, 0.0),
 			_frame_material,
 		))
 
-	# Trave superiore che chiude l'arcata.
+	# Trave superiore bianca con anima colorata: struttura + colore del cancello.
 	_visual.add_child(_mesh_box(
 		Vector3(width, BEAM_HEIGHT, POST_DEPTH),
 		Vector3(0.0, height - BEAM_HEIGHT * 0.5, 0.0),
 		_accent_material,
 	))
+	_visual.add_child(_mesh_box(
+		Vector3(width, 0.06, POST_DEPTH + 0.03),
+		Vector3(0.0, height - 0.03, 0.0),
+		_frame_material,
+	))
 
-	# Pannello semitrasparente che riempie il varco: rende il cancello visibile
-	# anche in lontananza senza nascondere la pista.
+	# Soglia colorata sull'asfalto: segna esattamente il piano di attraversamento.
+	var threshold := _mesh_box(
+		Vector3(maxf(width - POST_WIDTH * 2.0, 0.2), 0.035, 0.20),
+		Vector3(0.0, 0.03, 0.0),
+		_glow_material,
+	)
+	threshold.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_visual.add_child(threshold)
+
+	# Pannello semitrasparente che riempie il varco (non nasconde la pista).
 	var panel_width := maxf(width - POST_WIDTH * 2.0, 0.1)
 	var panel_height := maxf(height - PANEL_BOTTOM - PANEL_TOP_GAP, 0.3)
 	_panel = _mesh_box(
-		Vector3(panel_width, panel_height, 0.05),
+		Vector3(panel_width, panel_height, 0.04),
 		Vector3(0.0, PANEL_BOTTOM + panel_height * 0.5, 0.0),
 		_panel_material,
 	)
 	_panel.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_visual.add_child(_panel)
 
-	# Valore comprensibile (+1, +2, -1) sopra la trave, sempre rivolto alla camera.
+	# Frecce a chevron sulla trave: indicano la direzione di marcia.
+	for side in sides:
+		var arrow := _mesh_box(
+			Vector3(0.30, 0.075, 0.05),
+			Vector3(side * 0.15, height - BEAM_HEIGHT * 0.5, POST_DEPTH * 0.5 + 0.03),
+			_frame_material,
+		)
+		arrow.rotation.z = deg_to_rad(-34.0) * side
+		arrow.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_visual.add_child(arrow)
+
+	_build_badge(height)
+	_build_ring()
+
+
+## Cartello "pillola" scuro + valore: contrasto alto a qualsiasi distanza.
+func _build_badge(height: float) -> void:
+	var badge_material := MaterialFactory.badge_material(BADGE_COLOR)
+	var badge := MeshInstance3D.new()
+	badge.name = "ValueBadge"
+	var quad := QuadMesh.new()
+	quad.size = BADGE_SIZE
+	badge.mesh = quad
+	badge.material_override = badge_material
+	badge.position = Vector3(0.0, height + BADGE_HEIGHT, 0.06)
+	badge.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_visual.add_child(badge)
+
 	_label = Label3D.new()
 	_label.name = "ValueLabel"
 	_label.text = _format_value(value)
 	_label.font_size = LABEL_FONT_SIZE
 	_label.pixel_size = LABEL_PIXEL_SIZE
-	_label.outline_size = 26
-	_label.outline_modulate = Color(0.05, 0.06, 0.08, 0.92)
-	_label.modulate = Color.WHITE
+	_label.outline_size = 0
+	_label.modulate = _base_color.lightened(0.30)
 	_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	_label.position = Vector3(0.0, height + 0.62, 0.05)
+	_label.position = Vector3(0.0, height + BADGE_HEIGHT, 0.09)
 	_visual.add_child(_label)
+
+
+## Onda a terra mostrata solo durante l'attraversamento.
+func _build_ring() -> void:
+	_ring_material = MaterialFactory.translucent(
+		Color(_base_color.r, _base_color.g, _base_color.b, 0.0),
+		2.0,
+	)
+	var disc := CylinderMesh.new()
+	disc.top_radius = 1.0
+	disc.bottom_radius = 1.0
+	disc.height = 0.03
+	disc.radial_segments = 20
+	disc.rings = 1
+	_ring = MeshInstance3D.new()
+	_ring.name = "CrossRing"
+	_ring.mesh = disc
+	_ring.material_override = _ring_material
+	_ring.position = Vector3(0.0, 0.06, 0.0)
+	_ring.scale = Vector3(RING_START, 1.0, RING_START)
+	_ring.visible = false
+	_ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_visual.add_child(_ring)
 
 
 func _mesh_box(size: Vector3, box_position: Vector3, material: Material) -> MeshInstance3D:
@@ -203,39 +296,38 @@ func _mesh_box(size: Vector3, box_position: Vector3, material: Material) -> Mesh
 	return instance
 
 
-func _make_material(
-	color: Color,
-	roughness: float,
-	emission_energy: float = 0.0,
-	alpha: float = 1.0,
-) -> StandardMaterial3D:
-	var material := StandardMaterial3D.new()
-	material.albedo_color = Color(color.r, color.g, color.b, alpha)
-	material.roughness = roughness
-	if emission_energy > 0.0:
-		material.emission_enabled = true
-		material.emission = color
-		material.emission_energy_multiplier = emission_energy
-	if alpha < 1.0:
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		material.cull_mode = BaseMaterial3D.CULL_DISABLED
-	return material
-
-
-## Spegnimento progressivo: il pannello svanisce, la struttura vira al grigio.
+## Spegnimento progressivo: l'arcata "pulsa", il pannello svanisce, la
+## struttura vira al grigio e un'onda si espande a terra.
 func _apply_consumed_state(progress: float) -> void:
+	if _visual == null:
+		return
+	var eased := sin(progress * PI)
+	var pop := 1.0 + POP_AMOUNT * eased
+	_visual.scale = Vector3(pop, 1.0 + POP_AMOUNT * 0.45 * eased, pop)
+
 	var off := GameConfig.COLOR_GATE_OFF
 	if _panel_material != null:
 		_panel_material.albedo_color.a = PANEL_ALPHA * (1.0 - progress)
-		_panel_material.emission_energy_multiplier = 0.55 * (1.0 - progress)
+		_panel_material.emission_energy_multiplier = 2.2 * (1.0 - progress)
 	if _accent_material != null:
-		var faded := _base_color.lerp(off, progress).darkened(0.15 * progress)
+		var faded := _base_color.lerp(off, progress).darkened(0.12 * progress)
 		_accent_material.albedo_color = faded
 		_accent_material.emission = faded
-		_accent_material.emission_energy_multiplier = 1.35 * (1.0 - progress) + 0.05
+		_accent_material.emission_energy_multiplier = 1.30 * (1.0 - progress) + 0.05
+	if _glow_material != null:
+		var glow := _base_color.lightened(0.35).lerp(off, progress)
+		_glow_material.albedo_color = glow
+		_glow_material.emission = glow
+		_glow_material.emission_energy_multiplier = 2.10 * (1.0 - progress)
 	if _label != null:
-		_label.modulate = Color(1.0, 1.0, 1.0, lerpf(1.0, 0.35, progress))
+		_label.modulate.a = lerpf(1.0, 0.30, progress)
+		_label.scale = Vector3.ONE * (1.0 + 0.18 * eased)
+	if _ring != null and _ring_material != null:
+		_ring.visible = progress > 0.0 and progress < 1.0
+		var radius := lerpf(RING_START, RING_END, progress)
+		_ring.scale = Vector3(radius, 1.0, radius)
+		_ring_material.albedo_color.a = RING_ALPHA * pow(1.0 - progress, 1.4)
+		_ring_material.emission_energy_multiplier = 2.0 * (1.0 - progress)
 
 
 func _color_for_value(gate_value: int) -> Color:

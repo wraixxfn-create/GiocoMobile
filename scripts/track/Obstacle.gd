@@ -91,7 +91,14 @@ func setup_static(piece_kind: int, x: float, z: float, halves: Vector3) -> void:
 
 
 ## Blocco mobile: attraversa la pista tra due limiti a velocità costante.
-func setup_mover(z: float, halves: Vector3, min_x: float, max_x: float, speed: float, phase: float) -> void:
+func setup_mover(
+	z: float,
+	halves: Vector3,
+	min_x: float,
+	max_x: float,
+	speed: float,
+	phase: float,
+) -> void:
 	kind = Kind.MOVING_BLOCK
 	solid = true
 	half_extents = halves
@@ -293,6 +300,19 @@ func _build_cone() -> void:
 		MaterialFactory.colored("obstacle_cone_band", GameConfig.COLOR_OBSTACLE_STRIPE, 0.55),
 	))
 
+	# Seconda fascia bianca più in alto: il cono resta leggibile anche da lontano.
+	var upper_band := CylinderMesh.new()
+	upper_band.top_radius = 0.075
+	upper_band.bottom_radius = 0.105
+	upper_band.height = 0.10
+	upper_band.radial_segments = 10
+	upper_band.rings = 1
+	_visual.add_child(_mesh(
+		upper_band,
+		Vector3(0.0, 0.49, 0.0),
+		MaterialFactory.colored("obstacle_cone_band", GameConfig.COLOR_OBSTACLE_STRIPE, 0.55),
+	))
+
 	var base_size := Vector3(half_extents.x * 2.0 + 0.06, 0.06, half_extents.z * 2.0 + 0.06)
 	_visual.add_child(_mesh(
 		_box(base_size),
@@ -315,8 +335,8 @@ func _build_barrier() -> void:
 	))
 	# Strisce bianche sulla faccia rivolta all'auto (+Z): leggibilità immediata.
 	var stripe_mat := MaterialFactory.colored("obstacle_stripe", GameConfig.COLOR_OBSTACLE_STRIPE, 0.5)
-	for index in 3:
-		var stripe_x := (float(index) - 1.0) * width * 0.30
+	for index in 4:
+		var stripe_x := (float(index) - 1.5) * width * 0.24
 		_visual.add_child(_mesh(
 			_box(Vector3(width * 0.16, height * 0.62, 0.04)),
 			Vector3(stripe_x, height * 0.5 + 0.12, depth * 0.5 + 0.01),
@@ -328,7 +348,9 @@ func _build_barrier() -> void:
 		Vector3(0.0, height + 0.16, 0.0),
 		stripe_mat,
 	))
-	var foot_mat := MaterialFactory.colored("obstacle_dark", GameConfig.COLOR_OBSTACLE_MOVING_DARK, 0.8)
+	var foot_mat := MaterialFactory.colored(
+		"obstacle_dark", GameConfig.COLOR_OBSTACLE_MOVING_DARK, 0.8
+	)
 	for side in [-1.0, 1.0]:
 		_visual.add_child(_mesh(
 			_box(Vector3(0.18, 0.16, depth + 0.26)),
@@ -359,14 +381,18 @@ func _build_wall() -> void:
 		Vector3(0.0, height * 0.5, 0.0),
 		_body_material,
 	))
-	# Fascia rossa frontale + cappello bianco: il varco resta leggibile.
-	_visual.add_child(_mesh(
-		_box(Vector3(width * 0.96, height * 0.30, 0.04)),
-		Vector3(0.0, height * 0.55, depth * 0.5 + 0.01),
-		MaterialFactory.colored(
-			"obstacle_chevron", GameConfig.COLOR_OBSTACLE_WALL_CHEVRON, 0.6
-		),
-	))
+	# Strisce diagonali frontali + cappello bianco: il varco resta leggibile.
+	var chevron_mat := MaterialFactory.colored(
+		"obstacle_chevron", GameConfig.COLOR_OBSTACLE_WALL_CHEVRON, 0.6
+	)
+	for index in 3:
+		var stripe := _mesh(
+			_box(Vector3(width * 0.17, height * 0.62, 0.04)),
+			Vector3((float(index) - 1.0) * width * 0.30, height * 0.52, depth * 0.5 + 0.01),
+			chevron_mat,
+		)
+		stripe.rotation.z = deg_to_rad(24.0)
+		_visual.add_child(stripe)
 	_visual.add_child(_mesh(
 		_box(Vector3(width + 0.06, 0.09, depth + 0.08)),
 		Vector3(0.0, height + 0.03, 0.0),
@@ -384,7 +410,9 @@ func _build_mover() -> void:
 	var height := half_extents.y * 2.0
 	var depth := half_extents.z * 2.0
 	_body_material = _animated_material(GameConfig.COLOR_OBSTACLE_MOVING, 0.45, 0.1)
-	var dark_mat := MaterialFactory.colored("obstacle_dark", GameConfig.COLOR_OBSTACLE_MOVING_DARK, 0.8)
+	var dark_mat := MaterialFactory.colored(
+		"obstacle_dark", GameConfig.COLOR_OBSTACLE_MOVING_DARK, 0.8
+	)
 
 	# Corpo del veicolo/blocco che attraversa la pista.
 	_visual.add_child(_mesh(
@@ -431,6 +459,16 @@ func _build_mover() -> void:
 			wheel_node.rotation.z = PI * 0.5
 			_visual.add_child(wheel_node)
 	# Lampeggiante ambra: segnala "ostacolo in movimento" da lontano.
+	var warning_mat := MaterialFactory.emissive(
+		"obstacle_mover_strip", GameConfig.COLOR_OBSTACLE_BEACON, 1.35
+	)
+	for face_sign in [-1.0, 1.0]:
+		_visual.add_child(_mesh(
+			_box(Vector3(width * 0.80, 0.07, 0.04)),
+			Vector3(0.0, 0.24 + height * 0.36, face_sign * (depth * 0.5 + 0.02)),
+			warning_mat,
+		))
+
 	_beacon_material = MaterialFactory.unique_emissive(GameConfig.COLOR_OBSTACLE_BEACON, 2.2)
 	var beacon := CylinderMesh.new()
 	beacon.top_radius = 0.07
@@ -461,7 +499,11 @@ func _mesh(mesh: Mesh, mesh_position: Vector3, material: Material) -> MeshInstan
 
 ## Materiale del corpo, unico per pezzo e predisposto per la dissolvenza:
 ## le animazioni di sfondamento non possono propagarsi ad altri ostacoli.
-func _animated_material(color: Color, roughness: float, metallic: float = 0.0) -> StandardMaterial3D:
+func _animated_material(
+	color: Color,
+	roughness: float,
+	metallic: float = 0.0,
+) -> StandardMaterial3D:
 	var material := MaterialFactory.unique_material(color, roughness, metallic)
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	return material

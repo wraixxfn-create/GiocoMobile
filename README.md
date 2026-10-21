@@ -303,6 +303,133 @@ dall'ingombro reale dell'auto ruotata al massimo (`CAR_HALF_WIDTH`,
 Le ruote sono la parte più larga, quindi anche l'ingombro massimo resta dentro
 la carreggiata.
 
+## Rifinitura visiva e audio (Fase 5)
+
+La passata di rifinitura non cambia nessuna regola: distanze, valori dei
+cancelli, penalità, monete, punteggio e stati del gioco restano quelli
+descritti sopra. Sono cambiati solo materiali, illuminazione, modelli, UI,
+animazioni e suoni — tutti generati a runtime, senza asset esterni.
+
+### Materiali, luci e ombre
+
+- `GameConfig.gd` contiene l'intera palette (`COLOR_*`): asfalto e prato,
+  cordoli, alberi, carrozzeria per stadio, cancelli, ostacoli, traguardo e UI.
+- `MaterialFactory.gd` crea e mette in cache i materiali condivisi: vernice
+  con clearcoat, vetro, cerchioni, materiali emissivi "unici" (per le parti che
+  lampeggiano) e materiali traslucidi per pannelli e onde.
+- `GameRoot.gd` imposta cielo procedurale, esposizione FILMIC, leggera
+  saturazione e nebbia di profondità morbida; il sole ha ombre a due split con
+  distanza ridotta, quindi restano nitide attorno all'auto senza costare
+  quanto una shadow map lunga. **Niente SSAO, niente glow**: su telefoni di
+  fascia media costano più di quanto rendano.
+
+### Pista e scenografia
+
+- I segmenti alternano due toni d'asfalto e hanno cordoli bicolore, fascia
+  chiara di bordo, linee di corsia e catarifrangenti.
+- Erba e fiori sono `MultiMesh` (un draw call per tipo e per segmento), con
+  alberi low-poly e cespugli distribuiti fuori dai cordoli.
+- Il traguardo (`scripts/track/FinishLine.gd`) è **solo scenografia**: una
+  striscia a scacchiera, due piloni e un arco con la scritta "TRAGUARDO",
+  posizionato da `GameRoot` a `car.z - RUN_DISTANCE_METERS` a ogni corsa. La
+  vittoria resta decisa da `GameManager`.
+
+### Cancelli, monete e ostacoli
+
+- I cancelli sono verdi/blu (positivi) e rossi (negativi), con piloni,
+  striscia luminosa, trave, soglia sull'asfalto, pannello traslucido e un
+  cartello "pillola" sempre rivolto alla telecamera con il valore (`+1`,
+  `+2`, `-1`). All'attraversamento l'arcata fa un piccolo pop, il pannello
+  svanisce e parte un'onda a terra: nessuna luce aggiuntiva.
+- Le monete hanno disco, anello e rilievo centrale; ruotano e galleggiano.
+  Alla raccolta compaiono un anello luminoso in espansione e un pop sul
+  contatore, senza particelle.
+- Ogni ostacolo ha dettagli coerenti (bande bianche sul cono, strisce e
+  catarifrangenti sulla barriera, strisce diagonali sul blocco, fascia
+  luminosa sul blocco mobile). L'urto resta non invasivo: scuotimento breve
+  dell'auto, flash HUD tenue, anello a terra con quattro scintille.
+
+### Auto: sei silhouette leggibili
+
+`CarModelBuilder.gd` costruisce sei modelli distinti (rottame, utilitaria,
+berlina, coupé, supercar, hypercar) con proporzioni diverse — non solo colore:
+minicar alta e corta, hatchback compatta, berlina a tre volumi, coupé bassa,
+supercar a cuneo, hypercar bassissima con pinne e barre luminose. Ogni stadio
+ha vernice con clearcoat, vetri, cerchioni, mozzoni, targa, luci diurne e una
+barra di spie che si accende fino al livello corrente.
+
+La trasformazione (`CarEvolutionDirector.gd`) dura circa mezzo secondo:
+scala con rimbalzo, leggero squash e saltello, lampo di luce breve e onda a
+terra. Tutto avviene in `_process` e non tocca input, velocità o posizione:
+i comandi restano reattivi durante l'animazione.
+
+### Interfaccia
+
+`scripts/ui/UITheme.gd` raccoglie lo stile (tipografia con outline, pulsanti
+touch da almeno 72 px, pannelli arrotondati, barre di progresso, icone
+procedurali); `HUD.gd` compone il layout verticale:
+
+1. barra di stato in alto: distanza, monete, barra di avanzamento, livello,
+   saldo e cinque spie colorate;
+2. pila "stadio attuale" con nome grande, sottolineatura animata e statistiche;
+3. pillola di feedback per cancelli e urti (svanisce da sola in ~1,4 s);
+4. suggerimento di sterzo in basso, visibile solo durante la corsa.
+
+Menu, countdown, pausa e riepilogo compaiono in dissolvenza + scala morbida;
+i testi chiave hanno un piccolo "pop". Nessuna animazione blocca i pulsanti e
+tutte durano meno di mezzo secondo.
+
+### Audio procedurale e silenziamento
+
+`scripts/core/SfxDirector.gd` sintetizza in PCM16 mono 22 kHz, una sola volta
+all'avvio, sei effetti brevi: moneta, evoluzione, regressione, urto, vittoria,
+sconfitta e click dei pulsanti. Usa un pool di sei `AudioStreamPlayer`
+riutilizzati, un intervallo minimo tra due monete (niente raffiche) e nessun
+file audio da importare.
+
+Lo stato dell'audio è persistente in `user://giocomobile_audio.cfg` e si
+attiva/disattiva dai pulsanti **AUDIO ON/OFF** del HUD, del menu e della pausa;
+in modalità muto nessun suono viene avviato e i player attivi vengono fermati.
+Per cambiare volume o timbro: `AUDIO_SFX_VOLUME_DB`, `AUDIO_VOICE_COUNT`,
+`AUDIO_SAMPLE_RATE`, `AUDIO_COIN_MIN_INTERVAL` in `GameConfig.gd`.
+
+### Taratura rapida della rifinitura
+
+| Parametro | Dove | Effetto |
+| --- | --- | --- |
+| `UI_APPEAR_DURATION` / `UI_POP_DURATION` | `GameConfig.gd` | durata di comparsa pannelli e pop dei testi |
+| `GATE_FLASH_DURATION` / `GATE_FLASH_ALPHA` | `GameConfig.gd` | lampo a schermo all'attraversamento |
+| `EVOLUTION_TRANSFORM_DURATION` | `GameConfig.gd` | durata della trasformazione dell'auto |
+| `OBSTACLE_IMPACT_DURATION` / `OBSTACLE_MAX_EFFECTS` | `GameConfig.gd` | durata e numero massimo di effetti d'urto |
+| `GOLD_ENERGY_*`, `SHOCKWAVE_*`, `FLASH_LIGHT_*` | `FinishLine.gd`, `CarEvolutionDirector.gd` | intensità di bagliori e onde |
+| `AUDIO_*` | `GameConfig.gd` | volume, voci, campionamento e rata delle monete |
+
+## Verifica manuale (dopo la rifinitura)
+
+Con il motore disponibile, oltre ai test headless:
+
+1. **Menu**: titolo, striscia a scacchiera, saldo, GIOCA grande e pulsante
+   audio; la card compare in dissolvenza. Il pulsante audio cambia testo e
+   colore e resta memorizzato dopo il riavvio.
+2. **Corsa**: l'auto resta al centro, la pista scorre, lo stadio in alto è
+   leggibile, le cinque spie colorate corrispondono al livello.
+3. **Cancelli**: si distinguono a colpo d'occhio verde/blu e rosso; il valore è
+   leggibile a 30-40 m; attraversandone uno compaiono pop, onda a terra e
+   pillola di feedback; l'altro cancello della coppia si spegne.
+4. **Evoluzione**: passando di livello il modello cambia subito, con pop,
+   saltello, lampo breve e suono; sterzo e velocità rispondono durante
+   l'animazione. Cinque stadi chiaramente diversi.
+5. **Monete**: rotazione e galleggiamento fluidi; alla raccolta anello
+   luminoso, pop del contatore e blip breve (non ripetuto a raffica).
+6. **Ostacoli**: ogni tipo è riconoscibile; l'urto dà scuotimento, flash
+   tenue, messaggio "URTO!" e un effetto a terra che si spegne da solo.
+7. **Traguardo**: l'arco a scacchiera compare davanti all'auto, la scritta è
+   leggibile; la vittoria arriva esattamente a 800 m, con jingle breve.
+8. **Riepilogo e pausa**: card che compaiono in dissolvenza, testi non
+   troncati, RIGIOCA/MENU/RIPRENDI reattivi; nessun suono in modalità muto.
+9. **Prestazioni**: su un telefono di fascia media la corsa resta fluida
+   (nessun glow, nessun SSAO, effetti limitati e a vita breve).
+
 ## Struttura
 
 ```
@@ -318,8 +445,9 @@ scripts/
   core/
     GameConfig.gd        # dimensioni pista/auto, camera, palette colori
     DrivingTuning.gd     # risorsa dei parametri di guida (velocità/sensibilità)
-    GameRoot.gd          # bootstrap: cielo procedurale, luce/ombre, camera prospettica
+    GameRoot.gd          # bootstrap: cielo procedurale, luce/ombre, camera, audio, traguardo
     MaterialFactory.gd   # materiali low-poly condivisi e cachiati
+    SfxDirector.gd       # effetti sonori procedurali (PCM16) con mute persistente
   gameplay/
     GameManager.gd       # FSM: menu, countdown, corsa, pausa, esito e ricompense
     CoinWalletStore.gd   # saldo persistente con ConfigFile in user://
@@ -335,7 +463,7 @@ scripts/
     CarModel.gd          # compatibilità: apply_evolution_level() delega al direttore
   track/
     TrackManager.gd      # generazione e riciclo segmenti verso l'orizzonte
-    TrackSegment.gd      # segmento con pista grigia, cordoli laterali, prato e decorazioni
+    TrackSegment.gd      # segmento: asfalto alternato, cordoli, prato, erba/fiori in MultiMesh
     GateManager.gd       # file di cancelli: spawn, rilevamento 3D, effetti, riciclo
     GateRow.gd           # coppia di cancelli su un piano (struttura dati)
     EvolutionGate.gd     # un cancello: geometria, colore, valore e spegnimento
@@ -343,9 +471,11 @@ scripts/
     ObstacleRow.gd       # una fila di ostacoli su un piano (struttura dati + varchi)
     Obstacle.gd          # un ostacolo: tipo, stato, rect di collisione, animazioni
     CoinManager.gd       # generazione, pickup continuo e riciclo delle monete
-    Coin.gd              # moneta 3D, stato anti-duplicato e animazione di raccolta
+    Coin.gd              # moneta 3D, stato anti-duplicato, raccolta e onda luminosa
+    FinishLine.gd        # traguardo decorativo: scacchiera, piloni, arco e bagliore
   ui/
-    HUD.gd               # distanza, monete corsa/saldo, stadio e riepilogo finale
+    HUD.gd               # layout verticale: stato, stadio, feedback, menu, pausa, riepilogo
+    UITheme.gd           # stile condiviso: etichette, pulsanti, pannelli, icone procedurali
 tests/
   TestRunner.tscn        # test headless di integrazione
   TestRunner.gd          # guida, cancelli, ostacoli, ricompense e ciclo menu-corsa-risultato
@@ -417,4 +547,6 @@ passano.
   calcolo del punteggio; restano i modelli definitivi delle evoluzioni (già
   sostituibili senza toccare la logica: vedi "Sostituire i modelli")
 - Fase 4 (completata): menu, countdown, traguardo, esiti, pausa e replay
-- Fase 5: audio, salvataggio del record di punteggio, export Android/iOS
+- Fase 5 (in corso): rifinitura visiva, UI, animazioni e audio procedurale
+  completati; restano il salvataggio del record di punteggio e l'export
+  Android/iOS

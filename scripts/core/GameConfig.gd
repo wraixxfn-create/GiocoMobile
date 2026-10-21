@@ -31,12 +31,12 @@ const EVOLUTION_MAX_LEVEL: int = 5
 const EVOLUTION_START_LEVEL: int = 1
 ## Colore della carrozzeria per ogni livello (indice = livello).
 const EVOLUTION_COLORS: Array[Color] = [
-	Color(0.62, 0.60, 0.50),
-	Color(0.98, 0.80, 0.10),
-	Color(0.99, 0.60, 0.12),
-	Color(0.36, 0.86, 0.36),
-	Color(0.18, 0.78, 0.90),
-	Color(0.68, 0.40, 0.96),
+	Color(0.64, 0.62, 0.53),
+	Color(1.00, 0.79, 0.08),
+	Color(1.00, 0.53, 0.11),
+	Color(0.30, 0.87, 0.38),
+	Color(0.10, 0.72, 0.96),
+	Color(0.62, 0.34, 1.00),
 ]
 ## Nome dello stadio visivo per ogni livello (indice = livello).
 ## Lo stadio 0 è sotto l'utilitaria: è il "rottame" che si vede dopo troppe
@@ -132,11 +132,11 @@ const GATE_SPLIT_PATTERN: Array[float] = [-1.3, 0.0, 1.3, 0.7, -0.7]
 ## Valori dei cancelli positivi (i più grandi sono blu, i piccoli verdi).
 const GATE_POSITIVE_PATTERN: Array[int] = [1, 2, 1, 2, 1]
 
-const COLOR_GATE_POSITIVE := Color(0.18, 0.86, 0.45)
-const COLOR_GATE_POSITIVE_STRONG := Color(0.20, 0.60, 0.98)
-const COLOR_GATE_NEGATIVE := Color(0.94, 0.24, 0.27)
-const COLOR_GATE_FRAME := Color(0.97, 0.98, 1.0)
-const COLOR_GATE_OFF := Color(0.42, 0.44, 0.48)
+const COLOR_GATE_POSITIVE := Color(0.16, 0.90, 0.44)
+const COLOR_GATE_POSITIVE_STRONG := Color(0.16, 0.62, 1.00)
+const COLOR_GATE_NEGATIVE := Color(0.96, 0.24, 0.30)
+const COLOR_GATE_FRAME := Color(0.98, 0.99, 1.0)
+const COLOR_GATE_OFF := Color(0.40, 0.43, 0.48)
 
 # --------------------------------------------------------------- Ostacoli ---
 ## PUNTO UNICO DI TARATURA DEGLI OSTACOLI (fase 3).
@@ -263,32 +263,79 @@ const CAMERA_FOV: float = 64.0
 const CAMERA_LATERAL_FOLLOW: float = 1.0
 
 # --------------------------------------------------------- Cielo / Luce -----
-const COLOR_SKY_TOP := Color(0.24, 0.58, 0.95)
-const COLOR_SKY_HORIZON := Color(0.75, 0.89, 0.99)
-const COLOR_GROUND_HORIZON := Color(0.75, 0.89, 0.99)
-const COLOR_AMBIENT := Color(0.78, 0.85, 0.94)
-const COLOR_SUN := Color(1.0, 0.98, 0.92)
+const COLOR_SKY_TOP := Color(0.16, 0.50, 0.94)
+const COLOR_SKY_HORIZON := Color(0.76, 0.91, 1.0)
+const COLOR_GROUND_HORIZON := Color(0.78, 0.92, 0.99)
+const COLOR_AMBIENT := Color(0.80, 0.88, 0.98)
+const COLOR_SUN := Color(1.0, 0.96, 0.87)
 
 # --------------------------------------------------------- Pista / Prato ----
-const COLOR_ROAD := Color(0.37, 0.39, 0.42)
-const COLOR_LANE := Color(0.95, 0.96, 0.98)
-const COLOR_CURB_PRIMARY := Color(0.94, 0.95, 0.97)
-const COLOR_CURB_ACCENT := Color(0.90, 0.25, 0.23)
+const COLOR_ROAD := Color(0.31, 0.34, 0.39)
+const COLOR_ROAD_ALT := Color(0.33, 0.36, 0.41)
+const COLOR_LANE := Color(0.98, 0.99, 1.0)
+const COLOR_CURB_PRIMARY := Color(0.97, 0.98, 1.0)
+const COLOR_CURB_ACCENT := Color(0.93, 0.22, 0.26)
+## Fascia chiara tra cordolo e prato: stacca la pista dallo sfondo verde.
+const COLOR_VERGE := Color(0.84, 0.83, 0.67)
 
-const COLOR_GRASS := Color(0.36, 0.72, 0.33)
-const COLOR_GRASS_ALT := Color(0.31, 0.66, 0.29)
-const COLOR_HILL := Color(0.34, 0.68, 0.37)
+const COLOR_GRASS := Color(0.32, 0.71, 0.34)
+const COLOR_GRASS_ALT := Color(0.27, 0.64, 0.31)
+const COLOR_HILL := Color(0.31, 0.66, 0.41)
 
 # --------------------------------------------------------- Decorazioni ------
-const COLOR_TRUNK := Color(0.45, 0.31, 0.19)
+const COLOR_TRUNK := Color(0.44, 0.30, 0.18)
 const FOLIAGE_COLORS: Array[Color] = [
-	Color(0.20, 0.58, 0.30),
-	Color(0.28, 0.68, 0.34),
-	Color(0.16, 0.50, 0.27),
-	Color(0.36, 0.74, 0.34),
+	Color(0.16, 0.55, 0.30),
+	Color(0.24, 0.66, 0.33),
+	Color(0.13, 0.47, 0.28),
+	Color(0.34, 0.75, 0.36),
+]
+## Fiori low-poly sparsi sul prato (MultiMesh: un solo draw call per segmento).
+const FLOWER_COLORS: Array[Color] = [
+	Color(1.0, 0.94, 0.55),
+	Color(1.0, 0.55, 0.68),
+	Color(0.98, 0.98, 1.0),
+	Color(0.72, 0.62, 1.0),
 ]
 const COLOR_ROCK := Color(0.56, 0.59, 0.63)
-const COLOR_POST := Color(0.92, 0.93, 0.95)
+const COLOR_POST := Color(0.95, 0.96, 0.99)
+const COLOR_POST_REFLECTOR := Color(1.0, 0.42, 0.16)
+
+# --------------------------------------------------- Traguardo / Interfaccia -
+const COLOR_FINISH_DARK := Color(0.07, 0.09, 0.13)
+const COLOR_FINISH_LIGHT := Color(0.98, 0.99, 1.0)
+const COLOR_FINISH_GOLD := Color(1.0, 0.82, 0.25)
+const COLOR_UI_PANEL := Color(0.035, 0.065, 0.11, 0.93)
+const COLOR_UI_PANEL_SOFT := Color(0.05, 0.09, 0.15, 0.86)
+const COLOR_UI_ACCENT := Color(0.27, 0.90, 0.53)
+const COLOR_UI_ACCENT_DEEP := Color(0.10, 0.72, 0.42)
+const COLOR_UI_GOLD := Color(1.0, 0.80, 0.22)
+const COLOR_UI_TEXT := Color(0.97, 0.98, 1.0)
+const COLOR_UI_TEXT_MUTED := Color(0.68, 0.78, 0.90)
+
+# ---------------------------------------------------------------- Audio -----
+## Impostazioni audio persistenti (attivo/silenzioso) in user://.
+const AUDIO_SAVE_PATH: String = "user://giocomobile_audio.cfg"
+## Volume di riferimento degli effetti: leggero, non invadente.
+const AUDIO_SFX_VOLUME_DB: float = -5.0
+## Intervallo minimo tra due suoni di raccolta: evita raffiche sovrapposte.
+const AUDIO_COIN_MIN_INTERVAL: float = 0.045
+## Voci audio simultanee disponibili (pool riutilizzato, nessuna allocazione).
+const AUDIO_VOICE_COUNT: int = 6
+## Frequenza di campionamento dei suoni sintetizzati (leggeri, senza asset).
+const AUDIO_SAMPLE_RATE: int = 22050
+
+# ------------------------------------------------------ Feedback animato ----
+## Durata della comparsa morbida di menu e riepilogo, in secondi.
+const UI_APPEAR_DURATION: float = 0.30
+## Durata del pop di testi e pillole di feedback.
+const UI_POP_DURATION: float = 0.26
+## Durata del lampo colorato a schermo quando si attraversa un cancello.
+const GATE_FLASH_DURATION: float = 0.42
+const GATE_FLASH_ALPHA: float = 0.16
+## Scintilla/onda della raccolta moneta nel mondo 3D.
+const COIN_BURST_DURATION: float = 0.34
+const COIN_BURST_RADIUS: float = 0.62
 
 # --------------------------------------------------------- Auto Gialla/Nera -
 const COLOR_CAR_BODY := Color(0.98, 0.80, 0.10)
