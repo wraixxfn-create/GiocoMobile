@@ -22,7 +22,8 @@ ha il **proprio modello 3D**: dal rottame all'hypercar futuristica.
 ## Esecuzione
 
 ```bash
-godot --path .                        # apre l'editor; avvia la scena con F5
+godot --editor --path .               # apre l'editor; avvia il progetto con F5
+godot --path .                        # avvia direttamente la scena principale
 godot --headless --path . --import    # importa/valida le risorse da CLI
 ```
 
@@ -540,6 +541,59 @@ Verifica anche il ciclo completo: pausa/ripresa, traguardo e vittoria,
 schermata di sconfitta, protezione dei risultati, replay con reset del mondo e
 ritorno al menu senza perdere il saldo. Esce con codice 0 se tutte le verifiche
 passano.
+
+## Build di prova Android
+
+È presente un preset Godot in `export_presets.cfg` chiamato **Android Test (APK)**:
+produce `build/android/GiocoMobile-debug.apk`, usa l'orientamento portrait del
+progetto e include l'ABI `arm64-v8a`. Il package ID `com.example.giocomobile`
+e il nome `GiocoMobile - Test` sono valori provvisori per prove locali, non
+identificano una pubblicazione. Il preset non contiene chiavi di firma private
+e non è una configurazione di rilascio verificata.
+
+### Strumenti necessari
+
+- Godot 4.x standard (non Mono), con le **Export Templates della stessa
+  versione** installate tramite `Editor > Manage Export Templates`.
+- JDK 17.
+- Android SDK: Android SDK Platform-Tools (per `adb`), Android SDK Build-Tools
+  e una Android SDK Platform installata. Impostare i percorsi di JDK e SDK in
+  `Editor > Editor Settings > Export > Android`; usare le versioni consigliate
+  dalla documentazione della versione Godot installata.
+- Un telefono Android arm64 per la prova. Per installazione via USB: abilitare
+  Opzioni sviluppatore e Debug USB, installare `adb` tramite Platform-Tools e
+  autorizzare il computer sul telefono.
+
+### Generare e installare l'APK
+
+1. Aprire il progetto nell'editor Godot 4.x e verificare che le Export
+   Templates corrispondano esattamente alla versione dell'editor.
+2. Configurare i percorsi di JDK e Android SDK nelle preferenze Export >
+   Android; assicurarsi che i componenti SDK richiesti siano installati.
+3. Aprire `Project > Export`, selezionare **Android Test (APK)** e usare
+   **Export Project**. Per una prova locale mantenere attiva l'esportazione
+   Debug (non esportare un AAB). L'APK deve comparire in
+   `build/android/GiocoMobile-debug.apk`.
+4. Collegare il telefono e verificare il collegamento:
+
+   ```bash
+   adb devices
+   adb install -r build/android/GiocoMobile-debug.apk
+   ```
+
+   In alternativa, trasferire l'APK sul telefono e aprirlo; Android potrebbe
+   richiedere di autorizzare l'installazione da quella sorgente.
+5. Avviare **GiocoMobile - Test** e provare menu, input touch, pausa/ripresa,
+   una corsa, collisioni, raccolta monete, saldo dopo riavvio e replay in
+   orientamento verticale. Il saldo usa lo spazio privato dell'app; cancellare
+   dati/disinstallare l'app può eliminarlo.
+
+Per pubblicare, sostituire l'ID `com.example.giocomobile` con un package ID
+controllato dal progetto, scegliere versioni/build number appropriati e usare
+una chiave di firma release conservata fuori dal repository. Queste modifiche
+non sono necessarie per l'APK locale di test. La configurazione presente non
+attesta una build eseguita, un'installazione su dispositivo o una verifica di
+compatibilità con specifici modelli Android.
 
 ## Roadmap
 
