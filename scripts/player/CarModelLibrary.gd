@@ -120,7 +120,7 @@ static func _collect_glow_materials(node: Node) -> Array:
 			continue
 		for entry in _collect_glow_materials(child):
 			var glow_entry: Dictionary = entry
-			var glow_material := glow_entry.get("material", null)
+			var glow_material: StandardMaterial3D = glow_entry.get("material", null) as StandardMaterial3D
 			if glow_material != null and not seen.has(glow_material):
 				seen.append(glow_material)
 				entries.append(glow_entry)
