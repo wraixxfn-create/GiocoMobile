@@ -139,7 +139,7 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 		"pillars_c": Vector2(0.62, 0.70),
 		"roof_split": 0.62,
 		"a_pillars": true,
-		"clad_split": 0.20,
+		"clad_split": 0.055,
 		"arch_gap": 0.05,
 		"arch_flare": "trim",
 		"light_style": "round",
@@ -441,15 +441,17 @@ static func _build_shell(ctx: Dictionary) -> void:
 
 	var roof_split := float(bp["roof_split"])
 	var a_pillars := bool(bp["a_pillars"])
+	# Finestre come fascia: tetto, spalle e due estremità dell'abitacolo
+	# sempre verniciati. Prima tutta la parte alta era vetro e la coda
+	# dell'auto diventava una lastra scura grande quanto il cofano.
 	var glass_bucket := func(_i: int, _j: int, pa: Vector2, pb: Vector2, z_mid: float) -> String:
 		var yf := 0.5 * (pa.y + pb.y)
 		var gt := ((z_mid + length * 0.5) / length - g0) / maxf(g1 - g0, 0.000001)
-		# Vernice sul colmo solo nel tratto piano: parabrezza e lunotto
-		# restano vetro pieno (effetto "a bolla" moderno).
-		if yf >= roof_split and gt >= roof_range.x and gt <= roof_range.y:
+		if yf >= roof_split:
 			return BUCKET_PAINT
-		# Montanti A ai bordi del parabrezza.
-		if a_pillars and gt < roof_range.x and yf >= 0.54 and yf <= 0.66:
+		if gt <= 0.10 or gt >= 0.90:
+			return BUCKET_PAINT
+		if a_pillars and gt < roof_range.x and yf >= 0.50:
 			return BUCKET_PAINT
 		if gt >= pillars_b.x and gt <= pillars_b.y and yf > 0.06:
 			return BUCKET_PAINT
