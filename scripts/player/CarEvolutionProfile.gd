@@ -4,7 +4,7 @@ extends Resource
 ##
 ## È un Resource, quindi modificabile dall'inspector e sostituibile a runtime:
 ## contiene i colori, le statistiche di gioco e le proporzioni che il
-## blockout procedurale (`CarModelBuilder`) usa per generare la silhouette.
+## modello procedurale (`CarModelBuilder`) usa per generare la silhouette.
 ## Le misure sono in metri, l'auto è rivolta verso -Z e poggia sul piano y=0.
 ##
 ## Sostituire in futuro i modelli provvisori NON richiede di toccare questo
@@ -71,7 +71,7 @@ enum Silhouette {
 
 @export_group("Modello definitivo")
 ## Scena 3D opzionale (es. .glb importato) per questo livello.
-## Se presente sostituisce il blockout procedurale senza cambiare la logica:
+## Se presente sostituisce il modello procedurale senza cambiare la logica:
 ## la scena deve avere come radice un Node3D rivolto verso -Z; le ruote
 ## vengono cercate nei figli che iniziano per "Wheel" o nel gruppo "car_wheel".
 @export var model_scene: PackedScene = null

@@ -1,11 +1,11 @@
 class_name CarModelLibrary
 extends Resource
-## Punto unico di sostituzione dei modelli provvisori.
+## Punto unico di sostituzione dei modelli dell'auto.
 ##
 ## `create_stage()` chiede il modello di un livello e decide così:
 ##   1. se `model_scenes[livello]` contiene una scena (es. un .glb importato)
-##      la istanzia e la usa al posto del blockout;
-##   2. altrimenti costruisce il modello provvisorio con `CarModelBuilder`.
+##      la istanzia e la usa al posto del modello procedurale;
+##   2. altrimenti costruisce il modello procedurale con `CarModelBuilder`.
 ##
 ## In questo modo, quando arriveranno i modelli definitivi, basterà compilare
 ## questa risorsa (`config/car_model_library.tres`) o impostare
@@ -19,7 +19,7 @@ const WHEEL_GROUP: StringName = &"car_wheel"
 const WHEEL_NAME_PREFIX: String = "Wheel"
 
 ## Una scena per livello (indice = livello - GameConfig.EVOLUTION_MIN_LEVEL).
-## Lasciare vuoto uno slot significa "usa il blockout procedurale".
+## Lasciare vuoto uno slot significa "usa il modello procedurale".
 @export var model_scenes: Array[PackedScene] = []
 
 
@@ -39,7 +39,7 @@ func scene_for_level(level: int) -> PackedScene:
 
 ## Crea il modello dello stadio richiesto.
 ## Restituisce sempre lo stesso formato (vedi CarModelBuilder.build()), che il
-## modello arrivi da una scena esterna o dal blockout procedurale.
+## modello arrivi da una scena esterna o dal modello procedurale.
 func create_stage(profile: CarEvolutionProfile) -> Dictionary:
 	if profile == null:
 		return {}
@@ -57,7 +57,7 @@ func create_stage(profile: CarEvolutionProfile) -> Dictionary:
 				CarModelBuilder.KEY_GLOW_MATERIALS: [],
 			}
 		push_warning(
-			"Modello del livello %d non istanziabile: uso il blockout." % profile.level
+			"Modello del livello %d non istanziabile: uso il modello procedurale." % profile.level
 		)
 
 	return CarModelBuilder.build(profile)

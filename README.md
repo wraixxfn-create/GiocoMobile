@@ -3,7 +3,8 @@
 Giochino mobile 3D hyper-casual in **Godot 4.3+**, ispirato al genere di
 Car Evolve. Ambiente 3D giocabile con pista, bordi laterali rialzati, terreno
 verde, cielo con prospettiva verso l'orizzonte, illuminazione con ombre leggere
-e auto stilizzata costruita con mesh semplici.
+e auto cartoon costruita con **mesh procedurali scolpite** (loft di sezioni,
+ruote tornite, dettagli modellati: vedi `docs/CAR_MODEL.md`).
 
 La meccanica principale è giocabile: **coppie di cancelli** che evolvono o
 fanno regredire l'auto, **ostacoli** da schivare e **monete** da raccogliere
@@ -16,7 +17,7 @@ ha il **proprio modello 3D**: dal rottame all'hypercar futuristica.
 ## Requisiti
 
 - Godot 4.3 o superiore (edizione standard, senza Mono)
-- Nessun asset esterno: tutto è generato con primitive 3D e materiali condivisi
+- Nessun asset esterno: geometria generata da codice (`CarBodyFactory`) e materiali condivisi
 - Funziona offline (nessuna risorsa remota, nessun servizio)
 
 ## Esecuzione
@@ -62,12 +63,12 @@ indietro rispetto al livello reale.
 
 | Livello | Stadio | Silhouette | Velocità | Sterzo |
 | --- | --- | --- | --- | --- |
-| 0 | ROTTAME | microcar sgangherata, alta e corta, ruota di scorta sul tetto | ×0.85 | ×0.85 |
-| 1 | UTILITARIA | compatta a due volumi, spigolosa, tetto alto (partenza) | ×1.00 | ×1.00 |
-| 2 | BERLINA | tre volumi, più lunga, abitacolo vetrato e profili cromati | ×1.12 | ×1.10 |
-| 3 | SPORTIVA | coupé bassa, cofano lungo, coda fastback, doppio scarico | ×1.24 | ×1.20 |
-| 4 | SUPERCAR | larghissima, motore centrale, prese d'aria, grande alettone | ×1.36 | ×1.30 |
-| 5 | HYPERCAR | targa bassa, cupola in vetro, pinne, barre e pattini luminosi | ×1.50 | ×1.45 |
+| 0 | ROTTAME | microcar alta e corta, cerchi in acciaio, ruota di scorta sul tetto | ×0.85 | ×0.85 |
+| 1 | UTILITARIA | hatchback compatta a due volumi, tetto alto (partenza) | ×1.00 | ×1.00 |
+| 2 | BERLINA | tre volumi con baule distinto, abitacolo vetrato, profili cromati | ×1.12 | ×1.10 |
+| 3 | SPORTIVA | coupé bassa fastback, spalle larghe, doppio scarico | ×1.24 | ×1.20 |
+| 4 | SUPERCAR | larghissima e bassa, canopy centrale, grande alettone | ×1.36 | ×1.30 |
+| 5 | HYPERCAR | targa bassissima, cupola in vetro, barre luminose, alettone | ×1.50 | ×1.45 |
 
 Ogni stadio cambia proporzioni, volumi e dettagli (non solo il colore): i
 test verificano che i sei ingombri siano tutti diversi.
@@ -91,19 +92,28 @@ L'animazione non blocca nulla: gira in `_process` su un nodo figlio e non
 tocca input, posizione, sterzo o velocità. Richiedere lo stesso livello è una
 no-op (nessuna ricostruzione, nessuna animazione).
 
-### Sostituire i modelli provvisori (pronto per il futuro)
+### Il modello dell'auto (procedurale) e la sostituzione futura
 
-I blockout attuali sono generati da `CarModelBuilder` con primitive
-(BoxMesh/CylinderMesh/SphereMesh). Per passare a modelli veri **non serve
+Il modello è generato da `CarModelBuilder` con la fabbrica geometrica
+`CarBodyFactory`: scocca e abitacolo sono loft di sezioni con passaruota
+veri e fasce di materiale (vernice/rivestimento/vetro), le ruote sono
+solidi di rivoluzione con cerchio a razze, e ogni silhouette ha le sue
+curve di progetto (blueprint). La scena dedicata `scenes/MainCar.tscn`
+mostra solo il modello (in editor si cambia con `level`), e
+`scenes/CarShowroom.tscn` è una scena di presentazione temporanea con
+studio neutro e telecamera orbitale per valutarlo da ogni lato.
+Dettagli, gerarchia dei nodi e limiti sono in **`docs/CAR_MODEL.md`**.
+
+Per passare un domani a modelli modellati in Blender **non serve
 riscrivere la logica di evoluzione**: i cancelli, l'HUD, `GameManager` e i
-test non conoscono la geometria.
+test non conoscono la geometria (flusso completo in `docs/CAR_MODEL.md`).
 
 - **Singolo livello**: impostare `CarEvolutionProfile.model_scene` con la
   scena (o il `.glb` importato). La radice deve essere un `Node3D` rivolto
   verso -Z.
 - **Tutti i livelli**: compilare `config/car_model_library.tres` (risorsa
   `CarModelLibrary`), che ha uno slot `PackedScene` per livello: gli slot
-  vuoti continuano a usare il blockout procedurale.
+  vuoti continuano a usare il modello procedurale.
 
 Contratto dei modelli esterni: radice `Node3D`, rivolta verso -Z, con le
 ruote come figli che iniziano per `Wheel` (oppure nel gruppo `car_wheel`).
@@ -441,6 +451,8 @@ config/
 scenes/
   Main.tscn              # scena principale: cielo, sole con ombre, camera, sottosistemi
   Car.tscn               # auto del giocatore: CarController + nodo CarVisual (modello)
+  MainCar.tscn           # scena dedicata al solo modello visivo dell'auto (@tool)
+  CarShowroom.tscn       # presentazione temporanea: studio, luci e telecamera orbitale
   HUD.tscn               # UI touch-first (CanvasLayer): menu, corsa e riepilogo finale
 scripts/
   core/
@@ -458,8 +470,10 @@ scripts/
     CarController.gd     # avanzamento automatico + sterzo fluido entro i bordi pista
     CarEvolutionProfile.gd  # un stadio: nome, colori, statistiche, proporzioni, silhouette
     CarEvolutionCatalog.gd  # registro: evolution_level -> profilo (dati + taratura)
-    CarModelBuilder.gd   # blockout procedurale dei 6 stadi (primitive + materiali)
-    CarModelLibrary.gd   # punto di sostituzione: scena esterna oppure blockout
+    CarBodyFactory.gd    # geometria: loft multimateriale, lathe, archi di toro, capsule
+    CarModelBuilder.gd   # modello procedurale scolpito dei 6 stadi (blueprint + dettagli)
+    MainCarVisual.gd     # scena dedicata: costruisce il modello di un livello (@tool)
+    CarModelLibrary.gd   # punto di sostituzione: scena esterna oppure modello procedurale
     CarEvolutionDirector.gd # nodo CarVisual: modello corrente + animazione di trasformazione
     CarModel.gd          # compatibilità: apply_evolution_level() delega al direttore
   track/
@@ -477,6 +491,10 @@ scripts/
   ui/
     HUD.gd               # layout verticale: stato, stadio, feedback, menu, pausa, riepilogo
     UITheme.gd           # stile condiviso: etichette, pulsanti, pannelli, icone procedurali
+  dev/
+    CarShowroom.gd       # presentazione temporanea dell'auto (non collegata al gioco)
+docs/
+  CAR_MODEL.md           # modello visivo: costruzione, taratura, limiti, flusso Blender
 tests/
   TestRunner.tscn        # test headless di integrazione
   TestRunner.gd          # guida, cancelli, ostacoli, ricompense e ciclo menu-corsa-risultato

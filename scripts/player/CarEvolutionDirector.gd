@@ -14,7 +14,7 @@ extends Node3D
 ## - **Senza stato duplicato**: `current_level` è solo lo specchio di ciò che è
 ##   stato applicato; richiedere lo stesso livello è una no-op.
 ## - **Sostituibile**: i modelli arrivano da `CarModelLibrary`, quindi i
-##   blockout attuali possono essere rimpiazzati senza toccare questo file.
+##   modelli procedurali possono essere rimpiazzati senza toccare questo file.
 
 signal stage_ready(level: int, profile: CarEvolutionProfile)
 signal transformation_finished(level: int)
