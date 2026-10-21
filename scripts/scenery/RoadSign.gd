@@ -31,7 +31,7 @@ func _panel(
 
 func build() -> void:
 	var metal := MaterialFactory.metal()
-	for x in [-0.85, 0.85]:
+	for x: float in [-0.85, 0.85]:
 		var post := PropMeshes.cylinder(0.0, 2.15, 0.075, 0.065, 6)
 		add_accumulated(
 			"Post",
@@ -45,7 +45,7 @@ func build() -> void:
 	_panel("ArrowShaft", Vector3(0.85, 0.14, 0.05), MaterialFactory.scenery(
 		"arrow_paint", SceneryPalette.FABRIC_CREAM, 0.5, 0.0
 	), Vector3(-0.18, 2.05, 0.08))
-	for sign in [-1.0, 1.0]:
+	for sign: float in [-1.0, 1.0]:
 		_panel(
 			"ArrowTip",
 			Vector3(0.46, 0.13, 0.05),

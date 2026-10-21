@@ -89,15 +89,15 @@ func _add_treeline(node_name: String, z: float) -> void:
 	var acc := PropMeshes.new_accumulator()
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 9182
-	for side in [-1.0, 1.0]:
+	for side: float in [-1.0, 1.0]:
 		var cursor := 12.0
 		while cursor < 130.0:
-			var x := side * cursor
+			var x: float = side * cursor
 			var distance := absf(x)
 			var scale_value := rng.randf_range(0.7, 1.25) * lerpf(1.0, 0.65, distance / 130.0)
 			var hue := rng.randi_range(0, 2)
-			var base := Vector3(x, -2.0, z + rng.randf_range(-26.0, 6.0))
-			var trunk := PropMeshes.cylinder(0.0, 7.5 * scale_value, 0.30, 0.16, 5)
+			var base: Vector3 = Vector3(x, -2.0, z + rng.randf_range(-26.0, 6.0))
+			var trunk: Dictionary = PropMeshes.cylinder(0.0, 7.5 * scale_value, 0.30, 0.16, 5)
 			PropMeshes.append(
 				acc,
 				trunk["verts"] as Array[Vector3],
@@ -105,7 +105,7 @@ func _add_treeline(node_name: String, z: float) -> void:
 				Transform3D(Basis.IDENTITY, base),
 			)
 			for lobe in 3:
-				var blob := PropMeshes.blob(
+				var blob: Dictionary = PropMeshes.blob(
 					1200 + hue * 17 + int(cursor) + lobe,
 					2.1 * scale_value,
 					1,
@@ -113,7 +113,7 @@ func _add_treeline(node_name: String, z: float) -> void:
 					0.72,
 					false,
 				)
-				var offset := Vector3(
+				var offset: Vector3 = Vector3(
 					rng.randf_range(-1.6, 1.6) * scale_value,
 					7.0 * scale_value + rng.randf_range(-0.6, 1.4) * scale_value,
 					rng.randf_range(-1.2, 1.2) * scale_value,

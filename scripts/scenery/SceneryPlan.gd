@@ -49,7 +49,7 @@ const MAX_VIEW_DISTANCE: float = 235.0
 static func decorate(segment: Node3D, segment_index: int) -> void:
 	var half_length := GameConfig.SEGMENT_LENGTH * 0.5
 	_place_markers(segment, segment_index, half_length)
-	for side in [-1.0, 1.0]:
+	for side: float in [-1.0, 1.0]:
 		var arrangement_index := posmod(segment_index * 3 + (0 if side < 0.0 else 4), ARRANGEMENTS.size())
 		var arrangement := ARRANGEMENTS[arrangement_index]
 		var rng := RandomNumberGenerator.new()
@@ -60,13 +60,13 @@ static func decorate(segment: Node3D, segment_index: int) -> void:
 # ------------------------------------------------------------- Delineatori ---
 
 static func _place_markers(parent: Node3D, segment_index: int, half_length: float) -> void:
-	for side in [-1.0, 1.0]:
+	for side: float in [-1.0, 1.0]:
 		for i in 2:
 			var marker := MARKER_SCENE.instantiate() as SceneryProp
 			marker.prop_seed = segment_index * 17 + i
 			marker.shadow_casting = false
-			var x := side * (GameConfig.TRACK_WIDTH * 0.5 + GameConfig.CURB_WIDTH + 0.42)
-			var z := -half_length + 6.0 + i * 20.0
+			var x: float = side * (GameConfig.TRACK_WIDTH * 0.5 + GameConfig.CURB_WIDTH + 0.42)
+			var z: float = -half_length + 6.0 + i * 20.0
 			marker.position = Vector3(x, 0.0, z)
 			marker.rotation.y = 0.0
 			parent.add_child(marker)

@@ -100,7 +100,7 @@ static func _paint() -> ArrayMesh:
 	var curb_x := half_width + GameConfig.CURB_WIDTH * 0.5
 
 	# Cordolo principale.
-	for side in [-1.0, 1.0]:
+	for side: float in [-1.0, 1.0]:
 		var curb := PropMeshes.beveled_box(
 			Vector3(GameConfig.CURB_WIDTH, GameConfig.CURB_HEIGHT + 0.04, GameConfig.SEGMENT_LENGTH),
 			BEVEL,

@@ -67,7 +67,6 @@ static func apply_environment(environment: Environment) -> void:
 	environment.ssil_enabled = false
 	environment.sdfgi_enabled = false
 	environment.volumetric_fog_enabled = false
-	environment.screen_space_aa = Environment.SCREEN_SPACE_AA_DISABLED
 
 	# Foschia di profondità: schiarisce lo sfondo verso il colore dell'orizzonte.
 	environment.fog_enabled = true

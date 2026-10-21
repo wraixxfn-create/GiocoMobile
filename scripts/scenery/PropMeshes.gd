@@ -262,8 +262,8 @@ static func tube(
 				tris.append(Vector3i(a, d, c))
 	# Anello di chiusura alle due estremità.
 	if cap_ends:
-		for end_index in [0, count - 1]:
-			var base := end_index * (rings + 1) * safe_sides
+		for end_index: int in [0, count - 1]:
+			var base: int = end_index * (rings + 1) * safe_sides
 			var center: Vector3 = path[end_index]
 			verts.append(center)
 			var center_index := verts.size() - 1
@@ -428,7 +428,7 @@ static func beveled_box(size: Vector3, bevel: float = 0.04) -> Dictionary:
 	var tris: Array[Vector3i] = []
 	# Sei facce, ognuna con quattro vertici interni smussati.
 	var axes: Array[Vector3] = [Vector3.RIGHT, Vector3.LEFT, Vector3.UP, Vector3.DOWN, Vector3.BACK, Vector3.FORWARD]
-	for axis in axes:
+	for axis: Vector3 in axes:
 		var normal := axis
 		var u := Vector3(0.0, 1.0, 0.0) if absf(normal.y) < 0.9 else Vector3(1.0, 0.0, 0.0)
 		var v := normal.cross(u).normalized()
@@ -445,11 +445,11 @@ static func beveled_box(size: Vector3, bevel: float = 0.04) -> Dictionary:
 		tris.append(Vector3i(base, base + 2, base + 3))
 	# Fasce di raccordo sugli spigoli: chiudono la scatola senza buchi.
 	for axis in 3:
-		for sign in [-1.0, 1.0]:
+		for sign: float in [-1.0, 1.0]:
 			for other in 3:
 				if other == axis:
 					continue
-				for other_sign in [-1.0, 1.0]:
+				for other_sign: float in [-1.0, 1.0]:
 					var a := Vector3.ZERO
 					var c := Vector3.ZERO
 					var normal_a := Vector3.ZERO

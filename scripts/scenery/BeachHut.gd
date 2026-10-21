@@ -47,8 +47,8 @@ func build() -> void:
 	_box("DeckTrim", Vector3(4.6, 0.10, 3.2), wood_light, Vector3(0.0, 0.10, 0.0))
 
 	# Pali angolari e trave di colmo.
-	for x in [-1.9, 1.9]:
-		for z in [-1.25, 1.25]:
+	for x: float in [-1.9, 1.9]:
+		for z: float in [-1.25, 1.25]:
 			var post := PropMeshes.cylinder(0.10, 2.75, 0.13, 0.11, 7)
 			add_accumulated(
 				"Post",
@@ -70,7 +70,7 @@ func build() -> void:
 	_box("Ridge", Vector3(3.6, 0.20, 0.34), thatch_dark, Vector3(0.0, 3.18, 0.0))
 
 	# Tenda a righe sul davanti: due falde inclinate.
-	for sign in [-1.0, 1.0]:
+	for sign: float in [-1.0, 1.0]:
 		var panel := PropMeshes.beveled_box(Vector3(1.55, 0.07, 1.25), 0.02)
 		var basis := Basis(Vector3.UP, 0.0) * Basis(Vector3.RIGHT, deg_to_rad(-18.0))
 		add_accumulated(
