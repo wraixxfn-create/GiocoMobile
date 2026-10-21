@@ -2309,18 +2309,28 @@ func _autopilot_target_x() -> float:
 ## l'auto arriva sulla fila (stessa formula del moto: ping-pong sulla fase).
 func _predicted_gap_center(row: ObstacleRow) -> float:
 	var bounds := _road_bounds()
-	var t_arrive := 0.2
-	if _car.current_speed > 0.5:
-		t_arrive += maxf((_car.position.z - row.z) / _car.current_speed, 0.0)
+	var spd := maxf(_car.current_speed, 0.5)
+	var car_half_z := _obstacle_manager._car_half_extents().y
 	var occupied: Array = []
 	for piece in row.obstacles:
 		var obstacle := piece as Obstacle
 		if obstacle == null or not obstacle.is_collidable():
 			continue
-		var x := obstacle.position.x
 		if obstacle.is_mover():
-			x = obstacle.predicted_x(t_arrive)
-		occupied.append(Vector2(x - obstacle.half_extents.x, x + obstacle.half_extents.x))
+			var dz_enter := _car.position.z - car_half_z - (row.z + obstacle.half_extents.z)
+			var dz_exit := _car.position.z + car_half_z - (row.z - obstacle.half_extents.z)
+			var t0 := maxf(dz_enter / spd, 0.0)
+			var t1 := maxf(dz_exit / spd, 0.0)
+			var min_x := INF
+			var max_x := -INF
+			for k in 7:
+				var px := obstacle.predicted_x(lerpf(t0, t1, float(k) / 6.0))
+				min_x = minf(min_x, px - obstacle.half_extents.x)
+				max_x = maxf(max_x, px + obstacle.half_extents.x)
+			occupied.append(Vector2(min_x, max_x))
+		else:
+			var x := obstacle.position.x
+			occupied.append(Vector2(x - obstacle.half_extents.x, x + obstacle.half_extents.x))
 	occupied.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.x < b.x)
 
 	var best_start := bounds.x
