@@ -305,9 +305,19 @@ static func _test_mount_points_orientation_and_compatibility(runner: Node) -> vo
 	# Verifiche di compatibilità fisica e requisito di livello.
 	director.apply_level(1, false)
 	var mid_on_front := car.equip_part_by_id(&"engine_mid_hyper_v12")
+	var tag_probe := CarPartDefinition.new()
+	tag_probe.id = &"test_mid_bay_probe"
+	tag_probe.display_name = "Sonda Vano Centrale"
+	tag_probe.slot = CarPartSlot.Type.ENGINE
+	var tag_compat := CarPartCompatibility.new()
+	tag_compat.required_mount_tags = PackedStringArray(["mid_bay"])
+	tag_probe.compatibility = tag_compat
+	var missing_tag_res := car.equip_part(tag_probe)
 	runner._check(
 		not bool(mid_on_front["ok"])
-		and int(mid_on_front["reason"]) == CarCompatibilityValidator.Reason.MISSING_MOUNT_TAG
+		and int(mid_on_front["reason"]) == CarCompatibilityValidator.Reason.INCOMPATIBLE_SILHOUETTE
+		and not bool(missing_tag_res["ok"])
+		and int(missing_tag_res["reason"]) == CarCompatibilityValidator.Reason.MISSING_MOUNT_TAG
 		and car.get_equipped_part_id(CarPartSlot.Type.ENGINE) == &"engine_hood_aspirated",
 		"motore centrale incompatibile rifiutato su scocca a motore anteriore senza corrompere lo slot",
 	)
@@ -450,7 +460,11 @@ static func _test_data_identity_without_fragile_node_names(runner: Node) -> void
 	# Ripristino completo allo stato standard per i test successivi della suite.
 	director.clear_custom_parts(true)
 	CarPartRegistry.reload()
-	director.apply_level(GameConfig.EVOLUTION_START_LEVEL, false)
+	runner._force_evolution(GameConfig.EVOLUTION_START_LEVEL)
+	car.reset_for_new_run()
+	runner._park_gates_ahead(GameConfig.GATE_FIRST_ROW_DISTANCE)
+	var obs_mgr := runner.get("_obstacle_manager") as ObstacleManager
+	obs_mgr._sync_rows()
 	await runner._physics_frames(2)
 
 
@@ -521,21 +535,28 @@ static func _local_aabb(rig: Node3D) -> AABB:
 static func _subtree_aabb_in_space(target: Node3D, space_root: Node3D) -> AABB:
 	var meshes: Array = []
 	_collect_mesh_instances(target, meshes)
-	var has_box := false
-	var merged := AABB()
+	var has_point := false
+	var min_pt := Vector3.ZERO
+	var max_pt := Vector3.ZERO
 	var inv_root := space_root.global_transform.affine_inverse()
 	for item in meshes:
 		var mi := item as MeshInstance3D
 		if mi == null or mi.mesh == null or not mi.visible:
 			continue
 		var rel_xform := inv_root * mi.global_transform
-		var box := rel_xform * mi.get_aabb()
-		if not has_box:
-			merged = box
-			has_box = true
-		else:
-			merged = merged.merge(box)
-	return merged
+		var faces := mi.mesh.get_faces()
+		for v in faces:
+			var pt := rel_xform * v
+			if not has_point:
+				min_pt = pt
+				max_pt = pt
+				has_point = true
+			else:
+				min_pt = min_pt.min(pt)
+				max_pt = max_pt.max(pt)
+	if not has_point:
+		return AABB()
+	return AABB(min_pt, max_pt - min_pt)
 
 
 static func _collect_mesh_instances(node: Node, out: Array) -> void:

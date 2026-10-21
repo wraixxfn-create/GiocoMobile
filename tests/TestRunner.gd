@@ -488,6 +488,9 @@ func _test_gate_crossing_positive() -> void:
 	_force_evolution(1)
 	var director := _director()
 	var stage_before := director.get_stage_root() if director != null else null
+	var body_before := (
+		director.get_slot_visual(CarPartSlot.Type.BODY) if director != null else null
+	)
 	var found := _find_row_with_gate(true)
 	_check(not found.is_empty(), "esiste una fila con cancello positivo davanti all'auto")
 	if found.is_empty():
@@ -535,7 +538,9 @@ func _test_gate_crossing_positive() -> void:
 			% director.current_level,
 		)
 		_check(
-			director.get_stage_root() != stage_before and is_instance_valid(director.get_stage_root()),
+			director.get_stage_root() == stage_before
+			and director.get_slot_visual(CarPartSlot.Type.BODY) != body_before
+			and is_instance_valid(director.get_slot_visual(CarPartSlot.Type.BODY)),
 			"il cancello positivo sostituisce il modello dell'auto",
 		)
 		_check(
@@ -549,6 +554,9 @@ func _test_gate_crossing_negative() -> void:
 	_force_evolution(3)
 	var director := _director()
 	var stage_before := director.get_stage_root() if director != null else null
+	var body_before := (
+		director.get_slot_visual(CarPartSlot.Type.BODY) if director != null else null
+	)
 	var found := _find_row_with_gate(false)
 	_check(not found.is_empty(), "esiste una fila con cancello negativo davanti all'auto")
 	if found.is_empty():
@@ -574,7 +582,9 @@ func _test_gate_crossing_negative() -> void:
 			% director.current_level,
 		)
 		_check(
-			director.get_stage_root() != stage_before and is_instance_valid(director.get_stage_root()),
+			director.get_stage_root() == stage_before
+			and director.get_slot_visual(CarPartSlot.Type.BODY) != body_before
+			and is_instance_valid(director.get_slot_visual(CarPartSlot.Type.BODY)),
 			"il cancello negativo sostituisce il modello dell'auto",
 		)
 	await _recycle_passed_row(row)

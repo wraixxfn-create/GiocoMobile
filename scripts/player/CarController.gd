@@ -117,9 +117,9 @@ func evolution_profile() -> CarEvolutionProfile:
 ## Il livello di evoluzione è gestito da GameManager: qui si aggiornano
 ## l'aspetto dell'auto e le statistiche dello stadio.
 func _on_evolution_changed(level: int, _delta: int, profile: CarEvolutionProfile = null) -> void:
-	_apply_evolution_stats(profile)
 	if _director != null:
 		_director.apply_level(level, true)
+	_apply_evolution_stats(profile)
 
 
 ## Applica le statistiche dello stadio. La velocità viene ricalcolata dalla
