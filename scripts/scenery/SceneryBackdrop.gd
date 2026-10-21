@@ -9,10 +9,10 @@ extends Node3D
 ## (come una quinta teatrale), mentre la pista scorre. Le creste sono mesh
 ## statiche, un materiale ciascuna, nessuna ombra: costo trascurabile.
 
-const RIDGE_NEAR_Z: float = -235.0
-const RIDGE_MID_Z: float = -305.0
-const RIDGE_FAR_Z: float = -395.0
-const TREELINE_Z: float = -165.0
+const RIDGE_NEAR_Z: float = -175.0
+const RIDGE_MID_Z: float = -225.0
+const RIDGE_FAR_Z: float = -290.0
+const TREELINE_Z: float = -140.0
 const FOLLOW_MARGIN: float = 0.0
 
 var _player: Node3D = null
@@ -33,9 +33,9 @@ func _process(_delta: float) -> void:
 
 func _build() -> void:
 	_built = true
-	_add_ridge("RidgeNear", RIDGE_NEAR_Z, 18.0, 8.0, SceneryPalette.HILL_NEAR, 34.0)
-	_add_ridge("RidgeMid", RIDGE_MID_Z, 27.0, 12.0, SceneryPalette.HILL_MID, 52.0)
-	_add_ridge("RidgeFar", RIDGE_FAR_Z, 40.0, 17.0, SceneryPalette.HILL_FAR, 74.0)
+	_add_ridge("RidgeNear", RIDGE_NEAR_Z, 15.0, 9.0, SceneryPalette.HILL_NEAR, 26.0)
+	_add_ridge("RidgeMid", RIDGE_MID_Z, 22.0, 14.0, SceneryPalette.HILL_MID, 38.0)
+	_add_ridge("RidgeFar", RIDGE_FAR_Z, 32.0, 21.0, SceneryPalette.HILL_FAR, 52.0)
 	_add_treeline("TreeLine", TREELINE_Z)
 
 

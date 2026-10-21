@@ -106,7 +106,7 @@ static func _paint() -> ArrayMesh:
 
 	# Cordolo principale.
 	for side: float in [-1.0, 1.0]:
-		var curb := PropMeshes.beveled_box(
+		var curb := PropMeshes.box(
 			Vector3(GameConfig.CURB_WIDTH, GameConfig.CURB_HEIGHT + 0.04, GameConfig.SEGMENT_LENGTH),
 			BEVEL,
 		)
@@ -117,7 +117,7 @@ static func _paint() -> ArrayMesh:
 		})
 		# Blocchi rossi: sporgono di 1 cm, come verniciati sopra il cordolo.
 		for i in 8:
-			var accent := PropMeshes.beveled_box(
+			var accent := PropMeshes.box(
 				Vector3(GameConfig.CURB_WIDTH + 0.02, GameConfig.CURB_HEIGHT + 0.055, 2.5),
 				BEVEL,
 			)
@@ -130,7 +130,7 @@ static func _paint() -> ArrayMesh:
 				),
 			})
 		# Linea di margine continua, appena dentro l'asfalto.
-		var edge := PropMeshes.beveled_box(Vector3(0.13, 0.014, GameConfig.SEGMENT_LENGTH), 0.006)
+		var edge := PropMeshes.box(Vector3(0.13, 0.012, GameConfig.SEGMENT_LENGTH))
 		parts.append({
 			"acc": _acc(edge),
 			"color": SceneryPalette.LANE_PAINT,
@@ -140,7 +140,7 @@ static func _paint() -> ArrayMesh:
 	# Tratteggio di separazione corsie: due file, passo 5 m (continuo tra segmenti).
 	for divider_x in [-GameConfig.TRACK_WIDTH / 6.0, GameConfig.TRACK_WIDTH / 6.0]:
 		for i in 8:
-			var dash := PropMeshes.beveled_box(Vector3(0.16, 0.014, 2.6), 0.006)
+			var dash := PropMeshes.box(Vector3(0.16, 0.012, 2.6))
 			parts.append({
 				"acc": _acc(dash),
 				"color": SceneryPalette.LANE_PAINT,
@@ -164,24 +164,22 @@ static func _add_surface_variation(
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash("asphalt_variation_%d" % segment_index)
 	var parts: Array = []
-	var patch_count := rng.randi_range(4, 7)
+	var patch_count := rng.randi_range(3, 5)
 	for i in patch_count:
-		var width := rng.randf_range(0.8, 2.6)
-		var depth := rng.randf_range(0.5, 1.9)
-		var patch := PropMeshes.beveled_box(Vector3(width, 0.006, depth), 0.004)
+		var width := rng.randf_range(0.7, 1.9)
+		var depth := rng.randf_range(0.35, 0.9)
+		var patch := PropMeshes.box(Vector3(width, 0.005, depth))
 		var x := rng.randf_range(-half_width + 0.8, half_width - 0.8)
 		var z := rng.randf_range(-half_length + 1.0, half_length - 1.0)
 		var shade: float = rng.randf_range(0.0, 1.0)
 		parts.append({
 			"acc": _acc(patch),
-			"color": SceneryPalette.ROAD_PATCH.lerp(SceneryPalette.ROAD_EDGE, shade * 0.6),
+			"color": SceneryPalette.ROAD_PATCH.lerp(SceneryPalette.ROAD_EDGE, shade * 0.35),
 			"xform": Transform3D(Basis(Vector3.UP, rng.randf_range(-0.08, 0.08)), Vector3(x, 0.003, z)),
 		})
 	# Giunti trasversali ogni 10 m: leggeri, mai sopra la segnaletica.
 	for i in 4:
-		var joint := PropMeshes.beveled_box(
-			Vector3(GameConfig.TRACK_WIDTH - 0.7, 0.005, 0.05), 0.002
-		)
+		var joint := PropMeshes.box(Vector3(GameConfig.TRACK_WIDTH - 0.9, 0.004, 0.035))
 		parts.append({
 			"acc": _acc(joint),
 			"color": SceneryPalette.ROAD_JOINT,

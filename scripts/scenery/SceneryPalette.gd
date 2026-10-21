@@ -24,7 +24,7 @@ const SKY_HORIZON := Color(0.77, 0.92, 0.91)
 const SKY_GROUND := Color(0.72, 0.87, 0.80)
 const SUN_COLOR := Color(1.0, 0.95, 0.84)
 const AMBIENT_COLOR := Color(0.78, 0.90, 1.0)
-const FOG_COLOR := Color(0.70, 0.86, 0.84)
+const FOG_COLOR := Color(0.72, 0.87, 0.85)
 
 # ----------------------------------------------------------------- Strada ---
 
@@ -41,22 +41,22 @@ const CURB_SIDE := Color(0.78, 0.77, 0.73)
 # ---------------------------------------------------------------- Terreno ---
 
 ## Fascia sabbiosa subito fuori dal cordolo.
-const SAND := Color(0.87, 0.79, 0.61)
-const SAND_DARK := Color(0.79, 0.70, 0.52)
+const SAND := Color(0.80, 0.70, 0.50)
+const SAND_DARK := Color(0.69, 0.59, 0.41)
 ## Prato: tre toni che si alternano a chiazze morbide.
-const GRASS_DEEP := Color(0.19, 0.45, 0.29)
-const GRASS_BASE := Color(0.27, 0.56, 0.33)
-const GRASS_LIGHT := Color(0.40, 0.66, 0.36)
-const GRASS_DRY := Color(0.55, 0.68, 0.40)
+const GRASS_DEEP := Color(0.15, 0.38, 0.23)
+const GRASS_BASE := Color(0.23, 0.48, 0.27)
+const GRASS_LIGHT := Color(0.33, 0.57, 0.30)
+const GRASS_DRY := Color(0.52, 0.62, 0.35)
 
 # ------------------------------------------------------------- Vegetazione ---
 
-const FOLIAGE_DEEP := Color(0.13, 0.38, 0.28)
-const FOLIAGE_MID := Color(0.18, 0.49, 0.31)
-const FOLIAGE_LIGHT := Color(0.29, 0.61, 0.34)
-const FOLIAGE_TIP := Color(0.47, 0.73, 0.38)
-const FERN_GREEN := Color(0.24, 0.55, 0.32)
-const FERN_LIGHT := Color(0.39, 0.68, 0.37)
+const FOLIAGE_DEEP := Color(0.09, 0.30, 0.20)
+const FOLIAGE_MID := Color(0.14, 0.40, 0.24)
+const FOLIAGE_LIGHT := Color(0.23, 0.52, 0.28)
+const FOLIAGE_TIP := Color(0.38, 0.65, 0.32)
+const FERN_GREEN := Color(0.18, 0.46, 0.26)
+const FERN_LIGHT := Color(0.31, 0.58, 0.31)
 const TRUNK := Color(0.55, 0.41, 0.29)
 const TRUNK_LIGHT := Color(0.66, 0.52, 0.37)
 const TRUNK_DARK := Color(0.38, 0.29, 0.22)
@@ -88,11 +88,11 @@ const METAL := Color(0.72, 0.74, 0.77)
 # ----------------------------------------------------------------- Sfondo ---
 
 ## Colline lontane: ogni fascia è più chiara e più fredda (foschia).
-const HILL_NEAR := Color(0.33, 0.55, 0.43)
-const HILL_MID := Color(0.50, 0.66, 0.58)
-const HILL_FAR := Color(0.64, 0.75, 0.72)
+const HILL_NEAR := Color(0.28, 0.48, 0.38)
+const HILL_MID := Color(0.45, 0.61, 0.55)
+const HILL_FAR := Color(0.60, 0.71, 0.69)
 const HILL_HAZE := Color(0.71, 0.80, 0.80)
-const DISTANT_TREE := Color(0.33, 0.52, 0.44)
+const DISTANT_TREE := Color(0.29, 0.46, 0.38)
 
 # ------------------------------------------------------------- Interattivi ---
 

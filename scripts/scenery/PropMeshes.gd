@@ -589,3 +589,33 @@ static func _smooth_normals(verts: Array[Vector3], tris: Array[Vector3i]) -> Pac
 		var n := normals[i]
 		normals[i] = n.normalized() if n.length_squared() > 0.000001 else Vector3.UP
 	return normals
+
+
+# ------------------------------------------------------------------ Scatole ---
+
+## Scatola semplice a facce piatte (12 triangoli): cordoli, strisce, toppe.
+## Il verso dei triangoli è orario visto da fuori, così tutte le facce sono
+## front-facing con il backface culling attivo.
+static func box(size: Vector3) -> Dictionary:
+	var half := size * 0.5
+	var verts: Array[Vector3] = []
+	var tris: Array[Vector3i] = []
+	var faces: Array[Vector3] = [
+		Vector3.UP, Vector3.DOWN, Vector3.RIGHT, Vector3.LEFT, Vector3.BACK, Vector3.FORWARD,
+	]
+	for normal in faces:
+		var u := Vector3(1.0, 0.0, 0.0) if absf(normal.y) > 0.5 else Vector3(0.0, 1.0, 0.0)
+		var v := normal.cross(u).normalized()
+		u = v.cross(normal).normalized()
+		var center := Vector3(normal.x * half.x, normal.y * half.y, normal.z * half.z)
+		var eu := absf(u.dot(half)) + absf(v.dot(half)) * 0.0
+		var extent_u := absf(u.x) * half.x + absf(u.y) * half.y + absf(u.z) * half.z
+		var extent_v := absf(v.x) * half.x + absf(v.y) * half.y + absf(v.z) * half.z
+		var base := verts.size()
+		verts.append(center - u * extent_u - v * extent_v)
+		verts.append(center + u * extent_u - v * extent_v)
+		verts.append(center + u * extent_u + v * extent_v)
+		verts.append(center - u * extent_u + v * extent_v)
+		tris.append(Vector3i(base, base + 1, base + 2))
+		tris.append(Vector3i(base, base + 2, base + 3))
+	return {"verts": verts, "tris": tris}

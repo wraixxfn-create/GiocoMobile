@@ -19,9 +19,9 @@ const WIDTH: float = 320.0
 const NEAR_Z: float = 120.0
 const FAR_Z: float = -1240.0
 const GRASS_INSTANCES: int = 6200
-const FLOWER_INSTANCES: int = 1100
+const FLOWER_INSTANCES: int = 420
 const SAND_INNER: float = 4.36
-const SAND_OUTER: float = 5.9
+const SAND_OUTER: float = 5.4
 const GRASS_START: float = 7.0
 
 static var _tuft_mesh: Mesh = null
@@ -61,7 +61,7 @@ static func height_at(x: float, z: float) -> float:
 		+ sin(z * 0.0087 - 0.7) * 2.10
 		+ sin(x * 0.028 + z * 0.0041 + 1.7) * 0.75
 	)
-	var ridge := smoothstep(55.0, 175.0, distance) * (7.0 + sin(z * 0.0055 + 1.2) * 4.5)
+	var ridge := smoothstep(70.0, 210.0, distance) * (4.2 + sin(z * 0.0055 + 1.2) * 2.8)
 	return -0.12 + near_flat * rolling + ridge
 
 
@@ -190,7 +190,7 @@ func _build_grass() -> MultiMeshInstance3D:
 		var distance := GRASS_START + spread * 52.0
 		var z := rng.randf_range(FAR_Z * 0.55, NEAR_Z)
 		var x := side * distance
-		var scale_value := rng.randf_range(0.42, 0.85) * lerpf(1.0, 0.55, spread)
+		var scale_value := rng.randf_range(0.40, 0.78) * lerpf(1.0, 0.5, spread)
 		var basis := Basis(Vector3.UP, rng.randf_range(0.0, TAU)).scaled(
 			Vector3(scale_value, scale_value * rng.randf_range(0.8, 1.3), scale_value)
 		)
@@ -234,10 +234,10 @@ func _build_flowers() -> MultiMeshInstance3D:
 	]
 	for index in FLOWER_INSTANCES:
 		var side := -1.0 if index % 2 == 0 else 1.0
-		var distance := GRASS_START + pow(rng.randf(), 1.4) * 26.0
+		var distance := GRASS_START + pow(rng.randf(), 1.6) * 14.0
 		var z := rng.randf_range(FAR_Z * 0.45, NEAR_Z)
 		var x := side * distance
-		var scale_value := rng.randf_range(0.55, 0.95)
+		var scale_value := rng.randf_range(0.45, 0.72)
 		var origin := Vector3(x, height_at(x, z) + 0.02, z)
 		multimesh.set_instance_transform(
 			index, Transform3D(Basis.IDENTITY.scaled(Vector3.ONE * scale_value), origin)
