@@ -22,7 +22,7 @@ DIRECTIONAL_LIGHTS=1
 ENV sky=true ambient_src=3 amb_energy=0.30 fog=true ssao=false glow=false tonemap=2
 TRACK segments=10
 STAGE root=Stage_1:<Node3D#98314489505> children=5
-CAR_MESHES=83 empty=0 tris=17792
+CAR_MESHES=83 empty=1 tris=17792
 --- MESH INTERNALS ---
   World/GroundField/Terrain visible=true layers=1 surf=1 format=34359742479 verts=8060 idx=47232 first_idx=[0, 1, 65, 1, 66, 65]
     v0=(-160, 5.499938, 120) v1=(-150, 4.755785, 120) v2=(-134, 3.579826, 120)
@@ -196,8 +196,7 @@ CAR_MESHES=83 empty=0 tris=17792
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@184 y=0.018..0.038 x=-3.9..3.9 z=-801..-801 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@185 y=0.018..0.038 x=-3.9..3.9 z=-799..-799 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/Player/CarVisual/TransformShockwave y=0.050..0.070 x=-1.0..1.0 z=-1..1 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyPaint y=0.247..0.838 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyTrim y=0.211..0.660 x=-0.7..0.7 z=-1..1 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyPaint y=0.211..0.838 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@203 y=0.010..0.032 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@204 y=0.180..2.230 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GateNegative/Visual/@MeshInstance3D@215 y=0.010..0.032 x=-1.2..3.6 z=-70..-70 surf=1 mat=col spec=0
@@ -218,8 +217,7 @@ CAR_MESHES=83 empty=0 tris=17792
   palette fog=(0.66, 0.82, 0.84, 1) sky_ground=(0.3, 0.46, 0.38, 1)
 --- CAR MATERIALS ---
   TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
-  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.25..0.84
-  BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.21..0.66
+  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.21..0.84
   CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..0.94
   CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.77..1.04
   WellFL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
@@ -307,8 +305,8 @@ CAR_MESHES=83 empty=0 tris=17792
   CarVisual/TransformFlash pos=(0, 0.9, 0)
   CarVisual/Stage_1 pos=(0, 0, 0)
   CarVisual/Stage_1/Body pos=(0, 0, 0)
-  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.247438, -1.485) aabb_size=(1.548381, 0.590417, 2.97)
-  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.737409, 0.210899, -1.485) aabb_size=(1.474819, 0.448898, 2.97)
+  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.210899, -1.485) aabb_size=(1.548381, 0.626956, 2.97)
+  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=null aabb_pos=(0, 0, 0) aabb_size=(0, 0, 0)
   CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765105, -0.40612) aabb_size=(1.278037, 0.171642, 0.86944)
   CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765296, -0.5698) aabb_size=(1.278037, 0.275453, 1.1968)
   CarVisual/Stage_1/Body/WellFL pos=(-0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
@@ -401,8 +399,6 @@ GROUND children=3
 BACKDROP children=4
 SEGMENT_CHILDREN total=240
 SCENERY=<Object#null>
-ERROR: Parameter "m" is null.
-   at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
    at: mesh_get_surface_count (servers/rendering/dummy/storage/mesh_storage.h:120)
 ERROR: Parameter "m" is null.
