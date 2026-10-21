@@ -79,6 +79,31 @@ func _ready() -> void:
 					var arrays := mi.mesh.surface_get_arrays(s)
 					tris += (arrays[Mesh.ARRAY_INDEX] as PackedInt32Array).size() / 3 if arrays[Mesh.ARRAY_INDEX] != null else 0
 		print("CAR_MESHES=%d empty=%d tris=%d" % [meshes, empty, tris])
+	print("--- SURFACES NEAR START ---")
+	for node in main.find_children("*", "MeshInstance3D", true, false):
+		var mi := node as MeshInstance3D
+		if mi.mesh == null:
+			continue
+		var box := mi.global_transform * mi.get_aabb()
+		if box.position.y > 1.5 or box.position.y + box.size.y < -1.0:
+			continue
+		if box.size.x < 2.0 and box.size.z < 2.0:
+			continue
+		var mat := mi.material_override as StandardMaterial3D
+		print("  %s y=%.3f..%.3f x=%.1f..%.1f z=%.0f..%.0f surf=%d mat=%s spec=%d" % [
+			mi.get_path(), box.position.y, box.position.y + box.size.y,
+			box.position.x, box.position.x + box.size.x,
+			box.position.z, box.position.z + box.size.z,
+			mi.mesh.get_surface_count(),
+			"tex" if mat != null and mat.albedo_texture != null else ("col" if mat != null else "none"),
+			mat.specular_mode if mat != null else -1,
+		])
+	print("  terrain color_at(0,-96)=", SceneryGroundField.color_at(0.0, -96.0))
+	print("  terrain color_at(6,-96)=", SceneryGroundField.color_at(6.0, -96.0))
+	print("  terrain height_at(0,-96)=%.3f height_at(6,-96)=%.3f" % [
+		SceneryGroundField.height_at(0.0, -96.0), SceneryGroundField.height_at(6.0, -96.0)])
+	print("  palette fog=", SceneryPalette.FOG_COLOR, " sky_ground=", SceneryPalette.SKY_GROUND)
+
 	print("--- CAR MATERIALS ---")
 	for node in car.find_children("*", "MeshInstance3D", true, false):
 		var mi := node as MeshInstance3D

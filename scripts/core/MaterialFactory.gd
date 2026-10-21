@@ -229,6 +229,7 @@ static func vertex_colored(
 		var material := StandardMaterial3D.new()
 		material.albedo_color = Color(1.0, 1.0, 1.0)
 		material.vertex_color_use_as_albedo = true
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
 		material.roughness = roughness
 		material.metallic = 0.0
 		if double_sided:
@@ -459,6 +460,7 @@ static func terrain() -> StandardMaterial3D:
 		var material := StandardMaterial3D.new()
 		material.albedo_color = Color.WHITE
 		material.vertex_color_use_as_albedo = true
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
 		material.roughness = 0.96
 		material.metallic = 0.0
 		_cache[key] = material
@@ -488,6 +490,7 @@ static func asphalt() -> StandardMaterial3D:
 	if not _cache.has(key):
 		var material := StandardMaterial3D.new()
 		material.albedo_texture = asphalt_texture()
+		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
 		material.roughness = 0.92
 		material.metallic = 0.0
 		material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
