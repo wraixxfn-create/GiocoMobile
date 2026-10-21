@@ -15,24 +15,20 @@ ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
 WARNING: All audio drivers failed, falling back to the dummy driver.
      at: initialize (servers/audio_server.cpp:247)
 
-SCRIPT ERROR: Parse Error: Cannot infer the type of "wzn" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:383)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarModelLibrary.gd:-1)
-SCRIPT ERROR: Parse Error: Cannot infer the type of "wzn" variable because the value doesn't have a set type.
-          at: GDScript::reload (res://scripts/player/CarModelBuilder.gd:383)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarEvolutionDirector.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/player/CarController.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/gameplay/GameManager.gd:-1)
-SCRIPT ERROR: Compile Error: 
-          at: GDScript::reload (res://scripts/core/GameRoot.gd:-1)
-ERROR: Failed to load script "res://scripts/core/GameRoot.gd" with error "Compilation failed".
-   at: load (modules/gdscript/gdscript.cpp:2936)
-SCRIPT ERROR: Invalid call. Nonexistent function 'build' in base 'GDScript'.
-          at: CarModelLibrary.create_stage (res://scripts/player/CarModelLibrary.gd:63)
-WARNING: Nessun modello disponibile per il livello 1.
-     at: push_warning (core/variant/variant_utility.cpp:1112)
+ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
+   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
+ERROR: Condition "err != OK" is true.
+   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
+ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
+   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
+ERROR: Condition "err != OK" is true.
+   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
+ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
+   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
+ERROR: Condition "err != OK" is true.
+   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
+ERROR: Condition "array_len == 0" is true. Returning: ERR_INVALID_DATA
+   at: mesh_create_surface_data_from_arrays (servers/rendering_server.cpp:1195)
+ERROR: Condition "err != OK" is true.
+   at: add_surface_from_arrays (scene/resources/mesh.cpp:1810)
 SHOT /home/runner/work/GiocoMobile/GiocoMobile/docs/screenshots/01_start_hero.png -> 01_start_hero (err 0) 900x1600
