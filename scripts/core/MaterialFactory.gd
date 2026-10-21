@@ -168,6 +168,23 @@ static func stage_material(
 	return colored("stage_%d_%s" % [level, key], color, roughness, metallic)
 
 
+## Vetro di uno stadio: tinta scura, riflesso netto del cielo sul clearcoat.
+## Un vetro quasi a specchio rendeva l'abitacolo la superficie più chiara
+## dell'auto: qui il riflesso resta un lampo, non una lastra.
+static func stage_glass(level: int, color: Color) -> StandardMaterial3D:
+	var key := "stage_glass_%d_%s" % [level, color.to_html(false)]
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		material.roughness = 0.10
+		material.metallic = 0.0
+		material.clearcoat_enabled = true
+		material.clearcoat = 0.85
+		material.clearcoat_roughness = 0.06
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
 ## Vernice di uno stadio: lucida e con clearcoat, condivisa tra le parti della
 ## stessa carrozzeria. La chiave include il livello, così due stadi con colori
 ## simili restano indipendenti.
