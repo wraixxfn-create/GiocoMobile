@@ -57,6 +57,12 @@ func _ready() -> void:
 func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 	_car.position = Vector3(float(shot["x"]), 0.0, float(shot["z"]))
 	_car.lateral_target = float(shot["x"])
+	# La pista si ricicla solo in avanti: dopo un teletrasporto (qui si salta
+	# da una posizione all'altra) va riportata sotto l'auto, altrimenti si
+	# fotografa il prato dove dovrebbe esserci l'asfalto.
+	var track := _main.get_node("TrackManager") as TrackManager
+	track.reset_run()
+	track.global_position = Vector3(_car.position.x, track.global_position.y, _car.position.z)
 	hud.visible = bool(shot.get("hud", false))
 	var mode: String = str(shot.get("mode", "game"))
 	if bool(shot.get("running", false)):
