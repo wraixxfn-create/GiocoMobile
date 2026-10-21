@@ -196,8 +196,8 @@ CAR_MESHES=83 empty=0 tris=17792
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@184 y=0.018..0.038 x=-3.9..3.9 z=-801..-801 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@185 y=0.018..0.038 x=-3.9..3.9 z=-799..-799 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/Player/CarVisual/TransformShockwave y=0.050..0.070 x=-1.0..1.0 z=-1..1 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyPaint y=0.345..0.838 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyTrim y=0.211..0.686 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyPaint y=0.247..0.838 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyTrim y=0.211..0.660 x=-0.7..0.7 z=-1..1 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@203 y=0.010..0.032 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@204 y=0.180..2.230 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GateNegative/Visual/@MeshInstance3D@215 y=0.010..0.032 x=-1.2..3.6 z=-70..-70 surf=1 mat=col spec=0
@@ -218,10 +218,10 @@ CAR_MESHES=83 empty=0 tris=17792
   palette fog=(0.66, 0.82, 0.84, 1) sky_ground=(0.3, 0.46, 0.38, 1)
 --- CAR MATERIALS ---
   TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
-  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.34..0.84
-  BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.21..0.69
-  CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..1.03
-  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.79..1.04
+  BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.25..0.84
+  BodyTrim albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.21..0.66
+  CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..0.94
+  CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.77..1.04
   WellFL albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
   ArchFL albedo=(0.11, 0.12, 0.15, 1) metallic=0.18 rough=0.45 y=0.19..0.71
   WellFR albedo=(0.05, 0.05, 0.06, 1) metallic=0.00 rough=0.95 y=-0.03..0.63
@@ -307,10 +307,10 @@ CAR_MESHES=83 empty=0 tris=17792
   CarVisual/TransformFlash pos=(0, 0.9, 0)
   CarVisual/Stage_1 pos=(0, 0, 0)
   CarVisual/Stage_1/Body pos=(0, 0, 0)
-  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.344802, -1.485) aabb_size=(1.548381, 0.493053, 2.97)
-  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.771956, 0.210899, -1.485) aabb_size=(1.543912, 0.475303, 2.97)
-  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765105, -0.5698) aabb_size=(1.278037, 0.26807, 1.1968)
-  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.791642, -0.29744) aabb_size=(1.278037, 0.249107, 0.5434)
+  CarVisual/Stage_1/Body/BodyPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.77419, 0.247438, -1.485) aabb_size=(1.548381, 0.590417, 2.97)
+  CarVisual/Stage_1/Body/BodyTrim pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.737409, 0.210899, -1.485) aabb_size=(1.474819, 0.448898, 2.97)
+  CarVisual/Stage_1/Body/CabinGlass pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765105, -0.40612) aabb_size=(1.278037, 0.171642, 0.86944)
+  CarVisual/Stage_1/Body/CabinPaint pos=(0, 0, 0) mesh=ArrayMesh aabb_pos=(-0.639018, 0.765296, -0.5698) aabb_size=(1.278037, 0.275453, 1.1968)
   CarVisual/Stage_1/Body/WellFL pos=(-0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(-0.57, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
   CarVisual/Stage_1/Body/ArchFL pos=(-0.744525, 0.3, -1.02) mesh=ArrayMesh aabb_pos=(-0.778993, 0.186989, -1.429826) aabb_size=(0.068937, 0.523011, 0.819653)
   CarVisual/Stage_1/Body/WellFR pos=(0.555, 0.3, -1.02) mesh=CylinderMesh aabb_pos=(0.54, -0.0275, -1.3475) aabb_size=(0.03, 0.655, 0.655)
