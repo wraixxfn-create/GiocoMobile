@@ -79,6 +79,35 @@ func _ready() -> void:
 					var arrays := mi.mesh.surface_get_arrays(s)
 					tris += (arrays[Mesh.ARRAY_INDEX] as PackedInt32Array).size() / 3 if arrays[Mesh.ARRAY_INDEX] != null else 0
 		print("CAR_MESHES=%d empty=%d tris=%d" % [meshes, empty, tris])
+	print("--- MESH INTERNALS ---")
+	var probes: Array[String] = [
+		"World/GroundField/Terrain",
+		"TrackManager/Segment_0/Asphalt",
+		"TrackManager/Segment_0/Paint",
+	]
+	for path in probes:
+		var node := main.get_node_or_null(path) as MeshInstance3D
+		if node == null:
+			print("  %s: MISSING" % path)
+			continue
+		var mesh := node.mesh
+		if mesh == null:
+			print("  %s: mesh NULL" % path)
+			continue
+		var arrays := mesh.surface_get_arrays(0)
+		var verts := arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array
+		var idx := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+		print("  %s visible=%s layers=%d surf=%d format=%d verts=%d idx=%d first_idx=%s" % [
+			path, node.visible, node.layers, mesh.get_surface_count(), mesh.surface_get_format(0),
+			verts.size(), idx.size(), str(idx.slice(0, 6)),
+		])
+		if verts.size() >= 3:
+			print("    v0=%s v1=%s v2=%s" % [
+				node.global_transform * verts[0],
+				node.global_transform * verts[1],
+				node.global_transform * verts[2],
+			])
+
 	print("--- SURFACES NEAR START ---")
 	for node in main.find_children("*", "MeshInstance3D", true, false):
 		var mi := node as MeshInstance3D
