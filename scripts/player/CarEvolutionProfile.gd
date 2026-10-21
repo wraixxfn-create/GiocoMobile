@@ -43,7 +43,9 @@ enum Silhouette {
 ## Moltiplicatore della reattività dello sterzo (1.0 = taratura di base).
 @export_range(0.2, 3.0, 0.01) var handling_multiplier: float = 1.0
 ## Durata dell'animazione di trasformazione verso questo stadio, in secondi.
-@export_range(0.05, 2.0, 0.05) var transform_duration: float = GameConfig.EVOLUTION_TRANSFORM_DURATION
+@export_range(0.05, 2.0, 0.05) var transform_duration: float = (
+	GameConfig.EVOLUTION_TRANSFORM_DURATION
+)
 
 @export_group("Proporzioni (metri)")
 @export var body_width: float = 1.50

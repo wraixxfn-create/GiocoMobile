@@ -19,18 +19,22 @@ extends Node3D
 signal stage_ready(level: int, profile: CarEvolutionProfile)
 signal transformation_finished(level: int)
 
-const FLASH_LIGHT_ENERGY: float = 7.0
-const FLASH_LIGHT_RANGE: float = 7.5
+## Lampo e onda sono volutamente contenuti: feedback chiaro, nessuna luce
+## abbagliante e nessun costo percepibile su telefoni di fascia media.
+const FLASH_LIGHT_ENERGY: float = 3.4
+const FLASH_LIGHT_RANGE: float = 6.0
 const FLASH_LIGHT_HEIGHT: float = 0.9
-const GLOW_FLASH_GAIN: float = 3.0
+const GLOW_FLASH_GAIN: float = 2.2
 const SHOCKWAVE_START: float = 0.55
-const SHOCKWAVE_END: float = 2.90
-const SHOCKWAVE_ALPHA: float = 0.55
+const SHOCKWAVE_END: float = 2.45
+const SHOCKWAVE_ALPHA: float = 0.50
 const SHOCKWAVE_HEIGHT: float = 0.06
 const POP_SHRINK: float = 0.58
 const POP_OVERSHOOT: float = 1.14
 const POP_SPLIT: float = 0.42
 const SQUASH_AMOUNT: float = 0.16
+## Piccolo "salto" del modello durante la trasformazione (solo visivo).
+const HOP_HEIGHT: float = 0.09
 
 const NODE_FLASH: String = "TransformFlash"
 const NODE_SHOCKWAVE: String = "TransformShockwave"
@@ -231,6 +235,8 @@ func _apply_animation(progress: float) -> void:
 		pop * (1.0 - squash),
 		pop * (1.0 + squash * 0.5),
 	)
+	# Saltello appena accennato: dà energia senza spostare l'auto vera.
+	_stage_root.position.y = sin(progress * PI) * HOP_HEIGHT
 
 	var flash := pow(1.0 - progress, 2.0)
 	for entry in _glow:
@@ -269,6 +275,7 @@ func _reset_animation() -> void:
 func _restore_model() -> void:
 	if _stage_root != null:
 		_stage_root.scale = Vector3.ONE
+		_stage_root.position = Vector3.ZERO
 	for entry in _glow:
 		var glow_entry: Dictionary = entry
 		var material := glow_entry.get("material", null) as StandardMaterial3D

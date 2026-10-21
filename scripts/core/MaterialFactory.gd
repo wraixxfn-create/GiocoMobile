@@ -23,8 +23,17 @@ static func colored(
 
 # ------------------------------------------------------------------- Track ---
 
-static func road() -> StandardMaterial3D:
-	return colored("road", GameConfig.COLOR_ROAD, 0.92, 0.0)
+## Asfalto: due toni alternati per segmento, così la pista "scorre" e non è
+## una superficie unica e piatta.
+static func road(alternate: bool = false) -> StandardMaterial3D:
+	if alternate:
+		return colored("road_alt", GameConfig.COLOR_ROAD_ALT, 0.86, 0.0)
+	return colored("road", GameConfig.COLOR_ROAD, 0.86, 0.0)
+
+
+## Fascia chiara (cordolo esterno + prato): aiuta a leggere il bordo pista.
+static func verge() -> StandardMaterial3D:
+	return colored("verge", GameConfig.COLOR_VERGE, 0.90, 0.0)
 
 
 static func lane() -> StandardMaterial3D:
@@ -62,18 +71,43 @@ static func foliage(index: int) -> StandardMaterial3D:
 	return colored(key, GameConfig.FOLIAGE_COLORS[color_index], 0.86, 0.0)
 
 
+## Tono più chiaro del fogliame: dà volume alle chiome low-poly.
+static func foliage_highlight(index: int) -> StandardMaterial3D:
+	var palette_size := GameConfig.FOLIAGE_COLORS.size()
+	var color_index := posmod(index, palette_size)
+	var color := GameConfig.FOLIAGE_COLORS[color_index].lightened(0.20)
+	return colored("foliage_light_%d" % color_index, color, 0.82, 0.0)
+
+
 static func rock() -> StandardMaterial3D:
 	return colored("rock", GameConfig.COLOR_ROCK, 0.90, 0.0)
 
 
 static func post() -> StandardMaterial3D:
-	return colored("post", GameConfig.COLOR_POST, 0.65, 0.0)
+	return colored("post", GameConfig.COLOR_POST, 0.55, 0.05)
+
+
+## Catarifrangente arancione del delineatore: leggibile anche controluce.
+static func post_reflector() -> StandardMaterial3D:
+	return emissive("post_reflector", GameConfig.COLOR_POST_REFLECTOR, 1.1)
 
 
 # --------------------------------------------------------------------- Car ---
 
+## Vernice dell'auto: lucida, con un leggero clearcoat per un look "giocattolo"
+## premium senza shader personalizzati.
 static func car_paint(color: Color) -> StandardMaterial3D:
-	return colored("car_paint_" + color.to_html(false), color, 0.34, 0.12)
+	var key := "car_paint_" + color.to_html(false)
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		material.roughness = 0.26
+		material.metallic = 0.16
+		material.clearcoat_enabled = true
+		material.clearcoat = 0.65
+		material.clearcoat_roughness = 0.18
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
 
 
 static func car_black() -> StandardMaterial3D:
@@ -81,7 +115,7 @@ static func car_black() -> StandardMaterial3D:
 
 
 static func car_glass() -> StandardMaterial3D:
-	return colored("car_glass", GameConfig.COLOR_CAR_CABIN, 0.14, 0.35)
+	return colored("car_glass", GameConfig.COLOR_CAR_CABIN, 0.08, 0.55)
 
 
 static func car_accent() -> StandardMaterial3D:
@@ -89,7 +123,7 @@ static func car_accent() -> StandardMaterial3D:
 
 
 static func car_rim() -> StandardMaterial3D:
-	return colored("car_rim", GameConfig.COLOR_CAR_RIM, 0.32, 0.25)
+	return colored("car_rim", GameConfig.COLOR_CAR_RIM, 0.22, 0.80)
 
 
 static func tire() -> StandardMaterial3D:
@@ -134,6 +168,23 @@ static func stage_material(
 	return colored("stage_%d_%s" % [level, key], color, roughness, metallic)
 
 
+## Vernice di uno stadio: lucida e con clearcoat, condivisa tra le parti della
+## stessa carrozzeria. La chiave include il livello, così due stadi con colori
+## simili restano indipendenti.
+static func stage_paint(level: int, color: Color) -> StandardMaterial3D:
+	var key := "stage_paint_%d_%s" % [level, color.to_html(false)]
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = color
+		material.roughness = 0.22
+		material.metallic = 0.18
+		material.clearcoat_enabled = true
+		material.clearcoat = 0.70
+		material.clearcoat_roughness = 0.16
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
 ## Materiale emissivo NON condiviso: serve alle parti che lampeggiano durante
 ## la trasformazione (fari, spie, barre luminose). Essendo unico per modello,
 ## l'animazione non può mai propagarsi ad altri oggetti della scena.
@@ -163,3 +214,123 @@ static func headlight() -> StandardMaterial3D:
 
 static func taillight() -> StandardMaterial3D:
 	return emissive("taillight", GameConfig.COLOR_TAILLIGHT, 1.3)
+
+
+# ------------------------------------------------------- Decorazioni 3D -----
+
+## Materiale per MultiMesh con colore per-istanza (ciuffi d'erba e fiori).
+static func vertex_colored(key: String, roughness: float = 0.85) -> StandardMaterial3D:
+	var material_key := "vertex_" + key
+	if not _cache.has(material_key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = Color(1.0, 1.0, 1.0)
+		material.vertex_color_use_as_albedo = true
+		material.roughness = roughness
+		material.metallic = 0.0
+		_cache[material_key] = material
+	return _cache[material_key] as StandardMaterial3D
+
+
+## Materiale piatto e trasparente per pannelli e onde d'urto a terra.
+static func translucent(color: Color, energy: float = 0.0) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	if energy > 0.0:
+		material.emission_enabled = true
+		material.emission = Color(color.r, color.g, color.b)
+		material.emission_energy_multiplier = energy
+	return material
+
+
+# ---------------------------------------------------------- Traguardo -------
+
+## Scacchiera generata a runtime (nessun asset esterno) per il traguardo.
+## L'immagine è piccola e con filtro NEAREST: costa pochissimo anche su mobile.
+static func checker_texture(cells: int = 8, pixel_size: int = 8) -> ImageTexture:
+	var key := "checker_%d_%d" % [cells, pixel_size]
+	if _cache.has(key):
+		return _cache[key] as ImageTexture
+	var size := maxi(cells, 2) * maxi(pixel_size, 1)
+	var image := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	var dark := GameConfig.COLOR_FINISH_DARK
+	var light := GameConfig.COLOR_FINISH_LIGHT
+	for y in size:
+		for x in size:
+			var cell := (x / pixel_size) + (y / pixel_size)
+			image.set_pixel(x, y, dark if cell % 2 == 0 else light)
+	var texture := ImageTexture.create_from_image(image)
+	_cache[key] = texture
+	return texture
+
+
+## Materiale con la scacchiera del traguardo (filtro nearest, nessun blur).
+static func checker_material(cells: int = 8) -> StandardMaterial3D:
+	var key := "checker_material_%d" % cells
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_texture = checker_texture(cells)
+		material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+		material.roughness = 0.55
+		material.metallic = 0.0
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D
+
+
+static func finish_gold() -> StandardMaterial3D:
+	var material_key := "finish_gold"
+	if not _cache.has(material_key):
+		var material := StandardMaterial3D.new()
+		material.albedo_color = GameConfig.COLOR_FINISH_GOLD
+		material.metallic = 0.75
+		material.roughness = 0.26
+		material.emission_enabled = true
+		material.emission = GameConfig.COLOR_FINISH_GOLD
+		material.emission_energy_multiplier = 0.35
+		_cache[material_key] = material
+	return _cache[material_key] as StandardMaterial3D
+
+
+# ------------------------------------------------------- Cartelli 3D -------
+
+## Texture "pillola" arrotondata generata a runtime per i cartelli dei cancelli.
+## Bianca con alpha: il colore arriva dall'albedo del materiale.
+static func badge_texture() -> ImageTexture:
+	var key := "badge_texture"
+	if _cache.has(key):
+		return _cache[key] as ImageTexture
+	var width := 96
+	var height := 48
+	var radius := 16.0
+	var image := Image.create(width, height, false, Image.FORMAT_RGBA8)
+	for y in height:
+		for x in width:
+			var px := float(x) + 0.5
+			var py := float(y) + 0.5
+			var dx := maxf(maxf(radius - px, px - (float(width) - radius)), 0.0)
+			var dy := maxf(maxf(radius - py, py - (float(height) - radius)), 0.0)
+			var distance := sqrt(dx * dx + dy * dy)
+			var alpha := clampf(radius - distance + 0.5, 0.0, 1.0)
+			image.set_pixel(x, y, Color(1.0, 1.0, 1.0, alpha))
+	var texture := ImageTexture.create_from_image(image)
+	_cache[key] = texture
+	return texture
+
+
+## Cartello scuro semitrasparente, sempre rivolto alla telecamera: fa da
+## sfondo leggibile al valore del cancello.
+static func badge_material(color: Color) -> StandardMaterial3D:
+	var key := "badge_" + color.to_html(true)
+	if not _cache.has(key):
+		var material := StandardMaterial3D.new()
+		material.albedo_texture = badge_texture()
+		material.albedo_color = color
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		material.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+		material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
+		_cache[key] = material
+	return _cache[key] as StandardMaterial3D

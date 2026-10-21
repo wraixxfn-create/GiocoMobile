@@ -6,12 +6,21 @@ extends Node3D
 ## Ostacoli, cancelli e monete NON vivono qui: sono gestiti dai rispettivi
 ## manager in coordinate mondo, così non si spostano mai sotto l'auto.
 
+## Larghezza della fascia chiara tra cordolo e prato.
+const VERGE_WIDTH: float = 1.05
+## Istanze decorative per segmento (MultiMesh: costo di disegno trascurabile).
+const TUFT_INSTANCES: int = 64
+const FLOWER_INSTANCES: int = 26
+
 static var _grass_mesh: BoxMesh
 static var _road_mesh: BoxMesh
 static var _curb_base_mesh: BoxMesh
 static var _curb_accent_mesh: BoxMesh
 static var _shoulder_line_mesh: BoxMesh
 static var _dash_mesh: BoxMesh
+static var _verge_mesh: BoxMesh
+static var _tuft_mesh: BoxMesh
+static var _flower_mesh: SphereMesh
 static var _post_mesh: BoxMesh
 static var _post_cap_mesh: BoxMesh
 static var _trunk_mesh: CylinderMesh
@@ -67,7 +76,21 @@ static func _ensure_meshes() -> void:
 	_shoulder_line_mesh.size = Vector3(0.10, 0.02, GameConfig.SEGMENT_LENGTH)
 
 	_dash_mesh = BoxMesh.new()
-	_dash_mesh.size = Vector3(0.14, 0.02, 2.4)
+	_dash_mesh.size = Vector3(0.16, 0.02, 2.6)
+
+	_verge_mesh = BoxMesh.new()
+	_verge_mesh.size = Vector3(VERGE_WIDTH, 0.10, GameConfig.SEGMENT_LENGTH)
+
+	# Ciuffo d'erba: una scatoletta sottile, istanziata in MultiMesh.
+	_tuft_mesh = BoxMesh.new()
+	_tuft_mesh.size = Vector3(0.10, 0.36, 0.07)
+
+	# Fiore: sfera minuscola a pochi segmenti (un solo draw call per segmento).
+	_flower_mesh = SphereMesh.new()
+	_flower_mesh.radius = 0.085
+	_flower_mesh.height = 0.12
+	_flower_mesh.radial_segments = 5
+	_flower_mesh.rings = 2
 
 	_post_mesh = BoxMesh.new()
 	_post_mesh.size = Vector3(0.12, 0.56, 0.12)
@@ -126,17 +149,18 @@ func _build() -> void:
 	var rng := RandomNumberGenerator.new()
 	# Seme deterministico: le decorazioni sono stabili per ogni segmento.
 	rng.seed = segment_index * 1013904223 + 12345
-	_add_ground()
+	_add_ground(rng)
 	_add_road_and_curbs()
 	_add_lane_lines()
 	_add_decorations(rng)
 
 
-func _add_ground() -> void:
+func _add_ground(rng: RandomNumberGenerator) -> void:
 	# Terreno verde ampio su entrambi i lati fino all'orizzonte, a doppia tonalità.
 	var outer_edge := GameConfig.TRACK_WIDTH / 2.0 + GameConfig.CURB_WIDTH
 	var grass_center_x := outer_edge + GameConfig.GRASS_WIDTH / 2.0
 	var grass_material := MaterialFactory.grass(segment_index % 2 == 0)
+	var verge_material := MaterialFactory.verge()
 
 	var sides: Array[float] = [-1.0, 1.0]
 	for side in sides:
@@ -147,12 +171,22 @@ func _add_ground() -> void:
 		grass.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(grass)
 
+		# Fascia chiara tra cordolo e prato: stacca la pista dallo sfondo.
+		var verge := MeshInstance3D.new()
+		verge.mesh = _verge_mesh
+		verge.position = Vector3(side * (outer_edge + VERGE_WIDTH * 0.5), -0.035, 0.0)
+		verge.material_override = verge_material
+		verge.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		add_child(verge)
+
+	_add_grass_details(rng, outer_edge)
+
 
 func _add_road_and_curbs() -> void:
 	var road := MeshInstance3D.new()
 	road.mesh = _road_mesh
 	road.position.y = -0.06
-	road.material_override = MaterialFactory.road()
+	road.material_override = MaterialFactory.road(segment_index % 2 == 1)
 	road.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(road)
 
@@ -191,6 +225,83 @@ func _add_road_and_curbs() -> void:
 		shoulder_line.material_override = line_mat
 		shoulder_line.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(shoulder_line)
+
+
+## Ciuffi d'erba e fiori sparsi sul prato, raggruppati in due MultiMesh:
+## centinaia di dettagli con due soli draw call per segmento.
+func _add_grass_details(rng: RandomNumberGenerator, outer_edge: float) -> void:
+	var tuft_holder := _make_multimesh(
+		_tuft_mesh,
+		MaterialFactory.vertex_colored("grass_tuft"),
+		TUFT_INSTANCES,
+	)
+	var flower_holder := _make_multimesh(
+		_flower_mesh,
+		MaterialFactory.vertex_colored("flower", 0.72),
+		FLOWER_INSTANCES,
+	)
+	var tuft_colors: Array[Color] = [
+		GameConfig.COLOR_GRASS.lightened(0.10),
+		GameConfig.COLOR_GRASS_ALT.darkened(0.05),
+		GameConfig.FOLIAGE_COLORS[1],
+	]
+
+	for index in TUFT_INSTANCES:
+		var side: float = -1.0 if index % 2 == 0 else 1.0
+		var height := rng.randf_range(0.65, 1.35)
+		var width := rng.randf_range(0.75, 1.35)
+		var basis := Basis(Vector3.UP, rng.randf_range(0.0, TAU)).scaled(
+			Vector3(width, height, width)
+		)
+		var origin := Vector3(
+			side * (outer_edge + rng.randf_range(0.35, 26.0)),
+			0.17 * height,
+			rng.randf_range(-GameConfig.SEGMENT_LENGTH * 0.5, GameConfig.SEGMENT_LENGTH * 0.5),
+		)
+		tuft_holder.multimesh.set_instance_transform(index, Transform3D(basis, origin))
+		tuft_holder.multimesh.set_instance_color(
+			index,
+			tuft_colors[rng.randi_range(0, tuft_colors.size() - 1)],
+		)
+
+	for index in FLOWER_INSTANCES:
+		var side: float = -1.0 if index % 2 == 0 else 1.0
+		var scale_value := rng.randf_range(0.75, 1.45)
+		var basis := Basis(Vector3.UP, rng.randf_range(0.0, TAU)).scaled(
+			Vector3(scale_value, scale_value, scale_value)
+		)
+		var origin := Vector3(
+			side * (outer_edge + rng.randf_range(0.9, 18.0)),
+			0.16 + 0.04 * scale_value,
+			rng.randf_range(-GameConfig.SEGMENT_LENGTH * 0.5, GameConfig.SEGMENT_LENGTH * 0.5),
+		)
+		flower_holder.multimesh.set_instance_transform(index, Transform3D(basis, origin))
+		flower_holder.multimesh.set_instance_color(
+			index,
+			GameConfig.FLOWER_COLORS[rng.randi_range(0, GameConfig.FLOWER_COLORS.size() - 1)],
+		)
+
+	add_child(tuft_holder)
+	add_child(flower_holder)
+
+
+func _make_multimesh(
+	mesh: Mesh,
+	material: Material,
+	count: int,
+) -> MultiMeshInstance3D:
+	var multimesh := MultiMesh.new()
+	multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	# `use_colors` va impostato PRIMA di allocare le istanze.
+	multimesh.use_colors = true
+	multimesh.mesh = mesh
+	multimesh.instance_count = count
+	var holder := MultiMeshInstance3D.new()
+	holder.name = "GrassDetails"
+	holder.multimesh = multimesh
+	holder.material_override = material
+	holder.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	return holder
 
 
 func _add_lane_lines() -> void:
@@ -284,7 +395,7 @@ func _make_post() -> Node3D:
 	var reflector := MeshInstance3D.new()
 	reflector.mesh = _post_cap_mesh
 	reflector.position.y = 0.44
-	reflector.material_override = MaterialFactory.curb_accent()
+	reflector.material_override = MaterialFactory.post_reflector()
 	reflector.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	holder.add_child(reflector)
 
@@ -300,9 +411,8 @@ func _make_tree(rng: RandomNumberGenerator) -> Node3D:
 	trunk.material_override = MaterialFactory.trunk()
 	tree.add_child(trunk)
 
-	var foliage_mat := MaterialFactory.foliage(
-		rng.randi_range(0, GameConfig.FOLIAGE_COLORS.size() - 1)
-	)
+	var palette_index := rng.randi_range(0, GameConfig.FOLIAGE_COLORS.size() - 1)
+	var foliage_mat := MaterialFactory.foliage(palette_index)
 	if rng.randf() > 0.45:
 		var lower_cone := MeshInstance3D.new()
 		lower_cone.mesh = _cone_lower_mesh
@@ -313,7 +423,7 @@ func _make_tree(rng: RandomNumberGenerator) -> Node3D:
 		var upper_cone := MeshInstance3D.new()
 		upper_cone.mesh = _cone_upper_mesh
 		upper_cone.position.y = 2.30
-		upper_cone.material_override = foliage_mat
+		upper_cone.material_override = MaterialFactory.foliage_highlight(palette_index)
 		tree.add_child(upper_cone)
 	else:
 		var crown := MeshInstance3D.new()
@@ -322,8 +432,17 @@ func _make_tree(rng: RandomNumberGenerator) -> Node3D:
 		crown.material_override = foliage_mat
 		tree.add_child(crown)
 
+		# Seconda chioma più chiara: dà volume alla sfera low-poly.
+		var crown_top := MeshInstance3D.new()
+		crown_top.mesh = _crown_mesh
+		crown_top.position = Vector3(0.16, 2.02, -0.10)
+		crown_top.scale = Vector3(0.62, 0.55, 0.62)
+		crown_top.material_override = MaterialFactory.foliage_highlight(palette_index)
+		tree.add_child(crown_top)
+
 	var scale_value := rng.randf_range(0.85, 1.45)
 	tree.scale = Vector3(scale_value, scale_value, scale_value)
+	tree.rotation.y = rng.randf_range(0.0, TAU)
 	return tree
 
 
