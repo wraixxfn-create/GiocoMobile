@@ -111,7 +111,7 @@ static func build(profile: CarEvolutionProfile) -> Dictionary:
 
 static func _blueprint_for(silhouette: int) -> Dictionary:
 	var bp := {
-		"belt_f": 0.71,
+		"belt_f": 0.80,
 		"sill_drop": 0.085,
 		"body_top": [
 			Vector2(0.00, 0.66), Vector2(0.05, 0.77), Vector2(0.14, 0.91),
@@ -134,7 +134,7 @@ static func _blueprint_for(silhouette: int) -> Dictionary:
 			Vector2(0.00, 0.80), Vector2(0.20, 0.84), Vector2(0.55, 0.85),
 			Vector2(0.85, 0.82), Vector2(1.00, 0.77),
 		],
-		"glass_bottom_f": 0.84,
+		"glass_bottom_f": 0.92,
 		"pillars_b": Vector2(0.46, 0.53),
 		"pillars_c": Vector2(0.80, 0.95),
 		"roof_split": 0.62,
