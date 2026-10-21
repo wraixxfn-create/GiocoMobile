@@ -52,6 +52,8 @@ var _debug_shots: Array[Dictionary] = [
 		"height": 22.0, "distance": 30.0, "look": 46.0, "fov": 58.0, "probe": "no_terrain"},
 	{"name": "_tmp/dx_ov_red", "z": -150.0, "x": 0.0, "mode": "overview",
 		"height": 22.0, "distance": 30.0, "look": 46.0, "fov": 58.0, "probe": "red"},
+	{"name": "_tmp/dx_top", "z": -150.0, "x": 0.0, "mode": "overview",
+		"height": 8.0, "distance": 0.0, "look": 0.01, "fov": 60.0, "probe": "top"},
 ]
 
 
@@ -207,6 +209,26 @@ func _capture(shot: Dictionary, hud: CanvasLayer) -> void:
 					mi.material_override = flat_trim
 				elif name.contains("Paint") or name.contains("Bumper"):
 					mi.material_override = flat_paint
+		"top":
+			var target := _main.get_node("TrackManager/Segment_4/Asphalt") as MeshInstance3D
+			if target == null:
+				print("PROBE segment_4 asphalt MISSING")
+			else:
+				var box := target.get_aabb()
+				print("PROBE asphalt visible=%s layers=%d aabb=%s pos=%s scale=%s" % [
+					target.visible, target.layers, str(box),
+					str(target.global_position), str(target.global_transform.basis.get_scale())])
+			var plane_top := PlaneMesh.new()
+			plane_top.size = Vector2(9.0, 40.0)
+			var flat := _probe_material(Color(1.0, 0.2, 0.9))
+			flat.cull_mode = BaseMaterial3D.CULL_DISABLED
+			var node_top := MeshInstance3D.new()
+			node_top.name = "ProbePlaneTop"
+			node_top.mesh = plane_top
+			node_top.material_override = flat
+			node_top.position = Vector3(0.0, 0.02, -150.0)
+			_main.add_child(node_top)
+			print("PROBE plane added at ", node_top.global_position)
 		"red":
 			var flat_red := StandardMaterial3D.new()
 			flat_red.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
