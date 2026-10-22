@@ -21,7 +21,7 @@ DIRECTIONAL_LIGHTS=1
   LIGHT Sun energy=1.14 shadow=true dist=58.0 splits=0
 ENV sky=true ambient_src=3 amb_energy=0.30 fog=true ssao=false glow=false tonemap=2
 TRACK segments=10
-STAGE root=Stage_1:<Node3D#98314489505> children=5
+STAGE root=Stage_1:<Node3D#98381598369> children=5
 CAR_MESHES=83 empty=1 tris=17792
 --- MESH INTERNALS ---
   World/GroundField/Terrain visible=true layers=1 surf=1 format=34359742479 verts=8060 idx=47232 first_idx=[0, 1, 65, 1, 66, 65]
@@ -195,7 +195,7 @@ CAR_MESHES=83 empty=1 tris=17792
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@183 y=0.007..0.032 x=-3.9..3.9 z=-801..-799 surf=1 mat=tex spec=0
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@184 y=0.018..0.038 x=-3.9..3.9 z=-801..-801 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/FinishLine/Visual/@MeshInstance3D@185 y=0.018..0.038 x=-3.9..3.9 z=-799..-799 surf=1 mat=col spec=0
-  /root/InspectScene/GameRoot/Player/CarVisual/TransformShockwave y=0.050..0.070 x=-1.0..1.0 z=-1..1 surf=1 mat=col spec=0
+  /root/InspectScene/GameRoot/Player/CarVisual/TransformShockwave y=0.030..0.050 x=-1.0..1.0 z=-1..1 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/Player/CarVisual/Stage_1/Body/BodyPaint y=0.211..0.838 x=-0.8..0.8 z=-1..1 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@203 y=0.010..0.032 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
   /root/InspectScene/GameRoot/GateManager/GatePositive/Visual/@MeshInstance3D@204 y=0.180..2.230 x=-3.6..-1.4 z=-70..-70 surf=1 mat=col spec=0
@@ -216,7 +216,7 @@ CAR_MESHES=83 empty=1 tris=17792
   terrain height_at(0,-96)=-0.120 height_at(6,-96)=-0.120
   palette fog=(0.66, 0.82, 0.84, 1) sky_ground=(0.3, 0.46, 0.38, 1)
 --- CAR MATERIALS ---
-  TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.05..0.07
+  TransformShockwave albedo=(1, 1, 1, 0) metallic=0.00 rough=1.00 y=0.03..0.05
   BodyPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.21..0.84
   CabinGlass albedo=(0.085, 0.1445, 0.2125, 1) metallic=0.00 rough=0.45 y=0.77..0.94
   CabinPaint albedo=(1, 0.8, 0.06, 1) metallic=0.00 rough=0.38 y=0.77..1.04
@@ -301,7 +301,7 @@ CAR_MESHES=83 empty=1 tris=17792
   HubCap albedo=(0.22, 0.23, 0.27, 1) metallic=0.30 rough=0.40 y=0.27..0.33
 --- CAR TREE ---
   CarVisual pos=(0, 0, 0)
-  CarVisual/TransformShockwave pos=(0, 0.06, 0) mesh=CylinderMesh aabb_pos=(-0.992709, 0.05, -1) aabb_size=(1.985418, 0.02, 2)
+  CarVisual/TransformShockwave pos=(0, 0.04, 0) mesh=CylinderMesh aabb_pos=(-0.992709, 0.03, -1) aabb_size=(1.985418, 0.02, 2)
   CarVisual/TransformFlash pos=(0, 0.9, 0)
   CarVisual/Stage_1 pos=(0, 0, 0)
   CarVisual/Stage_1/Body pos=(0, 0, 0)
