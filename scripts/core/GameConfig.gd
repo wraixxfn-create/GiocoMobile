@@ -73,7 +73,7 @@ const EVOLUTION_HANDLING_MULTIPLIERS: Array[float] = [
 	1.45,
 ]
 ## Durata dell'animazione di trasformazione, in secondi.
-const EVOLUTION_TRANSFORM_DURATION: float = 0.55
+const EVOLUTION_TRANSFORM_DURATION: float = 0.34
 
 # ------------------------------------------------------ Ciclo di gioco -----
 ## Traguardo della corsa (metri). A velocità standard equivale a circa un minuto.
@@ -99,8 +99,8 @@ const COIN_THICKNESS: float = 0.09
 const COIN_PICKUP_RADIUS: float = 1.30
 const COIN_RECYCLING_OFFSET: float = 18.0
 const COIN_TELEPORT_LIMIT: float = 6.0
-const COIN_ANIMATION_DURATION: float = 0.42
-const COIN_ANIMATION_RISE: float = 0.85
+const COIN_ANIMATION_DURATION: float = 0.34
+const COIN_ANIMATION_RISE: float = 0.48
 const COIN_SPIN_SPEED: float = 2.8
 const COIN_BOB_AMPLITUDE: float = 0.12
 const COIN_BOB_SPEED: float = 2.2
@@ -219,11 +219,10 @@ const OBSTACLE_HIT_COOLDOWN: float = 0.8
 ## Animazioni e feedback di collisione.
 const OBSTACLE_BREAK_DURATION: float = 0.55
 const OBSTACLE_CONE_FALL_DURATION: float = 0.40
-const OBSTACLE_SHAKE_DURATION: float = 0.38
-const OBSTACLE_SHAKE_FREQUENCY: float = 9.0
-## Ampiezza massima dello scuotimento (radianti): volutamente piccola, non
-## altera in modo percettibile l'ingombro laterale dell'auto.
-const OBSTACLE_SHAKE_AMPLITUDE: float = 0.045
+const OBSTACLE_SHAKE_DURATION: float = 0.34
+const OBSTACLE_SHAKE_FREQUENCY: float = 2.0
+## Ampiezza massima dello scuotimento (radianti): morbida e ben smorzata.
+const OBSTACLE_SHAKE_AMPLITUDE: float = 0.025
 const OBSTACLE_IMPACT_DURATION: float = 0.5
 const OBSTACLE_MAX_EFFECTS: int = 8
 
@@ -336,13 +335,10 @@ const AUDIO_VOICE_COUNT: int = 6
 const AUDIO_SAMPLE_RATE: int = 22050
 
 # ------------------------------------------------------ Feedback animato ----
-## Durata della comparsa morbida di menu e riepilogo, in secondi.
-const UI_APPEAR_DURATION: float = 0.30
-## Durata del pop di testi e pillole di feedback.
-const UI_POP_DURATION: float = 0.26
-## Durata del lampo colorato a schermo quando si attraversa un cancello.
-const GATE_FLASH_DURATION: float = 0.42
-const GATE_FLASH_ALPHA: float = 0.16
+## Durata della dissolvenza di menu e riepilogo, in secondi.
+const UI_APPEAR_DURATION: float = 0.20
+## Durata massima dei piccoli assestamenti UI, senza rimbalzi.
+const UI_POP_DURATION: float = 0.18
 ## Scintilla/onda della raccolta moneta nel mondo 3D.
 const COIN_BURST_DURATION: float = 0.34
 const COIN_BURST_RADIUS: float = 0.62

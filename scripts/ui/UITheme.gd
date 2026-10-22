@@ -23,9 +23,9 @@ static func label(text: String, font_size: int, alignment: int) -> Label:
 	var settings := LabelSettings.new()
 	settings.font_size = font_size
 	settings.font_color = Color.WHITE
-	settings.outline_size = 4 if font_size >= 24 else 3
+	settings.outline_size = 4 if font_size >= 24 else (3 if font_size >= 14 else 1)
 	settings.outline_color = Color(0.03, 0.06, 0.10, 0.92)
-	settings.shadow_size = 2
+	settings.shadow_size = 2 if font_size >= 14 else 1
 	settings.shadow_color = Color(0.0, 0.0, 0.0, 0.45)
 	settings.shadow_offset = Vector2(1.0, 2.0)
 

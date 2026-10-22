@@ -28,7 +28,7 @@ enum Kind { CONE, BARRIER, NARROW_WALL, MOVING_BLOCK }
 enum State { ACTIVE, HIT, BROKEN }
 
 const RECOIL_DURATION: float = 0.28
-const BEACON_PULSE_SPEED: float = 6.0
+const BEACON_PULSE_SPEED: float = 2.8
 const CONE_SLIDE_DISTANCE: float = 0.42
 const BREAK_TILT: float = 1.35
 const BREAK_SINK: float = 0.45
@@ -160,13 +160,13 @@ func advance(dt: float, simulate_movement: bool) -> void:
 		_beacon_time += dt
 		if _beacon_material != null:
 			var pulse := maxf(sin(_beacon_time * BEACON_PULSE_SPEED), 0.0)
-			_beacon_material.emission_energy_multiplier = 1.0 + 2.2 * pulse
+			_beacon_material.emission_energy_multiplier = 1.0 + 0.55 * pulse
 
 	if _recoil_time > 0.0:
 		_recoil_time = maxf(_recoil_time - dt, 0.0)
 		if _body_material != null:
 			var flash := _recoil_time / RECOIL_DURATION
-			_body_material.emission_energy_multiplier = 1.6 * flash * flash
+			_body_material.emission_energy_multiplier = 0.65 * flash * flash
 
 	match state:
 		State.HIT:

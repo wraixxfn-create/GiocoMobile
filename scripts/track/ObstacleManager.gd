@@ -580,14 +580,14 @@ func _spawn_impact(at: Vector3) -> void:
 		GameConfig.COLOR_OBSTACLE_IMPACT.r,
 		GameConfig.COLOR_OBSTACLE_IMPACT.g,
 		GameConfig.COLOR_OBSTACLE_IMPACT.b,
-		0.85,
+		0.50,
 	)
 	ring_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	ring_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	ring_material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	ring_material.emission_enabled = true
 	ring_material.emission = GameConfig.COLOR_OBSTACLE_IMPACT
-	ring_material.emission_energy_multiplier = 1.8
+	ring_material.emission_energy_multiplier = 0.65
 
 	var ring_mesh := CylinderMesh.new()
 	ring_mesh.top_radius = 1.0
@@ -604,21 +604,21 @@ func _spawn_impact(at: Vector3) -> void:
 
 	var light := OmniLight3D.new()
 	light.light_color = GameConfig.COLOR_OBSTACLE_IMPACT
-	light.omni_range = 4.2
-	light.light_energy = 2.6
+	light.omni_range = 3.0
+	light.light_energy = 0.7
 	light.shadow_enabled = false
 	light.position = Vector3(0.0, 0.40, 0.0)
 	root.add_child(light)
 
 	var spark_mesh := BoxMesh.new()
-	spark_mesh.size = Vector3(0.075, 0.075, 0.075)
+	spark_mesh.size = Vector3(0.05, 0.05, 0.05)
 	var spark_material := MaterialFactory.emissive(
-		"obstacle_spark", GameConfig.COLOR_OBSTACLE_IMPACT, 1.6
+		"obstacle_spark", GameConfig.COLOR_OBSTACLE_IMPACT, 0.8
 	)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(int(_sim_time * 1000.0) + hit_count * 31 + 7)
 	var sparks: Array = []
-	for _index in 4:
+	for _index in 2:
 		var spark := MeshInstance3D.new()
 		spark.mesh = spark_mesh
 		spark.material_override = spark_material
@@ -628,9 +628,9 @@ func _spawn_impact(at: Vector3) -> void:
 		sparks.append({
 			"node": spark,
 			"velocity": Vector3(
-				cos(angle) * rng.randf_range(1.5, 3.5),
-				rng.randf_range(2.5, 4.5),
-				sin(angle) * rng.randf_range(1.5, 3.5) - 1.2,
+				cos(angle) * rng.randf_range(0.8, 1.6),
+				rng.randf_range(1.4, 2.4),
+				sin(angle) * rng.randf_range(0.8, 1.6) - 0.6,
 			),
 		})
 
@@ -654,13 +654,13 @@ func _advance_effects(dt: float) -> void:
 		)
 
 		var ring: MeshInstance3D = effect["ring"]
-		var ring_scale := lerpf(0.32, 1.75, progress)
+		var ring_scale := lerpf(0.32, 1.25, progress)
 		ring.scale = Vector3(ring_scale, 1.0, ring_scale)
 		var ring_material: StandardMaterial3D = effect["ring_material"]
-		ring_material.albedo_color.a = 0.85 * (1.0 - progress)
+		ring_material.albedo_color.a = 0.50 * (1.0 - progress)
 
 		var light: OmniLight3D = effect["light"]
-		light.light_energy = 2.6 * pow(1.0 - progress, 2.0)
+		light.light_energy = 0.7 * pow(1.0 - progress, 2.0)
 		light.visible = progress < 1.0
 
 		for spark_entry in effect["sparks"]:

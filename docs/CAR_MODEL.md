@@ -85,8 +85,8 @@ Invariati i punti di taratura esistenti: colori per stadio da
 materiali da `MaterialFactory` (vernice con clearcoat, roughness 0.22 —
 lucida ma non a specchio; vetri 0.06/0.55; plastiche scure 0.45; cerchi
 0.20/0.80; pneumatici 0.94). Fari, fanali e spie accese usano materiali
-emissivi **unici per modello**, così il lampo di trasformazione li anima
-senza toccare altro.
+emissivi **unici per modello**, così il riflesso leggero durante
+l'assestamento anima solo queste superfici.
 
 ## Come ritoccare il modello
 
@@ -168,10 +168,10 @@ Note oneste sul contratto attuale per i modelli esterni:
   `_test_evolution_stage_models` va aggiornato (o le spie vanno aggiunte
   alla scena wrapper e riferite). Il gameplay non ne risente (l'HUD
   mostra comunque il livello);
-- il **lampo di trasformazione** anima i materiali emissivi trovati via
-  `material_override`: i materiali interni a un .glb non lo sono, quindi
-  sulle luci esterne l'effetto è assente a meno di impostare un
-  `material_override` emissivo nella wrapper;
+- il **riflesso di trasformazione** anima con intensità lieve i materiali
+  emissivi trovati via `material_override`: i materiali interni a un .glb non
+  lo sono, quindi sulle luci esterne l'effetto è assente a meno di impostare
+  un `material_override` emissivo nella wrapper;
 - la lista `body_meshes` (metadati di ricolorazione) resta vuota per le
   scene esterne: oggi la usano solo debug e test.
 

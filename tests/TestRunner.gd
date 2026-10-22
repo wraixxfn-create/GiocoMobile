@@ -13,9 +13,9 @@ extends Node
 ## Fase 3 (ostacoli): verifica layout e ancoraggio ai corridoi dei cancelli,
 ## curva di difficoltà, le quattro tipologie (coni, barriere, restringimenti,
 ## blocchi mobili), collisioni affidabili (l'auto non attraversa mai i solidi),
-## penalità singola (velocità OPPURE evoluzione, mai entrambe), feedback
-## (scuotimento, lampeggio HUD, effetti 3D), riciclo senza orfani e — con un
-## pilota automatico predittivo — che la partita resti sempre giocabile:
+## penalità singola (velocità OPPURE evoluzione, mai entrambe), feedback locale
+## (scuotimento morbido, messaggio HUD, piccoli effetti 3D), riciclo senza orfani
+## e un pilota automatico predittivo che verifica che la partita resti giocabile:
 ## 1500 m a difficoltà crescente e 600 m a difficoltà massima, zero collisioni.
 
 const MAIN_SCENE: PackedScene = preload("res://scenes/Main.tscn")
@@ -741,7 +741,10 @@ func _test_car_geometry_integrity() -> void:
 		root.free()
 	_check(missing.is_empty(), "ogni stadio ha la mesh della carrozzeria (%s)" % ", ".join(missing))
 	_check(empty.is_empty(), "nessuna mesh vuota nel modello (%s)" % ", ".join(empty))
-	_check(total_vertices > 20000, "i sei stadi hanno geometria scolpita (%d vertici)" % total_vertices)
+	_check(
+		total_vertices > 20000,
+		"i sei stadi hanno geometria scolpita (%d vertici)" % total_vertices,
+	)
 
 
 func _test_evolution_stage_catalog() -> void:
@@ -888,9 +891,9 @@ func _test_evolution_transformation() -> void:
 	_check(glow_ok, "le luci dello stadio tornano ai valori base")
 
 	var flash := director.get_node_or_null(CarEvolutionDirector.NODE_FLASH) as OmniLight3D
-	_check(flash != null and not flash.visible, "il lampo di trasformazione si spegne")
+	_check(flash != null and not flash.visible, "nessun lampo durante la trasformazione")
 	var shockwave := director.get_node_or_null(CarEvolutionDirector.NODE_SHOCKWAVE) as MeshInstance3D
-	_check(shockwave != null and not shockwave.visible, "l'onda d'urto sparisce a fine animazione")
+	_check(shockwave != null and not shockwave.visible, "l'onda d'urto resta disattivata")
 
 
 func _test_evolution_keeps_driving() -> void:
@@ -1648,9 +1651,12 @@ func _test_obstacle_feedback() -> void:
 		guard += 1
 	_check(guard < 400, "feedback: collisione avvenuta")
 
-	# Feedback immediato: scuotimento auto, lampeggio e messaggio HUD, effetto 3D.
+	# Feedback immediato: scuotimento morbido, messaggio locale ed effetto 3D.
 	_check(_car.is_shaking(), "feedback: l'auto si scuote alla collisione")
-	_check(_hud != null and _hud.collision_flash_active(), "feedback: lampeggio rosso HUD attivo")
+	_check(
+		_hud != null and _hud.collision_feedback_active(),
+		"feedback: finestra locale attiva",
+	)
 	_check(
 		_hud != null and _hud._feedback_label.text.begins_with("URTO!"),
 		"feedback: l'HUD mostra il messaggio di urto",
@@ -1669,7 +1675,7 @@ func _test_obstacle_feedback() -> void:
 	)
 	_check(absf(_car.position.y) < 0.0001, "feedback: nessun residuo verticale")
 	_check(_obstacle_manager._effects.is_empty(), "feedback: gli effetti 3D si autodistruggono")
-	_check(not _hud.collision_flash_active(), "feedback: il lampeggio HUD si spegne")
+	_check(not _hud.collision_feedback_active(), "feedback: la finestra locale termina")
 	var impact_nodes := 0
 	for child in _obstacle_manager.get_children():
 		if String(child.name) == "Impact":
