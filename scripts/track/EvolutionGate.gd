@@ -14,28 +14,28 @@ extends Node3D
 ## - un cancello si attiva UNA sola volta (`consumed`) e poi si spegne.
 ##
 ## Aspetto: piloni colorati con striscia luminosa, trave superiore, soglia
-## sull'asfalto, pannello traslucido e un cartello "pillola" con il valore.
-## All'attraversamento parte un feedback breve (pop dell'arcata, lampo,
-## onda a terra) che non tocca mai posizione o stato del cancello.
+## sull'asfalto, pannello traslucido e un cartello compatto con il valore.
+## All'attraversamento il cancello si attenua con un'onda discreta a terra,
+## senza lampi o rimbalzi invasivi.
 
 ## Durata dell'animazione di attraversamento dopo l'attivazione.
-const CONSUME_DURATION: float = 0.48
+const CONSUME_DURATION: float = 0.30
 const POST_WIDTH: float = 0.105
 const POST_DEPTH: float = 0.16
 const BEAM_HEIGHT: float = 0.20
 const PANEL_ALPHA: float = 0.055
 const PANEL_BOTTOM: float = 0.18
 const PANEL_TOP_GAP: float = 0.52
-const LABEL_FONT_SIZE: int = 96
-const LABEL_PIXEL_SIZE: float = 0.0056
-const BADGE_SIZE := Vector2(1.30, 0.56)
-const BADGE_HEIGHT: float = 0.40
+const LABEL_FONT_SIZE: int = 72
+const LABEL_PIXEL_SIZE: float = 0.0042
+const BADGE_SIZE := Vector2(0.98, 0.38)
+const BADGE_HEIGHT: float = 0.34
 const BADGE_COLOR := Color(0.05, 0.07, 0.11, 0.90)
-const POP_AMOUNT: float = 0.055
+const POP_AMOUNT: float = 0.012
 const GLOW_STRIP_WIDTH: float = 0.035
-const RING_START: float = 0.55
-const RING_END: float = 2.35
-const RING_ALPHA: float = 0.55
+const RING_START: float = 0.45
+const RING_END: float = 1.55
+const RING_ALPHA: float = 0.24
 
 ## Variazione applicata al livello di evoluzione (+1, +2, -1, ...).
 var value: int = 1
@@ -320,8 +320,8 @@ func _apply_consumed_state(progress: float) -> void:
 		_glow_material.emission = glow
 		_glow_material.emission_energy_multiplier = 2.10 * (1.0 - progress)
 	if _label != null:
-		_label.modulate.a = lerpf(1.0, 0.30, progress)
-		_label.scale = Vector3.ONE * (1.0 + 0.18 * eased)
+		_label.modulate.a = lerpf(1.0, 0.25, progress)
+		_label.scale = Vector3.ONE * (1.0 + 0.04 * eased)
 	if _ring != null and _ring_material != null:
 		_ring.visible = progress > 0.0 and progress < 1.0
 		var radius := lerpf(RING_START, RING_END, progress)

@@ -2,15 +2,10 @@ class_name HUD
 extends CanvasLayer
 ## Interfaccia touch-first: menu, HUD di corsa, countdown, pausa e riepilogo.
 ##
-## Gerarchia visiva pensata per il verticale:
-## 1. barra di stato in alto (distanza, monete, progresso, evoluzione);
-## 2. nome dello stadio al centro-alto, grande e colorato;
-## 3. feedback temporanei (cancello, urto) come pillole animate;
-## 4. suggerimento di sterzo in basso.
-##
-## Tutte le animazioni sono brevi, non bloccano i controlli e non lasciano
-## stati intermedi: i pannelli compaiono in dissolvenza + scala, i testi con un
-## piccolo "pop". I nodi e i metodi pubblici restano quelli usati dai test.
+## HUD di corsa compatto: lascia la scena 3D libera, con stato e comandi
+## confinati in una barra leggera nella fascia alta. I messaggi di feedback
+## sono brevi e locali; le animazioni non usano rimbalzi né lampi a schermo.
+## Menu, pausa e riepilogo mantengono controlli touch ampi.
 
 signal play_requested
 signal replay_requested
@@ -20,18 +15,15 @@ signal resume_requested
 ## Richiesta di attivare/disattivare l'audio (gestita da GameRoot/SfxDirector).
 signal audio_toggle_requested
 
-const FEEDBACK_DURATION: float = 1.4
-const FEEDBACK_FADE: float = 0.5
-const STAGE_POP_DURATION: float = 0.6
-const STAGE_POP_SCALE: float = 0.28
-const COIN_POP_DURATION: float = 0.24
-const COIN_POP_SCALE: float = 0.26
-const COLLISION_FLASH_DURATION: float = 0.30
-const COLLISION_FLASH_ALPHA: float = 0.28
-const COLLISION_FLASH_COLOR := Color(0.95, 0.22, 0.14)
+const FEEDBACK_DURATION: float = 1.15
+const FEEDBACK_FADE: float = 0.32
+const COIN_POP_DURATION: float = 0.20
+const COIN_POP_SCALE: float = 0.045
+const COLLISION_FEEDBACK_DURATION: float = 0.22
 const COLOR_FEEDBACK_SPEED := Color(0.98, 0.58, 0.16)
-const PILL_ALPHA: float = 0.22
+const PILL_ALPHA: float = 0.16
 const PIPS_COUNT: int = GameConfig.EVOLUTION_MAX_LEVEL - GameConfig.EVOLUTION_MIN_LEVEL + 1
+const HINT_DURATION: float = 3.5
 
 var _ui_root: Control
 var _status_panel: PanelContainer
@@ -42,16 +34,12 @@ var _evolution_label: Label
 var _progress_bar: ProgressBar
 var _pause_button: Button
 var _audio_button: Button
-var _stage_eyebrow: Label
 var _stage_label: Label
-var _stage_underline: ColorRect
 var _stats_label: Label
 var _hint_label: Label
 var _feedback_panel: PanelContainer
 var _feedback_label: Label
 var _feedback_style: StyleBoxFlat
-var _collision_flash: ColorRect
-var _gate_flash: ColorRect
 var _pip_nodes: Array[TextureRect] = []
 var _menu_overlay: Control
 var _menu_card: PanelContainer
@@ -73,10 +61,9 @@ var _displayed_coins: int = 0
 var _displayed_permanent_coins: int = 0
 var _goal_distance: float = GameConfig.RUN_DISTANCE_METERS
 var _feedback_time: float = 0.0
-var _stage_pop_time: float = 0.0
 var _coin_pop_time: float = 0.0
-var _flash_time: float = 0.0
-var _gate_flash_time: float = 0.0
+var _collision_feedback_time: float = 0.0
+var _hint_time_left: float = 0.0
 ## Stato precedente: serve a capire quando animare la comparsa di un pannello.
 var _last_state: GameManager.State = GameManager.State.FINISHED
 var _last_countdown_text: String = ""
@@ -107,9 +94,6 @@ func _build_interface() -> void:
 	_ui_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_ui_root)
 
-	_collision_flash = _make_full_rect_flash("CollisionFlash", COLLISION_FLASH_COLOR)
-	_gate_flash = _make_full_rect_flash("GateFlash", COLOR_FEEDBACK_SPEED)
-
 	_build_game_hud()
 	_build_menu_overlay()
 	_build_countdown_overlay()
@@ -117,54 +101,43 @@ func _build_interface() -> void:
 	_build_results_overlay()
 
 
-func _make_full_rect_flash(node_name: String, color: Color) -> ColorRect:
-	var flash := ColorRect.new()
-	flash.name = node_name
-	flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	flash.color = Color(color.r, color.g, color.b, 0.0)
-	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	flash.visible = false
-	_ui_root.add_child(flash)
-	return flash
-
-
 func _build_game_hud() -> void:
-	# ---------------------------------------------------------- barra alto ---
+	# Una sola barra compatta: lo spazio centrale resta dedicato alla pista.
 	_status_panel = PanelContainer.new()
 	_status_panel.name = "RaceStatus"
-	_set_anchors(_status_panel, 0.025, 0.012, 0.785, 0.152)
+	_set_anchors(_status_panel, 0.025, 0.012, 0.725, 0.102)
 	_status_panel.add_theme_stylebox_override(
 		"panel",
-		UITheme.panel_style(Color(0.025, 0.045, 0.075, 0.86), false, 18),
+		UITheme.panel_style(Color(0.025, 0.045, 0.075, 0.78), false, 15),
 	)
 	_ui_root.add_child(_status_panel)
 
 	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 14)
-	margin.add_theme_constant_override("margin_right", 14)
-	margin.add_theme_constant_override("margin_top", 9)
-	margin.add_theme_constant_override("margin_bottom", 8)
+	margin.add_theme_constant_override("margin_left", 11)
+	margin.add_theme_constant_override("margin_right", 11)
+	margin.add_theme_constant_override("margin_top", 5)
+	margin.add_theme_constant_override("margin_bottom", 5)
 	_status_panel.add_child(margin)
 	var status_stack := VBoxContainer.new()
-	status_stack.add_theme_constant_override("separation", 5)
+	status_stack.add_theme_constant_override("separation", 2)
 	margin.add_child(status_stack)
 
 	var first_row := HBoxContainer.new()
-	first_row.add_theme_constant_override("separation", 8)
+	first_row.add_theme_constant_override("separation", 7)
 	status_stack.add_child(first_row)
-	_distance_label = UITheme.label("DISTANZA 0/800 m", 19, HORIZONTAL_ALIGNMENT_LEFT)
+	_distance_label = UITheme.label("0 m / 800 m", 15, HORIZONTAL_ALIGNMENT_LEFT)
 	_distance_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_distance_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	first_row.add_child(_distance_label)
 
 	var coin_chip := HBoxContainer.new()
-	coin_chip.add_theme_constant_override("separation", 5)
+	coin_chip.add_theme_constant_override("separation", 4)
 	coin_chip.size_flags_horizontal = Control.SIZE_SHRINK_END
 	first_row.add_child(coin_chip)
-	var coin_icon := UITheme.icon(UITheme.coin_texture(), Vector2(20.0, 20.0))
+	var coin_icon := UITheme.icon(UITheme.coin_texture(), Vector2(16.0, 16.0))
 	coin_icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	coin_chip.add_child(coin_icon)
-	_coins_label = UITheme.label("0", 19, HORIZONTAL_ALIGNMENT_RIGHT)
+	_coins_label = UITheme.label("0", 15, HORIZONTAL_ALIGNMENT_RIGHT)
 	_coins_label.add_theme_color_override("font_color", GameConfig.COLOR_UI_GOLD)
 	_coins_label.size_flags_horizontal = Control.SIZE_SHRINK_END
 	coin_chip.add_child(_coins_label)
@@ -175,11 +148,11 @@ func _build_game_hud() -> void:
 	_progress_bar.max_value = _goal_distance
 	_progress_bar.value = 0.0
 	_progress_bar.show_percentage = false
-	_progress_bar.custom_minimum_size = Vector2(0.0, 10.0)
+	_progress_bar.custom_minimum_size = Vector2(0.0, 4.0)
 	_progress_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_progress_bar.add_theme_stylebox_override(
 		"background",
-		UITheme.progress_style(Color(0.09, 0.13, 0.19, 0.95)),
+		UITheme.progress_style(Color(0.09, 0.13, 0.19, 0.90)),
 	)
 	_progress_bar.add_theme_stylebox_override(
 		"fill",
@@ -187,93 +160,94 @@ func _build_game_hud() -> void:
 	)
 	status_stack.add_child(_progress_bar)
 
-	var second_row := HBoxContainer.new()
-	second_row.add_theme_constant_override("separation", 8)
-	status_stack.add_child(second_row)
-	_evolution_label = UITheme.label("EVOLUZIONE 1/5", 14, HORIZONTAL_ALIGNMENT_LEFT)
-	_evolution_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	second_row.add_child(_evolution_label)
-	_permanent_coins_label = UITheme.label("SALDO 0", 14, HORIZONTAL_ALIGNMENT_RIGHT)
-	_permanent_coins_label.add_theme_color_override(
-		"font_color",
-		GameConfig.COLOR_UI_TEXT_MUTED,
-	)
-	_permanent_coins_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	second_row.add_child(_permanent_coins_label)
-
-	# Spie dell'evoluzione: leggibili a colpo d'occhio anche senza testo.
+	var stage_row := HBoxContainer.new()
+	stage_row.add_theme_constant_override("separation", 6)
+	_stage_label = UITheme.label("UTILITARIA", 13, HORIZONTAL_ALIGNMENT_LEFT)
+	_stage_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_stage_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	stage_row.add_child(_stage_label)
 	var pip_row := HBoxContainer.new()
-	pip_row.add_theme_constant_override("separation", 5)
-	pip_row.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	status_stack.add_child(pip_row)
+	pip_row.add_theme_constant_override("separation", 3)
+	pip_row.size_flags_horizontal = Control.SIZE_SHRINK_END
+	stage_row.add_child(pip_row)
 	var pip_texture := UITheme.circle_texture()
-	for index in PIPS_COUNT:
-		var pip := UITheme.icon(pip_texture, Vector2(12.0, 12.0))
+	for _index in PIPS_COUNT:
+		var pip := UITheme.icon(pip_texture, Vector2(7.0, 7.0))
 		pip_row.add_child(pip)
 		_pip_nodes.append(pip)
+	_evolution_label = UITheme.label("1/5", 10, HORIZONTAL_ALIGNMENT_RIGHT)
+	_evolution_label.add_theme_color_override("font_color", GameConfig.COLOR_UI_TEXT_MUTED)
+	_evolution_label.size_flags_horizontal = Control.SIZE_SHRINK_END
+	stage_row.add_child(_evolution_label)
+	status_stack.add_child(stage_row)
 
-	# ---------------------------------------------------- pulsanti laterali --
+	var detail_row := HBoxContainer.new()
+	detail_row.add_theme_constant_override("separation", 6)
+	_stats_label = UITheme.label("VEL ×1.00 · STERZO ×1.00", 9, HORIZONTAL_ALIGNMENT_LEFT)
+	_stats_label.add_theme_color_override("font_color", GameConfig.COLOR_UI_TEXT_MUTED)
+	_stats_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	detail_row.add_child(_stats_label)
+	_permanent_coins_label = UITheme.label("SALDO 0", 9, HORIZONTAL_ALIGNMENT_RIGHT)
+	_permanent_coins_label.add_theme_color_override("font_color", GameConfig.COLOR_UI_TEXT_MUTED)
+	_permanent_coins_label.size_flags_horizontal = Control.SIZE_SHRINK_END
+	detail_row.add_child(_permanent_coins_label)
+	status_stack.add_child(detail_row)
+
+	# Controlli touch compatti e scuri, in alto a destra.
 	_pause_button = _make_button("PAUSA", false)
 	_pause_button.name = "PauseButton"
-	_pause_button.add_theme_font_size_override("font_size", 16)
-	_set_anchors(_pause_button, 0.805, 0.012, 0.975, 0.078)
+	_pause_button.custom_minimum_size = Vector2(0.0, 52.0)
+	_pause_button.add_theme_font_size_override("font_size", 11)
+	for color_override in [
+		"font_color",
+		"font_hover_color",
+		"font_pressed_color",
+		"font_focus_color",
+	]:
+		_pause_button.add_theme_color_override(color_override, GameConfig.COLOR_UI_TEXT)
+	UITheme.apply_button_color(_pause_button, Color(0.035, 0.07, 0.105, 0.82))
+	_pause_button.tooltip_text = "Metti in pausa"
+	_set_anchors(_pause_button, 0.750, 0.025, 0.865, 0.082)
 	_pause_button.pressed.connect(func() -> void: pause_requested.emit())
 	_ui_root.add_child(_pause_button)
 
-	_audio_button = _make_button("AUDIO ON", false)
+	_audio_button = _make_button("SFX", false)
 	_audio_button.name = "AudioButton"
-	_audio_button.add_theme_font_size_override("font_size", 13)
+	_audio_button.custom_minimum_size = Vector2(0.0, 52.0)
+	_audio_button.add_theme_font_size_override("font_size", 10)
+	for color_override in [
+		"font_color",
+		"font_hover_color",
+		"font_pressed_color",
+		"font_focus_color",
+	]:
+		_audio_button.add_theme_color_override(color_override, GameConfig.COLOR_UI_TEXT)
+	UITheme.apply_button_color(_audio_button, Color(0.035, 0.07, 0.105, 0.82))
 	_audio_button.tooltip_text = "Attiva o disattiva i suoni"
-	_set_anchors(_audio_button, 0.805, 0.084, 0.975, 0.150)
+	_set_anchors(_audio_button, 0.875, 0.025, 0.985, 0.082)
 	_audio_button.pressed.connect(_request_audio_toggle)
 	_ui_root.add_child(_audio_button)
 
-	# ------------------------------------------------------- nome stadio ----
-	_stage_eyebrow = UITheme.label("STADIO ATTUALE", 12, HORIZONTAL_ALIGNMENT_CENTER)
-	_stage_eyebrow.add_theme_color_override("font_color", GameConfig.COLOR_UI_TEXT_MUTED)
-	_set_anchors(_stage_eyebrow, 0.10, 0.157, 0.90, 0.180)
-	_stage_eyebrow.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_ui_root.add_child(_stage_eyebrow)
-
-	_stage_label = UITheme.label("UTILITARIA", 35, HORIZONTAL_ALIGNMENT_CENTER)
-	_set_anchors(_stage_label, 0.035, 0.178, 0.965, 0.236)
-	_stage_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_stage_label.resized.connect(_center_stage_pivot)
-	_ui_root.add_child(_stage_label)
-
-	_stage_underline = ColorRect.new()
-	_stage_underline.name = "StageUnderline"
-	_stage_underline.color = GameConfig.COLOR_UI_ACCENT
-	_stage_underline.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_set_anchors(_stage_underline, 0.42, 0.239, 0.58, 0.242)
-	_ui_root.add_child(_stage_underline)
-
-	_stats_label = UITheme.label("VEL ×1.00   STERZO ×1.00", 15, HORIZONTAL_ALIGNMENT_CENTER)
-	_stats_label.add_theme_color_override("font_color", GameConfig.COLOR_UI_TEXT_MUTED)
-	_set_anchors(_stats_label, 0.04, 0.244, 0.96, 0.272)
-	_stats_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_ui_root.add_child(_stats_label)
-
-	# ------------------------------------------------------- feedback -------
+	# Feedback piccolo e sopra la linea dell'orizzonte, non al centro dell'azione.
 	_feedback_panel = PanelContainer.new()
 	_feedback_panel.name = "FeedbackPill"
-	_set_anchors(_feedback_panel, 0.10, 0.300, 0.90, 0.372)
-	_feedback_style = UITheme.panel_style(Color(0.05, 0.08, 0.12, 0.88), false, 26)
+	_set_anchors(_feedback_panel, 0.17, 0.116, 0.83, 0.164)
+	_feedback_style = UITheme.panel_style(Color(0.05, 0.08, 0.12, 0.82), false, 15)
 	_feedback_panel.add_theme_stylebox_override("panel", _feedback_style)
 	_feedback_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_feedback_panel.visible = false
 	_ui_root.add_child(_feedback_panel)
 	var feedback_margin := MarginContainer.new()
-	feedback_margin.add_theme_constant_override("margin_left", 12)
-	feedback_margin.add_theme_constant_override("margin_right", 12)
+	feedback_margin.add_theme_constant_override("margin_left", 8)
+	feedback_margin.add_theme_constant_override("margin_right", 8)
 	_feedback_panel.add_child(feedback_margin)
-	_feedback_label = UITheme.label("", 29, HORIZONTAL_ALIGNMENT_CENTER)
+	_feedback_label = UITheme.label("", 17, HORIZONTAL_ALIGNMENT_CENTER)
 	_feedback_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	feedback_margin.add_child(_feedback_label)
 
-	_hint_label = UITheme.label("TRASCINA PER STERZARE", 17, HORIZONTAL_ALIGNMENT_CENTER)
-	_hint_label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.92))
-	_set_anchors(_hint_label, 0.04, 0.905, 0.96, 0.955)
+	_hint_label = UITheme.label("TRASCINA PER STERZARE", 12, HORIZONTAL_ALIGNMENT_CENTER)
+	_hint_label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.78))
+	_set_anchors(_hint_label, 0.08, 0.955, 0.92, 0.988)
 	_hint_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_hint_label.visible = false
 	_ui_root.add_child(_hint_label)
@@ -526,38 +500,34 @@ func _set_anchors(control: Control, left: float, top: float, right: float, botto
 
 # ------------------------------------------------------------- Animazioni ---
 
-## Dissolvenza + scala morbida per i pannelli dei menu.
+## Dissolvenza breve: niente zoom o rimbalzi sui pannelli.
 func _animate_panel_in(panel: Control) -> void:
 	if panel == null:
 		return
+	panel.scale = Vector2.ONE
 	panel.modulate = Color(1.0, 1.0, 1.0, 0.0)
-	var duration := GameConfig.UI_APPEAR_DURATION
-	if panel.size.x <= 1.0 or panel.size.y <= 1.0:
-		var fade := create_tween()
-		fade.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		fade.tween_property(panel, "modulate:a", 1.0, duration)
-		return
-	panel.pivot_offset = panel.size * 0.5
-	panel.scale = Vector2(0.94, 0.94)
-	var tween := create_tween().set_parallel(true)
+	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(panel, "modulate:a", 1.0, duration)
-	tween.tween_property(panel, "scale", Vector2.ONE, duration)
+	tween.tween_property(
+		panel,
+		"modulate:a",
+		1.0,
+		minf(GameConfig.UI_APPEAR_DURATION, 0.22),
+	)
 
 
-func _pop(control: Control, from_scale: float = 0.82, duration: float = 0.26) -> void:
+func _pop(
+	control: Control,
+	from_scale: float = 0.98,
+	duration: float = GameConfig.UI_POP_DURATION,
+) -> void:
 	if control == null:
 		return
 	control.pivot_offset = control.size * 0.5
-	control.scale = Vector2.ONE * from_scale
+	control.scale = Vector2.ONE * clampf(from_scale, 0.94, 1.0)
 	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tween.tween_property(control, "scale", Vector2.ONE, duration)
-
-
-func _center_stage_pivot() -> void:
-	if _stage_label != null:
-		_stage_label.pivot_offset = _stage_label.size * 0.5
+	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(control, "scale", Vector2.ONE, minf(duration, 0.22))
 
 
 func _center_countdown_pivot() -> void:
@@ -582,7 +552,7 @@ func set_goal_distance(goal: float) -> void:
 func set_distance(meters: int) -> void:
 	_displayed_distance = maxi(meters, 0)
 	if _distance_label != null:
-		_distance_label.text = "DISTANZA %d/%d m" % [
+		_distance_label.text = "%d m / %d m" % [
 			_displayed_distance,
 			roundi(_goal_distance),
 		]
@@ -613,7 +583,7 @@ func set_countdown(seconds_left: int) -> void:
 		return
 	_last_countdown_text = text
 	_countdown_label.text = text
-	_pop(_countdown_label, 1.35, 0.30)
+	_pop(_countdown_label, 0.96, 0.20)
 
 
 ## Aggiorna le etichette audio (menu, pausa, HUD) e il colore del pulsante.
@@ -624,6 +594,22 @@ func set_audio_muted(muted: bool) -> void:
 	for button in [_audio_button, _menu_audio_button, _pause_audio_button]:
 		var target := button as Button
 		if target == null:
+			continue
+		if target == _audio_button:
+			var race_color := Color(0.10, 0.20, 0.15, 0.90)
+			if muted:
+				race_color = Color(0.12, 0.13, 0.16, 0.90)
+			target.text = "MUTO" if muted else "AUDIO"
+			target.tooltip_text = "Audio disattivato" if muted else "Audio attivo"
+			var text_color := Color(0.68, 0.73, 0.80) if muted else Color(0.76, 1.0, 0.84)
+			for color_override in [
+				"font_color",
+				"font_hover_color",
+				"font_pressed_color",
+				"font_focus_color",
+			]:
+				target.add_theme_color_override(color_override, text_color)
+			UITheme.apply_button_color(target, race_color)
 			continue
 		target.text = text
 		target.add_theme_color_override("font_color", Color(0.035, 0.07, 0.105))
@@ -685,26 +671,22 @@ func show_run_results(
 	]))
 	if _results_score_label != null:
 		_results_score_label.text = str(final_score)
-	_pop(_results_score_label, 0.72, 0.34)
-	_pop(_results_title, 0.88, 0.30)
+	_pop(_results_score_label, 0.96, 0.20)
+	_pop(_results_title, 0.97, 0.18)
 
 
-func set_evolution(level: int, delta: int, profile: CarEvolutionProfile = null) -> void:
+func set_evolution(level: int, _delta: int, profile: CarEvolutionProfile = null) -> void:
 	if _evolution_label == null or _stage_label == null or _stats_label == null:
 		return
 	var clamped := clampi(level, GameConfig.EVOLUTION_MIN_LEVEL, GameConfig.EVOLUTION_MAX_LEVEL)
-	_evolution_label.text = "EVOLUZIONE %d/%d" % [clamped, GameConfig.EVOLUTION_MAX_LEVEL]
+	_evolution_label.text = "%d/%d" % [clamped, GameConfig.EVOLUTION_MAX_LEVEL]
 	_evolution_label.label_settings.font_color = _level_color(clamped).lightened(0.25)
 	_update_pips(clamped)
 	if profile == null:
 		return
 	_stage_label.text = profile.stage_name
 	_stage_label.label_settings.font_color = profile.body_color.lightened(0.35)
-	_stage_underline.color = profile.body_color.lightened(0.12)
 	_stats_label.text = profile.stats_text()
-	if delta != 0:
-		_stage_pop_time = STAGE_POP_DURATION
-		_pop(_stage_label, 0.82, 0.34)
 
 
 func _update_pips(level: int) -> void:
@@ -715,7 +697,7 @@ func _update_pips(level: int) -> void:
 		var reached := index <= level
 		var color := _level_color(index)
 		pip.modulate = color if reached else Color(0.30, 0.36, 0.44, 0.55)
-		pip.custom_minimum_size = Vector2(12.0, 12.0) if index != level else Vector2(14.0, 14.0)
+		pip.custom_minimum_size = Vector2(7.0, 7.0) if index != level else Vector2(8.0, 8.0)
 
 
 func set_state(state: GameManager.State) -> void:
@@ -742,15 +724,17 @@ func set_state(state: GameManager.State) -> void:
 			_animate_panel_in(_results_panel)
 		elif state == GameManager.State.COUNTDOWN:
 			_last_countdown_text = ""
+		elif state == GameManager.State.PLAYING:
+			_hint_time_left = HINT_DURATION
+			_hint_label.modulate = Color.WHITE
+		else:
+			_hint_time_left = 0.0
 
 	match state:
 		GameManager.State.IDLE:
 			_hint_label.text = ""
 			_hide_feedback()
-			_flash_time = 0.0
-			_gate_flash_time = 0.0
-			_collision_flash.visible = false
-			_gate_flash.visible = false
+			_collision_feedback_time = 0.0
 		GameManager.State.COUNTDOWN:
 			_hint_label.text = ""
 			_hide_feedback()
@@ -761,11 +745,6 @@ func set_state(state: GameManager.State) -> void:
 		GameManager.State.FINISHED:
 			_hint_label.visible = false
 			_hide_feedback()
-
-	_stage_eyebrow.visible = state != GameManager.State.IDLE
-	_stage_label.visible = state != GameManager.State.IDLE
-	_stage_underline.visible = state != GameManager.State.IDLE
-	_stats_label.visible = state != GameManager.State.IDLE
 
 
 func show_gate_feedback(requested_value: int, applied_delta: int, _level: int) -> void:
@@ -784,9 +763,6 @@ func show_gate_feedback(requested_value: int, applied_delta: int, _level: int) -
 		text = "LIVELLO MINIMO"
 		color = GameConfig.COLOR_GATE_NEGATIVE
 	_set_feedback(text, color)
-	# Lampo a tutto schermo molto tenue: conferma l'attraversamento senza
-	# coprire la pista né bloccare i comandi.
-	_start_gate_flash(color)
 
 
 func show_obstacle_feedback(penalty_kind: int, evolution_delta: int) -> void:
@@ -801,12 +777,17 @@ func show_obstacle_feedback(penalty_kind: int, evolution_delta: int) -> void:
 	else:
 		text = "URTO! VELOCITÀ RIDOTTA"
 	_set_feedback(text, color)
-	_collision_flash.visible = true
-	_flash_time = COLLISION_FLASH_DURATION
+	# Il timer resta disponibile al test/feedback logico; niente lampi invasivi.
+	_collision_feedback_time = COLLISION_FEEDBACK_DURATION
 
 
+func collision_feedback_active() -> bool:
+	return _collision_feedback_time > 0.0
+
+
+## Alias mantenuto per compatibilità con le scene/test precedenti.
 func collision_flash_active() -> bool:
-	return _flash_time > 0.0
+	return collision_feedback_active()
 
 
 func _set_feedback(text: String, color: Color) -> void:
@@ -817,7 +798,6 @@ func _set_feedback(text: String, color: Color) -> void:
 	_feedback_panel.modulate = Color.WHITE
 	_feedback_panel.visible = true
 	_feedback_time = FEEDBACK_DURATION
-	_pop(_feedback_panel, 0.86, GameConfig.UI_POP_DURATION)
 
 
 func _hide_feedback() -> void:
@@ -826,12 +806,6 @@ func _hide_feedback() -> void:
 		_feedback_panel.visible = false
 	if _feedback_label != null:
 		_feedback_label.visible = true
-
-
-func _start_gate_flash(color: Color) -> void:
-	_gate_flash.color = Color(color.r, color.g, color.b, GameConfig.GATE_FLASH_ALPHA)
-	_gate_flash.visible = true
-	_gate_flash_time = GameConfig.GATE_FLASH_DURATION
 
 
 func _process(delta: float) -> void:
@@ -843,47 +817,24 @@ func _process(delta: float) -> void:
 			_feedback_panel.modulate.a = _feedback_time / FEEDBACK_FADE
 		if _feedback_time <= 0.0 and _feedback_panel != null:
 			_feedback_panel.visible = false
+			_feedback_panel.modulate = Color.WHITE
 
-	if _flash_time > 0.0:
-		_flash_time = maxf(_flash_time - step, 0.0)
-		var fade := _flash_time / COLLISION_FLASH_DURATION
-		_collision_flash.color.a = COLLISION_FLASH_ALPHA * fade * fade
-		if _flash_time <= 0.0:
-			_collision_flash.visible = false
-			_collision_flash.color.a = 0.0
+	# Mantiene la finestra temporale del feedback urto senza colorare l'intero schermo.
+	_collision_feedback_time = maxf(_collision_feedback_time - step, 0.0)
 
-	if _gate_flash_time > 0.0:
-		_gate_flash_time = maxf(_gate_flash_time - step, 0.0)
-		var gate_fade := _gate_flash_time / GameConfig.GATE_FLASH_DURATION
-		_gate_flash.color.a = GameConfig.GATE_FLASH_ALPHA * gate_fade * gate_fade
-		if _gate_flash_time <= 0.0:
-			_gate_flash.visible = false
-			_gate_flash.color.a = 0.0
+	if _hint_time_left > 0.0:
+		_hint_time_left = maxf(_hint_time_left - step, 0.0)
+		if _hint_time_left <= 0.0 and _hint_label != null:
+			_hint_label.visible = false
 
-	if _stage_pop_time > 0.0:
-		_stage_pop_time = maxf(_stage_pop_time - step, 0.0)
-		var progress := 1.0 - (_stage_pop_time / STAGE_POP_DURATION)
-		if _stage_underline != null:
-			var width := 0.16 + 0.14 * sin(progress * PI)
-			_stage_underline.anchor_left = 0.5 - width * 0.5
-			_stage_underline.anchor_right = 0.5 + width * 0.5
-		if _stage_pop_time <= 0.0 and _stage_underline != null:
-			_stage_underline.anchor_left = 0.42
-			_stage_underline.anchor_right = 0.58
-	elif _stage_underline != null and not is_equal_approx(_stage_underline.anchor_left, 0.42):
-		_stage_underline.anchor_left = 0.42
-		_stage_underline.anchor_right = 0.58
-
-	if _coin_pop_time > 0.0:
+	if _coin_pop_time > 0.0 and _coins_label != null:
 		_coin_pop_time = maxf(_coin_pop_time - step, 0.0)
 		var coin_progress := 1.0 - (_coin_pop_time / COIN_POP_DURATION)
-		var coin_scale := 1.0 + COIN_POP_SCALE * sin(coin_progress * PI)
+		var pulse := sin(coin_progress * PI)
+		var coin_scale := 1.0 + COIN_POP_SCALE * pulse
 		_coins_label.scale = Vector2(coin_scale, coin_scale)
 		_coins_label.pivot_offset = _coins_label.size * 0.5
-		_coins_label.modulate = Color(1.0, 1.0, 1.0, 1.0).lerp(
-			GameConfig.COLOR_COIN_HIGHLIGHT,
-			sin(coin_progress * PI) * 0.6,
-		)
+		_coins_label.modulate = Color.WHITE.lerp(GameConfig.COLOR_COIN_HIGHLIGHT, pulse * 0.22)
 		if _coin_pop_time <= 0.0:
 			_coins_label.scale = Vector2.ONE
 			_coins_label.modulate = Color.WHITE

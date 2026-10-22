@@ -3,8 +3,8 @@ extends Node3D
 ## Traduce `evolution_level` nell'aspetto dell'auto.
 ##
 ## È l'unico posto in cui il livello diventa geometria: possiede il nodo dello
-## stadio corrente, lo sostituisce quando il livello cambia e cura la breve
-## animazione di trasformazione (scalatura rapida + lampo luminoso).
+## stadio corrente, lo sostituisce quando il livello cambia e cura una breve
+## animazione di assestamento, senza rimbalzi o lampi invasivi.
 ##
 ## Proprietà importanti:
 ## - **Immediato**: il modello visibile cambia nello stesso frame del segnale.
@@ -19,22 +19,15 @@ extends Node3D
 signal stage_ready(level: int, profile: CarEvolutionProfile)
 signal transformation_finished(level: int)
 
-## Lampo e onda sono volutamente contenuti: feedback chiaro, nessuna luce
-## abbagliante e nessun costo percepibile su telefoni di fascia media.
-const FLASH_LIGHT_ENERGY: float = 3.4
-const FLASH_LIGHT_RANGE: float = 6.0
+## Le risorse di luce e onda restano disattivate: il feedback è affidato a
+## un assestamento discreto e a un riflesso leggero sulla carrozzeria.
+const FLASH_LIGHT_RANGE: float = 4.0
 const FLASH_LIGHT_HEIGHT: float = 0.9
-const GLOW_FLASH_GAIN: float = 2.2
-const SHOCKWAVE_START: float = 0.55
-const SHOCKWAVE_END: float = 2.45
-const SHOCKWAVE_ALPHA: float = 0.50
-const SHOCKWAVE_HEIGHT: float = 0.06
-const POP_SHRINK: float = 0.58
-const POP_OVERSHOOT: float = 1.14
-const POP_SPLIT: float = 0.42
-const SQUASH_AMOUNT: float = 0.16
-## Piccolo "salto" del modello durante la trasformazione (solo visivo).
-const HOP_HEIGHT: float = 0.09
+const GLOW_FLASH_GAIN: float = 0.35
+const SHOCKWAVE_HEIGHT: float = 0.04
+const POP_SHRINK: float = 0.96
+## Piccolo assestamento verticale del modello, appena percettibile.
+const HOP_HEIGHT: float = 0.025
 
 const NODE_FLASH: String = "TransformFlash"
 const NODE_SHOCKWAVE: String = "TransformShockwave"
@@ -232,42 +225,29 @@ func _apply_animation(progress: float) -> void:
 	if _stage_root == null:
 		return
 
-	# Scalatura rapida: parte piccola, sfonda oltre l'unità e si assesta.
-	var pop := POP_OVERSHOOT
-	if progress < POP_SPLIT:
-		var k := progress / POP_SPLIT
-		pop = lerpf(POP_SHRINK, POP_OVERSHOOT, 1.0 - pow(1.0 - k, 3.0))
-	else:
-		var k := (progress - POP_SPLIT) / (1.0 - POP_SPLIT)
-		pop = lerpf(POP_OVERSHOOT, 1.0, 1.0 - pow(1.0 - k, 3.0))
-	# Squash & stretch leggero: l'auto "si schiaccia" mentre ricompare.
-	var squash := sin(progress * PI) * SQUASH_AMOUNT
-	_stage_root.scale = Vector3(
-		pop * (1.0 + squash * 0.5),
-		pop * (1.0 - squash),
-		pop * (1.0 + squash * 0.5),
-	)
-	# Saltello appena accennato: dà energia senza spostare l'auto vera.
+	# Assestamento uniforme: il modello non supera mai la sua scala normale.
+	var eased := 1.0 - pow(1.0 - progress, 3.0)
+	var scale_value := lerpf(POP_SHRINK, 1.0, eased)
+	_stage_root.scale = Vector3.ONE * scale_value
 	_stage_root.position.y = sin(progress * PI) * HOP_HEIGHT
 
-	var flash := pow(1.0 - progress, 2.0)
+	# Un leggero riflesso sulle parti luminose, senza lampi o onde a terra.
+	var glow := pow(1.0 - progress, 2.0)
 	for entry in _glow:
 		var glow_entry: Dictionary = entry
 		var material := glow_entry.get("material", null) as StandardMaterial3D
 		if material != null:
 			material.emission_energy_multiplier = (
-				float(glow_entry.get("base", 1.0)) * (1.0 + GLOW_FLASH_GAIN * flash)
+				float(glow_entry.get("base", 1.0)) * (1.0 + GLOW_FLASH_GAIN * glow)
 			)
 
 	if _flash != null:
-		_flash.visible = true
-		_flash.light_energy = FLASH_LIGHT_ENERGY * flash
+		_flash.visible = false
+		_flash.light_energy = 0.0
 
 	if _shockwave != null and _shockwave_material != null:
-		_shockwave.visible = true
-		var radius := lerpf(SHOCKWAVE_START, SHOCKWAVE_END, progress)
-		_shockwave.scale = Vector3(radius, 1.0, radius)
-		_shockwave_material.albedo_color.a = SHOCKWAVE_ALPHA * pow(1.0 - progress, 1.5)
+		_shockwave.visible = false
+		_shockwave_material.albedo_color.a = 0.0
 
 
 func _finish_animation() -> void:

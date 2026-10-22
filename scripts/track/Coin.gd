@@ -4,19 +4,18 @@ extends Node3D
 ## di prossimità, mentre questo nodo gestisce lo stato e l'animazione raccolta.
 ##
 ## Aspetto: disco dorato lucido con anello esterno e rilievo centrale, leggero
-## moto di galleggiamento e rotazione. Alla raccolta la moneta "salta", ruota
-## più velocemente e lascia un'anello luminoso che si espande e svanisce:
-## un feedback breve, senza particelle pesanti né luci aggiuntive.
+## moto di galleggiamento e rotazione. Alla raccolta sale dolcemente, si riduce
+## di scala e lascia un anello tenue, senza scatti o luci aggiuntive.
 
 enum State { AVAILABLE, COLLECTING, COLLECTED }
 
 const BURST_INNER: float = 0.26
 const BURST_OUTER: float = 0.38
 const BURST_SCALE_START: float = 0.55
-const BURST_SCALE_END: float = 1.90
-const BURST_ALPHA: float = 0.85
-const COLLECT_SPIN_BOOST: float = 9.0
-const COLLECT_POP_SCALE: float = 0.18
+const BURST_SCALE_END: float = 1.50
+const BURST_ALPHA: float = 0.55
+const COLLECT_SPIN_BOOST: float = 2.5
+const COLLECT_POP_SCALE: float = 0.04
 
 var state: State = State.AVAILABLE
 ## Rimane true anche durante l'animazione: una seconda collisione non può
@@ -109,16 +108,13 @@ func _process(delta: float) -> void:
 	_collect_elapsed += delta
 	var duration := maxf(GameConfig.COIN_ANIMATION_DURATION, 0.001)
 	var progress := clampf(_collect_elapsed / duration, 0.0, 1.0)
-	var eased := 1.0 - (1.0 - progress) * (1.0 - progress)
-	# Salto verso l'alto con una leggera "frenata" finale.
-	var rise := GameConfig.COIN_ANIMATION_RISE * (1.0 - pow(1.0 - progress, 3.0))
+	var eased := progress * progress * (3.0 - 2.0 * progress)
+	# Sollevamento morbido e breve, senza scatto o sparizione istantanea.
+	var rise := GameConfig.COIN_ANIMATION_RISE * eased
 	global_position = _collect_start_position + Vector3(0.0, rise, 0.0)
-	# Gira più velocemente e si restringe: lettura immediata del pickup.
 	if _body != null:
 		_body.rotation.y += COLLECT_SPIN_BOOST * delta * (1.0 - progress)
-	var pop := sin(minf(progress * 2.2, 1.0) * PI * 0.5)
-	var scale_value := maxf(1.0 + COLLECT_POP_SCALE * pop - progress * 1.35, 0.0)
-	if _body != null:
+		var scale_value := lerpf(1.0, 0.26, eased) + COLLECT_POP_SCALE * sin(progress * PI)
 		_body.scale = Vector3.ONE * scale_value
 	_animate_burst(progress)
 
